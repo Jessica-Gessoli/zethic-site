@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fale com a Zethic</title>
+<!--
+  Zethic — Endpoint Oficial de Contato (https://zethic.net/fale)
+  Ativo controlado pela Zethic. O endereço público é estável; o destino pode mudar.
+  Destino e mensagens: bloco CONFIG no script. A URL padrão também aparece no meta refresh
+  e no link #destino (fallback sem JavaScript). Ao alterar o script, recalcule o hash da CSP.
+  Procedimento completo e testes: _docs/FALE.md e _tests/.
+-->
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="origin">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-4EQ1r9flq4stHIrpQAWGnUjAbwIBafLnn8m3WB6Vqxg='; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="refresh" content="0; url=https://wa.me/5519981800221?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Zethic%20e%20gostaria%20de%20conhecer%20melhor%20os%20servi%C3%A7os%20de%20consultoria%20em%20ciberseguran%C3%A7a%2C%20GRC%20e%20governan%C3%A7a%20de%20IA.">
+<style>body{font:16px/1.5 system-ui,sans-serif;max-width:32rem;margin:3rem auto;padding:0 1rem;color:#111;background:#fff}a{color:#0a5c36}</style>
+</head>
+<body>
+<p>Redirecionando para o atendimento da Zethic…</p>
+<p><a id="destino" href="https://wa.me/5519981800221?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Zethic%20e%20gostaria%20de%20conhecer%20melhor%20os%20servi%C3%A7os%20de%20consultoria%20em%20ciberseguran%C3%A7a%2C%20GRC%20e%20governan%C3%A7a%20de%20IA." rel="noopener">Abrir o WhatsApp da Zethic</a></p>
+<script>
+(function () {
+  // CONFIG — fonte única do destino e das mensagens.
+  var CONFIG = {
+    base: "https://wa.me/5519981800221",
+    padrao: "Olá! Vim pelo site da Zethic e gostaria de conhecer melhor os serviços de consultoria em cibersegurança, GRC e governança de IA.",
+    // Allowlist: utm_source desconhecido usa a mensagem padrão. O destino nunca vem da URL.
+    origens: {
+      "google": "Olá! Encontrei a Zethic no Google e gostaria de conhecer melhor os serviços.",
+      "instagram": "Olá! Vim pelo Instagram da Zethic e gostaria de conhecer melhor os serviços.",
+      "linkedin": "Olá! Vim pelo LinkedIn da Zethic e gostaria de conhecer melhor os serviços.",
+      "patrimonio-digital": "Olá! Vi o conteúdo sobre Governança do Patrimônio Digital e gostaria de entender melhor como funciona o diagnóstico.",
+      "governanca-ia": "Olá! Vi o conteúdo sobre Governança de IA e gostaria de entender como a Zethic trabalha esse tema.",
+      "grc": "Olá! Tenho interesse em estruturar GRC na minha empresa e gostaria de conversar.",
+      "indicacao": "Olá! Recebi uma indicação da Zethic e gostaria de conversar sobre uma necessidade da minha empresa."
+    }
+  };
+  var fonte = "";
+  try { fonte = (new URLSearchParams(window.location.search).get("utm_source") || "").toLowerCase(); } catch (e) {}
+  var msg = Object.prototype.hasOwnProperty.call(CONFIG.origens, fonte) ? CONFIG.origens[fonte] : CONFIG.padrao;
+  var url = CONFIG.base + "?text=" + encodeURIComponent(msg);
+  document.getElementById("destino").href = url;
+  window.location.replace(url);
+})();
+</script>
+</body>
+</html>
