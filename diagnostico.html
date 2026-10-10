@@ -160,7 +160,7 @@
     <div class="wrap">
       <h2>Autoavaliação 6 Moedas</h2>
       <p class="lead">12 perguntas, cerca de 3 minutos. As respostas ficam no seu navegador: nada é enviado.</p>
-      <form class="quiz" id="quiz" novalidate></form>
+      <form class="quiz" id="quiz" novalidate data-clarity-mask="true"></form>
       <div class="result" id="resultado" hidden tabindex="-1"></div>
     </div>
   </section>
@@ -170,7 +170,7 @@
   <div class="wrap">
     <p>© 2026 Zethic. Razão social: Jessica Caroline da Silva Secco Gessoli, Microempreendedor Individual (MEI).</p>
     <p>CNPJ 67.678.226/0001-17. Campinas, São Paulo, Brasil.</p>
-    <p><a href="/privacidade">Privacidade e termos de uso</a> · Este site não usa cookies.</p>
+    <p><a href="/privacidade">Privacidade e termos de uso</a> · Este site não usa cookies.<a href="#" data-preferencias-cookies hidden> · Preferências de cookies</a></p>
   </div>
 </footer>
 
@@ -275,6 +275,7 @@
     out.appendChild(el("p", { "class": "note" }, "Autoavaliação indicativa, baseada só nas suas respostas. Não substitui o Diagnóstico 6 Moedas, que olha a operação real da empresa."));
     out.hidden = false;
     out.focus();
+    if (window.zethicEvento) window.zethicEvento("autoavaliacao_concluida", { nota: total, moeda_mais_exposta: pior.nome });
   });
 
   // Mantém a origem de quem chegou nos botões de contato (exceto o do resultado, que identifica a autoavaliação).
@@ -286,5 +287,6 @@
   }
 })();
 </script>
+<script src="/assets/js/medicao.js" defer></script>
 </body>
 </html>

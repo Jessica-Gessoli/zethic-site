@@ -334,7 +334,7 @@
         <p class="lead">Faça a conta em 30 segundos. Nada do que você digita sai do seu navegador.</p>
         <p class="calc-note">Estimativa simples: faturamento perdido nos dias parados mais o gasto para voltar a operar. Não inclui multas, perda de clientes nem dano à reputação, que costumam pesar mais.</p>
       </div>
-      <form class="calc" id="calc" novalidate>
+      <form class="calc" id="calc" novalidate data-clarity-mask="true">
         <label>Faturamento médio por mês (R$)<input id="c-fat" type="number" inputmode="decimal" min="0" step="100" placeholder="Ex.: 80000"></label>
         <label>Dias de trabalho por mês<input id="c-dias" type="number" inputmode="numeric" min="1" max="31" step="1" value="22"></label>
         <label>Dias que a empresa ficaria parada<input id="c-parado" type="number" inputmode="numeric" min="0" step="1" value="3"></label>
@@ -555,7 +555,7 @@
   <div class="wrap">
     <p>© 2026 Zethic. Razão social: Jessica Caroline da Silva Secco Gessoli, Microempreendedor Individual (MEI).</p>
     <p>CNPJ 67.678.226/0001-17. Campinas, São Paulo, Brasil.</p>
-    <p><a href="/privacidade">Privacidade e termos de uso</a> · Este site não usa cookies.</p>
+    <p><a href="/privacidade">Privacidade e termos de uso</a> · Este site não usa cookies.<a href="#" data-preferencias-cookies hidden> · Preferências de cookies</a></p>
   </div>
 </footer>
 
@@ -611,6 +611,7 @@
     out.appendChild(document.createTextNode("Cada dia parado: " + brl.format(porDia) + " sem faturar. Em " + parado + (parado === 1 ? " dia" : " dias") + ", a conta chega a "));
     var b = document.createElement("b"); b.textContent = brl.format(total); out.appendChild(b);
     out.appendChild(document.createTextNode("."));
+    if (window.zethicEvento && !calc.enviado) { calc.enviado = true; window.zethicEvento("calculadora_usada"); }
   }
   f.addEventListener("input", calc);
   f.addEventListener("submit", function (e) { e.preventDefault(); calc(); });
@@ -696,5 +697,6 @@
   }
 })();
 </script>
+<script src="/assets/js/medicao.js" defer></script>
 </body>
 </html>
