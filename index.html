@@ -54,6 +54,10 @@
   .record div:last-child{border-bottom:0}
   .record dt{flex:0 0 8.5rem;color:var(--soft)}
   .record dd{margin:0;flex:1 1 auto;word-break:break-word}
+  .cta{display:inline-block;margin:.4rem 0 0;padding:.8rem 1.4rem;background:var(--navy);color:#fff;text-decoration:none;font-weight:600;font-size:1rem;border-radius:2px}
+  .cta:hover{background:#13243d;color:#fff}
+  .cta:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
+  .cta-note{font-size:.875rem;color:var(--soft);margin:.6rem 0 0}
   footer{margin-top:3.5rem;padding-top:1.2rem;border-top:1px solid var(--rule);font-size:.875rem;color:var(--soft)}
   @media (max-width:26rem){.record dt{flex-basis:6.5rem}}
 </style>
@@ -70,10 +74,13 @@
 
   <p class="muted">Atendimento remoto a partir de Campinas, São Paulo.</p>
 
+  <p><a class="cta" href="/fale?utm_source=site">Falar no WhatsApp</a></p>
+  <p class="cta-note">A conversa começa pelo Diagnóstico 6 Moedas.</p>
+
   <section>
     <h2>O ciclo</h2>
     <ul class="cycle">
-      <li><strong>Diagnóstico</strong><span>Levantamento da operação como ela é hoje, com os riscos e as lacunas nomeados.</span></li>
+      <li><strong>Diagnóstico 6 Moedas</strong><span>Levantamento da operação como ela é hoje, com os riscos e as lacunas nomeados e traduzidos nas 6 Moedas de Negócio.</span></li>
       <li><strong>Estruturação</strong><span>Definição de processo, cadência, responsáveis e o que passa a ser medido.</span></li>
       <li><strong>Operação supervisionada</strong><span>Execução acompanhada, com registro do que foi entregue e do que foi observado.</span></li>
       <li><strong>Fechamento com evidência</strong><span>Relatório de ciclo com números verificáveis e leitura executiva do que fazer a seguir.</span></li>
@@ -82,10 +89,10 @@
 
   <section>
     <h2>Como é um fechamento</h2>
-    <p>Formato do relatório entregue ao fim de cada ciclo. Os valores abaixo são ilustrativos.</p>
+    <p>Formato do relatório entregue ao fim de cada ciclo. <strong>Exemplo fictício para mostrar o formato. Não é resultado de cliente.</strong></p>
 
     <div class="artifact">
-      <h3>Fechamento semanal — cliente B2B, setor de serviços</h3>
+      <h3>Exemplo fictício — fechamento semanal</h3>
       <dl>
         <div><dt>Publicações no ciclo</dt><dd>3</dd></div>
         <div><dt>Impressões</dt><dd>751</dd></div>
@@ -115,8 +122,8 @@
 
   <section>
     <h2>Quem responde</h2>
-    <p>Jéssica Gessoli, 16 anos em segurança da informação e governança de TI em setores regulados — bancário, seguros, saúde, telecomunicações e infraestrutura crítica. Certificações ISO/IEC 27001 (ISFS), CCEP, ITIL 4 Foundation e Lean Six Sigma Green Belt. Bacharel em Sistemas de Informação e MBA em Gestão de Projetos de TI.</p>
-    <p>A disciplina de evidência não é um método de marketing. Vem de auditoria, de gestão de risco e de dezesseis anos em ambientes onde afirmar sem provar tem consequência.</p>
+    <p>Jéssica Gessoli, fundadora e diretora executiva da Zethic. Desde 2008 em segurança da informação e governança de TI em setores regulados — bancário, seguros, saúde, telecomunicações e infraestrutura crítica. Certificações ISO/IEC 27001 (ISFS), CCEP, ITIL 4 Foundation e Lean Six Sigma Green Belt. Bacharel em Sistemas de Informação e MBA em Gestão de Projetos de TI.</p>
+    <p>A disciplina de evidência não é um método de marketing. Vem de auditoria, de gestão de risco e de uma carreira, desde 2008, em ambientes onde afirmar sem provar tem consequência.</p>
     <p><a href="https://www.linkedin.com/in/jessicagessoli">Perfil profissional no LinkedIn</a></p>
   </section>
 
@@ -129,8 +136,9 @@
       <div><dt>Natureza</dt><dd>Microempreendedor Individual (MEI)</dd></div>
       <div><dt>Localização</dt><dd>Campinas, São Paulo, Brasil</dd></div>
       <div><dt>E-mail</dt><dd><a href="mailto:jessica.gessoli@zethic.net">jessica.gessoli@zethic.net</a></dd></div>
-      <div><dt>Telefone</dt><dd><a href="tel:+5519981800221">+55 19 98180-0221</a></dd></div>
+      <div><dt>WhatsApp</dt><dd><a href="/fale?utm_source=site">+55 19 98180-0221</a></dd></div>
       <div><dt>LinkedIn</dt><dd><a href="https://www.linkedin.com/company/144656905/">Página da Zethic</a></dd></div>
+      <div><dt>Instagram</dt><dd><a href="https://www.instagram.com/jessicagessoli/">@jessicagessoli</a></dd></div>
     </dl>
   </section>
 
@@ -164,12 +172,13 @@
   "founder": {
     "@type": "Person",
     "name": "Jéssica Gessoli",
-    "jobTitle": "Consultora em governança de risco e de operação",
-    "sameAs": "https://www.linkedin.com/in/jessicagessoli"
+    "jobTitle": "Fundadora e diretora executiva da Zethic",
+    "sameAs": ["https://www.linkedin.com/in/jessicagessoli", "https://www.instagram.com/jessicagessoli/"]
   },
   "sameAs": [
     "https://www.linkedin.com/company/144656905/",
-    "https://www.linkedin.com/in/jessicagessoli"
+    "https://www.linkedin.com/in/jessicagessoli",
+    "https://www.instagram.com/jessicagessoli/"
   ]
 }
 </script>
