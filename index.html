@@ -22,6 +22,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preload" href="/assets/fonts/public-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/public-sans-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/public-sans-latin-500-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="icon" href="/assets/img/zethic-marca.svg" type="image/svg+xml">
 <link rel="icon" href="/assets/img/zethic-marca-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/assets/img/zethic-marca-180.png">
@@ -69,15 +70,14 @@
   .hex::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:var(--hex);
     -webkit-mask-image:radial-gradient(circle at 0 0,#000,transparent 38%),radial-gradient(circle at 100% 100%,#000,transparent 38%);
     mask-image:radial-gradient(circle at 0 0,#000,transparent 38%),radial-gradient(circle at 100% 100%,#000,transparent 38%)}
-  .skip{position:absolute;left:1rem;top:-3rem;z-index:20;background:var(--cyan);color:var(--navy);padding:.6rem 1rem;border-radius:6px;font-weight:700;text-decoration:none}
-  .skip:focus{top:1rem}
+  .skip{position:absolute;left:1rem;top:1rem;transform:translateY(-200%);z-index:20;background:var(--cyan);color:var(--navy);padding:.6rem 1rem;border-radius:6px;font-weight:700;text-decoration:none}
+  .skip:focus{transform:none}
 
   /* Logotipo: Z ≡ THIC, com o E em três barras (branca, ciano, branca) */
-  /* Logotipo principal (Seção 01 do PDF): Public Sans Medium, E em três barras da cor das letras,
-     bloco de barras com ~70% da altura das maiúsculas, centralizado nelas. */
+  /* Logotipo principal (Seção 01 do PDF): Public Sans Medium; o E são três barras da cor das letras,
+     com ~70% da altura das maiúsculas, centralizadas nelas. A marca reduzida (favicon) usa a barra do meio ciano. */
   .logo{display:inline-flex;align-items:flex-start;font-weight:500;font-size:1.75rem;letter-spacing:0;line-height:1;text-decoration:none;color:var(--white)}
-  .logo-e{display:flex;flex-direction:column;justify-content:space-between;width:.72em;height:.525em;margin:.22em .16em 0}
-  .logo-e i{display:block;height:.07em;min-height:2px;border-radius:.02em;background:currentColor}
+  .logo-e{display:block;flex:none;width:.72em;height:.525em;margin:.22em .11em 0 .09em;fill:currentColor}
 
   .btn{display:inline-block;padding:.95rem 1.5rem;border-radius:6px;font-weight:700;font-size:1rem;text-decoration:none;line-height:1.2}
   .btn-main{background:var(--cyan);color:var(--navy)}
@@ -116,6 +116,7 @@
   @media (max-width:30rem){.coins{grid-template-columns:repeat(2,minmax(0,1fr));max-width:19rem;gap:1.2rem 1.4rem}.coin:nth-child(3n+2){transform:none}.coin:nth-child(even){transform:translateY(1.4rem)}.coin{font-size:.86rem}}
   .coins-caption{max-width:26rem;margin:2.2rem 0 0 auto;font-size:.9rem;font-weight:300;color:var(--ice)}
   @media (max-width:56rem){.coins,.coins-caption{margin-left:0}}
+  @media (max-width:30rem){.coins-caption{margin-top:3rem}}
   @media (prefers-reduced-motion:no-preference){
     .coin{animation:cunhar .6s cubic-bezier(.2,.7,.2,1) both}
     .coin:nth-child(1){animation-delay:.15s}.coin:nth-child(2){animation-delay:.3s}.coin:nth-child(3){animation-delay:.45s}
@@ -207,7 +208,7 @@
   details{border-bottom:1px solid var(--line)}
   summary{cursor:pointer;list-style:none;padding:1.15rem 2.5rem 1.15rem 0;position:relative;font-weight:600;font-size:1.05rem}
   summary::-webkit-details-marker{display:none}
-  summary::after{content:"+"/"";position:absolute;right:.3rem;top:50%;translate:0 -50%;font-weight:300;font-size:1.8rem;color:var(--cyan);line-height:1;transition:transform .2s}
+  summary::after{content:"+";content:"+"/"";position:absolute;right:.3rem;top:50%;translate:0 -50%;font-weight:300;font-size:1.8rem;color:var(--cyan);line-height:1;transition:rotate .2s}
   details[open] summary::after{rotate:45deg}
   @media (prefers-reduced-motion:reduce){summary::after{transition:none}}
   details p{color:var(--ice);margin:0 0 1.2rem;max-width:64ch}
@@ -221,7 +222,7 @@
   .contact dd{margin:0;word-break:break-word}
 
   footer{background:var(--navy);color:var(--ice);font-weight:300;font-size:.85rem;padding:2.2rem 0 2rem;border-top:1px solid var(--line)}
-  footer .logo{font-size:1.2rem;margin-bottom:1rem}
+  footer .logo{font-size:1.5rem;margin-bottom:1rem}
   footer p{margin:0 0 .3rem}
 </style>
 </head>
@@ -231,7 +232,7 @@
 
 <header>
   <div class="wrap bar">
-    <a class="logo" href="#inicio" aria-label="Zethic, início"><span aria-hidden="true">Z</span><span class="logo-e" aria-hidden="true"><i></i><i></i><i></i></span><span aria-hidden="true">THIC</span></a>
+    <a class="logo" href="#inicio" aria-label="Zethic, início"><span aria-hidden="true">Z</span><svg class="logo-e" viewBox="0 0 72 52.5" aria-hidden="true" focusable="false"><rect width="72" height="7" rx="1"/><rect y="22.75" width="72" height="7" rx="1"/><rect y="45.5" width="72" height="7" rx="1"/></svg><span aria-hidden="true">THIC</span></a>
     <nav aria-label="Seções">
       <a href="#servicos">Serviços</a>
       <a href="#como-funciona">Como funciona</a>
@@ -251,10 +252,10 @@
         <h1>Risco digital e IA em linguagem de dono.</h1>
         <p class="lead">Golpe, sistema parado, vazamento de dados e uso de IA viram decisão de negócio: o que protege o caixa, a operação e os contratos da sua empresa.</p>
         <div class="hero-ctas">
-          <a class="btn btn-main" href="/fale?utm_source=site">Agendar o Diagnóstico 6 Moedas</a>
+          <a class="btn btn-main" href="/fale?utm_source=site">Agendar o Diagnóstico 6&nbsp;Moedas</a>
           <a class="btn btn-line" href="#servicos">Ver os serviços</a>
         </div>
-        <small>Atendimento remoto a partir de Campinas, SP.</small>
+        <small>Atendimento remoto a partir de Campinas,&nbsp;SP.</small>
       </div>
       <div>
         <ul class="coins" role="list" aria-label="As 6 Moedas de Negócio">
@@ -426,7 +427,7 @@
           <div><dt>Contatos registrados</dt><dd class="zero">0</dd></div>
           <div><dt>Receita atribuída</dt><dd class="zero">0</dd></div>
         </dl>
-        <p class="note"><strong>Leitura.</strong> Há sinal de interesse, mas nenhuma conversão comprovada. Para atribuir a origem, é preciso marcar a origem nos links e registrar a entrada dos contatos. Sem isso, qualquer número de conversão seria estimativa apresentada como fato.</p>
+        <p class="note"><strong>Leitura.</strong> Há sinal de interesse, mas nenhuma conversão comprovada. Para saber de onde veio cada contato, é preciso marcar a origem nos links e registrar a entrada dos contatos. Sem isso, qualquer número de conversão seria estimativa apresentada como fato.</p>
       </div>
     </div>
   </section>
@@ -519,7 +520,7 @@
 
 <footer>
   <div class="wrap">
-    <div class="logo" role="img" aria-label="Zethic"><span aria-hidden="true">Z</span><span class="logo-e" aria-hidden="true"><i></i><i></i><i></i></span><span aria-hidden="true">THIC</span></div>
+    <div class="logo" role="img" aria-label="Zethic"><span aria-hidden="true">Z</span><svg class="logo-e" viewBox="0 0 72 52.5" aria-hidden="true" focusable="false"><rect width="72" height="7" rx="1"/><rect y="22.75" width="72" height="7" rx="1"/><rect y="45.5" width="72" height="7" rx="1"/></svg><span aria-hidden="true">THIC</span></div>
     <p>© 2026 Zethic. Razão social: Jessica Caroline da Silva Secco Gessoli, Microempreendedor Individual (MEI).</p>
     <p>CNPJ 67.678.226/0001-17. Campinas, São Paulo, Brasil.</p>
   </div>
