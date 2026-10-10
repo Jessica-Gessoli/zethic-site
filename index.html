@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Zethic | Risco digital e IA em linguagem de dono</title>
 <meta name="description" content="Risco digital e IA em linguagem de dono para pequenas e médias empresas. Comece pelo Diagnóstico 6 Moedas, com Jéssica Gessoli, de Campinas, SP.">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-kp9GKVNAjcB73DZW8s79wwgKXISnIBTCmhaASrg+0PQ=' https://www.googletagmanager.com; img-src 'self' https://*.google-analytics.com https://*.googletagmanager.com; font-src 'self'; style-src 'self' 'unsafe-inline'; base-uri 'none'; form-action 'none'; connect-src https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-qbkZg1xHbtNmLG1v24pQyba/cJ6Qm7cuU/tC5X2cr/Y=' https://www.googletagmanager.com; img-src 'self' https://*.google-analytics.com https://*.googletagmanager.com; font-src 'self'; style-src 'self' 'unsafe-inline'; base-uri 'none'; form-action 'none'; connect-src https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com">
 <meta name="color-scheme" content="dark">
 <link rel="canonical" href="https://zethic.net/">
 <meta name="robots" content="index, follow">
@@ -184,6 +184,7 @@
       </div>
       <dl>
         <div><dt>WhatsApp</dt><dd><a href="/fale?utm_source=site">+55 19 98180-0221</a></dd></div>
+        <div><dt>Agenda</dt><dd><a href="/agendar?utm_source=site">Marcar uma conversa de 45 min</a></dd></div>
         <div><dt>E-mail</dt><dd><a href="mailto:jessica.gessoli@zethic.net">jessica.gessoli@zethic.net</a></dd></div>
         <div><dt>LinkedIn</dt><dd><a href="https://www.linkedin.com/company/144656905/">Página da Zethic</a></dd></div>
         <div><dt>Instagram</dt><dd><a href="https://www.instagram.com/zethic_net/">@zethic_net</a></dd></div>
@@ -305,10 +306,10 @@
   var fonte = "";
   try { fonte = (new URLSearchParams(location.search).get("utm_source") || "").toLowerCase(); } catch (e) {}
   if (!/^[a-z0-9-]{1,40}$/.test(fonte)) return;
-  var links = document.querySelectorAll('a[href^="/fale"], a[href^="/diagnostico"]');
+  var links = document.querySelectorAll('a[href^="/fale"], a[href^="/diagnostico"], a[href^="/agendar"]');
   for (var i = 0; i < links.length; i++) {
     var u = new URL(links[i].getAttribute("href"), location.origin);
-    if (u.pathname === "/fale" || u.pathname === "/diagnostico") {
+    if (u.pathname === "/fale" || u.pathname === "/diagnostico" || u.pathname === "/agendar") {
       u.searchParams.set("utm_source", fonte);
       links[i].setAttribute("href", u.pathname + u.search + u.hash);
     }

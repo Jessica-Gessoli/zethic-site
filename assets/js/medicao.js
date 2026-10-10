@@ -60,8 +60,8 @@
     var pref = document.querySelectorAll("[data-preferencias-cookies]");
     for (var i = 0; i < pref.length; i++) { pref[i].hidden = false; pref[i].addEventListener("click", function (e) { e.preventDefault(); window.zethicPreferencias(); }); }
     document.addEventListener("click", function (e) {
-      var l = e.target.closest && e.target.closest('a[href^="/fale"]');
-      if (l) evento("generate_lead", { canal: "whatsapp", pagina: location.pathname, link: l.getAttribute("href") });
+      var l = e.target.closest && e.target.closest('a[href^="/fale"], a[href^="/agendar"]');
+      if (l) evento("generate_lead", { canal: l.getAttribute("href").indexOf("/agendar") === 0 ? "agenda" : "whatsapp", pagina: location.pathname, link: l.getAttribute("href") });
     });
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", iniciar); else iniciar();
