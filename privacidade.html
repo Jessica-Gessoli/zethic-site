@@ -10,6 +10,7 @@
 <style>
   :root{--bg:#02041A;--panel:#0A1033;--text:#FFFFFF;--soft:#A7B2D1;--muted:#7F8AAD;--cyan:#00E5FF;--rule:rgba(140,170,255,.16)}
   *,*::before,*::after{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
   body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;font-size:1.0625rem;line-height:1.7}
   a{color:var(--cyan);text-underline-offset:.18em}
   a:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
@@ -28,6 +29,10 @@
   table{width:100%;border-collapse:collapse;margin:1rem 0;font-size:.97rem}
   th,td{text-align:left;vertical-align:top;padding:.65rem .6rem;border-bottom:1px solid var(--rule)}
   th{color:var(--soft);font-weight:600}
+
+  /* Mobile: nenhuma coluna pode ficar mais larga que a tela, mesmo com fonte do celular aumentada */
+  h1,h2,h3,p,li,dt,dd,summary,legend,label,a,small,span,b,strong{overflow-wrap:break-word}
+  img,svg,video{max-width:100%;height:auto}
   footer{border-top:1px solid var(--rule);padding:2rem 0;color:var(--muted);font-size:.85rem}
   footer p{margin:0 0 .3rem;color:var(--muted)}
 </style>
