@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Zethic | Risco digital e IA em linguagem de dono</title>
 <meta name="description" content="Risco digital e IA em linguagem de dono para pequenas e médias empresas. Comece pelo Diagnóstico 6 Moedas, com Jéssica Gessoli, de Campinas, SP.">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-qyjDBLJ7ahbyMYrlUYapmM7BxeUmGgR95plwP//Uqaw=' 'sha256-kp9GKVNAjcB73DZW8s79wwgKXISnIBTCmhaASrg+0PQ='; img-src 'self'; font-src 'self'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-kp9GKVNAjcB73DZW8s79wwgKXISnIBTCmhaASrg+0PQ='; img-src 'self'; font-src 'self'; style-src 'self' 'unsafe-inline'; base-uri 'none'; form-action 'none'">
 <meta name="color-scheme" content="dark">
 <link rel="canonical" href="https://zethic.net/">
 <meta name="robots" content="index, follow">
@@ -27,244 +27,7 @@
 <link rel="icon" href="/assets/img/zethic-marca-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/assets/img/zethic-marca-180.png">
 <meta name="theme-color" content="#02041A">
-<style>
-  /* Identidade visual Zethic (PDF "Logo e identidade visual da Zethic", 10/10/2026):
-     paleta #02041A, #00E5FF, #FFFFFF, #A7B2D1; tipografia Public Sans (fonte embutida no PDF), hospedada no próprio site (licença OFL em /assets/fonts/OFL.txt). */
-  @font-face{font-family:"Public Sans";font-style:normal;font-weight:300;font-display:swap;src:url(/assets/fonts/public-sans-latin-300-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
-  @font-face{font-family:"Public Sans";font-style:normal;font-weight:300;font-display:swap;src:url(/assets/fonts/public-sans-latin-ext-300-normal.woff2) format("woff2");unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
-  @font-face{font-family:"Public Sans";font-style:normal;font-weight:400;font-display:swap;src:url(/assets/fonts/public-sans-latin-400-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
-  @font-face{font-family:"Public Sans";font-style:normal;font-weight:400;font-display:swap;src:url(/assets/fonts/public-sans-latin-ext-400-normal.woff2) format("woff2");unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
-  @font-face{font-family:"Public Sans";font-style:normal;font-weight:500;font-display:swap;src:url(/assets/fonts/public-sans-latin-500-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
-  @font-face{font-family:"Public Sans";font-style:normal;font-weight:500;font-display:swap;src:url(/assets/fonts/public-sans-latin-ext-500-normal.woff2) format("woff2");unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
-  @font-face{font-family:"Public Sans";font-style:normal;font-weight:600;font-display:swap;src:url(/assets/fonts/public-sans-latin-600-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
-  @font-face{font-family:"Public Sans";font-style:normal;font-weight:600;font-display:swap;src:url(/assets/fonts/public-sans-latin-ext-600-normal.woff2) format("woff2");unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
-  @font-face{font-family:"Public Sans";font-style:normal;font-weight:700;font-display:swap;src:url(/assets/fonts/public-sans-latin-700-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
-  @font-face{font-family:"Public Sans";font-style:normal;font-weight:700;font-display:swap;src:url(/assets/fonts/public-sans-latin-ext-700-normal.woff2) format("woff2");unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
-  :root{
-    --navy:#02041A; --cyan:#00E5FF; --white:#FFFFFF; --ice:#A7B2D1;
-    --surface:rgba(167,178,209,.06); --surface-2:rgba(167,178,209,.1);
-    --line:rgba(167,178,209,.2); --line-strong:rgba(167,178,209,.55);
-    --font:"Public Sans",system-ui,sans-serif;
-    --wrap:72rem;
-    --hex:url("/assets/img/hex.svg");
-  }
-  *,*::before,*::after{box-sizing:border-box}
-  html{scroll-behavior:smooth;scroll-padding-top:5rem}
-  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
-  html{color-scheme:dark}
-  body{margin:0;background:var(--navy);color:var(--white);font-family:var(--font);font-weight:400;font-size:1.0625rem;line-height:1.65}
-  a{color:inherit;text-decoration-color:var(--cyan);text-underline-offset:.18em}
-  a:focus-visible,summary:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
-  .wrap{max-width:var(--wrap);margin:0 auto;padding:0 1.25rem}
-  h1,h2,h3{font-family:var(--font);line-height:1.15;margin:0;text-wrap:balance}
-  p{text-wrap:pretty}
-  h1{font-weight:700}
-  h2{font-weight:600;font-size:clamp(1.8rem,4.2vw,2.6rem);max-width:24ch}
-  h2::after{content:"";display:block;width:3.5rem;height:3px;border-radius:2px;background:var(--cyan);margin-top:1rem;box-shadow:0 0 12px rgba(0,229,255,.45)}
-  h3{font-weight:600;font-size:1.25rem}
-  p{margin:0 0 1rem}
-  .lead{font-size:1.15rem;color:var(--ice);max-width:58ch;margin-top:1.2rem}
-  section{padding:clamp(3.5rem,8vw,6rem) 0}
-  .alt{background:linear-gradient(rgba(167,178,209,.04),rgba(167,178,209,.04)),var(--navy);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-  .hex{position:relative;isolation:isolate}
-  .hex::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:var(--hex);
-    -webkit-mask-image:radial-gradient(circle at 0 0,#000,transparent 38%),radial-gradient(circle at 100% 100%,#000,transparent 38%);
-    mask-image:radial-gradient(circle at 0 0,#000,transparent 38%),radial-gradient(circle at 100% 100%,#000,transparent 38%)}
-  .skip{position:absolute;left:1rem;top:1rem;transform:translateY(-200%);z-index:20;background:var(--cyan);color:var(--navy);padding:.6rem 1rem;border-radius:6px;font-weight:700;text-decoration:none}
-  .skip:focus{transform:none}
-
-  /* Logotipo: Z ≡ THIC, com o E em três barras (branca, ciano, branca) */
-  /* Logotipo principal (Seção 01 do PDF): Public Sans Medium; o E são três barras da cor das letras,
-     com ~70% da altura das maiúsculas, centralizadas nelas. A marca reduzida (favicon) usa a barra do meio ciano. */
-  .logo{display:inline-flex;align-items:flex-start;font-weight:500;font-size:1.75rem;letter-spacing:0;line-height:1;text-decoration:none;color:var(--white)}
-  .logo-e{display:block;flex:none;width:.72em;height:.525em;margin:.22em .11em 0 .09em;fill:currentColor}
-
-  .btn{display:inline-block;padding:.95rem 1.5rem;border-radius:6px;font-weight:700;font-size:1rem;text-decoration:none;line-height:1.2}
-  .btn-main{background:var(--cyan);color:var(--navy)}
-  .btn-main:hover{background:var(--white)}
-  .btn-line{border:1px solid var(--line-strong);color:var(--white)}
-  .btn-line:hover{border-color:var(--cyan)}
-  .btn-dark{background:var(--navy);color:var(--white)}
-  .btn-dark:hover{color:var(--cyan)}
-
-  header{position:sticky;top:0;z-index:10;background:rgba(2,4,26,.94);border-bottom:1px solid var(--line)}
-  .bar{display:flex;align-items:center;gap:1.5rem;height:4.25rem}
-  nav{margin-left:auto;display:flex;gap:1.4rem;font-size:.95rem}
-  nav a{text-decoration:none;color:var(--ice);white-space:nowrap}
-  nav a:hover{color:var(--cyan)}
-  .bar .btn{padding:.65rem 1rem;font-size:.92rem;white-space:nowrap}
-  @media (max-width:70rem){nav{display:none}.bar .btn{margin-left:auto}}
-  @media (max-width:22rem){.bar .btn{padding:.6rem .8rem}.logo{font-size:1.5rem}}
-
-  .hero{overflow:hidden;padding:clamp(3rem,8vw,6rem) 0 clamp(3.5rem,7vw,5.5rem);
-    background:radial-gradient(48rem 26rem at 80% 45%,rgba(0,229,255,.10),transparent 65%),var(--navy)}
-  .hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:3rem;align-items:center}
-  .hero-grid>*{min-width:0}
-  .hero h1{font-size:clamp(2.3rem,6.2vw,4.3rem);line-height:1.05;max-width:14ch}
-  .hero h1::after{content:"";display:block;width:4.5rem;height:3px;border-radius:2px;background:var(--cyan);margin-top:1.4rem;box-shadow:0 0 12px rgba(0,229,255,.5)}
-  .hero .lead{color:var(--ice);margin:1.4rem 0 2rem;font-size:1.2rem}
-  .hero-ctas{display:flex;flex-wrap:wrap;gap:.8rem}
-  .hero small{display:block;margin-top:1.4rem;color:var(--ice);font-weight:300;font-size:.9rem}
-  @media (max-width:56rem){.hero-grid{grid-template-columns:1fr}}
-
-  .coins{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.8rem 1rem;max-width:26rem;margin-left:auto;padding:0;list-style:none}
-  .coin{aspect-ratio:1;border-radius:50%;display:flex;align-items:center;justify-content:center;text-align:center;padding:.9rem;
-    border:2px solid var(--cyan);background:radial-gradient(circle at 35% 30%,rgba(167,178,209,.16),rgba(167,178,209,.05) 60%,var(--navy));overflow-wrap:break-word;hyphens:auto;
-    box-shadow:0 0 20px rgba(0,229,255,.25),inset 0 0 16px rgba(0,229,255,.12);
-    font-weight:600;font-size:clamp(.78rem,1.4vw,.86rem);line-height:1.25;color:var(--white)}
-  .coin:nth-child(3n+2){transform:translateY(.9rem)}
-  @media (max-width:30rem){.coins{grid-template-columns:repeat(2,minmax(0,1fr));max-width:19rem;gap:1.2rem 1.4rem}.coin:nth-child(3n+2){transform:none}.coin:nth-child(even){transform:translateY(1.4rem)}.coin{font-size:.86rem}}
-  .coins-caption{max-width:26rem;margin:2.2rem 0 0 auto;font-size:.9rem;font-weight:300;color:var(--ice)}
-  @media (max-width:56rem){.coins,.coins-caption{margin-left:0}}
-  @media (max-width:30rem){.coins-caption{margin-top:3rem}}
-  @media (prefers-reduced-motion:no-preference){
-    .coin{animation:cunhar .6s cubic-bezier(.2,.7,.2,1) both}
-    .coin:nth-child(1){animation-delay:.15s}.coin:nth-child(2){animation-delay:.3s}.coin:nth-child(3){animation-delay:.45s}
-    .coin:nth-child(4){animation-delay:.6s}.coin:nth-child(5){animation-delay:.75s}.coin:nth-child(6){animation-delay:.9s}
-    @keyframes cunhar{from{opacity:0;scale:.6}to{opacity:1;scale:1}}
-  }
-
-  .benefits{background:linear-gradient(rgba(167,178,209,.04),rgba(167,178,209,.04)),var(--navy);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:0}
-  .benefits ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr)}
-  .benefits li{padding:1.8rem 1.4rem 1.9rem;border-left:1px solid var(--line)}
-  .benefits li:first-child{border-left:0;padding-left:0}
-  .benefits strong{display:block;font-weight:600;font-size:1.15rem;margin-bottom:.35rem;color:var(--cyan)}
-  .benefits span{display:block;color:var(--ice);font-size:.95rem;line-height:1.5}
-  @media (max-width:56rem){.benefits ul{grid-template-columns:1fr 1fr}.benefits li{border-left:0;padding-left:0;border-top:1px solid var(--line)}.benefits li:nth-child(-n+2){border-top:0}.benefits li:nth-child(even){padding-left:1.4rem;border-left:1px solid var(--line)}}
-  @media (max-width:30rem){.benefits ul{grid-template-columns:1fr}.benefits li,.benefits li:nth-child(even){padding-left:0;border-left:0;border-top:1px solid var(--line)}.benefits li:first-child{border-top:0}}
-
-  .pains{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin-top:2.5rem}
-  .pain{background:var(--surface);border:1px solid var(--line-strong);border-radius:10px;padding:1.6rem 1.5rem}
-  .pain h3{margin-bottom:.6rem}
-  .pain p{color:var(--ice);font-size:.98rem;margin:0}
-  .pain .fix{margin-top:1rem;padding-top:.9rem;border-top:1px solid var(--line);color:var(--cyan);font-weight:600;font-size:.95rem}
-  @media (max-width:46rem){.pains{grid-template-columns:1fr}}
-  .case{margin:2.5rem 0 0;padding:1.6rem 1.6rem 1.4rem;border-left:3px solid var(--cyan);border-radius:0 10px 10px 0;background:var(--surface);max-width:48rem}
-  .case blockquote{margin:0}
-  .case p{font-size:1.2rem;line-height:1.55;margin:0 0 .6rem}
-  .case figcaption{font-weight:300;color:var(--ice);font-size:.92rem}
-
-  .entry{display:grid;grid-template-columns:1.2fr 1fr;gap:2rem;align-items:center;border:1px solid var(--cyan);border-radius:12px;padding:clamp(1.6rem,4vw,2.6rem);margin:2.5rem 0 3rem;
-    background:var(--surface-2);box-shadow:0 0 28px rgba(0,229,255,.12)}
-  .entry h3{font-weight:700;font-size:clamp(1.5rem,3.2vw,2rem);margin-bottom:.8rem}
-  .entry p{color:var(--ice)}
-  .entry ul{margin:0;padding:0;list-style:none;border-top:1px solid var(--line)}
-  .entry-link{margin:1rem 0 0}
-  .entry li{padding:.7rem 0;border-bottom:1px solid var(--line);font-size:.97rem}
-  @media (max-width:52rem){.entry{grid-template-columns:1fr}}
-  .lines{display:grid;grid-template-columns:repeat(3,1fr);gap:2.4rem 2rem}
-  .line h3{font-size:1.1rem;padding-bottom:.6rem;border-bottom:2px solid var(--cyan);margin-bottom:.4rem}
-  .line dl{margin:0}
-  .line dt{font-weight:600;margin-top:.8rem}
-  .line dd{margin:.1rem 0 0;color:var(--ice);font-size:.95rem;line-height:1.5}
-  @media (max-width:60rem){.lines{grid-template-columns:1fr 1fr}}
-  @media (max-width:40rem){.lines{grid-template-columns:1fr}}
-
-  .steps{list-style:none;margin:2.5rem 0 0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;counter-reset:passo}
-  .steps li{counter-increment:passo;border-top:1px solid var(--line);padding-top:1rem}
-  .steps li::before{content:counter(passo);display:block;font-weight:700;font-size:2.4rem;line-height:1;color:var(--cyan);margin-bottom:.8rem}
-  .steps strong{display:block;font-weight:600;font-size:1.05rem;margin-bottom:.35rem}
-  .steps span{color:var(--ice);font-size:.95rem;line-height:1.5;display:block}
-  @media (max-width:56rem){.steps{grid-template-columns:1fr 1fr}}
-  @media (max-width:32rem){.steps{grid-template-columns:1fr}}
-  .moedas-title{margin-top:4rem;font-size:clamp(1.4rem,3vw,1.8rem)}
-  .moedas{display:grid;grid-template-columns:repeat(3,1fr);margin-top:1.2rem;border-top:1px solid var(--line)}
-  .moedas div{padding:1.2rem 1.2rem 1.3rem 0;border-bottom:1px solid var(--line)}
-  .moedas b{display:block;font-weight:600;font-size:1.1rem;color:var(--cyan);margin-bottom:.25rem}
-  .moedas span{display:block;color:var(--ice);font-size:.94rem;line-height:1.5}
-  @media (max-width:52rem){.moedas{grid-template-columns:1fr 1fr}}
-  @media (max-width:32rem){.moedas{grid-template-columns:1fr}}
-
-  .report-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start}
-  @media (max-width:52rem){.report-grid{grid-template-columns:1fr}}
-  .artifact{background:var(--surface);border:1px solid var(--line-strong);border-top:3px solid var(--cyan);border-radius:10px;padding:1.5rem 1.4rem}
-  .artifact h3{font-size:.95rem;font-weight:600;color:var(--ice);margin:0 0 1rem}
-  .artifact dl{margin:0;font-size:.97rem}
-  .artifact dl div{display:flex;justify-content:space-between;gap:1rem;padding:.45rem 0;border-bottom:1px solid var(--line)}
-  .artifact dt{color:var(--ice)}
-  .artifact dd{margin:0;font-weight:700;font-variant-numeric:tabular-nums}
-  .artifact .zero{color:var(--cyan)}
-  .artifact .note{font-size:.9rem;font-weight:300;color:var(--ice);margin:1rem 0 0;line-height:1.55}
-
-  .founder{background:var(--cyan);color:var(--navy);padding:clamp(2.5rem,6vw,4rem) 0}
-  .founder .wrap{display:flex;flex-wrap:wrap;gap:1.5rem 3rem;align-items:center;justify-content:space-between}
-  .founder h2{font-weight:600;font-size:clamp(1.5rem,3.4vw,2.2rem);max-width:26ch}
-  .founder h2::after{background:var(--navy);box-shadow:none}
-  .founder p{margin:.8rem 0 0;max-width:52ch;font-weight:500}
-  .founder a:focus-visible{outline-color:var(--navy)}
-
-  .about{display:grid;grid-template-columns:.8fr 1.2fr;gap:3rem;align-items:start}
-  @media (max-width:52rem){.about{grid-template-columns:1fr}.badge{order:1;max-width:24rem}}
-  .badge{border:1px solid var(--line-strong);border-radius:12px;padding:2rem 1.6rem;background:var(--surface)}
-  .badge img{display:block;width:100%;height:auto;aspect-ratio:1;object-fit:cover;border-radius:8px;margin-bottom:1.4rem}
-  .badge .name{font-weight:700;font-size:1.6rem;line-height:1.15}
-  .badge .role{color:var(--cyan);font-weight:500;margin:.4rem 0 1.4rem}
-  .badge ul{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
-  .badge li{padding:.6rem 0;border-bottom:1px solid var(--line);font-size:.94rem;color:var(--ice)}
-  .about p{max-width:62ch}
-  .about .first{margin-top:1.4rem}
-  .about .creds{color:var(--ice);font-weight:300;font-size:.97rem}
-
-  .faq{max-width:50rem;margin-top:2rem;border-top:1px solid var(--line)}
-  details{border-bottom:1px solid var(--line)}
-  summary{cursor:pointer;list-style:none;padding:1.15rem 2.5rem 1.15rem 0;position:relative;font-weight:600;font-size:1.05rem}
-  summary::-webkit-details-marker{display:none}
-  summary::after{content:"+";content:"+"/"";position:absolute;right:.3rem;top:50%;translate:0 -50%;font-weight:300;font-size:1.8rem;color:var(--cyan);line-height:1;transition:rotate .2s}
-  details[open] summary::after{rotate:45deg}
-  @media (prefers-reduced-motion:reduce){summary::after{transition:none}}
-  details p{color:var(--ice);margin:0 0 1.2rem;max-width:64ch}
-
-  .contact{display:grid;grid-template-columns:1.1fr .9fr;gap:3rem;align-items:center}
-  @media (max-width:52rem){.contact{grid-template-columns:1fr}}
-  .contact .lead{margin-bottom:1.6rem}
-  .contact dl{margin:0;border-top:1px solid var(--line)}
-  .contact dl div{display:flex;gap:1rem;padding:.7rem 0;border-bottom:1px solid var(--line);font-size:.97rem}
-  .contact dt{flex:0 0 6.5rem;color:var(--ice);font-weight:300}
-  .contact dd{margin:0;word-break:break-word}
-
-
-  /* Calculadora de custo de parada (main, PR #5), na identidade visual */
-  .calc-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:3rem;align-items:start}
-  .calc-grid>*{min-width:0}
-  @media (max-width:52rem){.calc-grid{grid-template-columns:minmax(0,1fr)}}
-  .calc-note{color:var(--ice);font-weight:300;font-size:.92rem;max-width:52ch}
-  .calc{background:var(--surface);border:1px solid var(--line-strong);border-top:3px solid var(--cyan);border-radius:10px;padding:1.5rem 1.4rem;display:grid;gap:1rem}
-  .calc label{display:grid;gap:.35rem;font-size:.95rem;color:var(--ice)}
-  .calc input{font:inherit;color:var(--white);background:var(--navy);border:1px solid var(--line-strong);border-radius:6px;padding:.7rem .8rem;width:100%}
-  .calc input:focus-visible{outline:2px solid var(--cyan);outline-offset:1px}
-  .calc output{display:block;font-size:1.15rem;line-height:1.45;padding:1rem 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-  .calc output b{color:var(--cyan);font-weight:700;font-size:1.5rem}
-  .calc .btn{text-align:center}
-
-  /* Botão fixo no celular (main, PR #5) */
-  .sticky-cta{display:none}
-  @media (max-width:52rem){
-    .sticky-cta{display:block;position:fixed;left:0;right:0;bottom:0;z-index:20;padding:.7rem 1rem calc(.7rem + env(safe-area-inset-bottom));background:rgba(2,4,26,.96);border-top:1px solid var(--line)}
-    .sticky-cta .btn{display:block;text-align:center}
-    body{padding-bottom:4.6rem}
-  }
-
-  /* Robustez no celular (main, PR #7): nenhuma coluna mais larga que a tela, mesmo com fonte aumentada */
-  html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
-  h1,h2,h3,p,li,dt,dd,summary,legend,label,a,small,span,b,strong{overflow-wrap:break-word}
-  img,video{max-width:100%;height:auto}
-  .report-grid>*,.about>*,.contact>*,.entry>*{min-width:0}
-  .artifact dd{white-space:nowrap}
-  @media (max-width:30rem){
-    .hero h1{font-size:clamp(2.1rem,10vw,2.8rem)}
-    .hero .lead{font-size:1.05rem}
-    .btn{white-space:normal;text-align:center}
-    .bar .btn{white-space:nowrap}
-    .hero-ctas .btn{display:block;width:100%}
-    .artifact dd{white-space:normal;text-align:right}
-    .contact dt{flex-basis:5.2rem}
-  }
-  .logo{white-space:nowrap;flex:0 0 auto}
-
-  footer{background:var(--navy);color:var(--ice);font-weight:300;font-size:.85rem;padding:2.2rem 0 2rem;border-top:1px solid var(--line)}
-  footer .logo{font-size:1.5rem;margin-bottom:1rem}
-  footer p{margin:0 0 .3rem}
-</style>
+<link rel="stylesheet" href="/assets/css/zethic.css">
 </head>
 <body>
 
@@ -273,13 +36,12 @@
 <header>
   <div class="wrap bar">
     <a class="logo" href="#inicio" aria-label="Zethic, início"><span aria-hidden="true">Z</span><svg class="logo-e" viewBox="0 0 72 52.5" aria-hidden="true" focusable="false"><rect width="72" height="7" rx="1"/><rect y="22.75" width="72" height="7" rx="1"/><rect y="45.5" width="72" height="7" rx="1"/></svg><span aria-hidden="true">THIC</span></a>
-    <nav aria-label="Seções">
-      <a href="/diagnostico">Diagnóstico</a>
-      <a href="#servicos">Serviços</a>
-      <a href="#como-funciona">Como funciona</a>
-      <a href="#sobre">Quem responde</a>
-      <a href="#perguntas">Perguntas</a>
-      <a href="#contato">Contato</a>
+    <nav aria-label="Frentes">
+      <a href="/proteger">Proteger</a>
+      <a href="/organizar">Organizar</a>
+      <a href="/crescer">Crescer</a>
+      <a href="/aconselhar">Capacitar e aconselhar</a>
+      <a href="/#contato">Contato</a>
     </nav>
     <a class="btn btn-main" href="/fale?utm_source=site">Falar no WhatsApp</a>
   </div>
@@ -291,10 +53,10 @@
     <div class="wrap hero-grid">
       <div>
         <h1>Risco digital e IA em linguagem de dono.</h1>
-        <p class="lead">Golpe, sistema parado, vazamento de dados e uso de IA viram decisão de negócio: o que protege o caixa, a operação e os contratos da sua empresa.</p>
+        <p class="lead">A Zethic ajuda pequenas e médias empresas a proteger, organizar e fazer crescer o negócio, com tecnologia e IA explicadas em linguagem de dono.</p>
         <div class="hero-ctas">
-          <a class="btn btn-main" href="/fale?utm_source=site">Agendar o Diagnóstico 6&nbsp;Moedas</a>
-          <a class="btn btn-line" href="/diagnostico#autoavaliacao">Fazer a autoavaliação grátis</a>
+          <a class="btn btn-main" href="#frentes">Ver por onde começar</a>
+          <a class="btn btn-line" href="/fale?utm_source=site">Falar no WhatsApp</a>
         </div>
         <small>Para donos de pequenas e médias empresas e diretorias. Atendimento remoto a partir de Campinas,&nbsp;SP.</small>
       </div>
@@ -307,151 +69,28 @@
           <li class="coin">Habilitação de negócio</li>
           <li class="coin">Auditoria e contratos</li>
         </ul>
-        <p class="coins-caption">As 6 Moedas de Negócio: todo risco que a Zethic encontra é traduzido em pelo menos uma delas.</p>
+        <p class="coins-caption">As 6 Moedas de Negócio são o método da Zethic: todo problema que encontramos, de um golpe a um processo travado, é medido no que custa ao seu negócio em pelo menos uma delas.</p>
       </div>
     </div>
   </section>
 
-  <section class="benefits" aria-label="O que muda na sua empresa">
+  <section id="frentes" class="frentes">
     <div class="wrap">
-      <ul role="list">
-        <li><strong>Caixa protegido</strong><span>Regras simples que barram boleto falso e Pix pedido por mensagem.</span></li>
-        <li><strong>Operação que não para</strong><span>Backup testado e um plano claro de quem decide e quem chamar.</span></li>
-        <li><strong>Contratos maiores</strong><span>Respostas prontas para o questionário de segurança do cliente grande.</span></li>
-        <li><strong>IA com regras</strong><span>Equipe produtiva com IA, sem vazar dados da empresa.</span></li>
+      <h2>Por onde você quer começar?</h2>
+      <p class="lead">Quatro frentes com o mesmo método: entender a operação como ela é, resolver o que mais pesa e fechar cada ciclo com evidência.</p>
+      <ul class="doors" role="list">
+        <li><a class="door" href="/proteger"><span class="door-n">Proteger</span><strong>Caixa, operação e dados protegidos</strong><span class="door-d">Golpes, sistema parado, vazamento de dados, LGPD e uso seguro de IA.</span><span class="door-go">Ver soluções</span></a></li>
+        <li><a class="door" href="/organizar"><span class="door-n">Organizar</span><strong>Uma operação que não depende de uma pessoa só</strong><span class="door-d">Processos, automação e agentes de IA, finanças, infraestrutura e nuvem.</span><span class="door-go">Ver soluções</span></a></li>
+        <li><a class="door" href="/crescer"><span class="door-n">Crescer</span><strong>Mais clientes chegando, com rotina e medição</strong><span class="door-d">Presença digital, geração de demanda, WhatsApp e CRM comercial.</span><span class="door-go">Ver soluções</span></a></li>
+        <li><a class="door" href="/aconselhar"><span class="door-n">Capacitar e aconselhar</span><strong>Equipe e diretoria decidindo melhor</strong><span class="door-d">Capacitação em IA, consultoria especializada e apoio à diretoria.</span><span class="door-go">Ver soluções</span></a></li>
       </ul>
-    </div>
-  </section>
-
-  <section>
-    <div class="wrap">
-      <h2>Algum destes já aconteceu na sua empresa?</h2>
-      <p class="lead">Nenhum deles é problema técnico. São riscos sem dono, e risco é assunto do dono.</p>
-      <div class="pains">
-        <article class="pain">
-          <h3>Um pedido de pagamento com cara de oficial</h3>
-          <p>O e-mail que parece do fornecedor trocando a conta bancária. A mensagem com a foto do dono pedindo um Pix urgente. Ninguém invade nada: a própria equipe paga.</p>
-          <p class="fix">Regra combinada e escrita: troca de dados bancários só com confirmação por telefone, em número que já estava no cadastro.</p>
-        </article>
-        <article class="pain">
-          <h3>Tudo depende de uma pessoa só</h3>
-          <p>A senha do banco, a planilha certa, a nota complicada. Se essa pessoa sai de férias, a operação trava.</p>
-          <p class="fix">Processo crítico escrito em uma página e conhecido por pelo menos duas pessoas.</p>
-        </article>
-        <article class="pain">
-          <h3>O backup existe, mas ninguém testou</h3>
-          <p>Backup que nunca foi restaurado é esperança, não garantia. Muita empresa descobre isso no dia do ataque.</p>
-          <p class="fix">Teste de restauração feito na sua frente e plano de resposta em uma folha.</p>
-        </article>
-        <article class="pain">
-          <h3>O cliente grande mandou um questionário de segurança</h3>
-          <p>Quem tem acesso aos dados? O backup é testado? Como vocês tratam dados pessoais? Sem resposta organizada, o contrato trava.</p>
-          <p class="fix">Evidências organizadas para responder a clientes e auditorias e cumprir exigências contratuais.</p>
-        </article>
-      </div>
-      <figure class="case">
-        <blockquote><p>Recebi um aviso falso de certificado digital, com cara de oficial, cobrando uma taxa. O banco bloqueou o pagamento. Se até quem trabalha com segurança é alvo, imagine uma equipe que nunca conversou sobre isso.</p></blockquote>
-        <figcaption>Jéssica Gessoli, fundadora e diretora executiva da Zethic</figcaption>
-      </figure>
-    </div>
-  </section>
-
-  <section id="calculadora" class="hex">
-    <div class="wrap calc-grid">
-      <div>
-        <h2>Quanto custa um dia com a empresa parada?</h2>
-        <p class="lead">Faça a conta em 30 segundos. Nada do que você digita sai do seu navegador.</p>
-        <p class="calc-note">Estimativa simples: faturamento perdido nos dias parados mais o gasto para voltar a operar. Não inclui multas, perda de clientes nem dano à reputação, que costumam pesar mais.</p>
-      </div>
-      <form class="calc" id="calc" novalidate>
-        <label>Faturamento médio por mês (R$)<input id="c-fat" type="number" inputmode="decimal" min="0" step="100" placeholder="Ex.: 80000"></label>
-        <label>Dias de trabalho por mês<input id="c-dias" type="number" inputmode="numeric" min="1" max="31" step="1" value="22"></label>
-        <label>Dias que a empresa ficaria parada<input id="c-parado" type="number" inputmode="numeric" min="0" step="1" value="3"></label>
-        <label>Gasto para voltar a operar (R$)<input id="c-rec" type="number" inputmode="decimal" min="0" step="100" placeholder="Técnico, horas extras, equipamento" value="0"></label>
-        <output id="c-out" for="c-fat c-dias c-parado c-rec" aria-live="polite">Preencha o faturamento para ver a estimativa.</output>
-        <a class="btn btn-main" href="/fale?utm_source=site">Quero reduzir esse risco</a>
-      </form>
-    </div>
-  </section>
-
-  <section id="servicos" class="alt">
-    <div class="wrap">
-      <h2>O que a Zethic faz pela sua empresa</h2>
-      <p class="lead">Risco e governança de um lado, automação e processo do outro. Tudo começa pelo mesmo lugar.</p>
-
-      <div class="entry">
-        <div>
-          <h3>Diagnóstico 6 Moedas</h3>
-          <p>Os riscos cibernéticos, de IA e de operação da sua empresa traduzidos em decisão de negócio, com prioridades e um plano de ação.</p>
-          <a class="btn btn-main" href="/fale?utm_source=site">Agendar o Diagnóstico</a>
-          <p class="entry-link"><a href="/diagnostico">Como funciona o Diagnóstico</a></p>
-        </div>
-        <ul role="list">
-          <li>Mapa de riscos nas 6 Moedas de Negócio</li>
-          <li>O que resolver primeiro e por quê</li>
-          <li>Plano de ação em linguagem de dono</li>
-          <li>Indicação do serviço certo para o passo seguinte</li>
-        </ul>
-      </div>
-
-      <div class="lines">
-        <div class="line">
-          <h3>Risco e segurança digital</h3>
-          <dl>
-            <dt>Programa Antigolpe</dt><dd>Equipe que reconhece golpes e regras que impedem pagamento indevido.</dd>
-            <dt>Blindagem de contas e perfis</dt><dd>Contas do negócio e dos donos protegidas e recuperáveis.</dd>
-            <dt>Governança de segurança</dt><dd>Papéis, controles e evidências para responder a clientes e auditorias.</dd>
-            <dt>Segurança gerenciada</dt><dd>Ameaças monitoradas e backup testado no dia a dia.</dd>
-          </dl>
-        </div>
-        <div class="line">
-          <h3>Dados, privacidade e IA</h3>
-          <dl>
-            <dt>Privacidade e LGPD</dt><dd>Dados pessoais tratados com responsabilidade e documentação.</dd>
-            <dt>Governança de IA</dt><dd>IA usada com regras, controles e retorno medido.</dd>
-            <dt>Capacitação em IA</dt><dd>Pessoas usando IA com produtividade e sem vazar dados.</dd>
-          </dl>
-        </div>
-        <div class="line">
-          <h3>Continuidade, resposta e aconselhamento</h3>
-          <dl>
-            <dt>Continuidade e resposta a incidentes</dt><dd>Operação que volta rápido e decisões coordenadas na crise.</dd>
-            <dt>Conselheira de risco</dt><dd>Apoio mensal à diretoria para decidir sobre risco digital e IA, traduzido nas 6 Moedas.</dd>
-            <dt>Consultoria especializada</dt><dd>Uma questão específica resolvida com análise e recomendação.</dd>
-          </dl>
-        </div>
-        <div class="line">
-          <h3>Operação e processos</h3>
-          <dl>
-            <dt>Processos e rotina operacional</dt><dd>Operação que não depende de uma pessoa só, com menos erro e retrabalho.</dd>
-            <dt>Automação e agentes de IA</dt><dd>Trabalho repetitivo automatizado, com controle de acesso desde o início.</dd>
-            <dt>Governança de projetos e serviços</dt><dd>Escopo, responsáveis e indicadores claros.</dd>
-            <dt>Finanças e recuperação de valores</dt><dd>Valores a recuperar identificados e financeiro sob controle.</dd>
-          </dl>
-        </div>
-        <div class="line">
-          <h3>Tecnologia e infraestrutura</h3>
-          <dl>
-            <dt>Infraestrutura, redes e conectividade</dt><dd>Infraestrutura que aguenta a operação, testada antes de entrar em uso.</dd>
-            <dt>Nuvem e identidade digital</dt><dd>Nuvem e contas da empresa organizadas, com custo e acesso sob controle.</dd>
-          </dl>
-        </div>
-        <div class="line">
-          <h3>Presença digital e vendas</h3>
-          <dl>
-            <dt>Presença digital</dt><dd>Canais digitais organizados e conectados.</dd>
-            <dt>Geração de demanda</dt><dd>Contatos qualificados chegando com rotina e medição.</dd>
-            <dt>WhatsApp e CRM comercial</dt><dd>Atendimento e vendas no WhatsApp com regras, dono definido e histórico.</dd>
-          </dl>
-        </div>
-      </div>
     </div>
   </section>
 
   <section id="como-funciona" class="hex">
     <div class="wrap">
       <h2>Como funciona</h2>
-      <p class="lead">Cada ciclo termina com um fechamento que registra o que foi feito, o que foi medido e o que ainda não deu resultado. A decisão seguinte é tomada sobre fato, não sobre impressão.</p>
+      <p class="lead">O método é o mesmo nas quatro frentes. Cada ciclo termina com um fechamento que registra o que foi feito, o que foi medido e o que ainda não deu resultado. A decisão seguinte é tomada sobre fato, não sobre impressão.</p>
       <ol class="steps" role="list">
         <li><strong>Diagnóstico 6 Moedas</strong><span>A operação como ela é hoje, com riscos e lacunas nomeados.</span></li>
         <li><strong>Estruturação</strong><span>Processo, cadência, responsáveis e o que passa a ser medido.</span></li>
@@ -466,28 +105,6 @@
         <div><b>Reputação</b><span>A confiança que leva anos para construir e um dia para perder.</span></div>
         <div><b>Habilitação de negócio</b><span>O que destrava vendas, parcerias e clientes maiores.</span></div>
         <div><b>Auditoria e contratos</b><span>Evidência para responder a auditorias e exigências contratuais.</span></div>
-      </div>
-    </div>
-  </section>
-
-  <section>
-    <div class="wrap report-grid">
-      <div>
-        <h2>Como é um fechamento</h2>
-        <p class="lead">O zero é reportado com o mesmo destaque de qualquer outro número. É essa a diferença.</p>
-        <p>Ao fim de cada ciclo, você recebe um relatório neste formato. <strong>Exemplo fictício para mostrar o formato. Não é resultado de cliente.</strong></p>
-      </div>
-      <div class="artifact">
-        <h3>Exemplo fictício: fechamento de ciclo</h3>
-        <dl>
-          <div><dt>Moedas avaliadas</dt><dd>6 de 6</dd></div>
-          <div><dt>Riscos prioritários encontrados</dt><dd>4</dd></div>
-          <div><dt>Ações concluídas no ciclo</dt><dd>5 de 8</dd></div>
-          <div><dt>Backup restaurado em teste</dt><dd>Sim, em 3 h</dd></div>
-          <div><dt>Contas com verificação em duas etapas</dt><dd>9 de 12</dd></div>
-          <div><dt>Pessoas treinadas contra golpe</dt><dd class="zero">0 de 14</dd></div>
-        </dl>
-        <p class="note"><strong>Leitura.</strong> A operação já volta em 3 horas se o sistema parar. O caixa ainda está exposto: ninguém da equipe foi treinado para reconhecer boleto falso ou Pix pedido por mensagem. Prioridade do próximo ciclo: Programa Antigolpe.</p>
       </div>
     </div>
   </section>
@@ -509,16 +126,14 @@
         <div class="name">Jéssica Gessoli</div>
         <div class="role">Fundadora e diretora executiva da Zethic</div>
         <ul role="list">
-          <li>Desde 2008 em risco e segurança</li>
-          <li>Bancos, seguros, saúde, telecom e infraestrutura crítica</li>
+          <li>Desde 2008 em risco e segurança em empresas grandes</li>
           <li>Autora do método 6 Moedas de Negócio</li>
         </ul>
       </div>
       <div>
         <h2>Quem responde</h2>
-        <p class="first">Trabalho com risco e segurança desde 2008, em empresas como Porto Seguro, Santander e CPqD. Em empresa grande, tecnologia não é conserto de emergência. É gestão de risco: tem contrato, responsável, prazo e teste.</p>
-        <p>A Zethic existe para levar o essencial dessa lógica para a pequena e média empresa, sem burocracia e sem exigir que o dono vire especialista.</p>
-        <p class="creds">Certificações ISFS (baseada na ISO/IEC 27001), CCEP, ITIL 4 Foundation e Lean Six Sigma Green Belt. Bacharel em Sistemas de Informação e MBA em Gestão de Projetos de TI.</p>
+        <p class="first">Sou a Jéssica Gessoli. Trabalho com risco e segurança em empresas grandes desde 2008.</p>
+        <p>Na Zethic, levo o essencial dessa experiência para a pequena e média empresa, sem burocracia e sem exigir que o dono vire especialista.</p>
         <p><a href="https://www.linkedin.com/in/jessicagessoli">Perfil no LinkedIn</a></p>
       </div>
     </div>
@@ -538,7 +153,7 @@
         </details>
         <details>
           <summary>Por onde começa?</summary>
-          <p>Pelo Diagnóstico 6 Moedas. A primeira conversa é pelo WhatsApp, para entender o momento da sua empresa. Depois vem a proposta por escrito.</p>
+          <p>Por uma conversa pelo WhatsApp, para entender o momento da sua empresa. Depois vem a proposta por escrito. Na frente de proteção, a porta de entrada é o Diagnóstico 6 Moedas.</p>
         </details>
         <details>
           <summary>Quanto custa?</summary>
@@ -571,14 +186,14 @@
         <div><dt>WhatsApp</dt><dd><a href="/fale?utm_source=site">+55 19 98180-0221</a></dd></div>
         <div><dt>E-mail</dt><dd><a href="mailto:jessica.gessoli@zethic.net">jessica.gessoli@zethic.net</a></dd></div>
         <div><dt>LinkedIn</dt><dd><a href="https://www.linkedin.com/company/144656905/">Página da Zethic</a></dd></div>
-        <div><dt>Instagram</dt><dd><a href="https://www.instagram.com/jessicagessoli/">@jessicagessoli</a></dd></div>
+        <div><dt>Instagram</dt><dd><a href="https://www.instagram.com/zethic_net/">@zethic_net</a></dd></div>
       </dl>
     </div>
   </section>
 
 </main>
 
-<div class="sticky-cta"><a class="btn btn-main" href="/fale?utm_source=site">Agendar o Diagnóstico 6 Moedas</a></div>
+<div class="sticky-cta"><a class="btn btn-main" href="/fale?utm_source=site">Falar no WhatsApp</a></div>
 
 <footer>
   <div class="wrap">
@@ -617,30 +232,8 @@
     "image": "https://zethic.net/assets/img/jessica-gessoli.jpg",
     "sameAs": ["https://www.linkedin.com/in/jessicagessoli", "https://www.instagram.com/jessicagessoli/"]
   },
-  "sameAs": ["https://www.linkedin.com/company/144656905/"]
+  "sameAs": ["https://www.linkedin.com/company/144656905/", "https://www.instagram.com/zethic_net/"]
 }
-</script>
-<script>
-(function () {
-  // Calculadora de custo de parada: roda só no navegador, não envia nada.
-  var f = document.getElementById("calc");
-  if (!f) return;
-  var brl = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL", maximumFractionDigits: 0 });
-  function num(id) { var v = parseFloat(document.getElementById(id).value); return isFinite(v) && v >= 0 ? v : NaN; }
-  function calc() {
-    var fat = num("c-fat"), dias = num("c-dias"), parado = num("c-parado"), rec = num("c-rec");
-    var out = document.getElementById("c-out");
-    if (!(fat > 0) || !(dias >= 1) || isNaN(parado)) { out.textContent = "Preencha o faturamento para ver a estimativa."; return; }
-    if (isNaN(rec)) rec = 0;
-    var porDia = fat / dias, total = porDia * parado + rec;
-    out.innerHTML = "";
-    out.appendChild(document.createTextNode("Cada dia parado: " + brl.format(porDia) + " sem faturar. Em " + parado + (parado === 1 ? " dia" : " dias") + ", a conta chega a "));
-    var b = document.createElement("b"); b.textContent = brl.format(total); out.appendChild(b);
-    out.appendChild(document.createTextNode("."));
-  }
-  f.addEventListener("input", calc);
-  f.addEventListener("submit", function (e) { e.preventDefault(); calc(); });
-})();
 </script>
 <script type="application/ld+json">
 {
@@ -668,7 +261,7 @@
    "name": "Por onde começa?",
    "acceptedAnswer": {
     "@type": "Answer",
-    "text": "Pelo Diagnóstico 6 Moedas. A primeira conversa é pelo WhatsApp, para entender o momento da sua empresa. Depois vem a proposta por escrito."
+    "text": "Por uma conversa pelo WhatsApp, para entender o momento da sua empresa. Depois vem a proposta por escrito. Na frente de proteção, a porta de entrada é o Diagnóstico 6 Moedas."
    }
   },
   {
