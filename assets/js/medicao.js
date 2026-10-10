@@ -1,9 +1,9 @@
-/* Medição de visitas da Zethic: Google Analytics 4 + Microsoft Clarity.
+/* Medição de visitas da Zethic: Google Analytics 4.
    Nada é carregado sem consentimento. Com os IDs vazios, nada aparece e nada é carregado.
-   Para ativar: preencha GA4_ID (G-XXXXXXXXXX) e CLARITY_ID, e atualize /privacidade. */
+   Para ativar: preencha GA4_ID (G-XXXXXXXXXX) e atualize /privacidade. */
 (function () {
-  var CONFIG = { GA4_ID: "", CLARITY_ID: "", CHAVE: "zethic-consentimento-v1" };
-  if (!CONFIG.GA4_ID && !CONFIG.CLARITY_ID) return;
+  var CONFIG = { GA4_ID: "", CHAVE: "zethic-consentimento-v1" };
+  if (!/^G-[A-Z0-9]{4,20}$/.test(CONFIG.GA4_ID)) return;
 
   function ler() { try { return localStorage.getItem(CONFIG.CHAVE); } catch (e) { return null; } }
   function gravar(v) { try { localStorage.setItem(CONFIG.CHAVE, v); } catch (e) {} }
@@ -24,14 +24,6 @@
       window.gtag("js", new Date());
       window.gtag("config", CONFIG.GA4_ID, { allow_google_signals: false, allow_ad_personalization_signals: false });
     }
-    if (/^[a-z0-9]{6,20}$/.test(CONFIG.CLARITY_ID)) {
-      (function (c, l, a, r, i, t, y) {
-        c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments); };
-        t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i;
-        y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
-      })(window, document, "clarity", "script", CONFIG.CLARITY_ID);
-      window.clarity("consentv2", { ad_Storage: "denied", analytics_Storage: "granted" });
-    }
   }
 
   function banner() {
@@ -41,7 +33,7 @@
     b.style.cssText = "position:fixed;left:1rem;right:1rem;bottom:1rem;z-index:50;max-width:34rem;margin:0 auto;background:#0E1640;color:#fff;border:1px solid rgba(140,170,255,.3);border-radius:6px;padding:1rem 1.1rem;font:15px/1.5 system-ui,sans-serif;box-shadow:0 10px 30px rgba(0,0,0,.5)";
     var p = document.createElement("p");
     p.style.margin = "0 0 .8rem";
-    p.appendChild(document.createTextNode("Posso medir sua visita com Google Analytics e Microsoft Clarity para melhorar o site? Isso grava cookies. Nada é usado para anúncios. "));
+    p.appendChild(document.createTextNode("Posso medir sua visita com o Google Analytics para melhorar o site? Isso grava cookies. Nada é usado para anúncios. "));
     var a = document.createElement("a"); a.href = "/privacidade#cookies"; a.textContent = "Saiba mais"; a.style.color = "#00E5FF";
     p.appendChild(a);
     b.appendChild(p);
