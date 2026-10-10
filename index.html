@@ -149,7 +149,7 @@
   .artifact dl{margin:0;font-size:.97rem}
   .artifact dl div{display:flex;justify-content:space-between;gap:1rem;padding:.45rem 0;border-bottom:1px solid var(--rule)}
   .artifact dt{color:var(--soft)}
-  .artifact dd{margin:0;font-weight:700;font-variant-numeric:tabular-nums}
+  .artifact dd{margin:0;font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
   .artifact .zero{color:var(--red)}
   .artifact .note{font-size:.9rem;color:var(--soft);margin:1rem 0 0;line-height:1.55}
 
@@ -199,6 +199,13 @@
   .calc output b{color:var(--red);font-weight:500;font-size:1.6rem}
   .calc .btn{text-align:center}
 
+  .sticky-cta{display:none}
+  @media (max-width:52rem){
+    .sticky-cta{display:block;position:fixed;left:0;right:0;bottom:0;z-index:20;padding:.7rem 1rem calc(.7rem + env(safe-area-inset-bottom));background:rgba(2,4,26,.96);border-top:1px solid var(--rule)}
+    .sticky-cta .btn{display:block;text-align:center}
+    body{padding-bottom:4.6rem}
+  }
+
   footer{background:#01020F;color:var(--muted);font-size:.85rem;padding:2rem 0;border-top:1px solid var(--rule)}
   footer p{margin:0 0 .3rem}
 </style>
@@ -209,6 +216,7 @@
   <div class="wrap bar">
     <a class="logo" href="#inicio" aria-label="Zethic, início">Zethic<span aria-hidden="true"></span></a>
     <nav aria-label="Seções">
+      <a href="/diagnostico">Diagnóstico</a>
       <a href="#servicos">Serviços</a>
       <a href="#como-funciona">Como funciona</a>
       <a href="#sobre">Quem responde</a>
@@ -228,9 +236,9 @@
         <p class="lead">Golpe, sistema parado, vazamento de dados e uso de IA viram decisão de negócio: o que protege o caixa, a operação e os contratos da sua empresa.</p>
         <div class="hero-ctas">
           <a class="btn btn-main" href="/fale?utm_source=site">Agendar o Diagnóstico 6 Moedas</a>
-          <a class="btn btn-line" href="#servicos">Ver os serviços</a>
+          <a class="btn btn-line" href="/diagnostico#autoavaliacao">Fazer a autoavaliação grátis</a>
         </div>
-        <small>Atendimento remoto a partir de Campinas, SP.</small>
+        <small>Para donos de pequenas e médias empresas e diretorias. Atendimento remoto a partir de Campinas, SP.</small>
       </div>
       <div>
         <ul class="coins" aria-label="As 6 Moedas de Negócio" style="list-style:none;padding:0">
@@ -318,6 +326,7 @@
           <h3>Diagnóstico 6 Moedas</h3>
           <p>Os riscos de cyber, IA e operação da sua empresa traduzidos em decisão de negócio, com prioridades e um plano de ação.</p>
           <a class="btn btn-main" href="/fale?utm_source=site">Agendar o Diagnóstico</a>
+          <p style="margin:1rem 0 0"><a href="/diagnostico">Como funciona o Diagnóstico</a></p>
         </div>
         <ul>
           <li>Mapa de riscos nas 6 Moedas de Negócio</li>
@@ -411,17 +420,16 @@
         <p>Ao fim de cada ciclo, você recebe um relatório neste formato. <strong>Exemplo fictício para mostrar o formato. Não é resultado de cliente.</strong></p>
       </div>
       <div class="artifact">
-        <h3>Exemplo fictício: fechamento semanal</h3>
+        <h3>Exemplo fictício: fechamento de ciclo</h3>
         <dl>
-          <div><dt>Publicações no ciclo</dt><dd>3</dd></div>
-          <div><dt>Impressões</dt><dd>751</dd></div>
-          <div><dt>Cliques</dt><dd>31</dd></div>
-          <div><dt>CTR médio</dt><dd>4,13%</dd></div>
-          <div><dt>Visitantes únicos</dt><dd>28</dd></div>
-          <div><dt>Leads registrados</dt><dd class="zero">0</dd></div>
-          <div><dt>Receita atribuída</dt><dd class="zero">0</dd></div>
+          <div><dt>Moedas avaliadas</dt><dd>6 de 6</dd></div>
+          <div><dt>Riscos prioritários encontrados</dt><dd>4</dd></div>
+          <div><dt>Ações concluídas no ciclo</dt><dd>5 de 8</dd></div>
+          <div><dt>Backup restaurado em teste</dt><dd>Sim, em 3 h</dd></div>
+          <div><dt>Contas com verificação em duas etapas</dt><dd>9 de 12</dd></div>
+          <div><dt>Pessoas treinadas contra golpe</dt><dd class="zero">0 de 14</dd></div>
         </dl>
-        <p class="note"><strong>Leitura.</strong> Há sinal de interesse, mas nenhuma conversão comprovada. Para atribuir origem, é preciso ativar UTMs e registrar a entrada dos contatos. Sem isso, qualquer número de conversão seria estimativa apresentada como fato.</p>
+        <p class="note"><strong>Leitura.</strong> A operação já volta em 3 horas se o sistema parar. O caixa ainda está exposto: ninguém da equipe foi treinado para reconhecer boleto falso ou Pix pedido por mensagem. Prioridade do próximo ciclo: Programa Antigolpe.</p>
       </div>
     </div>
   </section>
@@ -512,6 +520,8 @@
 
 </main>
 
+<div class="sticky-cta"><a class="btn btn-main" href="/fale?utm_source=site">Agendar o Diagnóstico 6 Moedas</a></div>
+
 <footer>
   <div class="wrap">
     <p>© 2026 Zethic. Razão social: Jessica Caroline da Silva Secco Gessoli, Microempreendedor Individual (MEI).</p>
@@ -575,6 +585,86 @@
   }
   f.addEventListener("input", calc);
   f.addEventListener("submit", function (e) { e.preventDefault(); calc(); });
+})();
+</script>
+<script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "FAQPage",
+ "mainEntity": [
+  {
+   "@type": "Question",
+   "name": "Preciso entender de tecnologia para contratar?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Não. As perguntas que importam são de dono: quem tem acesso, se o backup volta, quanto tempo a empresa aguenta parada. A Zethic traduz o técnico para essa linguagem."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "A Zethic substitui o meu fornecedor de TI?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Não necessariamente. Muitas vezes o trabalho é organizar a relação com o fornecedor: deixar claro o que é responsabilidade de cada um, com prazos e evidências por escrito."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Por onde começa?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Pelo Diagnóstico 6 Moedas. A primeira conversa é pelo WhatsApp, para entender o momento da sua empresa. Depois vem a proposta por escrito."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Quanto custa?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Depende do escopo, por isso o valor vem na proposta, depois da primeira conversa. Os 3 primeiros clientes de cada serviço têm preço de fundador."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Para que tipo de empresa é?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Para donos de pequenas e médias empresas e para diretorias que precisam decidir sobre risco digital e IA, inclusive empresas que fornecem para clientes grandes."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "Atende fora de Campinas?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Sim. O atendimento é remoto, a partir de Campinas, SP."
+   }
+  },
+  {
+   "@type": "Question",
+   "name": "A Zethic faz a parte jurídica da LGPD?",
+   "acceptedAnswer": {
+    "@type": "Answer",
+    "text": "Não. A Zethic organiza processos, controles e evidências. A redação jurídica de contratos e políticas deve ser validada com o seu advogado."
+   }
+  }
+ ]
+}
+</script>
+<script>
+(function () {
+  // Mantém a origem de quem chegou (ex.: ?utm_source=instagram) nos botões de contato e no link do Diagnóstico.
+  var fonte = "";
+  try { fonte = (new URLSearchParams(location.search).get("utm_source") || "").toLowerCase(); } catch (e) {}
+  if (!/^[a-z0-9-]{1,40}$/.test(fonte)) return;
+  var links = document.querySelectorAll('a[href^="/fale"], a[href^="/diagnostico"]');
+  for (var i = 0; i < links.length; i++) {
+    var u = new URL(links[i].getAttribute("href"), location.origin);
+    if (u.pathname === "/fale" || u.pathname === "/diagnostico") {
+      u.searchParams.set("utm_source", fonte);
+      links[i].setAttribute("href", u.pathname + u.search + u.hash);
+    }
+  }
 })();
 </script>
 </body>
