@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-qt4p1fH2pwl/fdsJgXSCbm00CcT4pifYK3MO6oDJYUs=' https://www.googletagmanager.com; img-src 'self' https://*.google-analytics.com https://*.googletagmanager.com; font-src 'self'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'; connect-src https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-US/dMCrnXfCsAHdaJ795Y4RInYDp8Drov7mFg4jCPV8=' https://www.googletagmanager.com; img-src 'self' https://*.google-analytics.com https://*.googletagmanager.com; font-src 'self'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'; connect-src https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com">
 <title>Diagnóstico 6 Moedas | Zethic</title>
 <meta name="description" content="Descubra onde golpe, sistema parado, vazamento de dados e uso de IA podem custar caro para a sua empresa. Faça a autoavaliação grátis e agende o Diagnóstico 6 Moedas.">
 <link rel="canonical" href="https://zethic.net/diagnostico">
@@ -172,7 +172,7 @@
       <p class="lead">Os riscos cibernéticos, de IA e de operação da sua empresa traduzidos em decisão de negócio: o que pode custar caro, o que resolver primeiro e por quê.</p>
       <div class="hero-ctas">
         <a class="btn btn-main" href="#autoavaliacao">Fazer a autoavaliação grátis</a>
-        <a class="btn btn-line" href="/fale?utm_source=site">Agendar o Diagnóstico</a>
+        <a class="btn btn-line" href="/agendar?utm_source=site">Agendar o Diagnóstico</a>
       </div>
       <div class="facts">
         <div><b>Para quem</b><span>Donos de pequenas e médias empresas e diretorias, inclusive quem fornece para clientes grandes.</span></div>
@@ -310,7 +310,7 @@
     out.appendChild(ul);
     out.appendChild(el("p", {}, "Primeiro passo que você pode dar sozinho: " + pior.dica));
     out.appendChild(el("p", {}, "Serviço relacionado: " + pior.servico + "."));
-    var cta = el("a", { "class": "btn btn-main", href: "/fale?utm_source=diagnostico" }, "Agendar o Diagnóstico 6 Moedas");
+    var cta = el("a", { "class": "btn btn-main", href: "/agendar?utm_source=diagnostico" }, "Agendar o Diagnóstico 6 Moedas");
     out.appendChild(cta);
     out.appendChild(el("p", { "class": "note" }, "Autoavaliação indicativa, baseada só nas suas respostas. Não substitui o Diagnóstico 6 Moedas, que olha a operação real da empresa."));
     out.hidden = false;
@@ -322,8 +322,8 @@
   var fonte = "";
   try { fonte = (new URLSearchParams(location.search).get("utm_source") || "").toLowerCase(); } catch (e2) {}
   if (/^[a-z0-9-]{1,40}$/.test(fonte)) {
-    var links = document.querySelectorAll('a[href^="/fale?utm_source=site"]');
-    for (var i = 0; i < links.length; i++) links[i].setAttribute("href", "/fale?utm_source=" + fonte);
+    var links = document.querySelectorAll('a[href^="/fale?utm_source=site"], a[href^="/agendar?utm_source=site"]');
+    for (var i = 0; i < links.length; i++) links[i].setAttribute("href", links[i].getAttribute("href").split("?")[0] + "?utm_source=" + fonte);
   }
 })();
 </script>
