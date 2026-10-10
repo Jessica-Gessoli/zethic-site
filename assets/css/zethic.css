@@ -232,6 +232,9 @@
   }
   .logo{white-space:nowrap;flex:0 0 auto}
 
+  /* No celular, as frentes aparecem logo após o texto do topo; as 6 Moedas seguem explicadas em "Como funciona". */
+  @media (max-width:56rem){.hero-coins{display:none}}
+
   /* Frentes (hub da home) e páginas de cada frente */
   .frentes{padding-top:clamp(2.5rem,6vw,4rem)}
   .doors{list-style:none;margin:2rem 0 0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1rem}
