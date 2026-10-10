@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Diagnóstico 6 Moedas | Zethic</title>
+<meta name="description" content="Descubra onde golpe, sistema parado, vazamento de dados e uso de IA podem custar caro para a sua empresa. Faça a autoavaliação grátis e agende o Diagnóstico 6 Moedas.">
+<link rel="canonical" href="https://zethic.net/diagnostico">
+<meta name="robots" content="index, follow">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Zethic">
+<meta property="og:title" content="Diagnóstico 6 Moedas | Zethic">
+<meta property="og:description" content="Faça a autoavaliação grátis em 3 minutos e veja em qual das 6 Moedas a sua empresa está mais exposta.">
+<meta property="og:url" content="https://zethic.net/diagnostico">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:image" content="https://zethic.net/assets/img/og-zethic.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&family=Public+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#02041A; --bg-2:#050925; --panel:#0A1033; --panel-2:#0E1640;
+    --text:#FFFFFF; --soft:#A7B2D1; --muted:#7F8AAD;
+    --cyan:#00E5FF; --blue:#1F63FF; --violet:#8F3DF0; --green:#3CEFA8; --amber:#FFC24B; --red:#FF4553;
+    --grad:linear-gradient(90deg,#00E5FF 0%,#00A8FF 50%,#1F63FF 100%);
+    --rule:rgba(140,170,255,.16);
+    --serif:"Newsreader",Georgia,serif; --sans:"Public Sans",system-ui,sans-serif;
+  }
+  *,*::before,*::after{box-sizing:border-box}
+  html{scroll-behavior:smooth;scroll-padding-top:5rem}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);font-size:1.0625rem;line-height:1.65}
+  a{color:inherit;text-decoration-color:var(--cyan);text-underline-offset:.18em}
+  a:focus-visible,button:focus-visible,input:focus-visible+span{outline:2px solid var(--cyan);outline-offset:3px}
+  .wrap{max-width:60rem;margin:0 auto;padding:0 1.25rem}
+  h1,h2,h3{font-family:var(--serif);font-weight:500;line-height:1.15;margin:0}
+  h2{font-size:clamp(1.8rem,4vw,2.5rem);max-width:24ch}
+  p{margin:0 0 1rem}
+  .lead{font-size:1.15rem;color:var(--soft);max-width:58ch;margin-top:1rem}
+  section{padding:clamp(3rem,7vw,5rem) 0}
+  .alt{background:var(--bg-2);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+  .btn{display:inline-block;padding:.95rem 1.5rem;border-radius:4px;font-weight:700;font-size:1rem;text-decoration:none;line-height:1.2;border:0;cursor:pointer;font-family:inherit}
+  .btn-main{background:var(--grad);color:var(--bg)}
+  .btn-main:hover{filter:brightness(1.12)}
+  .btn-line{border:1px solid var(--cyan);color:var(--text);background:transparent}
+
+  header{position:sticky;top:0;z-index:10;background:rgba(2,4,26,.94);border-bottom:1px solid var(--rule)}
+  .bar{display:flex;align-items:center;gap:1rem;height:4.25rem}
+  .logo{font-size:1.45rem;font-weight:700;letter-spacing:.14em;text-decoration:none}
+  .logo span{display:inline-block;width:.32em;height:.32em;border-radius:50%;background:var(--cyan);margin-left:.1em;vertical-align:.1em;box-shadow:0 0 10px var(--cyan)}
+  .bar .btn{margin-left:auto;padding:.65rem 1rem;font-size:.92rem}
+
+  .hero{padding:clamp(3rem,7vw,5rem) 0;background:radial-gradient(50rem 26rem at 85% 30%,rgba(143,61,240,.22),transparent 60%),var(--bg)}
+  .hero h1{font-size:clamp(2.4rem,6vw,4rem);letter-spacing:-.02em;line-height:1.05;max-width:16ch;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .hero-ctas{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:2rem}
+
+  .facts{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:2.5rem;border-top:1px solid var(--rule)}
+  .facts div{padding:1.1rem 1rem 1.2rem 0;border-bottom:1px solid var(--rule)}
+  .facts b{display:block;color:var(--cyan);font-family:var(--serif);font-weight:500;font-size:1.15rem;margin-bottom:.2rem}
+  .facts span{color:var(--soft);font-size:.94rem;line-height:1.5}
+  @media (max-width:52rem){.facts{grid-template-columns:1fr 1fr}}
+  @media (max-width:30rem){.facts{grid-template-columns:1fr}}
+
+  .steps{list-style:none;margin:2rem 0 0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;counter-reset:p}
+  .steps li{counter-increment:p;border-top:1px solid var(--rule);padding-top:1rem}
+  .steps li::before{content:counter(p);display:block;font-family:var(--serif);font-size:2.4rem;line-height:1;color:var(--cyan);margin-bottom:.7rem}
+  .steps strong{display:block;margin-bottom:.3rem}
+  .steps span{color:var(--soft);font-size:.95rem;line-height:1.5;display:block}
+  @media (max-width:52rem){.steps{grid-template-columns:1fr 1fr}}
+  @media (max-width:30rem){.steps{grid-template-columns:1fr}}
+
+  .quiz fieldset{border:0;margin:0;padding:1.3rem 0;border-bottom:1px solid var(--rule)}
+  .quiz legend{padding:0;font-weight:600;font-size:1.02rem;margin-bottom:.8rem;max-width:62ch}
+  .quiz .tag{display:block;color:var(--cyan);font-size:.8rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:.3rem}
+  .opts{display:flex;flex-wrap:wrap;gap:.6rem}
+  .opts label{position:relative}
+  .opts input{position:absolute;opacity:0;inset:0;margin:0;cursor:pointer}
+  .opts span{display:inline-block;padding:.55rem 1.1rem;border:1px solid var(--rule);border-radius:999px;color:var(--soft);font-size:.95rem;background:var(--panel)}
+  .opts input:checked+span{border-color:var(--cyan);color:var(--text);background:rgba(0,229,255,.14)}
+  .quiz-foot{display:flex;flex-wrap:wrap;align-items:center;gap:1rem;margin-top:1.6rem}
+  .quiz-foot small{color:var(--muted)}
+  .err{color:var(--amber);font-weight:600}
+
+  .result{margin-top:2.5rem;background:var(--panel);border:1px solid var(--rule);border-top:3px solid var(--cyan);padding:1.6rem 1.5rem}
+  .result h3{font-size:1.6rem;margin-bottom:.6rem}
+  .score{font-family:var(--serif);font-size:3rem;line-height:1;margin:.4rem 0 1rem}
+  .rows{margin:1.2rem 0;padding:0;list-style:none}
+  .rows li{display:grid;grid-template-columns:12rem 1fr 3.5rem;gap:.8rem;align-items:center;padding:.45rem 0;font-size:.95rem}
+  .rows .track{height:.6rem;border-radius:999px;background:rgba(140,170,255,.14);overflow:hidden}
+  .rows .fill{height:100%;border-radius:999px}
+  .rows b{text-align:right;font-variant-numeric:tabular-nums}
+  @media (max-width:36rem){.rows li{grid-template-columns:1fr 3rem}.rows .track{grid-column:1/-1;order:3}}
+  .result .note{color:var(--muted);font-size:.9rem;margin-top:1rem}
+
+  footer{background:#01020F;color:var(--muted);font-size:.85rem;padding:2rem 0;border-top:1px solid var(--rule)}
+  footer p{margin:0 0 .3rem}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap bar">
+    <a class="logo" href="/" aria-label="Zethic, início">Zethic<span aria-hidden="true"></span></a>
+    <a class="btn btn-main" href="/fale?utm_source=site">Falar no WhatsApp</a>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <h1>Diagnóstico 6 Moedas</h1>
+      <p class="lead">Os riscos de cyber, IA e operação da sua empresa traduzidos em decisão de negócio: o que pode custar caro, o que resolver primeiro e por quê.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-main" href="#autoavaliacao">Fazer a autoavaliação grátis</a>
+        <a class="btn btn-line" href="/fale?utm_source=site">Agendar o Diagnóstico</a>
+      </div>
+      <div class="facts">
+        <div><b>Para quem</b><span>Donos de pequenas e médias empresas e diretorias, inclusive quem fornece para clientes grandes.</span></div>
+        <div><b>Formato</b><span>Remoto, conduzido pela Jéssica Gessoli, a partir de Campinas, SP.</span></div>
+        <div><b>Prazo e valor</b><span>Combinados na proposta, conforme o tamanho da empresa. Preço de fundador para os 3 primeiros clientes.</span></div>
+        <div><b>Você não precisa</b><span>Entender de tecnologia. As perguntas são de dono.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="alt">
+    <div class="wrap">
+      <h2>O que você recebe</h2>
+      <ol class="steps">
+        <li><strong>Mapa de riscos</strong><span>Os riscos da empresa organizados nas 6 Moedas de Negócio.</span></li>
+        <li><strong>Prioridades</strong><span>O que resolver primeiro e por quê, em linguagem de dono.</span></li>
+        <li><strong>Plano de ação</strong><span>Passos concretos, com responsável e ordem de execução.</span></li>
+        <li><strong>Próximo passo</strong><span>A indicação do serviço certo para seguir, se fizer sentido.</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="autoavaliacao">
+    <div class="wrap">
+      <h2>Autoavaliação 6 Moedas</h2>
+      <p class="lead">12 perguntas, cerca de 3 minutos. As respostas ficam no seu navegador: nada é enviado.</p>
+      <form class="quiz" id="quiz" novalidate></form>
+      <div class="result" id="resultado" hidden tabindex="-1"></div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>© 2026 Zethic. Razão social: Jessica Caroline da Silva Secco Gessoli, Microempreendedor Individual (MEI).</p>
+    <p>CNPJ 67.678.226/0001-17. Campinas, São Paulo, Brasil.</p>
+    <p><a href="/privacidade">Privacidade e termos de uso</a> · Este site não usa cookies.</p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var MOEDAS = [
+    { nome: "Continuidade operacional", dica: "Teste a restauração do backup e escreva em uma folha quem decide e quem chamar se o sistema parar.", servico: "Continuidade e resposta a incidentes",
+      perguntas: ["O backup da empresa já foi restaurado em teste nos últimos 6 meses?", "Os processos críticos (financeiro, notas, acessos) são conhecidos por pelo menos duas pessoas?"] },
+    { nome: "Conformidade regulatória", dica: "Liste quais dados pessoais a empresa guarda, onde ficam e quem responde a pedidos de clientes.", servico: "Privacidade e LGPD",
+      perguntas: ["Você sabe quais dados pessoais de clientes e funcionários a empresa guarda e onde eles ficam?", "Existe alguém definido para responder pedidos sobre dados pessoais (LGPD)?"] },
+    { nome: "Fraude e vazamento", dica: "Combine por escrito: troca de conta bancária só com confirmação por telefone. E ative a verificação em duas etapas.", servico: "Programa Antigolpe",
+      perguntas: ["Troca de dados bancários de fornecedor só é aceita depois de confirmar por telefone?", "E-mail, banco e redes sociais da empresa usam verificação em duas etapas?"] },
+    { nome: "Reputação", dica: "Coloque contas e perfis em nome da empresa, com recuperação garantida, e combine como avisar clientes numa crise.", servico: "Blindagem de contas e perfis",
+      perguntas: ["As contas e perfis da empresa estão em nome dela e podem ser recuperados se alguém sair?", "Existe um combinado de como avisar os clientes se houver um golpe ou vazamento?"] },
+    { nome: "Habilitação de negócio", dica: "Escreva as regras de uso de IA e descubra o que os clientes maiores do seu setor exigem de fornecedores.", servico: "Governança de IA",
+      perguntas: ["A equipe tem regras escritas sobre que dados podem ser colocados em ferramentas de IA?", "Você sabe o que clientes maiores do seu setor exigem de segurança e LGPD dos fornecedores?"] },
+    { nome: "Auditoria e contratos", dica: "Organize as evidências (políticas, acessos, backup) para responder um questionário de segurança em poucos dias.", servico: "Governança de segurança",
+      perguntas: ["A empresa consegue responder em poucos dias um questionário de segurança de um cliente grande?", "Quem tem acesso a cada sistema é revisado pelo menos uma vez por ano?"] }
+  ];
+  var OPCOES = [["2", "Sim"], ["1", "Em parte"], ["0", "Não ou não sei"]];
+  var form = document.getElementById("quiz"), out = document.getElementById("resultado");
+  if (!form || !out) return;
+
+  function el(tag, attrs, text) {
+    var e = document.createElement(tag);
+    for (var k in attrs) if (Object.prototype.hasOwnProperty.call(attrs, k)) e.setAttribute(k, attrs[k]);
+    if (text != null) e.textContent = text;
+    return e;
+  }
+
+  var n = 0;
+  MOEDAS.forEach(function (m, mi) {
+    m.perguntas.forEach(function (q, qi) {
+      n++;
+      var fs = el("fieldset"), lg = el("legend");
+      lg.appendChild(el("span", { "class": "tag" }, m.nome));
+      lg.appendChild(document.createTextNode(n + ". " + q));
+      fs.appendChild(lg);
+      var opts = el("div", { "class": "opts" });
+      OPCOES.forEach(function (o) {
+        var lb = el("label");
+        lb.appendChild(el("input", { type: "radio", name: "q" + mi + "_" + qi, value: o[0], required: "" }));
+        lb.appendChild(el("span", {}, o[1]));
+        opts.appendChild(lb);
+      });
+      fs.appendChild(opts);
+      form.appendChild(fs);
+    });
+  });
+  var foot = el("div", { "class": "quiz-foot" });
+  foot.appendChild(el("button", { type: "submit", "class": "btn btn-main" }, "Ver meu resultado"));
+  var msg = el("small", { "aria-live": "polite" }, "Responda todas as perguntas para ver o resultado.");
+  foot.appendChild(msg);
+  form.appendChild(foot);
+
+  function nivel(p) {
+    if (p >= 75) return ["Bem encaminhada", "var(--green)"];
+    if (p >= 40) return ["Pede atenção", "var(--amber)"];
+    return ["Exposta", "var(--red)"];
+  }
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var notas = [], faltam = 0;
+    MOEDAS.forEach(function (m, mi) {
+      var soma = 0;
+      m.perguntas.forEach(function (q, qi) {
+        var r = form.querySelector('input[name="q' + mi + "_" + qi + '"]:checked');
+        if (!r) faltam++; else soma += parseInt(r.value, 10);
+      });
+      notas.push(Math.round(soma / (m.perguntas.length * 2) * 100));
+    });
+    if (faltam) {
+      msg.textContent = "Faltam " + faltam + (faltam === 1 ? " pergunta." : " perguntas.");
+      msg.className = "err";
+      return;
+    }
+    msg.textContent = ""; msg.className = "";
+    var total = Math.round(notas.reduce(function (a, b) { return a + b; }, 0) / notas.length);
+    var ordem = notas.map(function (p, i) { return i; }).sort(function (a, b) { return notas[a] - notas[b]; });
+    var pior = MOEDAS[ordem[0]], nv = nivel(total);
+
+    out.textContent = "";
+    out.appendChild(el("h3", {}, "Seu resultado"));
+    var sc = el("p", { "class": "score" }, total + " de 100");
+    sc.style.color = nv[1];
+    out.appendChild(sc);
+    out.appendChild(el("p", {}, "Situação geral: " + nv[0] + ". A moeda mais exposta é " + pior.nome + "."));
+    var ul = el("ul", { "class": "rows", "aria-label": "Nota por moeda" });
+    ordem.forEach(function (i) {
+      var li = el("li"), tr = el("div", { "class": "track" }), fi = el("div", { "class": "fill" });
+      fi.style.width = notas[i] + "%"; fi.style.background = nivel(notas[i])[1];
+      tr.appendChild(fi);
+      li.appendChild(el("span", {}, MOEDAS[i].nome)); li.appendChild(tr); li.appendChild(el("b", {}, notas[i] + "%"));
+      ul.appendChild(li);
+    });
+    out.appendChild(ul);
+    out.appendChild(el("p", {}, "Primeiro passo que você pode dar sozinho: " + pior.dica));
+    out.appendChild(el("p", {}, "Serviço relacionado: " + pior.servico + "."));
+    var cta = el("a", { "class": "btn btn-main", href: "/fale?utm_source=diagnostico" }, "Agendar o Diagnóstico 6 Moedas");
+    out.appendChild(cta);
+    out.appendChild(el("p", { "class": "note" }, "Autoavaliação indicativa, baseada só nas suas respostas. Não substitui o Diagnóstico 6 Moedas, que olha a operação real da empresa."));
+    out.hidden = false;
+    out.focus();
+  });
+
+  // Mantém a origem de quem chegou nos botões de contato (exceto o do resultado, que identifica a autoavaliação).
+  var fonte = "";
+  try { fonte = (new URLSearchParams(location.search).get("utm_source") || "").toLowerCase(); } catch (e2) {}
+  if (/^[a-z0-9-]{1,40}$/.test(fonte)) {
+    var links = document.querySelectorAll('a[href^="/fale?utm_source=site"]');
+    for (var i = 0; i < links.length; i++) links[i].setAttribute("href", "/fale?utm_source=" + fonte);
+  }
+})();
+</script>
+</body>
+</html>
