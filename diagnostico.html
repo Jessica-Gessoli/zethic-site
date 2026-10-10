@@ -28,7 +28,7 @@
     --serif:"Newsreader",Georgia,serif; --sans:"Public Sans",system-ui,sans-serif;
   }
   *,*::before,*::after{box-sizing:border-box}
-  html{scroll-behavior:smooth;scroll-padding-top:5rem}
+  html{-webkit-text-size-adjust:100%;text-size-adjust:100%;scroll-behavior:smooth;scroll-padding-top:5rem}
   @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
   body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);font-size:1.0625rem;line-height:1.65}
   a{color:inherit;text-decoration-color:var(--cyan);text-underline-offset:.18em}
@@ -93,6 +93,26 @@
   @media (max-width:36rem){.rows li{grid-template-columns:1fr 3rem}.rows .track{grid-column:1/-1;order:3}}
   .result .note{color:var(--muted);font-size:.9rem;margin-top:1rem}
 
+
+  /* Mobile: nenhuma coluna pode ficar mais larga que a tela, mesmo com fonte do celular aumentada */
+  h1,h2,h3,p,li,dt,dd,summary,legend,label,a,small,span,b,strong{overflow-wrap:break-word}
+  img,svg,video{max-width:100%;height:auto}
+  .facts{grid-template-columns:minmax(0,1fr)}
+  @media (min-width:30.01rem){.facts{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  @media (min-width:52.01rem){.facts{grid-template-columns:repeat(4,minmax(0,1fr))}}
+  .steps{grid-template-columns:minmax(0,1fr)}
+  @media (min-width:30.01rem){.steps{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  @media (min-width:52.01rem){.steps{grid-template-columns:repeat(4,minmax(0,1fr))}}
+  @media (max-width:30rem){
+    .hero h1{font-size:clamp(2.1rem,10vw,2.8rem)}
+    .hero-ctas .btn{display:block;width:100%;text-align:center}
+    .bar .btn{padding:.55rem .8rem;font-size:.85rem}
+    .rows li{grid-template-columns:minmax(0,1fr) 3rem}
+    .result .btn{display:block;text-align:center;white-space:normal}
+  }
+
+  .logo{white-space:nowrap;flex:0 0 auto}
+  @media (max-width:30rem){.logo{font-size:1.25rem;letter-spacing:.1em}.bar{gap:.75rem}.bar .btn{white-space:normal;text-align:center;padding:.5rem .7rem;font-size:.85rem;line-height:1.15;max-width:11rem}}
   footer{background:#01020F;color:var(--muted);font-size:.85rem;padding:2rem 0;border-top:1px solid var(--rule)}
   footer p{margin:0 0 .3rem}
 </style>
