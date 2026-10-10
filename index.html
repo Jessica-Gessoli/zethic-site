@@ -3,150 +3,479 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Zethic — Governança de operação com evidência | Jéssica Gessoli</title>
-<meta name="description" content="A Zethic estrutura e governa operações com disciplina de evidência: o que foi entregue, o que foi medido e o que não funcionou. Jéssica Gessoli, Campinas, São Paulo. CNPJ 67.678.226/0001-17.">
+<title>Zethic | Risco digital e IA em linguagem de dono</title>
+<meta name="description" content="A Zethic traduz golpe, sistema parado, vazamento de dados e uso de IA em decisão de negócio para donos de pequenas e médias empresas. Comece pelo Diagnóstico 6 Moedas. Jéssica Gessoli, Campinas, SP.">
 <link rel="canonical" href="https://zethic.net/">
 <meta name="robots" content="index, follow">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Zethic">
-<meta property="og:title" content="Zethic — Governança de operação com evidência">
-<meta property="og:description" content="Consultoria que estrutura operações e reporta o que mediu, inclusive o que não funcionou. Campinas, São Paulo.">
+<meta property="og:title" content="Zethic | Risco digital e IA em linguagem de dono">
+<meta property="og:description" content="Proteja o caixa, a operação e os contratos da sua empresa. Comece pelo Diagnóstico 6 Moedas.">
 <meta property="og:url" content="https://zethic.net/">
 <meta property="og:locale" content="pt_BR">
 <meta name="twitter:card" content="summary">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&family=Public+Sans:wght@400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Public+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-  :root{--paper:#F7F8FA;--navy:#0A1628;--soft:#3A4A60;--gold:#C8A84E;--cyan:#0090B4;--rule:rgba(10,22,40,.14)}
+  :root{
+    --paper:#F3F5F8; --white:#FFFFFF; --ink:#0A1628; --soft:#3A4A60;
+    --navy:#0D1F3A; --navy-2:#132B4D; --gold:#C8A84E; --gold-soft:#E4D3A0;
+    --cyan:#0090B4; --rule:rgba(10,22,40,.14); --rule-dark:rgba(255,255,255,.16);
+    --serif:"Newsreader",Georgia,serif; --sans:"Public Sans",system-ui,sans-serif;
+    --wrap:72rem;
+  }
   *,*::before,*::after{box-sizing:border-box}
-  body{margin:0;background:var(--paper);color:var(--navy);font-family:"Public Sans",system-ui,sans-serif;font-size:1.0625rem;line-height:1.65;font-feature-settings:"tnum" 1}
-  .page{max-width:36rem;margin:0 auto;padding:clamp(2.5rem,7vw,5rem) 1.5rem 3rem}
-  a{color:var(--navy);text-decoration:underline;text-decoration-color:var(--cyan);text-underline-offset:.18em}
-  a:hover{text-decoration-color:var(--gold)}
-  a:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
-  .brand{font-family:"Newsreader",Georgia,serif;font-size:clamp(2.6rem,10vw,3.9rem);font-weight:500;line-height:1;letter-spacing:-.015em;margin:0}
-  .brand-rule{width:3.5rem;height:2px;background:var(--gold);border:0;margin:1.4rem 0 1.3rem}
-  .lede{font-family:"Newsreader",Georgia,serif;font-size:clamp(1.3rem,4.6vw,1.6rem);line-height:1.4;margin:0 0 1.6rem}
-  p{margin:0 0 1.1rem}
-  .muted{color:var(--soft)}
-  section{margin-top:3.2rem}
-  h2{font-size:.9375rem;font-weight:600;margin:0 0 1rem;padding-bottom:.55rem;border-bottom:1px solid var(--rule)}
-  ul{margin:0;padding:0;list-style:none}
-  .cycle li{padding:.75rem 0;border-bottom:1px solid var(--rule)}
-  .cycle li:last-child{border-bottom:0}
-  .cycle strong{display:block;font-weight:600}
-  .cycle span{color:var(--soft);font-size:.9375rem}
-  .coins li{padding:.4rem 0 .4rem 1.15rem;position:relative;font-size:.9875rem}
-  .coins li::before{content:"";position:absolute;left:0;top:1.1em;width:.45rem;height:1px;background:var(--gold)}
-  .artifact{background:#fff;border:1px solid var(--rule);border-top:3px solid var(--gold);padding:1.4rem 1.3rem;margin:1.4rem 0 .8rem}
-  .artifact h3{font-size:.8125rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--soft);margin:0 0 .9rem}
-  .artifact dl{margin:0;font-size:.9375rem}
-  .artifact dl div{display:flex;justify-content:space-between;gap:1rem;padding:.4rem 0;border-bottom:1px solid var(--rule)}
-  .artifact dl div:last-of-type{border-bottom:0}
+  html{scroll-behavior:smooth;scroll-padding-top:5rem}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:1.0625rem;line-height:1.65}
+  a{color:inherit;text-decoration-color:var(--cyan);text-underline-offset:.18em}
+  a:focus-visible,summary:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
+  .wrap{max-width:var(--wrap);margin:0 auto;padding:0 1.25rem}
+  h1,h2,h3{font-family:var(--serif);font-weight:500;line-height:1.15;margin:0}
+  h2{font-size:clamp(1.9rem,4.4vw,2.75rem);letter-spacing:-.01em;max-width:22ch}
+  h3{font-size:1.3rem}
+  p{margin:0 0 1rem}
+  .lead{font-size:1.15rem;color:var(--soft);max-width:58ch;margin-top:1rem}
+  section{padding:clamp(3.5rem,8vw,6rem) 0}
+  .dark{background:var(--navy);color:#E8EDF4}
+  .dark .lead{color:#B9C4D3}
+  .white{background:var(--white)}
+
+  .btn{display:inline-block;padding:.95rem 1.5rem;border-radius:3px;font-weight:700;font-size:1rem;text-decoration:none;line-height:1.2}
+  .btn-gold{background:var(--gold);color:var(--ink)}
+  .btn-gold:hover{background:var(--gold-soft)}
+  .btn-line{border:1px solid currentColor;color:inherit}
+  .btn-line:hover{background:rgba(255,255,255,.08)}
+  .btn-navy{background:var(--navy);color:#fff}
+  .btn-navy:hover{background:var(--navy-2)}
+
+  header{position:sticky;top:0;z-index:10;background:rgba(13,31,58,.97);color:#fff;border-bottom:1px solid var(--rule-dark)}
+  .bar{display:flex;align-items:center;gap:1.5rem;height:4.25rem}
+  .logo{font-family:var(--serif);font-size:1.7rem;font-weight:500;text-decoration:none;letter-spacing:-.01em}
+  .logo span{display:inline-block;width:.42em;height:.42em;border-radius:50%;background:var(--gold);margin-left:.12em;vertical-align:.08em}
+  nav{margin-left:auto;display:flex;gap:1.4rem;font-size:.95rem}
+  nav a{text-decoration:none;color:#C9D3E0}
+  nav a:hover{color:#fff}
+  .bar .btn{padding:.65rem 1rem;font-size:.92rem}
+  @media (max-width:52rem){nav{display:none}.bar .btn{margin-left:auto}}
+
+  .hero{background:var(--navy);color:#fff;padding:clamp(3rem,8vw,6rem) 0 clamp(3.5rem,7vw,5.5rem)}
+  .hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:3rem;align-items:center}
+  .hero h1{font-size:clamp(2.6rem,6.6vw,4.6rem);letter-spacing:-.02em;line-height:1.04;max-width:15ch}
+  .hero .lead{color:#C3CDDB;margin:1.5rem 0 2rem;font-size:1.2rem}
+  .hero-ctas{display:flex;flex-wrap:wrap;gap:.8rem}
+  .hero small{display:block;margin-top:1.4rem;color:#9AA8BB;font-size:.9rem}
+  @media (max-width:56rem){.hero-grid{grid-template-columns:1fr}}
+
+  .coins{display:grid;grid-template-columns:repeat(3,1fr);gap:1.8rem 1rem;max-width:26rem;margin-left:auto}
+  .coin{aspect-ratio:1;border-radius:50%;display:flex;align-items:center;justify-content:center;text-align:center;padding:.9rem;
+    background:radial-gradient(circle at 35% 30%,#1B3A63 0%,var(--navy-2) 60%,#0A1A31 100%);
+    border:2px solid var(--gold);box-shadow:inset 0 0 0 5px var(--navy),inset 0 0 0 6px rgba(200,168,78,.55);
+    font-family:var(--serif);font-size:clamp(.82rem,1.6vw,.98rem);line-height:1.2;color:#F2E7C4}
+  .coin:nth-child(even){transform:translateY(.9rem)}
+  .coins-caption{max-width:26rem;margin:2.2rem 0 0 auto;font-size:.9rem;color:#9AA8BB}
+  @media (max-width:56rem){.coins,.coins-caption{margin-left:0}}
+  @media (prefers-reduced-motion:no-preference){
+    .coin{animation:cunhar .6s cubic-bezier(.2,.7,.2,1) both}
+    .coin:nth-child(1){animation-delay:.15s}.coin:nth-child(2){animation-delay:.3s}.coin:nth-child(3){animation-delay:.45s}
+    .coin:nth-child(4){animation-delay:.6s}.coin:nth-child(5){animation-delay:.75s}.coin:nth-child(6){animation-delay:.9s}
+    @keyframes cunhar{from{opacity:0;scale:.6}to{opacity:1;scale:1}}
+  }
+
+  .benefits{background:var(--white);border-bottom:1px solid var(--rule);padding:0}
+  .benefits ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr)}
+  .benefits li{padding:1.8rem 1.4rem 1.9rem;border-left:1px solid var(--rule)}
+  .benefits li:first-child{border-left:0;padding-left:0}
+  .benefits strong{display:block;font-family:var(--serif);font-weight:500;font-size:1.3rem;margin-bottom:.35rem}
+  .benefits span{color:var(--soft);font-size:.95rem;line-height:1.5}
+  @media (max-width:56rem){.benefits ul{grid-template-columns:1fr 1fr}.benefits li{border-left:0;padding-left:0;border-top:1px solid var(--rule)}.benefits li:nth-child(-n+2){border-top:0}.benefits li:nth-child(even){padding-left:1.4rem;border-left:1px solid var(--rule)}}
+  @media (max-width:30rem){.benefits ul{grid-template-columns:1fr}.benefits li,.benefits li:nth-child(even){padding-left:0;border-left:0;border-top:1px solid var(--rule)}.benefits li:first-child{border-top:0}}
+
+  .pains{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem;margin-top:2.5rem}
+  .pain{background:var(--white);border:1px solid var(--rule);border-radius:4px;padding:1.6rem 1.5rem}
+  .pain h3{margin-bottom:.6rem}
+  .pain p{color:var(--soft);font-size:.98rem;margin:0}
+  .pain .fix{margin-top:1rem;padding-top:.9rem;border-top:1px solid var(--rule);color:var(--ink);font-weight:600;font-size:.95rem}
+  @media (max-width:46rem){.pains{grid-template-columns:1fr}}
+  .case{margin:2.5rem 0 0;padding:1.6rem 1.6rem 1.4rem;border-left:3px solid var(--gold);background:var(--white);max-width:48rem}
+  .case p{font-family:var(--serif);font-size:1.25rem;line-height:1.45;margin:0 0 .6rem}
+  .case cite{font-style:normal;color:var(--soft);font-size:.92rem}
+
+  .entry{display:grid;grid-template-columns:1.2fr 1fr;gap:2rem;align-items:center;background:var(--navy);color:#E8EDF4;border-radius:6px;padding:clamp(1.6rem,4vw,2.6rem);margin:2.5rem 0 3rem}
+  .entry h3{font-size:clamp(1.6rem,3.4vw,2.2rem);color:#fff;margin-bottom:.8rem}
+  .entry p{color:#C3CDDB}
+  .entry ul{margin:0;padding:0;list-style:none;border-top:1px solid var(--rule-dark)}
+  .entry li{padding:.7rem 0;border-bottom:1px solid var(--rule-dark);font-size:.97rem}
+  @media (max-width:52rem){.entry{grid-template-columns:1fr}}
+  .lines{display:grid;grid-template-columns:repeat(3,1fr);gap:2.4rem 2rem}
+  .line h3{font-size:1.2rem;padding-bottom:.6rem;border-bottom:2px solid var(--gold);margin-bottom:.4rem}
+  .line dl{margin:0}
+  .line dt{font-weight:600;margin-top:.8rem}
+  .line dd{margin:.1rem 0 0;color:var(--soft);font-size:.95rem;line-height:1.5}
+  @media (max-width:60rem){.lines{grid-template-columns:1fr 1fr}}
+  @media (max-width:40rem){.lines{grid-template-columns:1fr}}
+
+  .steps{list-style:none;margin:2.5rem 0 0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;counter-reset:passo}
+  .steps li{counter-increment:passo;border-top:1px solid var(--rule-dark);padding-top:1rem}
+  .steps li::before{content:counter(passo);display:block;font-family:var(--serif);font-size:2.6rem;line-height:1;color:var(--gold);margin-bottom:.8rem}
+  .steps strong{display:block;color:#fff;font-size:1.05rem;margin-bottom:.35rem}
+  .steps span{color:#B9C4D3;font-size:.95rem;line-height:1.5;display:block}
+  @media (max-width:56rem){.steps{grid-template-columns:1fr 1fr}}
+  @media (max-width:32rem){.steps{grid-template-columns:1fr}}
+  .moedas-title{margin-top:4rem;font-size:clamp(1.5rem,3vw,1.9rem)}
+  .moedas{display:grid;grid-template-columns:repeat(3,1fr);margin-top:1.2rem;border-top:1px solid var(--rule-dark)}
+  .moedas div{padding:1.2rem 1.2rem 1.3rem 0;border-bottom:1px solid var(--rule-dark)}
+  .moedas b{display:block;font-family:var(--serif);font-weight:500;font-size:1.2rem;color:#F2E7C4;margin-bottom:.25rem}
+  .moedas span{color:#B9C4D3;font-size:.94rem;line-height:1.5}
+  @media (max-width:52rem){.moedas{grid-template-columns:1fr 1fr}}
+  @media (max-width:32rem){.moedas{grid-template-columns:1fr}}
+
+  .report-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start}
+  @media (max-width:52rem){.report-grid{grid-template-columns:1fr}}
+  .artifact{background:var(--white);border:1px solid var(--rule);border-top:3px solid var(--gold);padding:1.5rem 1.4rem}
+  .artifact h3{font-family:var(--sans);font-size:.95rem;font-weight:700;color:var(--soft);margin:0 0 1rem}
+  .artifact dl{margin:0;font-size:.97rem}
+  .artifact dl div{display:flex;justify-content:space-between;gap:1rem;padding:.45rem 0;border-bottom:1px solid var(--rule)}
   .artifact dt{color:var(--soft)}
-  .artifact dd{margin:0;font-weight:600;text-align:right}
-  .artifact .zero{color:var(--gold)}
-  .artifact .note{font-size:.875rem;color:var(--soft);margin:.9rem 0 0;padding-top:.9rem;border-top:1px solid var(--rule);line-height:1.55}
-  .caption{font-size:.8125rem;color:var(--soft);margin:0 0 0}
-  .record{margin:0;border-top:2px solid var(--gold);border-bottom:1px solid var(--rule)}
-  .record div{display:flex;gap:1rem;padding:.62rem 0;border-bottom:1px solid var(--rule);font-size:.9375rem}
-  .record div:last-child{border-bottom:0}
-  .record dt{flex:0 0 8.5rem;color:var(--soft)}
-  .record dd{margin:0;flex:1 1 auto;word-break:break-word}
-  .cta{display:inline-block;margin:.4rem 0 0;padding:.8rem 1.4rem;background:var(--navy);color:#fff;text-decoration:none;font-weight:600;font-size:1rem;border-radius:2px}
-  .cta:hover{background:#13243d;color:#fff}
-  .cta:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
-  .cta-note{font-size:.875rem;color:var(--soft);margin:.6rem 0 0}
-  footer{margin-top:3.5rem;padding-top:1.2rem;border-top:1px solid var(--rule);font-size:.875rem;color:var(--soft)}
-  @media (max-width:26rem){.record dt{flex-basis:6.5rem}}
+  .artifact dd{margin:0;font-weight:700;font-variant-numeric:tabular-nums}
+  .artifact .zero{color:#9C7A1E}
+  .artifact .note{font-size:.9rem;color:var(--soft);margin:1rem 0 0;line-height:1.55}
+
+  .founder{background:var(--gold);color:var(--ink);padding:clamp(2.5rem,6vw,4rem) 0}
+  .founder .wrap{display:flex;flex-wrap:wrap;gap:1.5rem 3rem;align-items:center;justify-content:space-between}
+  .founder h2{font-size:clamp(1.6rem,3.6vw,2.3rem);max-width:24ch}
+  .founder p{margin:.6rem 0 0;max-width:52ch}
+
+  .about{display:grid;grid-template-columns:.8fr 1.2fr;gap:3rem;align-items:start}
+  @media (max-width:52rem){.about{grid-template-columns:1fr}}
+  .badge{background:var(--navy);color:#fff;border-radius:6px;padding:2rem 1.6rem}
+  .badge .name{font-family:var(--serif);font-size:1.9rem;line-height:1.1}
+  .badge .role{color:#C3CDDB;margin:.4rem 0 1.4rem}
+  .badge ul{list-style:none;margin:0;padding:0;border-top:1px solid var(--rule-dark)}
+  .badge li{padding:.6rem 0;border-bottom:1px solid var(--rule-dark);font-size:.94rem;color:#DCE3EC}
+  .about p{max-width:62ch}
+  .about .first{margin-top:1.2rem}
+  .about .creds{color:var(--soft);font-size:.97rem}
+
+  .faq{max-width:50rem;margin-top:2rem;border-top:1px solid var(--rule)}
+  details{border-bottom:1px solid var(--rule)}
+  summary{cursor:pointer;list-style:none;padding:1.15rem 2.5rem 1.15rem 0;position:relative;font-weight:600;font-size:1.05rem}
+  summary::-webkit-details-marker{display:none}
+  summary::after{content:"+";position:absolute;right:.3rem;top:.85rem;font-family:var(--serif);font-size:1.7rem;color:#9C7A1E;line-height:1;transition:transform .2s}
+  details[open] summary::after{transform:rotate(45deg)}
+  @media (prefers-reduced-motion:reduce){summary::after{transition:none}}
+  details p{color:var(--soft);margin:0 0 1.2rem;max-width:64ch}
+
+  .contact{display:grid;grid-template-columns:1.1fr .9fr;gap:3rem;align-items:center}
+  @media (max-width:52rem){.contact{grid-template-columns:1fr}}
+  .contact .lead{margin-bottom:1.6rem}
+  .contact dl{margin:0;border-top:1px solid var(--rule-dark)}
+  .contact dl div{display:flex;gap:1rem;padding:.7rem 0;border-bottom:1px solid var(--rule-dark);font-size:.97rem}
+  .contact dt{flex:0 0 6.5rem;color:#9AA8BB}
+  .contact dd{margin:0;word-break:break-word}
+  .contact dd a{color:#fff}
+
+  footer{background:#081427;color:#8F9DB1;font-size:.85rem;padding:2rem 0}
+  footer p{margin:0 0 .3rem}
+
 </style>
 </head>
 <body>
-<main class="page">
 
-  <h1 class="brand">Zethic</h1>
-  <hr class="brand-rule">
+<header>
+  <div class="wrap bar">
+    <a class="logo" href="#inicio" aria-label="Zethic, início">Zethic<span aria-hidden="true"></span></a>
+    <nav aria-label="Seções">
+      <a href="#servicos">Serviços</a>
+      <a href="#como-funciona">Como funciona</a>
+      <a href="#sobre">Quem responde</a>
+      <a href="#perguntas">Perguntas</a>
+      <a href="#contato">Contato</a>
+    </nav>
+    <a class="btn btn-gold" href="/fale?utm_source=site">Falar no WhatsApp</a>
+  </div>
+</header>
 
-  <p class="lede">Operação que ninguém mede é operação que ninguém governa.</p>
+<main id="inicio">
 
-  <p>A Zethic estrutura operações e as opera sob evidência. Cada ciclo termina com um fechamento que registra o que foi feito, o que foi medido e o que ainda não produziu resultado. O relatório não existe para agradar — existe para que a decisão seguinte seja tomada sobre fato, não sobre impressão.</p>
-
-  <p class="muted">Atendimento remoto a partir de Campinas, São Paulo.</p>
-
-  <p><a class="cta" href="/fale?utm_source=site">Falar no WhatsApp</a></p>
-  <p class="cta-note">A conversa começa pelo Diagnóstico 6 Moedas.</p>
-
-  <section>
-    <h2>O ciclo</h2>
-    <ul class="cycle">
-      <li><strong>Diagnóstico 6 Moedas</strong><span>Levantamento da operação como ela é hoje, com os riscos e as lacunas nomeados e traduzidos nas 6 Moedas de Negócio.</span></li>
-      <li><strong>Estruturação</strong><span>Definição de processo, cadência, responsáveis e o que passa a ser medido.</span></li>
-      <li><strong>Operação supervisionada</strong><span>Execução acompanhada, com registro do que foi entregue e do que foi observado.</span></li>
-      <li><strong>Fechamento com evidência</strong><span>Relatório de ciclo com números verificáveis e leitura executiva do que fazer a seguir.</span></li>
-    </ul>
-  </section>
-
-  <section>
-    <h2>Como é um fechamento</h2>
-    <p>Formato do relatório entregue ao fim de cada ciclo. <strong>Exemplo fictício para mostrar o formato. Não é resultado de cliente.</strong></p>
-
-    <div class="artifact">
-      <h3>Exemplo fictício — fechamento semanal</h3>
-      <dl>
-        <div><dt>Publicações no ciclo</dt><dd>3</dd></div>
-        <div><dt>Impressões</dt><dd>751</dd></div>
-        <div><dt>Cliques</dt><dd>31</dd></div>
-        <div><dt>CTR médio</dt><dd>4,13%</dd></div>
-        <div><dt>Visitantes únicos</dt><dd>28</dd></div>
-        <div><dt>Leads registrados</dt><dd class="zero">0</dd></div>
-        <div><dt>Receita atribuída</dt><dd class="zero">0</dd></div>
-      </dl>
-      <p class="note"><strong>Leitura.</strong> Há sinal de interesse no topo do funil, mas nenhuma conversão comprovada. Para atribuir origem, é necessário ativar UTMs e registrar a entrada dos contatos. Sem isso, qualquer número de conversão seria estimativa apresentada como fato.</p>
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <h1>Risco digital e IA em linguagem de dono.</h1>
+        <p class="lead">Golpe, sistema parado, vazamento de dados e uso de IA viram decisão de negócio: o que protege o caixa, a operação e os contratos da sua empresa.</p>
+        <div class="hero-ctas">
+          <a class="btn btn-gold" href="/fale?utm_source=site">Agendar o Diagnóstico 6 Moedas</a>
+          <a class="btn btn-line" href="#servicos">Ver os serviços</a>
+        </div>
+        <small>Atendimento remoto a partir de Campinas, SP.</small>
+      </div>
+      <div>
+        <ul class="coins" aria-label="As 6 Moedas de Negócio" style="list-style:none;padding:0">
+          <li class="coin">Continuidade operacional</li>
+          <li class="coin">Conformidade regulatória</li>
+          <li class="coin">Fraude e vazamento</li>
+          <li class="coin">Reputação</li>
+          <li class="coin">Habilitação de negócio</li>
+          <li class="coin">Auditoria e contratos</li>
+        </ul>
+        <p class="coins-caption">As 6 Moedas de Negócio: todo risco que a Zethic encontra é traduzido em pelo menos uma delas.</p>
+      </div>
     </div>
-    <p class="caption">O zero é reportado com o mesmo destaque de qualquer outro número. É essa a diferença.</p>
+  </section>
+
+  <section class="benefits" aria-label="O que muda na sua empresa">
+    <div class="wrap">
+      <ul>
+        <li><strong>Caixa protegido</strong><span>Regras simples que barram boleto falso e Pix pedido por mensagem.</span></li>
+        <li><strong>Operação que não para</strong><span>Backup testado e um plano claro de quem decide e quem chamar.</span></li>
+        <li><strong>Contratos maiores</strong><span>Respostas prontas para o questionário de segurança do cliente grande.</span></li>
+        <li><strong>IA com regras</strong><span>Equipe produtiva com IA, sem vazar dados da empresa.</span></li>
+      </ul>
+    </div>
   </section>
 
   <section>
-    <h2>As 6 Moedas de Negócio</h2>
-    <p>O que é medido só vira decisão quando é convertido em uma linguagem que o negócio aprova. Todo achado é traduzido em pelo menos uma destas seis dimensões.</p>
-    <ul class="coins">
-      <li>Continuidade operacional</li>
-      <li>Conformidade regulatória</li>
-      <li>Prevenção de fraude e de vazamento</li>
-      <li>Reputação</li>
-      <li>Habilitação de negócio</li>
-      <li>Auditoria e contratos</li>
-    </ul>
+    <div class="wrap">
+      <h2>Algum destes já aconteceu na sua empresa?</h2>
+      <p class="lead">Nenhum deles é problema técnico. São riscos sem dono, e risco é assunto do dono.</p>
+      <div class="pains">
+        <article class="pain">
+          <h3>Um pedido de pagamento com cara de oficial</h3>
+          <p>O e-mail que parece do fornecedor trocando a conta bancária. A mensagem com a foto do dono pedindo um Pix urgente. Ninguém invade nada: a própria equipe paga.</p>
+          <p class="fix">Regra combinada e escrita: troca de dados bancários só com confirmação por telefone.</p>
+        </article>
+        <article class="pain">
+          <h3>Tudo depende de uma pessoa só</h3>
+          <p>A senha do banco, a planilha certa, a nota complicada. Se essa pessoa sai de férias, a operação trava.</p>
+          <p class="fix">Processo crítico escrito em uma página e conhecido por pelo menos duas pessoas.</p>
+        </article>
+        <article class="pain">
+          <h3>O backup existe, mas ninguém testou</h3>
+          <p>Backup que nunca foi restaurado é esperança, não garantia. Muita empresa descobre isso no dia do ataque.</p>
+          <p class="fix">Teste de restauração feito na sua frente e plano de resposta em uma folha.</p>
+        </article>
+        <article class="pain">
+          <h3>O cliente grande mandou um questionário de segurança</h3>
+          <p>Quem tem acesso aos dados? O backup é testado? Como vocês tratam dados pessoais? Sem resposta organizada, o contrato trava.</p>
+          <p class="fix">Evidências organizadas para responder a clientes, auditorias e contratos.</p>
+        </article>
+      </div>
+      <blockquote class="case">
+        <p>Recebi um aviso falso de Certificado Digital, com cara de oficial, cobrando uma taxa. O banco bloqueou o pagamento. Se até quem trabalha com segurança é alvo, imagine uma equipe que nunca conversou sobre isso.</p>
+        <cite>Jéssica Gessoli, fundadora da Zethic</cite>
+      </blockquote>
+    </div>
+  </section>
+
+  <section id="servicos" class="white">
+    <div class="wrap">
+      <h2>O que a Zethic faz pela sua empresa</h2>
+      <p class="lead">Risco e governança de um lado, automação e processo do outro. Tudo começa pelo mesmo lugar.</p>
+
+      <div class="entry">
+        <div>
+          <h3>Diagnóstico 6 Moedas</h3>
+          <p>Os riscos de cyber, IA e operação da sua empresa traduzidos em decisão de negócio, com prioridades e um plano de ação.</p>
+          <a class="btn btn-gold" href="/fale?utm_source=site">Agendar o Diagnóstico</a>
+        </div>
+        <ul>
+          <li>Mapa de riscos nas 6 Moedas de Negócio</li>
+          <li>O que resolver primeiro e por quê</li>
+          <li>Plano de ação em linguagem de dono</li>
+          <li>Indicação do serviço certo para o passo seguinte</li>
+        </ul>
+      </div>
+
+      <div class="lines">
+        <div class="line">
+          <h3>Risco e segurança digital</h3>
+          <dl>
+            <dt>Programa Antigolpe</dt><dd>Equipe que reconhece golpes e regras que impedem pagamento indevido.</dd>
+            <dt>Blindagem de contas e perfis</dt><dd>Contas do negócio e dos donos protegidas e recuperáveis.</dd>
+            <dt>Governança de segurança</dt><dd>Papéis, controles e evidências para responder a clientes e auditorias.</dd>
+            <dt>Segurança gerenciada</dt><dd>Ameaças monitoradas e backup garantido no dia a dia.</dd>
+          </dl>
+        </div>
+        <div class="line">
+          <h3>Dados, privacidade e IA</h3>
+          <dl>
+            <dt>Privacidade e LGPD</dt><dd>Dados pessoais tratados com responsabilidade e documentação.</dd>
+            <dt>Governança de IA</dt><dd>IA usada com regras, controles e retorno medido.</dd>
+            <dt>Capacitação em IA</dt><dd>Pessoas usando IA com produtividade e sem vazar dados.</dd>
+          </dl>
+        </div>
+        <div class="line">
+          <h3>Continuidade e resposta</h3>
+          <dl>
+            <dt>Continuidade e resposta a incidentes</dt><dd>Operação que volta rápido e decisões coordenadas na crise.</dd>
+            <dt>Consultoria especializada</dt><dd>Uma questão específica resolvida com análise e recomendação.</dd>
+          </dl>
+        </div>
+        <div class="line">
+          <h3>Operação e processos</h3>
+          <dl>
+            <dt>Processos e rotina operacional</dt><dd>Operação que não depende de uma pessoa só, com menos erro e retrabalho.</dd>
+            <dt>Automação e agentes de IA</dt><dd>Trabalho repetitivo automatizado, com controle de acesso desde o início.</dd>
+            <dt>Governança de projetos e serviços</dt><dd>Escopo, responsáveis e indicadores claros.</dd>
+            <dt>Finanças e recuperação de valores</dt><dd>Dinheiro recuperado e financeiro sob controle.</dd>
+          </dl>
+        </div>
+        <div class="line">
+          <h3>Tecnologia e infraestrutura</h3>
+          <dl>
+            <dt>Infraestrutura, redes e conectividade</dt><dd>Infraestrutura que aguenta a operação, testada antes de entrar em uso.</dd>
+            <dt>Nuvem e identidade digital</dt><dd>Nuvem e contas da empresa organizadas, com custo e acesso sob controle.</dd>
+          </dl>
+        </div>
+        <div class="line">
+          <h3>Presença digital e vendas</h3>
+          <dl>
+            <dt>Presença digital</dt><dd>Canais digitais organizados e conectados.</dd>
+            <dt>Geração de demanda</dt><dd>Contatos qualificados chegando com rotina e medição.</dd>
+            <dt>WhatsApp e CRM comercial</dt><dd>Atendimento e vendas no WhatsApp com regras, dono definido e histórico.</dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="como-funciona" class="dark">
+    <div class="wrap">
+      <h2>Como funciona</h2>
+      <p class="lead">Cada ciclo termina com um fechamento que registra o que foi feito, o que foi medido e o que ainda não deu resultado. A decisão seguinte é tomada sobre fato, não sobre impressão.</p>
+      <ol class="steps">
+        <li><strong>Diagnóstico 6 Moedas</strong><span>A operação como ela é hoje, com riscos e lacunas nomeados.</span></li>
+        <li><strong>Estruturação</strong><span>Processo, cadência, responsáveis e o que passa a ser medido.</span></li>
+        <li><strong>Operação supervisionada</strong><span>Execução acompanhada, com registro do que foi entregue.</span></li>
+        <li><strong>Fechamento com evidência</strong><span>Relatório com números verificáveis e o que fazer a seguir.</span></li>
+      </ol>
+      <h3 class="moedas-title">As 6 Moedas de Negócio</h3>
+      <div class="moedas">
+        <div><b>Continuidade operacional</b><span>Quanto tempo a empresa fica parada, sem vender nem faturar.</span></div>
+        <div><b>Conformidade regulatória</b><span>O que a lei e o setor exigem, como a LGPD.</span></div>
+        <div><b>Prevenção de fraude e de vazamento</b><span>Golpes, pagamentos indevidos e dados que saem sem controle.</span></div>
+        <div><b>Reputação</b><span>A confiança que leva anos para construir e um dia para perder.</span></div>
+        <div><b>Habilitação de negócio</b><span>O que destrava vendas, parcerias e clientes maiores.</span></div>
+        <div><b>Auditoria e contratos</b><span>Evidência para responder a auditorias e exigências contratuais.</span></div>
+      </div>
+    </div>
   </section>
 
   <section>
-    <h2>Quem responde</h2>
-    <p>Jéssica Gessoli, fundadora e diretora executiva da Zethic. Desde 2008 em segurança da informação e governança de TI em setores regulados — bancário, seguros, saúde, telecomunicações e infraestrutura crítica. Certificações ISO/IEC 27001 (ISFS), CCEP, ITIL 4 Foundation e Lean Six Sigma Green Belt. Bacharel em Sistemas de Informação e MBA em Gestão de Projetos de TI.</p>
-    <p>A disciplina de evidência não é um método de marketing. Vem de auditoria, de gestão de risco e de uma carreira, desde 2008, em ambientes onde afirmar sem provar tem consequência.</p>
-    <p><a href="https://www.linkedin.com/in/jessicagessoli">Perfil profissional no LinkedIn</a></p>
+    <div class="wrap report-grid">
+      <div>
+        <h2>Como é um fechamento</h2>
+        <p class="lead">O zero é reportado com o mesmo destaque de qualquer outro número. É essa a diferença.</p>
+        <p>Ao fim de cada ciclo, você recebe um relatório neste formato. <strong>Exemplo fictício para mostrar o formato. Não é resultado de cliente.</strong></p>
+      </div>
+      <div class="artifact">
+        <h3>Exemplo fictício: fechamento semanal</h3>
+        <dl>
+          <div><dt>Publicações no ciclo</dt><dd>3</dd></div>
+          <div><dt>Impressões</dt><dd>751</dd></div>
+          <div><dt>Cliques</dt><dd>31</dd></div>
+          <div><dt>CTR médio</dt><dd>4,13%</dd></div>
+          <div><dt>Visitantes únicos</dt><dd>28</dd></div>
+          <div><dt>Leads registrados</dt><dd class="zero">0</dd></div>
+          <div><dt>Receita atribuída</dt><dd class="zero">0</dd></div>
+        </dl>
+        <p class="note"><strong>Leitura.</strong> Há sinal de interesse, mas nenhuma conversão comprovada. Para atribuir origem, é preciso ativar UTMs e registrar a entrada dos contatos. Sem isso, qualquer número de conversão seria estimativa apresentada como fato.</p>
+      </div>
+    </div>
   </section>
 
-  <section>
-    <h2>Identificação e contato</h2>
-    <dl class="record">
-      <div><dt>Razão social</dt><dd>Jessica Caroline da Silva Secco Gessoli</dd></div>
-      <div><dt>Nome fantasia</dt><dd>Zethic</dd></div>
-      <div><dt>CNPJ</dt><dd>67.678.226/0001-17</dd></div>
-      <div><dt>Natureza</dt><dd>Microempreendedor Individual (MEI)</dd></div>
-      <div><dt>Localização</dt><dd>Campinas, São Paulo, Brasil</dd></div>
-      <div><dt>E-mail</dt><dd><a href="mailto:jessica.gessoli@zethic.net">jessica.gessoli@zethic.net</a></dd></div>
-      <div><dt>WhatsApp</dt><dd><a href="/fale?utm_source=site">+55 19 98180-0221</a></dd></div>
-      <div><dt>LinkedIn</dt><dd><a href="https://www.linkedin.com/company/144656905/">Página da Zethic</a></dd></div>
-      <div><dt>Instagram</dt><dd><a href="https://www.instagram.com/jessicagessoli/">@jessicagessoli</a></dd></div>
-    </dl>
+  <div class="founder">
+    <div class="wrap">
+      <div>
+        <h2>Preço de fundador para os 3 primeiros clientes de cada serviço.</h2>
+        <p>Depois deles, vale a tabela regular. A primeira conversa é pelo WhatsApp.</p>
+      </div>
+      <a class="btn btn-navy" href="/fale?utm_source=site">Falar no WhatsApp</a>
+    </div>
+  </div>
+
+  <section id="sobre" class="white">
+    <div class="wrap about">
+      <div class="badge">
+        <div class="name">Jéssica Gessoli</div>
+        <div class="role">Fundadora e diretora executiva da Zethic</div>
+        <ul>
+          <li>Desde 2008 em risco e segurança</li>
+          <li>Bancos, seguros, saúde, telecom e infraestrutura crítica</li>
+          <li>Autora do método 6 Moedas de Negócio</li>
+        </ul>
+      </div>
+      <div>
+        <h2>Quem responde</h2>
+        <p class="first">Trabalho com risco e segurança desde 2008, em operações como Porto Seguro, Santander e CPqD. Em empresa grande, tecnologia não é conserto de emergência. É gestão de risco: tem contrato, responsável, prazo e teste.</p>
+        <p>A Zethic existe para levar o essencial dessa lógica para a pequena e média empresa, sem burocracia e sem exigir que o dono vire especialista.</p>
+        <p class="creds">Certificações ISO/IEC 27001 (ISFS), CCEP, ITIL 4 Foundation e Lean Six Sigma Green Belt. Bacharel em Sistemas de Informação e MBA em Gestão de Projetos de TI.</p>
+        <p><a href="https://www.linkedin.com/in/jessicagessoli">Perfil no LinkedIn</a></p>
+      </div>
+    </div>
   </section>
 
-  <footer>
-    <p>© 2026 Zethic — Jessica Caroline da Silva Secco Gessoli · CNPJ 67.678.226/0001-17 · Campinas, São Paulo, Brasil.</p>
-  </footer>
+  <section id="perguntas">
+    <div class="wrap">
+      <h2>Perguntas frequentes</h2>
+      <div class="faq">
+        <details>
+          <summary>Preciso entender de tecnologia para contratar?</summary>
+          <p>Não. As perguntas que importam são de dono: quem tem acesso, se o backup volta, quanto tempo a empresa aguenta parada. A Zethic traduz o técnico para essa linguagem.</p>
+        </details>
+        <details>
+          <summary>A Zethic substitui o meu fornecedor de TI?</summary>
+          <p>Não necessariamente. Muitas vezes o trabalho é organizar a relação com o fornecedor: deixar claro o que é responsabilidade de cada um, com prazos e evidências por escrito.</p>
+        </details>
+        <details>
+          <summary>Por onde começa?</summary>
+          <p>Pelo Diagnóstico 6 Moedas. A primeira conversa é pelo WhatsApp, para entender o momento da sua empresa. Depois vem a proposta por escrito.</p>
+        </details>
+        <details>
+          <summary>Quanto custa?</summary>
+          <p>Depende do escopo, por isso o valor vem na proposta, depois da primeira conversa. Os 3 primeiros clientes de cada serviço têm preço de fundador.</p>
+        </details>
+        <details>
+          <summary>Para que tipo de empresa é?</summary>
+          <p>Para donos de pequenas e médias empresas e para diretorias que precisam decidir sobre risco digital e IA, inclusive empresas que fornecem para clientes grandes.</p>
+        </details>
+        <details>
+          <summary>Atende fora de Campinas?</summary>
+          <p>Sim. O atendimento é remoto, a partir de Campinas, SP.</p>
+        </details>
+        <details>
+          <summary>A Zethic faz a parte jurídica da LGPD?</summary>
+          <p>Não. A Zethic organiza processos, controles e evidências. A redação jurídica de contratos e políticas deve ser validada com o seu advogado.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <section id="contato" class="dark">
+    <div class="wrap contact">
+      <div>
+        <h2>Vamos descobrir onde a sua empresa está exposta?</h2>
+        <p class="lead">Conte o momento da sua empresa pelo WhatsApp. Quem responde é a Jéssica.</p>
+        <a class="btn btn-gold" href="/fale?utm_source=site">Falar no WhatsApp</a>
+      </div>
+      <dl>
+        <div><dt>WhatsApp</dt><dd><a href="/fale?utm_source=site">+55 19 98180-0221</a></dd></div>
+        <div><dt>E-mail</dt><dd><a href="mailto:jessica.gessoli@zethic.net">jessica.gessoli@zethic.net</a></dd></div>
+        <div><dt>LinkedIn</dt><dd><a href="https://www.linkedin.com/company/144656905/">Página da Zethic</a></dd></div>
+        <div><dt>Instagram</dt><dd><a href="https://www.instagram.com/jessicagessoli/">@jessicagessoli</a></dd></div>
+      </dl>
+    </div>
+  </section>
 
 </main>
+
+<footer>
+  <div class="wrap">
+    <p>© 2026 Zethic. Razão social: Jessica Caroline da Silva Secco Gessoli, Microempreendedor Individual (MEI).</p>
+    <p>CNPJ 67.678.226/0001-17. Campinas, São Paulo, Brasil.</p>
+  </div>
+</footer>
 
 <script type="application/ld+json">
 {
@@ -156,7 +485,7 @@
   "legalName": "Jessica Caroline da Silva Secco Gessoli",
   "alternateName": "Zethic — Jéssica Gessoli",
   "url": "https://zethic.net/",
-  "description": "Consultoria que estrutura e opera processos sob disciplina de evidência, com fechamento de ciclo verificável.",
+  "description": "Risco digital e IA em linguagem de dono para pequenas e médias empresas. Porta de entrada: Diagnóstico 6 Moedas.",
   "taxID": "67.678.226/0001-17",
   "vatID": "67678226000117",
   "email": "jessica.gessoli@zethic.net",
