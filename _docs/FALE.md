@@ -77,7 +77,7 @@ Para outro destino (CRM, omnichannel, página de triagem, agenda), troque a URL 
 2. Divulgue `https://zethic.net/fale?utm_source=youtube`.
 3. Recalcule o hash da CSP e rode os testes.
 
-Origens disponíveis hoje: `google`, `instagram`, `linkedin`, `patrimonio-digital`, `governanca-ia`, `grc`, `indicacao`, `diagnostico` (botão do resultado da autoavaliação em `/diagnostico`). Qualquer outro valor, inclusive ausente, usa a mensagem padrão. A comparação ignora maiúsculas e minúsculas.
+Origens disponíveis hoje: `google`, `instagram`, `linkedin`, `patrimonio-digital`, `governanca-ia`, `grc`, `indicacao`, `diagnostico` (botão do resultado da autoavaliação em `/diagnostico`), `proteger`, `organizar`, `crescer` e `aconselhar` (botões das páginas de cada frente). Qualquer outro valor, inclusive ausente, usa a mensagem padrão. A comparação ignora maiúsculas e minúsculas.
 
 ### Recalcular o hash da CSP
 
