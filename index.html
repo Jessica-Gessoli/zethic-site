@@ -188,6 +188,17 @@
   .contact dt{flex:0 0 6.5rem;color:var(--muted)}
   .contact dd{margin:0;word-break:break-word}
 
+  .calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start}
+  @media (max-width:52rem){.calc-grid{grid-template-columns:1fr}}
+  .calc-note{color:var(--muted);font-size:.92rem;max-width:52ch}
+  .calc{background:var(--panel);border:1px solid var(--rule);border-top:3px solid var(--cyan);padding:1.5rem 1.4rem;display:grid;gap:1rem}
+  .calc label{display:grid;gap:.35rem;font-size:.95rem;color:var(--soft)}
+  .calc input{font:inherit;color:var(--text);background:var(--bg);border:1px solid var(--rule);border-radius:4px;padding:.7rem .8rem;width:100%}
+  .calc input:focus-visible{outline:2px solid var(--cyan);outline-offset:1px}
+  .calc output{display:block;font-family:var(--serif);font-size:1.25rem;line-height:1.4;padding:1rem 0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+  .calc output b{color:var(--red);font-weight:500;font-size:1.6rem}
+  .calc .btn{text-align:center}
+
   footer{background:#01020F;color:var(--muted);font-size:.85rem;padding:2rem 0;border-top:1px solid var(--rule)}
   footer p{margin:0 0 .3rem}
 </style>
@@ -279,6 +290,24 @@
     </div>
   </section>
 
+  <section id="calculadora" class="grid-bg">
+    <div class="wrap calc-grid">
+      <div>
+        <h2>Quanto custa um dia com a empresa parada?</h2>
+        <p class="lead">Faça a conta em 30 segundos. Nada do que você digita sai do seu navegador.</p>
+        <p class="calc-note">Estimativa simples: faturamento perdido nos dias parados mais o gasto para voltar a operar. Não inclui multas, perda de clientes nem dano à reputação, que costumam pesar mais.</p>
+      </div>
+      <form class="calc" id="calc" novalidate>
+        <label>Faturamento médio por mês (R$)<input id="c-fat" type="number" inputmode="decimal" min="0" step="100" placeholder="Ex.: 80000"></label>
+        <label>Dias de trabalho por mês<input id="c-dias" type="number" inputmode="numeric" min="1" max="31" step="1" value="22"></label>
+        <label>Dias que a empresa ficaria parada<input id="c-parado" type="number" inputmode="numeric" min="0" step="1" value="3"></label>
+        <label>Gasto para voltar a operar (R$)<input id="c-rec" type="number" inputmode="decimal" min="0" step="100" placeholder="Técnico, horas extras, equipamento" value="0"></label>
+        <output id="c-out" for="c-fat c-dias c-parado c-rec" aria-live="polite">Preencha o faturamento para ver a estimativa.</output>
+        <a class="btn btn-main" href="/fale?utm_source=site">Quero reduzir esse risco</a>
+      </form>
+    </div>
+  </section>
+
   <section id="servicos" class="alt">
     <div class="wrap">
       <h2>O que a Zethic faz pela sua empresa</h2>
@@ -320,6 +349,7 @@
           <h3>Continuidade e resposta</h3>
           <dl>
             <dt>Continuidade e resposta a incidentes</dt><dd>Operação que volta rápido e decisões coordenadas na crise.</dd>
+            <dt>Conselheira de risco</dt><dd>Apoio mensal à diretoria para decidir sobre risco digital e IA, traduzido nas 6 Moedas.</dd>
             <dt>Consultoria especializada</dt><dd>Uma questão específica resolvida com análise e recomendação.</dd>
           </dl>
         </div>
@@ -486,6 +516,7 @@
   <div class="wrap">
     <p>© 2026 Zethic. Razão social: Jessica Caroline da Silva Secco Gessoli, Microempreendedor Individual (MEI).</p>
     <p>CNPJ 67.678.226/0001-17. Campinas, São Paulo, Brasil.</p>
+    <p><a href="/privacidade">Privacidade e termos de uso</a> · Este site não usa cookies.</p>
   </div>
 </footer>
 
@@ -523,6 +554,28 @@
     "https://www.instagram.com/jessicagessoli/"
   ]
 }
+</script>
+<script>
+(function () {
+  // Calculadora de custo de parada: roda só no navegador, não envia nada.
+  var f = document.getElementById("calc");
+  if (!f) return;
+  var brl = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL", maximumFractionDigits: 0 });
+  function num(id) { var v = parseFloat(document.getElementById(id).value); return isFinite(v) && v >= 0 ? v : NaN; }
+  function calc() {
+    var fat = num("c-fat"), dias = num("c-dias"), parado = num("c-parado"), rec = num("c-rec");
+    var out = document.getElementById("c-out");
+    if (!(fat > 0) || !(dias >= 1) || isNaN(parado)) { out.textContent = "Preencha o faturamento para ver a estimativa."; return; }
+    if (isNaN(rec)) rec = 0;
+    var porDia = fat / dias, total = porDia * parado + rec;
+    out.innerHTML = "";
+    out.appendChild(document.createTextNode("Cada dia parado: " + brl.format(porDia) + " sem faturar. Em " + parado + (parado === 1 ? " dia" : " dias") + ", a conta chega a "));
+    var b = document.createElement("b"); b.textContent = brl.format(total); out.appendChild(b);
+    out.appendChild(document.createTextNode("."));
+  }
+  f.addEventListener("input", calc);
+  f.addEventListener("submit", function (e) { e.preventDefault(); calc(); });
+})();
 </script>
 </body>
 </html>
