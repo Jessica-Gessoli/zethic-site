@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self'; font-src 'self'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' https://www.googletagmanager.com; img-src 'self' https://*.google-analytics.com https://*.googletagmanager.com; font-src 'self'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'; connect-src https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com">
 <title>Privacidade e termos de uso | Zethic</title>
 <meta name="description" content="Como a Zethic trata os dados de quem visita o site e entra em contato, e as condições de uso do zethic.net.">
 <link rel="canonical" href="https://zethic.net/privacidade">
@@ -77,10 +77,10 @@
 
 <main class="wrap" id="conteudo">
   <h1>Privacidade e termos de uso</h1>
-  <p class="meta">Versão 1.2, atualizada em 10/10/2026.</p>
+  <p class="meta">Versão 1.3, atualizada em 10/10/2026.</p>
 
   <div class="box">
-    <p><strong>Resumo.</strong> Este site não tem formulário, não usa cookies e não tem ferramenta de análise de audiência. Seus dados só chegam à Zethic se você entrar em contato pelo WhatsApp ou por e-mail, e são usados apenas para responder e, se for o caso, preparar uma proposta.</p>
+    <p><strong>Resumo.</strong> Este site não tem formulário. A medição de visitas (Google Analytics) só funciona se você aceitar; se recusar, nenhum cookie é gravado. Seus dados só chegam à Zethic se você entrar em contato pelo WhatsApp ou por e-mail, e são usados apenas para responder e, se for o caso, preparar uma proposta.</p>
   </div>
 
   <h2>1. Quem é responsável pelos seus dados</h2>
@@ -93,7 +93,8 @@
     <thead><tr><th scope="col">Situação</th><th scope="col">Dados</th><th scope="col">Finalidade</th><th scope="col">Base legal (LGPD)</th></tr></thead>
     <tbody>
       <tr><td>Você navega no site</td><td>Nenhum dado é coletado pela Zethic. A hospedagem (GitHub Pages) recebe dados técnicos da conexão, como o endereço IP, para entregar a página. As fontes são servidas pelo próprio site, sem chamar serviços de terceiros.</td><td>Exibir o site</td><td>Legítimo interesse (art. 7º, IX)</td></tr>
-      <tr><td>Você faz a autoavaliação 6 Moedas</td><td>Nenhum. As respostas são calculadas no seu navegador e não são enviadas nem guardadas.</td><td>Mostrar o resultado na tela</td><td>Não há tratamento pela Zethic</td></tr>
+      <tr><td>Você aceita a medição de visitas</td><td>Páginas vistas, cliques (inclusive para o WhatsApp), uso da calculadora e nota da autoavaliação, origem da visita, tipo de aparelho e navegador, cidade aproximada e um identificador aleatório gravado em cookie. O Google Analytics não guarda o endereço IP completo.</td><td>Entender como o site é usado e melhorá-lo</td><td>Consentimento (art. 7º, I), que você pode retirar a qualquer momento</td></tr>
+      <tr><td>Você faz a autoavaliação 6 Moedas</td><td>As respostas são calculadas no seu navegador e não são enviadas nem guardadas. Se você aceitou a medição, só a nota final e a moeda mais exposta são registradas, sem as respostas.</td><td>Mostrar o resultado na tela</td><td>Não há tratamento pela Zethic</td></tr>
       <tr><td>Você chama no WhatsApp</td><td>Nome e número do WhatsApp, e o que você escrever na conversa</td><td>Responder, entender a necessidade da sua empresa e enviar proposta</td><td>Procedimentos preliminares a contrato, a seu pedido (art. 7º, V)</td></tr>
       <tr><td>Você envia e-mail</td><td>Nome, e-mail e o que você escrever</td><td>As mesmas do WhatsApp</td><td>Procedimentos preliminares a contrato, a seu pedido (art. 7º, V)</td></tr>
     </tbody>
@@ -102,7 +103,7 @@
   <p>A Zethic não vende, não aluga e não usa seus dados para publicidade. Não peça nem envie senhas, dados bancários ou documentos pessoais pela conversa inicial.</p>
 
   <h2>3. Com quem os dados são compartilhados</h2>
-  <p>Os dados passam pelos serviços usados para o contato e a hospedagem: WhatsApp (Meta), o provedor de e-mail da Zethic e GitHub Pages (GitHub). Alguns desses serviços podem processar dados fora do Brasil, com as garantias previstas pela LGPD. Os dados também podem ser compartilhados quando a lei ou uma autoridade exigir.</p>
+  <p>Os dados passam pelos serviços usados para o contato e a hospedagem: WhatsApp (Meta), o provedor de e-mail da Zethic, GitHub Pages (GitHub) e, se você aceitar a medição, Google Analytics (Google). Alguns desses serviços podem processar dados fora do Brasil, com as garantias previstas pela LGPD. Os dados também podem ser compartilhados quando a lei ou uma autoridade exigir.</p>
 
   <h2>4. Por quanto tempo</h2>
   <p>As conversas e e-mails ficam guardados pelo tempo necessário para o atendimento e a proposta. Se virar contrato, os dados seguem os prazos do contrato e das obrigações legais e fiscais. Se não virar, você pode pedir a exclusão a qualquer momento.</p>
@@ -113,8 +114,14 @@
   <h2>6. Segurança</h2>
   <p>O site é estático, servido por HTTPS, sem banco de dados e sem área de login. O acesso às contas de atendimento da Zethic é restrito à responsável.</p>
 
-  <h2>7. Cookies</h2>
-  <p>O zethic.net não grava cookies e não usa ferramentas de rastreamento. Se isso mudar, esta página será atualizada antes, e você poderá escolher se aceita.</p>
+  <h2 id="cookies">7. Cookies</h2>
+  <p>Na primeira visita, o site pergunta se você aceita a medição de visitas. Nada é carregado antes da sua resposta.</p>
+  <ul>
+    <li><strong>Se você aceitar:</strong> o Google Analytics grava os cookies <code>_ga</code> e <code>_ga_HKERDF3283</code>, que guardam um identificador aleatório da sua visita por até 2 anos. Os recursos de publicidade e de sinais do Google ficam desligados.</li>
+    <li><strong>Se você recusar:</strong> nenhum cookie é gravado e a visita não é medida.</li>
+    <li><strong>Para mudar de ideia:</strong> use o link "Preferências de cookies" no rodapé de qualquer página.</li>
+  </ul>
+  <p>Sua escolha fica guardada no próprio navegador, para o aviso não aparecer de novo.</p>
 
   <h2>8. Termos de uso do site</h2>
   <p>O conteúdo deste site é informativo e não substitui uma análise da sua empresa. Exemplos marcados como fictícios não são resultados de clientes. Textos, método 6 Moedas de Negócio e marca Zethic pertencem à Zethic; a reprodução precisa de autorização. A Zethic não responde por sites de terceiros acessados a partir de links daqui.</p>
@@ -132,5 +139,6 @@
     <p>CNPJ 67.678.226/0001-17. Campinas, São Paulo, Brasil.</p>
   </div>
 </footer>
+<script src="/assets/js/medicao.js" defer></script>
 </body>
 </html>

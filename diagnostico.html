@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-Bn+Zr2SU1w+C1ifYru79W5e0QvO/lO1Kp64cqi3Q7Ik='; img-src 'self'; font-src 'self'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-qt4p1fH2pwl/fdsJgXSCbm00CcT4pifYK3MO6oDJYUs=' https://www.googletagmanager.com; img-src 'self' https://*.google-analytics.com https://*.googletagmanager.com; font-src 'self'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'; connect-src https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com">
 <title>Diagnóstico 6 Moedas | Zethic</title>
 <meta name="description" content="Descubra onde golpe, sistema parado, vazamento de dados e uso de IA podem custar caro para a sua empresa. Faça a autoavaliação grátis e agende o Diagnóstico 6 Moedas.">
 <link rel="canonical" href="https://zethic.net/diagnostico">
@@ -210,7 +210,7 @@
     <div class="logo" role="img" aria-label="Zethic"><span aria-hidden="true">Z</span><svg class="logo-e" viewBox="0 0 72 52.5" aria-hidden="true" focusable="false"><rect width="72" height="7" rx="1"/><rect y="22.75" width="72" height="7" rx="1"/><rect y="45.5" width="72" height="7" rx="1"/></svg><span aria-hidden="true">THIC</span></div>
     <p>© 2026 Zethic. Razão social: Jessica Caroline da Silva Secco Gessoli, Microempreendedor Individual (MEI).</p>
     <p>CNPJ 67.678.226/0001-17. Campinas, São Paulo, Brasil.</p>
-    <p><a href="/privacidade">Privacidade e termos de uso</a>. Este site não usa cookies.</p>
+    <p><a href="/privacidade">Privacidade e termos de uso</a>. Cookies só com a sua permissão.<a href="#" data-preferencias-cookies hidden> · Preferências de cookies</a></p>
   </div>
 </footer>
 
@@ -314,6 +314,7 @@
     out.appendChild(cta);
     out.appendChild(el("p", { "class": "note" }, "Autoavaliação indicativa, baseada só nas suas respostas. Não substitui o Diagnóstico 6 Moedas, que olha a operação real da empresa."));
     out.hidden = false;
+    if (window.zethicEvento) window.zethicEvento("autoavaliacao_concluida", { nota: total, moeda_mais_exposta: pior.nome });
     out.focus();
   });
 
@@ -326,5 +327,6 @@
   }
 })();
 </script>
+<script src="/assets/js/medicao.js" defer></script>
 </body>
 </html>
