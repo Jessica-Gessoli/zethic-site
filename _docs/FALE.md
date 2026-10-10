@@ -49,7 +49,7 @@ Arquivo único: `fale.html`.
    - `<a id="destino" href="...">`.
 3. A CSP (`<meta http-equiv="Content-Security-Policy">`) autoriza o script inline por hash SHA-256. **Qualquer alteração no script exige recalcular o hash.**
 
-O número também aparece no `index.html` (link `tel:` e JSON-LD). Uma troca de número deve atualizar os dois arquivos.
+O número também aparece no `index.html` (texto do link de contato e JSON-LD). Uma troca de número deve atualizar os dois arquivos.
 
 ## Como alterar
 

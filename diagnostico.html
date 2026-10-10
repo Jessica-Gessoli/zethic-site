@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-Bn+Zr2SU1w+C1ifYru79W5e0QvO/lO1Kp64cqi3Q7Ik='; img-src 'self'; font-src 'self'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'">
 <title>Diagnóstico 6 Moedas | Zethic</title>
 <meta name="description" content="Descubra onde golpe, sistema parado, vazamento de dados e uso de IA podem custar caro para a sua empresa. Faça a autoavaliação grátis e agende o Diagnóstico 6 Moedas.">
 <link rel="canonical" href="https://zethic.net/diagnostico">
@@ -15,17 +16,34 @@
 <meta property="og:locale" content="pt_BR">
 <meta property="og:image" content="https://zethic.net/assets/img/og-zethic.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&family=Public+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="preload" href="/assets/fonts/public-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/public-sans-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/public-sans-latin-500-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/assets/img/zethic-marca.svg" type="image/svg+xml">
+<link rel="icon" href="/assets/img/zethic-marca-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="/assets/img/zethic-marca-180.png">
+<meta name="theme-color" content="#02041A">
+<meta name="color-scheme" content="dark">
 <style>
+  /* Identidade visual Zethic: paleta #02041A, #00E5FF, #FFFFFF, #A7B2D1; Public Sans hospedada no site (OFL).
+     Verde, âmbar e vermelho aparecem só como cores de situação no resultado da autoavaliação. */
+  @font-face{font-family:"Public Sans";font-style:normal;font-weight:300;font-display:swap;src:url(/assets/fonts/public-sans-latin-300-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+  @font-face{font-family:"Public Sans";font-style:normal;font-weight:300;font-display:swap;src:url(/assets/fonts/public-sans-latin-ext-300-normal.woff2) format("woff2");unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+  @font-face{font-family:"Public Sans";font-style:normal;font-weight:400;font-display:swap;src:url(/assets/fonts/public-sans-latin-400-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+  @font-face{font-family:"Public Sans";font-style:normal;font-weight:400;font-display:swap;src:url(/assets/fonts/public-sans-latin-ext-400-normal.woff2) format("woff2");unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+  @font-face{font-family:"Public Sans";font-style:normal;font-weight:500;font-display:swap;src:url(/assets/fonts/public-sans-latin-500-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+  @font-face{font-family:"Public Sans";font-style:normal;font-weight:500;font-display:swap;src:url(/assets/fonts/public-sans-latin-ext-500-normal.woff2) format("woff2");unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+  @font-face{font-family:"Public Sans";font-style:normal;font-weight:600;font-display:swap;src:url(/assets/fonts/public-sans-latin-600-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+  @font-face{font-family:"Public Sans";font-style:normal;font-weight:600;font-display:swap;src:url(/assets/fonts/public-sans-latin-ext-600-normal.woff2) format("woff2");unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+  @font-face{font-family:"Public Sans";font-style:normal;font-weight:700;font-display:swap;src:url(/assets/fonts/public-sans-latin-700-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+  @font-face{font-family:"Public Sans";font-style:normal;font-weight:700;font-display:swap;src:url(/assets/fonts/public-sans-latin-ext-700-normal.woff2) format("woff2");unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
   :root{
-    --bg:#02041A; --bg-2:#050925; --panel:#0A1033; --panel-2:#0E1640;
-    --text:#FFFFFF; --soft:#A7B2D1; --muted:#7F8AAD;
-    --cyan:#00E5FF; --blue:#1F63FF; --violet:#8F3DF0; --green:#3CEFA8; --amber:#FFC24B; --red:#FF4553;
-    --grad:linear-gradient(90deg,#00E5FF 0%,#00A8FF 50%,#1F63FF 100%);
-    --rule:rgba(140,170,255,.16);
-    --serif:"Newsreader",Georgia,serif; --sans:"Public Sans",system-ui,sans-serif;
+    --navy:#02041A; --cyan:#00E5FF; --white:#FFFFFF; --ice:#A7B2D1;
+    --surface:rgba(167,178,209,.06); --line:rgba(167,178,209,.2); --line-strong:rgba(167,178,209,.55);
+    --font:"Public Sans",system-ui,sans-serif;
+    --bg:var(--navy); --panel:var(--surface); --text:var(--white); --soft:var(--ice); --muted:var(--ice);
+    --rule:var(--line); --serif:var(--font); --sans:var(--font);
+    --green:#3CEFA8; --amber:#FFC24B; --red:#FF4553;
   }
   *,*::before,*::after{box-sizing:border-box}
   html{-webkit-text-size-adjust:100%;text-size-adjust:100%;scroll-behavior:smooth;scroll-padding-top:5rem}
@@ -39,20 +57,28 @@
   p{margin:0 0 1rem}
   .lead{font-size:1.15rem;color:var(--soft);max-width:58ch;margin-top:1rem}
   section{padding:clamp(3rem,7vw,5rem) 0}
-  .alt{background:var(--bg-2);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+  .alt{background:linear-gradient(rgba(167,178,209,.04),rgba(167,178,209,.04)),var(--navy);border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
   .btn{display:inline-block;padding:.95rem 1.5rem;border-radius:4px;font-weight:700;font-size:1rem;text-decoration:none;line-height:1.2;border:0;cursor:pointer;font-family:inherit}
-  .btn-main{background:var(--grad);color:var(--bg)}
-  .btn-main:hover{filter:brightness(1.12)}
-  .btn-line{border:1px solid var(--cyan);color:var(--text);background:transparent}
+  .btn-main{background:var(--cyan);color:var(--navy)}
+  .btn-main:hover{background:var(--white)}
+  .btn-line{border:1px solid var(--line-strong);color:var(--text);background:transparent}
+  .btn-line:hover{border-color:var(--cyan)}
 
   header{position:sticky;top:0;z-index:10;background:rgba(2,4,26,.94);border-bottom:1px solid var(--rule)}
   .bar{display:flex;align-items:center;gap:1rem;height:4.25rem}
-  .logo{font-size:1.45rem;font-weight:700;letter-spacing:.14em;text-decoration:none}
-  .logo span{display:inline-block;width:.32em;height:.32em;border-radius:50%;background:var(--cyan);margin-left:.1em;vertical-align:.1em;box-shadow:0 0 10px var(--cyan)}
+  .logo{display:inline-flex;align-items:flex-start;font-weight:500;font-size:1.75rem;letter-spacing:0;line-height:1;text-decoration:none;color:var(--white);white-space:nowrap;flex:0 0 auto}
+  .logo-e{display:block;flex:none;width:.72em;height:.525em;margin:.22em .11em 0 .09em;fill:currentColor}
+  .hex{position:relative;isolation:isolate}
+  .hex::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:url("/assets/img/hex.svg");
+    -webkit-mask-image:radial-gradient(circle at 0 0,#000,transparent 38%),radial-gradient(circle at 100% 100%,#000,transparent 38%);
+    mask-image:radial-gradient(circle at 0 0,#000,transparent 38%),radial-gradient(circle at 100% 100%,#000,transparent 38%)}
+  .skip{position:absolute;left:1rem;top:1rem;transform:translateY(-200%);z-index:20;background:var(--cyan);color:var(--navy);padding:.6rem 1rem;border-radius:6px;font-weight:700;text-decoration:none}
+  .skip:focus{transform:none}
   .bar .btn{margin-left:auto;padding:.65rem 1rem;font-size:.92rem}
 
-  .hero{padding:clamp(3rem,7vw,5rem) 0;background:radial-gradient(50rem 26rem at 85% 30%,rgba(143,61,240,.22),transparent 60%),var(--bg)}
-  .hero h1{font-size:clamp(2.4rem,6vw,4rem);letter-spacing:-.02em;line-height:1.05;max-width:16ch;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .hero{padding:clamp(3rem,7vw,5rem) 0;background:radial-gradient(48rem 26rem at 80% 35%,rgba(0,229,255,.10),transparent 65%),var(--navy)}
+  .hero h1{font-size:clamp(2.4rem,6vw,4rem);line-height:1.05;max-width:16ch;color:var(--white)}
+  .hero h1::after{content:"";display:block;width:4.5rem;height:3px;border-radius:2px;background:var(--cyan);margin-top:1.4rem;box-shadow:0 0 12px rgba(0,229,255,.5)}
   .hero-ctas{display:flex;flex-wrap:wrap;gap:.8rem;margin-top:2rem}
 
   .facts{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:2.5rem;border-top:1px solid var(--rule)}
@@ -111,26 +137,39 @@
     .result .btn{display:block;text-align:center;white-space:normal}
   }
 
-  .logo{white-space:nowrap;flex:0 0 auto}
-  @media (max-width:30rem){.logo{font-size:1.25rem;letter-spacing:.1em}.bar{gap:.75rem}.bar .btn{white-space:normal;text-align:center;padding:.5rem .7rem;font-size:.85rem;line-height:1.15;max-width:11rem}}
-  footer{background:#01020F;color:var(--muted);font-size:.85rem;padding:2rem 0;border-top:1px solid var(--rule)}
+  @media (max-width:22rem){.logo{font-size:1.5rem}.bar .btn{padding:.6rem .8rem}}
+  /* Hierarquia tipográfica do PDF */
+  h1{font-weight:700} h2,h3{font-weight:600}
+  h1,h2,h3{text-wrap:balance} p{text-wrap:pretty}
+  h2::after{content:"";display:block;width:3.5rem;height:3px;border-radius:2px;background:var(--cyan);margin-top:1rem;box-shadow:0 0 12px rgba(0,229,255,.45)}
+  .result h3::after{content:none}
+  .facts b{font-weight:600}
+  .steps li::before{font-weight:700}
+  .score{font-weight:700}
+  .result{border-radius:10px;border-color:var(--line-strong);border-top-color:var(--cyan)}
+  .opts span{background:var(--surface)}
+  .bar .btn{white-space:nowrap}
+  footer .logo{font-size:1.5rem;margin-bottom:1rem}
+  footer{background:var(--navy);color:var(--muted);font-size:.85rem;padding:2rem 0;border-top:1px solid var(--rule)}
   footer p{margin:0 0 .3rem}
 </style>
 </head>
 <body>
 
+<a class="skip" href="#conteudo">Pular para o conteúdo</a>
+
 <header>
   <div class="wrap bar">
-    <a class="logo" href="/" aria-label="Zethic, início">Zethic<span aria-hidden="true"></span></a>
+    <a class="logo" href="/" aria-label="Zethic, início"><span aria-hidden="true">Z</span><svg class="logo-e" viewBox="0 0 72 52.5" aria-hidden="true" focusable="false"><rect width="72" height="7" rx="1"/><rect y="22.75" width="72" height="7" rx="1"/><rect y="45.5" width="72" height="7" rx="1"/></svg><span aria-hidden="true">THIC</span></a>
     <a class="btn btn-main" href="/fale?utm_source=site">Falar no WhatsApp</a>
   </div>
 </header>
 
-<main>
-  <section class="hero">
+<main id="conteudo">
+  <section class="hero hex">
     <div class="wrap">
       <h1>Diagnóstico 6 Moedas</h1>
-      <p class="lead">Os riscos de cyber, IA e operação da sua empresa traduzidos em decisão de negócio: o que pode custar caro, o que resolver primeiro e por quê.</p>
+      <p class="lead">Os riscos cibernéticos, de IA e de operação da sua empresa traduzidos em decisão de negócio: o que pode custar caro, o que resolver primeiro e por quê.</p>
       <div class="hero-ctas">
         <a class="btn btn-main" href="#autoavaliacao">Fazer a autoavaliação grátis</a>
         <a class="btn btn-line" href="/fale?utm_source=site">Agendar o Diagnóstico</a>
@@ -147,7 +186,7 @@
   <section class="alt">
     <div class="wrap">
       <h2>O que você recebe</h2>
-      <ol class="steps">
+      <ol class="steps" role="list">
         <li><strong>Mapa de riscos</strong><span>Os riscos da empresa organizados nas 6 Moedas de Negócio.</span></li>
         <li><strong>Prioridades</strong><span>O que resolver primeiro e por quê, em linguagem de dono.</span></li>
         <li><strong>Plano de ação</strong><span>Passos concretos, com responsável e ordem de execução.</span></li>
@@ -168,9 +207,10 @@
 
 <footer>
   <div class="wrap">
+    <div class="logo" role="img" aria-label="Zethic"><span aria-hidden="true">Z</span><svg class="logo-e" viewBox="0 0 72 52.5" aria-hidden="true" focusable="false"><rect width="72" height="7" rx="1"/><rect y="22.75" width="72" height="7" rx="1"/><rect y="45.5" width="72" height="7" rx="1"/></svg><span aria-hidden="true">THIC</span></div>
     <p>© 2026 Zethic. Razão social: Jessica Caroline da Silva Secco Gessoli, Microempreendedor Individual (MEI).</p>
     <p>CNPJ 67.678.226/0001-17. Campinas, São Paulo, Brasil.</p>
-    <p><a href="/privacidade">Privacidade e termos de uso</a> · Este site não usa cookies.</p>
+    <p><a href="/privacidade">Privacidade e termos de uso</a>. Este site não usa cookies.</p>
   </div>
 </footer>
 
@@ -181,7 +221,7 @@
       perguntas: ["O backup da empresa já foi restaurado em teste nos últimos 6 meses?", "Os processos críticos (financeiro, notas, acessos) são conhecidos por pelo menos duas pessoas?"] },
     { nome: "Conformidade regulatória", dica: "Liste quais dados pessoais a empresa guarda, onde ficam e quem responde a pedidos de clientes.", servico: "Privacidade e LGPD",
       perguntas: ["Você sabe quais dados pessoais de clientes e funcionários a empresa guarda e onde eles ficam?", "Existe alguém definido para responder pedidos sobre dados pessoais (LGPD)?"] },
-    { nome: "Fraude e vazamento", dica: "Combine por escrito: troca de conta bancária só com confirmação por telefone. E ative a verificação em duas etapas.", servico: "Programa Antigolpe",
+    { nome: "Prevenção de fraude e de vazamento", dica: "Combine por escrito: troca de conta bancária só com confirmação por telefone. E ative a verificação em duas etapas.", servico: "Programa Antigolpe",
       perguntas: ["Troca de dados bancários de fornecedor só é aceita depois de confirmar por telefone?", "E-mail, banco e redes sociais da empresa usam verificação em duas etapas?"] },
     { nome: "Reputação", dica: "Coloque contas e perfis em nome da empresa, com recuperação garantida, e combine como avisar clientes numa crise.", servico: "Blindagem de contas e perfis",
       perguntas: ["As contas e perfis da empresa estão em nome dela e podem ser recuperados se alguém sair?", "Existe um combinado de como avisar os clientes se houver um golpe ou vazamento?"] },

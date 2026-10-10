@@ -3,26 +3,58 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src 'self'; font-src 'self'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'">
 <title>Privacidade e termos de uso | Zethic</title>
 <meta name="description" content="Como a Zethic trata os dados de quem visita o site e entra em contato, e as condições de uso do zethic.net.">
 <link rel="canonical" href="https://zethic.net/privacidade">
 <meta name="robots" content="index, follow">
+<link rel="preload" href="/assets/fonts/public-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/public-sans-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/fonts/public-sans-latin-500-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="icon" href="/assets/img/zethic-marca.svg" type="image/svg+xml">
+<link rel="icon" href="/assets/img/zethic-marca-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="/assets/img/zethic-marca-180.png">
+<meta name="theme-color" content="#02041A">
+<meta name="color-scheme" content="dark">
 <style>
-  :root{--bg:#02041A;--panel:#0A1033;--text:#FFFFFF;--soft:#A7B2D1;--muted:#7F8AAD;--cyan:#00E5FF;--rule:rgba(140,170,255,.16)}
+  /* Identidade visual Zethic: paleta #02041A, #00E5FF, #FFFFFF, #A7B2D1; Public Sans hospedada no site (OFL). */
+  @font-face{font-family:"Public Sans";font-style:normal;font-weight:300;font-display:swap;src:url(/assets/fonts/public-sans-latin-300-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+  @font-face{font-family:"Public Sans";font-style:normal;font-weight:300;font-display:swap;src:url(/assets/fonts/public-sans-latin-ext-300-normal.woff2) format("woff2");unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+  @font-face{font-family:"Public Sans";font-style:normal;font-weight:400;font-display:swap;src:url(/assets/fonts/public-sans-latin-400-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+  @font-face{font-family:"Public Sans";font-style:normal;font-weight:400;font-display:swap;src:url(/assets/fonts/public-sans-latin-ext-400-normal.woff2) format("woff2");unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+  @font-face{font-family:"Public Sans";font-style:normal;font-weight:500;font-display:swap;src:url(/assets/fonts/public-sans-latin-500-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+  @font-face{font-family:"Public Sans";font-style:normal;font-weight:500;font-display:swap;src:url(/assets/fonts/public-sans-latin-ext-500-normal.woff2) format("woff2");unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+  @font-face{font-family:"Public Sans";font-style:normal;font-weight:600;font-display:swap;src:url(/assets/fonts/public-sans-latin-600-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+  @font-face{font-family:"Public Sans";font-style:normal;font-weight:600;font-display:swap;src:url(/assets/fonts/public-sans-latin-ext-600-normal.woff2) format("woff2");unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+  @font-face{font-family:"Public Sans";font-style:normal;font-weight:700;font-display:swap;src:url(/assets/fonts/public-sans-latin-700-normal.woff2) format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+  @font-face{font-family:"Public Sans";font-style:normal;font-weight:700;font-display:swap;src:url(/assets/fonts/public-sans-latin-ext-700-normal.woff2) format("woff2");unicode-range:U+0100-02AF,U+0304,U+0308,U+0329,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF}
+  :root{
+    --navy:#02041A; --cyan:#00E5FF; --white:#FFFFFF; --ice:#A7B2D1;
+    --surface:rgba(167,178,209,.06); --line:rgba(167,178,209,.2); --line-strong:rgba(167,178,209,.55);
+    --font:"Public Sans",system-ui,sans-serif;
+    --bg:var(--navy); --panel:var(--surface); --text:var(--white); --soft:var(--ice); --muted:var(--ice); --rule:var(--line);
+  }
   *,*::before,*::after{box-sizing:border-box}
   html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
-  body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",sans-serif;font-size:1.0625rem;line-height:1.7}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:var(--font);font-size:1.0625rem;line-height:1.7}
   a{color:var(--cyan);text-underline-offset:.18em}
   a:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
   .wrap{max-width:46rem;margin:0 auto;padding:0 1.25rem}
   header{border-bottom:1px solid var(--rule);padding:1.2rem 0}
-  header a{color:var(--text);font-weight:700;letter-spacing:.14em;text-decoration:none;font-size:1.3rem}
+  .logo{display:inline-flex;align-items:flex-start;font-weight:500;font-size:1.75rem;letter-spacing:0;line-height:1;text-decoration:none;color:var(--white);white-space:nowrap;flex:0 0 auto}
+  .logo-e{display:block;flex:none;width:.72em;height:.525em;margin:.22em .11em 0 .09em;fill:currentColor}
+  .hex{position:relative;isolation:isolate}
+  .hex::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;background:url("/assets/img/hex.svg");
+    -webkit-mask-image:radial-gradient(circle at 0 0,#000,transparent 38%),radial-gradient(circle at 100% 100%,#000,transparent 38%);
+    mask-image:radial-gradient(circle at 0 0,#000,transparent 38%),radial-gradient(circle at 100% 100%,#000,transparent 38%)}
+  .skip{position:absolute;left:1rem;top:1rem;transform:translateY(-200%);z-index:20;background:var(--cyan);color:var(--navy);padding:.6rem 1rem;border-radius:6px;font-weight:700;text-decoration:none}
+  .skip:focus{transform:none}
   main{padding:3rem 0 4rem}
-  h1{font-family:Georgia,serif;font-weight:500;font-size:clamp(2rem,5vw,2.8rem);line-height:1.15;margin:0 0 .6rem}
-  h2{font-family:Georgia,serif;font-weight:500;font-size:1.45rem;margin:2.6rem 0 .8rem;padding-top:1.2rem;border-top:1px solid var(--rule)}
-  p,li{color:#DDE3F3}
+  h1{font-family:var(--font);font-weight:700;font-size:clamp(2rem,5vw,2.8rem);line-height:1.15;margin:0 0 .6rem}
+  h2{font-family:var(--font);font-weight:600;font-size:1.45rem;margin:2.6rem 0 .8rem;padding-top:1.2rem;border-top:1px solid var(--rule)}
+  p,li{color:var(--white)}
   .meta{color:var(--muted);font-size:.95rem;margin-bottom:2rem}
-  .box{background:var(--panel);border:1px solid var(--rule);border-left:3px solid var(--cyan);padding:1.2rem 1.4rem;margin:1.5rem 0}
+  .box{background:var(--panel);border:1px solid var(--line-strong);border-radius:0 10px 10px 0;border-left:3px solid var(--cyan);padding:1.2rem 1.4rem;margin:1.5rem 0}
   .box p{margin:0}
   .tw{overflow-x:auto}
   @media (max-width:40rem){table,thead,tbody,tr,th,td{display:block}thead{position:absolute;left:-9999px}tr{border-bottom:1px solid var(--rule);padding:.4rem 0}td{border:0;padding:.25rem 0}td::before{display:block;color:var(--muted);font-size:.8rem;text-transform:uppercase;letter-spacing:.06em}td:nth-child(1)::before{content:"Situação"}td:nth-child(2)::before{content:"Dados"}td:nth-child(3)::before{content:"Finalidade"}td:nth-child(4)::before{content:"Base legal"}}
@@ -35,14 +67,17 @@
   img,svg,video{max-width:100%;height:auto}
   footer{border-top:1px solid var(--rule);padding:2rem 0;color:var(--muted);font-size:.85rem}
   footer p{margin:0 0 .3rem;color:var(--muted)}
+  footer .logo{font-size:1.5rem;margin-bottom:1rem}
+  h1,h2{text-wrap:balance} p{text-wrap:pretty}
 </style>
 </head>
 <body>
-<header><div class="wrap"><a href="/" aria-label="Zethic, voltar ao início">Zethic</a></div></header>
+<a class="skip" href="#conteudo">Pular para o conteúdo</a>
+<header><div class="wrap"><a class="logo" href="/" aria-label="Zethic, voltar ao início"><span aria-hidden="true">Z</span><svg class="logo-e" viewBox="0 0 72 52.5" aria-hidden="true" focusable="false"><rect width="72" height="7" rx="1"/><rect y="22.75" width="72" height="7" rx="1"/><rect y="45.5" width="72" height="7" rx="1"/></svg><span aria-hidden="true">THIC</span></a></div></header>
 
-<main class="wrap">
+<main class="wrap" id="conteudo">
   <h1>Privacidade e termos de uso</h1>
-  <p class="meta">Versão 1.1, atualizada em 10/10/2026.</p>
+  <p class="meta">Versão 1.2, atualizada em 10/10/2026.</p>
 
   <div class="box">
     <p><strong>Resumo.</strong> Este site não tem formulário, não usa cookies e não tem ferramenta de análise de audiência. Seus dados só chegam à Zethic se você entrar em contato pelo WhatsApp ou por e-mail, e são usados apenas para responder e, se for o caso, preparar uma proposta.</p>
@@ -57,7 +92,7 @@
   <table>
     <thead><tr><th scope="col">Situação</th><th scope="col">Dados</th><th scope="col">Finalidade</th><th scope="col">Base legal (LGPD)</th></tr></thead>
     <tbody>
-      <tr><td>Você navega no site</td><td>Nenhum dado é coletado pela Zethic. A hospedagem (GitHub Pages) e o serviço de fontes (Google Fonts) recebem dados técnicos da conexão, como o endereço IP, para entregar a página.</td><td>Exibir o site</td><td>Legítimo interesse (art. 7º, IX)</td></tr>
+      <tr><td>Você navega no site</td><td>Nenhum dado é coletado pela Zethic. A hospedagem (GitHub Pages) recebe dados técnicos da conexão, como o endereço IP, para entregar a página. As fontes são servidas pelo próprio site, sem chamar serviços de terceiros.</td><td>Exibir o site</td><td>Legítimo interesse (art. 7º, IX)</td></tr>
       <tr><td>Você faz a autoavaliação 6 Moedas</td><td>Nenhum. As respostas são calculadas no seu navegador e não são enviadas nem guardadas.</td><td>Mostrar o resultado na tela</td><td>Não há tratamento pela Zethic</td></tr>
       <tr><td>Você chama no WhatsApp</td><td>Nome e número do WhatsApp, e o que você escrever na conversa</td><td>Responder, entender a necessidade da sua empresa e enviar proposta</td><td>Procedimentos preliminares a contrato, a seu pedido (art. 7º, V)</td></tr>
       <tr><td>Você envia e-mail</td><td>Nome, e-mail e o que você escrever</td><td>As mesmas do WhatsApp</td><td>Procedimentos preliminares a contrato, a seu pedido (art. 7º, V)</td></tr>
@@ -67,7 +102,7 @@
   <p>A Zethic não vende, não aluga e não usa seus dados para publicidade. Não peça nem envie senhas, dados bancários ou documentos pessoais pela conversa inicial.</p>
 
   <h2>3. Com quem os dados são compartilhados</h2>
-  <p>Os dados passam pelos serviços usados para o contato e a hospedagem: WhatsApp (Meta), o provedor de e-mail da Zethic, GitHub Pages (GitHub) e Google Fonts (Google). Alguns desses serviços podem processar dados fora do Brasil, com as garantias previstas pela LGPD. Os dados também podem ser compartilhados quando a lei ou uma autoridade exigir.</p>
+  <p>Os dados passam pelos serviços usados para o contato e a hospedagem: WhatsApp (Meta), o provedor de e-mail da Zethic e GitHub Pages (GitHub). Alguns desses serviços podem processar dados fora do Brasil, com as garantias previstas pela LGPD. Os dados também podem ser compartilhados quando a lei ou uma autoridade exigir.</p>
 
   <h2>4. Por quanto tempo</h2>
   <p>As conversas e e-mails ficam guardados pelo tempo necessário para o atendimento e a proposta. Se virar contrato, os dados seguem os prazos do contrato e das obrigações legais e fiscais. Se não virar, você pode pedir a exclusão a qualquer momento.</p>
@@ -92,6 +127,7 @@
 
 <footer>
   <div class="wrap">
+    <div class="logo" role="img" aria-label="Zethic"><span aria-hidden="true">Z</span><svg class="logo-e" viewBox="0 0 72 52.5" aria-hidden="true" focusable="false"><rect width="72" height="7" rx="1"/><rect y="22.75" width="72" height="7" rx="1"/><rect y="45.5" width="72" height="7" rx="1"/></svg><span aria-hidden="true">THIC</span></div>
     <p>© 2026 Zethic. Razão social: Jessica Caroline da Silva Secco Gessoli, Microempreendedor Individual (MEI).</p>
     <p>CNPJ 67.678.226/0001-17. Campinas, São Paulo, Brasil.</p>
   </div>
