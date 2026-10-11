@@ -1,6 +1,6 @@
 # Zethic
 
-> Risco digital e IA em linguagem de dono para o Negócio, em Campinas, SP. Fundada por Jéssica Gessoli, que traduz risco cibernético e de IA em decisão para diretoria e conselho.
+> Risco digital e IA em linguagem de dono para o Negócio. Atendimento remoto a partir de Campinas, SP.
 
 ## Zethic
 
@@ -12,12 +12,6 @@
 - [Capacitar e aconselhar](https://zethic.net/aconselhar): capacitação em IA, consultoria e apoio à diretoria.
 - [Teste de golpe](https://zethic.net/teste-golpe): teste grátis com 10 situações reais de golpe.
 
-## Jéssica Gessoli
+## Institucional
 
-- [Página profissional](https://zethic.net/jessicagessoli): risco cibernético, governança, risco e conformidade, e governança de IA em organizações reguladas e de infraestrutura crítica, desde 2008.
-- [Versão em inglês](https://zethic.net/en/jessicagessoli): a mesma página para leitores internacionais.
-
-## Outros
-
-- [Pode Curtir](https://zethic.net/podecurtir): foto e vídeo para eventos e negócios em Campinas e região.
 - [Privacidade e termos de uso](https://zethic.net/privacidade)
