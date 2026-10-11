@@ -268,3 +268,32 @@
   footer{background:var(--navy);color:var(--ice);font-weight:300;font-size:.85rem;padding:2.2rem 0 2rem;border-top:1px solid var(--line)}
   footer .logo{font-size:1.5rem;margin-bottom:1rem}
   footer p{margin:0 0 .3rem}
+
+  /* Home institucional (hub minimalista, 11/10/2026): tela limpa, uma chamada por tela, sem brilho nem textura. */
+  .home h2{font-size:clamp(1.6rem,3.4vw,2.2rem)}
+  .home h2::after,.home .hero h1::after{box-shadow:none;width:2.5rem;height:2px}
+  .home section{padding:clamp(3rem,6vw,4.5rem) 0;border:0}
+  .home .hero{background:var(--navy);padding:clamp(4.5rem,10vw,7.5rem) 0 clamp(3.5rem,7vw,5.5rem)}
+  .home .hero h1{font-size:clamp(2.4rem,6.4vw,4.6rem);max-width:16ch;font-weight:600;letter-spacing:-.01em}
+  .home .hero .lead{max-width:46ch;margin:1.6rem 0 2.4rem}
+  .home .hero-ctas{align-items:center;gap:1.6rem}
+  .home .link-sec{color:var(--white);font-weight:500;text-decoration:underline;text-decoration-color:var(--line-strong);text-underline-offset:.3em}
+  .home .link-sec:hover{text-decoration-color:var(--cyan)}
+  .home .hero small{margin-top:2.2rem}
+  .home .frentes{padding-top:clamp(2rem,5vw,3.5rem);border-top:1px solid var(--line)}
+  .home .doors{margin-top:2.4rem;gap:0;border-top:1px solid var(--line)}
+  .home .door{border:0;border-radius:0;background:none;padding:1.6rem 1.4rem 1.8rem 0;border-bottom:1px solid var(--line)}
+  .home .door:hover{background:none}
+  .home .door:hover strong{color:var(--cyan)}
+  .home .door-n{font-weight:600;font-size:1.05rem;letter-spacing:.02em}
+  .home .door strong{font-weight:400;font-size:1.05rem;color:var(--white);margin:0;transition:color .2s}
+  @media (prefers-reduced-motion:reduce){.home .door strong{transition:none}}
+  .home .steps li::before{font-weight:300;font-size:1.6rem}
+  .home .mais{margin:2.4rem 0 0}
+  .home .mais a{color:var(--white);font-weight:500;text-decoration-color:var(--line-strong);text-underline-offset:.3em}
+  .home .mais a:hover{text-decoration-color:var(--cyan)}
+  .home .contact{grid-template-columns:1fr 1fr;align-items:start}
+  .home footer a{color:var(--ice)}
+  /* No celular, o menu mostra só "Contato": as frentes estão logo abaixo do topo. */
+  @media (max-width:70rem){.home nav{display:flex}.home nav a:not(.nav-contato){display:none}}
+  @media (max-width:30rem){.home .hero-ctas .btn{display:inline-block;width:auto}.home .hero-ctas{flex-direction:column;align-items:flex-start}}
