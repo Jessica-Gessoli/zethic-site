@@ -10,14 +10,16 @@ test("página pessoal tem a seção de recomendações no menu", () => {
   assert.match(html, /<a href="#recomendacoes">Recomendações<\/a>/);
 });
 
-test("cada recomendação aponta para o LinkedIn de quem recomendou", () => {
-  const recs = secao.match(/<figure class="rec">[\s\S]*?<\/figure>/g) ?? [];
-  assert.equal(recs.length, 6, "esperadas 6 recomendações");
-  for (const r of recs) {
+test("seção leva às recomendações no LinkedIn", () => {
+  assert.match(secao, /href="https:\/\/www\.linkedin\.com\/in\/jessicagessoli\/details\/recommendations\/" rel="noopener"/);
+});
+
+test("recomendação com nome só entra com link para o perfil de quem recomendou", () => {
+  // Opção G: nomes entram apenas após autorização registrada; cada um precisa apontar ao próprio perfil.
+  for (const r of secao.match(/<figure class="rec">[\s\S]*?<\/figure>/g) ?? []) {
     const cite = r.match(/<blockquote cite="([^"]+)"/)?.[1];
     const link = r.match(/<figcaption><a href="([^"]+)"/)?.[1];
-    assert.match(cite ?? "", /^https:\/\/www\.linkedin\.com\/in\/[^/]+\/$/, "cite precisa ser um perfil do LinkedIn");
-    assert.equal(link, cite, "o nome deve levar ao mesmo perfil citado");
-    assert.match(r, /rel="noopener"/);
+    assert.match(cite ?? "", /^https:\/\/www\.linkedin\.com\/in\/[^/]+\/$/);
+    assert.equal(link, cite);
   }
 });
