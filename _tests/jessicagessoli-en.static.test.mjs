@@ -65,7 +65,7 @@ test("foto com WebP e arquivos existentes", () => {
     assert.ok(readFileSync(new URL(`../assets/img/${f}`, import.meta.url)).length > 1000, f);
 });
 
-test("ProfilePage válido nas duas versões e llms.txt na raiz", () => {
+test("ProfilePage válido nas duas versões e llms.txt só com a Zethic", () => {
   for (const html of [pt, en]) {
     const j = JSON.parse(html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)[1]);
     assert.equal(j["@type"], "ProfilePage");
@@ -73,7 +73,7 @@ test("ProfilePage válido nas duas versões e llms.txt na raiz", () => {
   }
   const llms = readFileSync(new URL("../llms.txt", import.meta.url), "utf8");
   assert.match(llms, /^# Zethic/);
-  assert.match(llms, /https:\/\/zethic\.net\/jessicagessoli/);
+  assert.doesNotMatch(llms, /jessicagessoli|podecurtir/i);
   assert.doesNotMatch(llms, /\bPME\b/);
 });
 
