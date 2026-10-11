@@ -100,6 +100,18 @@ section.pedra{background:var(--pedra)}
 .setores .quando{color:var(--neblina);font-size:.95rem;margin-left:.6rem}
 .setores p{margin:.3rem 0 0;color:var(--neblina);max-width:62ch}
 
+/* Recomendações (texto como publicado no LinkedIn, com link para quem recomendou) */
+.recs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2.75rem 3.5rem}
+.rec{margin:0;padding-top:1.4rem;border-top:2px solid var(--latao);display:flex;flex-direction:column}
+.rec blockquote{margin:0 0 1rem;font:400 1.12rem/1.55 var(--serif);color:var(--tinta)}
+.rec blockquote p{margin:0 0 .7rem;max-width:60ch}
+.rec blockquote p:first-child::before{content:"“"}
+.rec blockquote p:last-child::after{content:"”"}
+.rec figcaption{margin-top:auto;font-size:.95rem}
+.rec figcaption a{font-weight:600}
+.rec figcaption span{display:block;color:var(--neblina)}
+.recs-todas{margin:2.75rem 0 0;font-weight:500}
+
 /* Formação */
 .creds{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2rem 3.5rem}
 .creds h3{font:600 1.05rem/1.35 var(--sans);color:var(--tinta);margin-bottom:.8rem}
@@ -122,7 +134,7 @@ footer p{margin:.25rem 0}
   .hero{padding:2rem 0 3.5rem}
   .hero .wrap{grid-template-columns:minmax(0,1fr);gap:2.5rem}
   .portrait{justify-self:start;max-width:15rem}
-  .ofertas > li,.areas,.creds,.contato .wrap{grid-template-columns:minmax(0,1fr)}
+  .ofertas > li,.areas,.creds,.recs,.contato .wrap{grid-template-columns:minmax(0,1fr)}
   .setores div{grid-template-columns:minmax(0,1fr);gap:.3rem}
   section,.traducao{padding:3.5rem 0}
   .par thead{display:none}
