@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-U2FwZDACTX+A6Muh8Iqn9Rm0oLaLiq6ecjbg0txhJjg=' https://www.googletagmanager.com; img-src 'self' https://*.google-analytics.com https://*.googletagmanager.com; font-src 'self'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'; connect-src https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-lTQYMWc/aXlKUeUC/vi4dn++hrjmUCySd0wCZKpuOeI=' https://www.googletagmanager.com; img-src 'self' https://*.google-analytics.com https://*.googletagmanager.com; font-src 'self'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'; connect-src https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com">
 <title>Sua empresa cai num golpe? | Zethic</title>
 <meta name="description" content="Teste grátis de 10 situações reais de golpe: boleto falso, Pix pedido por mensagem, falso suporte. Veja quantas a sua equipe acerta.">
 <link rel="canonical" href="https://zethic.net/teste-golpe">
@@ -180,7 +180,7 @@
       <div class="facts">
         <div><b>Tempo</b><span>Cerca de 3 minutos.</span></div>
         <div><b>Para quem</b><span>Donos, financeiro e quem atende cliente e fornecedor.</span></div>
-        <div><b>Privacidade</b><span>As respostas ficam no seu navegador. Nada é enviado.</span></div>
+        <div><b>Privacidade</b><span>Nenhum dado pessoal é pedido. Com a sua permissão de cookies, contamos de forma anônima os acertos e as situações erradas.</span></div>
         <div><b>Dica</b><span>Faça com a equipe. O golpe costuma cair em quem paga, não em quem decide.</span></div>
       </div>
     </div>
@@ -210,38 +210,39 @@
 <script>
 (function () {
   var Q = [
-    { s: "Chega um e-mail do fornecedor avisando que a conta bancária mudou e pedindo para pagar o próximo boleto na conta nova.",
+    { id: "s01-conta-fornecedor", s: "Chega um e-mail do fornecedor avisando que a conta bancária mudou e pedindo para pagar o próximo boleto na conta nova.",
       o: ["Pagar na conta nova, o e-mail é do fornecedor", "Responder o e-mail pedindo confirmação", "Ligar para o fornecedor no número que a empresa já tinha"], c: 2,
       e: "Se o e-mail foi invadido ou falsificado, a resposta cai no próprio golpista. Troca de conta bancária só se confirma por telefone, num número que você já tinha." },
-    { s: "Mensagem no WhatsApp com a foto do dono, de um número novo: \"estou em reunião, faz um Pix urgente para este fornecedor\".",
+    { id: "s02-pix-dono", s: "Mensagem no WhatsApp com a foto do dono, de um número novo: \"estou em reunião, faz um Pix urgente para este fornecedor\".",
       o: ["Fazer o Pix, é urgente", "Ligar para o número antigo do dono antes de pagar", "Perguntar pelo mesmo WhatsApp se é ele mesmo"], c: 1,
       e: "Foto e nome se copiam em segundos. Quem aplica o golpe responde \"sou eu, sim\". A confirmação tem que ser por outro canal." },
-    { s: "Um SMS do \"banco\" avisa de uma compra suspeita e pede para ligar para o número da mensagem.",
+    { id: "s03-sms-banco", s: "Um SMS do \"banco\" avisa de uma compra suspeita e pede para ligar para o número da mensagem.",
       o: ["Ligar para o número do SMS", "Ligar para o número que está no verso do cartão ou no app do banco", "Clicar no link da mensagem para bloquear a compra"], c: 1,
       e: "O número e o link do SMS levam ao golpista. Use só os canais que você mesmo encontra: verso do cartão, app ou site digitado." },
-    { s: "Por telefone, o \"suporte do banco\" pede o código que acabou de chegar por SMS para \"cancelar a fraude\".",
+    { id: "s04-codigo-sms", s: "Por telefone, o \"suporte do banco\" pede o código que acabou de chegar por SMS para \"cancelar a fraude\".",
       o: ["Passar o código", "Desligar e não passar o código", "Passar só parte do código"], c: 1,
       e: "Esse código é a chave da sua conta. Banco nenhum pede o código por telefone. Quem pede é quem quer entrar na conta." },
-    { s: "Chega um e-mail com boleto de \"renovação do certificado digital\", com uma taxa e prazo curto.",
+    { id: "s05-certificado", s: "Chega um e-mail com boleto de \"renovação do certificado digital\", com uma taxa e prazo curto.",
       o: ["Pagar para o certificado não vencer", "Conferir no site ou no contato oficial da certificadora quando ele vence", "Encaminhar para o contador pagar"], c: 1,
       e: "Golpes com certificado digital, nota fiscal e imposto usam aparência oficial e urgência. Confira a data de vencimento na fonte antes de pagar qualquer coisa." },
-    { s: "O Instagram da empresa recebe uma mensagem: \"seu perfil será desativado por violar direitos autorais, clique para recorrer\".",
+    { id: "s06-instagram", s: "O Instagram da empresa recebe uma mensagem: \"seu perfil será desativado por violar direitos autorais, clique para recorrer\".",
       o: ["Clicar e fazer login para recorrer", "Ignorar o link e conferir os avisos dentro do próprio app", "Responder pedindo mais informações"], c: 1,
       e: "O link leva a uma página falsa que rouba a senha. Avisos verdadeiros aparecem dentro do aplicativo, na área de conta." },
-    { s: "Um cliente novo diz que pagou a mais por engano e pede para devolver a diferença por Pix.",
+    { id: "s07-pix-devolucao", s: "Um cliente novo diz que pagou a mais por engano e pede para devolver a diferença por Pix.",
       o: ["Devolver logo, para não perder o cliente", "Conferir no extrato do banco se o valor caiu de verdade antes de devolver", "Devolver metade e esperar"], c: 1,
       e: "O comprovante pode ser falso ou o pagamento pode ser cancelado depois. Só devolva o que você vê no extrato, já compensado." },
-    { s: "Um funcionário recebe e-mail do \"diretor\" pedindo para comprar cartões-presente para clientes e mandar os códigos, em sigilo.",
+    { id: "s08-cartao-presente", s: "Um funcionário recebe e-mail do \"diretor\" pedindo para comprar cartões-presente para clientes e mandar os códigos, em sigilo.",
       o: ["Comprar e mandar os códigos", "Confirmar com o diretor por telefone ou pessoalmente", "Responder o e-mail perguntando o valor"], c: 1,
       e: "Pedido de sigilo e de cartões-presente é marca registrada de golpe. A regra combinada protege o funcionário: pedido fora do comum se confirma por outro canal." },
-    { s: "Chega um e-mail de \"nota fiscal pendente\" com um arquivo compactado (.zip) para baixar.",
+    { id: "s09-zip-nota", s: "Chega um e-mail de \"nota fiscal pendente\" com um arquivo compactado (.zip) para baixar.",
       o: ["Abrir o arquivo para ver do que se trata", "Não abrir e confirmar com o emissor por outro canal", "Encaminhar para um colega abrir"], c: 1,
       e: "Arquivo compactado inesperado é a porta de entrada mais comum de vírus e sequestro de dados. Na dúvida, não abra e confirme." },
-    { s: "Um \"técnico da operadora\" liga pedindo para instalar um programa de acesso remoto para \"corrigir a internet\".",
+    { id: "s10-acesso-remoto", s: "Um \"técnico da operadora\" liga pedindo para instalar um programa de acesso remoto para \"corrigir a internet\".",
       o: ["Instalar, ele é da operadora", "Desligar e ligar para o canal oficial da operadora", "Instalar e ficar olhando o que ele faz"], c: 1,
       e: "Com acesso remoto, o golpista controla o computador e o banco. Suporte de verdade se confirma pelo canal oficial que você procura." }
   ];
   var form = document.getElementById("quiz"), out = document.getElementById("resultado");
+  var enviado = false;
   if (!form || !out) return;
   function el(tag, attrs, text) {
     var e = document.createElement(tag);
@@ -308,7 +309,16 @@
     out.appendChild(ctas);
     out.appendChild(el("p", { "class": "note" }, "Teste indicativo, com situações comuns. Não substitui um treinamento com simulação real."));
     out.hidden = false; out.focus();
-    if (window.zethicEvento) window.zethicEvento("teste_golpe_concluido", { acertos: acertos });
+    // Medição anônima, só com consentimento (ver /privacidade). Conta apenas a primeira conclusão de cada visita.
+    // Envia o número de acertos, o nível e, para cada erro, o código da situação e a opção escolhida. Nada que identifique a pessoa.
+    if (!enviado && window.zethicEvento) {
+      enviado = true;
+      window.zethicEvento("teste_golpe_concluido", { acertos: acertos, nivel: nv[0] });
+      erros.forEach(function (i) {
+        var r = form.querySelector('input[name="g' + i + '"]:checked');
+        window.zethicEvento("teste_golpe_erro", { situacao: Q[i].id, escolha: "opcao-" + (parseInt(r.value, 10) + 1) });
+      });
+    }
   });
 })();
 </script>
