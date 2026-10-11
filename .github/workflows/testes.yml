@@ -1,9 +1,12 @@
 # Controle 6 (gestão de mudanças): roda os testes do site em cada PR e em cada envio ao main.
 name: Testes do site
 on:
-  pull_request:
-  push:
-    branches: [main]
+  # PAUSADO em 11/10/2026: a conta da organização está bloqueada por cobrança e toda execução falha.
+  # Para religar, troque este bloco por:
+  #   pull_request:
+  #   push:
+  #     branches: [main]
+  workflow_dispatch:
 permissions:
   contents: read
 jobs:
