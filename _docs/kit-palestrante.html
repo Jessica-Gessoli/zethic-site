@@ -27,32 +27,35 @@ h1,h2,h3{margin:0;font-weight:400}
 p{margin:0}
 ul{margin:0;padding:0;list-style:none}
 
-header{background:var(--garrafa);color:#fff;padding:13mm 16mm 12mm;display:grid;grid-template-columns:1fr 44mm;gap:10mm;align-items:center}
-.rotulo{font:500 9.4pt/1 "IBM Plex Sans",sans-serif;color:var(--latao-claro);margin-bottom:5mm}
+header{background:var(--garrafa);color:#fff;padding:10mm 16mm 9mm;display:grid;grid-template-columns:1fr 40mm;gap:10mm;align-items:center}
+.rotulo{font:500 9.4pt/1 "IBM Plex Sans",sans-serif;color:var(--latao-claro);margin-bottom:4mm}
 h1{font:300 34pt/1 "Spectral",serif;letter-spacing:-.02em}
 .tese{font:400 14pt/1.3 "Spectral",serif;margin-top:4.5mm;max-width:118mm}
-.temas-faixa{margin-top:4.5mm;color:var(--verde-claro);font-size:9pt}
-header img{width:44mm;height:44mm;object-fit:cover;border-radius:1mm;display:block}
+.cargo{margin-top:3.5mm;color:var(--verde-claro);font-size:9.6pt}
+header img{width:40mm;height:40mm;object-fit:cover;border-radius:1mm;display:block}
 
-main{flex:1;padding:10mm 16mm 0;display:grid;grid-template-columns:1.12fr 1fr;gap:0 10mm;align-content:start}
-section{padding-top:3.2mm;border-top:.6mm solid var(--latao);margin-bottom:6.5mm}
+main{flex:1 0 auto;padding:8mm 16mm 0;display:grid;grid-template-columns:1.12fr 1fr;gap:0 10mm;align-content:start}
+section{padding-top:3mm;border-top:.6mm solid var(--latao);margin-bottom:5.2mm}
 h2{font:400 15pt/1.2 "Spectral",serif;color:var(--garrafa);margin-bottom:2.6mm}
 .nota{color:var(--neblina);font-size:8.6pt;margin-top:2mm}
 .bio p + p{margin-top:2mm}
+.org div{display:grid;grid-template-columns:23mm 1fr;gap:3mm;padding:1.5mm 0;border-top:.25mm solid var(--linha)}
+.org div:first-child{border-top:0;padding-top:0}
+.org dt{color:var(--neblina);font-size:8.8pt}
+.org dd{margin:0}
+.org{margin:0}
 .temas li{padding:2mm 0;border-top:.25mm solid var(--linha);font:400 11pt/1.3 "Spectral",serif;color:var(--tinta)}
 .temas li:first-child{border-top:0;padding-top:0}
-.formatos{display:flex;flex-wrap:wrap;gap:1.6mm}
-.formatos li{background:var(--pedra);padding:1.1mm 2.6mm;border-radius:.6mm;font-size:9pt}
 .eventos li{padding-left:4mm;position:relative}
 .eventos li + li{margin-top:1.6mm}
 .eventos li::before{content:"";position:absolute;left:0;top:2.6mm;width:2.2mm;height:.3mm;background:var(--latao)}
 
-footer{margin:0 16mm 12mm;padding-top:4mm;border-top:.6mm solid var(--latao);display:grid;grid-template-columns:repeat(4,auto);justify-content:space-between;gap:4mm}
+footer{margin:0 16mm 10mm;padding-top:4mm;border-top:.6mm solid var(--latao);display:grid;grid-template-columns:repeat(3,auto);justify-content:space-between;gap:3.5mm 8mm}
 footer dl{margin:0}
 footer dt{color:var(--neblina);font-size:8pt}
 footer dd{margin:.6mm 0 0;font:400 10.5pt/1.3 "Spectral",serif;color:var(--garrafa)}
 footer a{color:inherit;text-decoration:none}
-.rodape{margin:0 16mm 9mm;color:var(--neblina);font-size:7.8pt}
+footer .rodape{align-self:end;color:var(--neblina);font-size:7.8pt}
 </style>
 </head>
 <body>
@@ -60,8 +63,8 @@ footer a{color:inherit;text-decoration:none}
   <div>
     <p class="rotulo">Kit de palestrante</p>
     <h1>Jéssica Gessoli</h1>
+    <p class="cargo">Executiva de risco cibernético e governança de IA · Fundadora e diretora executiva da Zethic</p>
     <p class="tese">Traduzo risco cibernético e de IA em decisão para diretoria e conselho.</p>
-    <p class="temas-faixa">Risco cibernético · Governança de IA · Infraestrutura crítica · Golpes digitais</p>
   </div>
   <img src="../assets/img/jessica-gessoli.jpg" alt="Retrato de Jéssica Gessoli">
 </header>
@@ -69,14 +72,20 @@ footer a{color:inherit;text-decoration:none}
 <main>
   <div>
     <section class="bio">
-      <h2>Bio curta</h2>
-      <p>Jéssica Gessoli traduz risco cibernético e de IA em decisão para diretoria e conselho. Desde 2008 atua em organizações reguladas e de infraestrutura crítica: bancos, seguradoras, saúde, telecomunicações e ferrovia. É fundadora e diretora executiva da Zethic.</p>
-    </section>
-    <section class="bio">
-      <h2>Bio completa</h2>
-      <p>Jéssica Gessoli é executiva de risco cibernético e governança de inteligência artificial. Desde 2008, faz a ponte entre tecnologia, jurídico, operações, auditoria e diretoria em organizações reguladas e de infraestrutura crítica.</p>
+      <h2>Bio</h2>
+      <p>Desde 2008, Jéssica Gessoli faz a ponte entre tecnologia, jurídico, operações, auditoria e diretoria em organizações reguladas e de infraestrutura crítica.</p>
       <p>Passou pelo CPqD, pelo Santander Brasil, onde recebeu o prêmio Dynatrace Excellence 2019, pela Unimed Campinas, pela Porto Seguro, onde chegou à liderança técnica em risco cibernético e segurança desde o projeto, e pela Rumo Logística, na infraestrutura de TI e de tecnologia operacional ferroviária. Conduziu simulações de golpe e treinamentos antigolpe em empresas de seguros e de saúde.</p>
-      <p>É MBA em Gestão de Projetos de TI pelo IBMEC e bacharel em Sistemas de Informação, com as certificações ISFS (base ISO/IEC 27001), CCEP, Lean Six Sigma Green Belt e ITIL 4 Foundation. Fundou a Zethic em 2026.</p>
+      <p>É MBA em Gestão de Projetos de TI pelo IBMEC e bacharel em Sistemas de Informação, com as certificações ISFS (base ISO/IEC 27001), CCEP, Lean Six Sigma Green Belt e ITIL 4 Foundation.</p>
+    </section>
+    <section>
+      <h2>Para o organizador</h2>
+      <dl class="org">
+        <div><dt>Formatos</dt><dd>Palestra, painel, mediação e apresentação de palco.</dd></div>
+        <div><dt>Modalidade</dt><dd>Presencial ou online.</dd></div>
+        <div><dt>Estrutura</dt><dd>Tela ou projetor com entrada HDMI, microfone sem fio e passador de slides.</dd></div>
+        <div><dt>Materiais</dt><dd>Foto em alta resolução e bio em outros tamanhos, sob pedido.</dd></div>
+        <div><dt>Proposta</dt><dd>Pelo WhatsApp comercial, com tema, data, público e duração do evento.</dd></div>
+      </dl>
     </section>
   </div>
   <div>
@@ -91,17 +100,15 @@ footer a{color:inherit;text-decoration:none}
       <p class="nota">Temas em proposta. Título, duração e profundidade são ajustados ao público de cada evento.</p>
     </section>
     <section>
-      <h2>Formatos</h2>
-      <ul class="formatos">
-        <li>Palestra</li><li>Painel</li><li>Mediação</li><li>Apresentação de palco</li>
-      </ul>
-    </section>
-    <section>
       <h2>Em eventos</h2>
       <ul class="eventos">
         <li>Apresentadora de palco no Mind The Sec 2026, em São Paulo.</li>
         <li>Na equipe de eventos de cibersegurança da Flipside desde 2024.</li>
       </ul>
+    </section>
+    <section>
+      <h2>Para quem</h2>
+      <p>Diretorias e conselhos; áreas de risco, auditoria e conformidade; times de tecnologia e segurança da informação; associações e eventos setoriais.</p>
     </section>
   </div>
 </main>
@@ -109,9 +116,10 @@ footer a{color:inherit;text-decoration:none}
 <footer>
   <dl><dt>WhatsApp comercial</dt><dd><a href="https://zethic.net/fale?utm_source=jessicagessoli-palestras">(19) 98180-0221</a></dd></dl>
   <dl><dt>E-mail</dt><dd><a href="mailto:jessica.gessoli@zethic.net">jessica.gessoli@zethic.net</a></dd></dl>
+  <dl><dt>Instagram</dt><dd><a href="https://www.instagram.com/jessicagessoli/">@jessicagessoli</a></dd></dl>
   <dl><dt>LinkedIn</dt><dd><a href="https://www.linkedin.com/in/jessicagessoli">linkedin.com/in/jessicagessoli</a></dd></dl>
   <dl><dt>Página</dt><dd><a href="https://zethic.net/jessicagessoli">zethic.net/jessicagessoli</a></dd></dl>
+  <p class="rodape">Campinas, São Paulo. Versão de outubro de 2026.</p>
 </footer>
-<p class="rodape">Campinas, São Paulo. Foto e bio em outros formatos, sob pedido. Versão de outubro de 2026.</p>
 </body>
 </html>
