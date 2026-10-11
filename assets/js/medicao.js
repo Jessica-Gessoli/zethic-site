@@ -5,6 +5,29 @@
   var CONFIG = { GA4_ID: "G-HKERDF3283", CHAVE: "zethic-consentimento-v1" };
   if (!/^G-[A-Z0-9]{4,20}$/.test(CONFIG.GA4_ID)) return;
 
+  // Acesso interno: abrir qualquer página com ?interno=1 desliga a medição neste navegador; ?interno=0 religa.
+  var INTERNO = "zethic-acesso-interno";
+  try {
+    var qi = new URLSearchParams(location.search).get("interno");
+    if (qi === "1") localStorage.setItem(INTERNO, "1");
+    if (qi === "0") localStorage.removeItem(INTERNO);
+    if (localStorage.getItem(INTERNO) === "1") {
+      window.zethicEvento = function () {};
+      if (qi === "1") {
+        var aviso = function () {
+          var a = document.createElement("div");
+          a.setAttribute("role", "status");
+          a.textContent = "Acesso interno: este navegador não é mais medido. Para voltar a medir, abra o site com ?interno=0.";
+          a.style.cssText = "position:fixed;left:1rem;right:1rem;bottom:1rem;z-index:50;max-width:34rem;margin:0 auto;background:#0E1640;color:#fff;border:1px solid #00E5FF;border-radius:6px;padding:.9rem 1rem;font:15px/1.5 system-ui,sans-serif";
+          document.body.appendChild(a);
+          setTimeout(function () { a.remove(); }, 8000);
+        };
+        if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", aviso); else aviso();
+      }
+      return;
+    }
+  } catch (e) {}
+
   function ler() { try { return localStorage.getItem(CONFIG.CHAVE); } catch (e) { return null; } }
   function gravar(v) { try { localStorage.setItem(CONFIG.CHAVE, v); } catch (e) {} }
 
