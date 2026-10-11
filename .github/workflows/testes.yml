@@ -1,0 +1,21 @@
+# Controle 6 (gestão de mudanças): roda os testes do site em cada PR e em cada envio ao main.
+name: Testes do site
+on:
+  pull_request:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  testes:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Testes estáticos
+        run: node --test _tests/*.static.test.mjs

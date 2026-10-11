@@ -1,0 +1,7 @@
+# Configuração do GitHub Pages (Jekyll).
+# include: publica a pasta .well-known (pastas com ponto ficam de fora por padrão).
+# exclude: material que fica no repositório, mas não é publicado no site.
+include:
+  - .well-known
+exclude:
+  - campaigns
