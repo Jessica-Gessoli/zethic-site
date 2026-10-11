@@ -8,8 +8,9 @@ const ler = (caminho) => readFileSync(new URL(`../${caminho}`, import.meta.url),
 const LINKEDIN = /href="https:\/\/www\.linkedin\.com\/in\/jessicagessoli\/?"/g;
 const INSTAGRAM = /href="https:\/\/www\.instagram\.com\/jessicagessoli\/?"/g;
 
+// A home da Zethic saiu da lista em 11/10/2026: pela opção B aprovada, ela não cita mais o LinkedIn nem o
+// Instagram pessoais (regra coberta em zethic-institucional.static.test.mjs).
 const arquivos = [
-  "index.html",
   "jessicagessoli.html",
   "en/jessicagessoli.html",
   "_docs/kit-palestrante.html",
