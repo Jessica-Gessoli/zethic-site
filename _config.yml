@@ -5,4 +5,3 @@ include:
   - .well-known
 exclude:
   - campaigns
-  - jessicagessoli.html

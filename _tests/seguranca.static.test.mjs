@@ -15,9 +15,4 @@ test("configuração publica .well-known e esconde o material interno", () => {
   const c = ler("_config.yml");
   assert.match(c, /include:\s*\n\s*- \.well-known/);
   assert.match(c, /- campaigns/);
-  assert.match(c, /- jessicagessoli\.html/);
-});
-
-test("sitemap não lista páginas fora do ar", () => {
-  assert.ok(!ler("sitemap.xml").includes("/jessicagessoli"));
 });
