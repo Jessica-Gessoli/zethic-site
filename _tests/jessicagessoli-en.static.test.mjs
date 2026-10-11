@@ -48,3 +48,31 @@ test("nível de cargo: sem promessa de diretoria ou conselho como alvo", () => {
 test("sitemap lista a versão em inglês", () => {
   assert.match(sitemap, /<loc>https:\/\/zethic\.net\/en\/jessicagessoli<\/loc>/);
 });
+
+test("descrição até 160 caracteres e imagem de compartilhamento 1200x630 nas duas versões", () => {
+  for (const [html, img] of [[pt, "jessica-gessoli-og.jpg"], [en, "jessica-gessoli-og-en.jpg"]]) {
+    const desc = html.match(/<meta name="description" content="([^"]*)">/)[1];
+    assert.ok(desc.length <= 160, `descrição com ${desc.length} caracteres`);
+    assert.ok(html.includes(`content="https://zethic.net/assets/img/${img}"`));
+    assert.match(html, /og:image:width" content="1200"/);
+    assert.match(html, /twitter:card" content="summary_large_image"/);
+  }
+});
+
+test("foto com WebP e arquivos existentes", () => {
+  for (const html of [pt, en]) assert.match(html, /<source type="image\/webp" srcset="\/assets\/img\/jessica-gessoli-400\.webp 400w, \/assets\/img\/jessica-gessoli\.webp 800w"/);
+  for (const f of ["jessica-gessoli.webp", "jessica-gessoli-400.webp", "jessica-gessoli-400.jpg", "jessica-gessoli-og.jpg", "jessica-gessoli-og-en.jpg"])
+    assert.ok(readFileSync(new URL(`../assets/img/${f}`, import.meta.url)).length > 1000, f);
+});
+
+test("ProfilePage válido nas duas versões e llms.txt na raiz", () => {
+  for (const html of [pt, en]) {
+    const j = JSON.parse(html.match(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/)[1]);
+    assert.equal(j["@type"], "ProfilePage");
+    assert.equal(j.mainEntity["@type"], "Person");
+  }
+  const llms = readFileSync(new URL("../llms.txt", import.meta.url), "utf8");
+  assert.match(llms, /^# Zethic/);
+  assert.match(llms, /https:\/\/zethic\.net\/jessicagessoli/);
+  assert.doesNotMatch(llms, /\bPME\b/);
+});
