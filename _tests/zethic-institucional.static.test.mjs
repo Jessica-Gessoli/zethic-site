@@ -36,3 +36,15 @@ test("perguntas frequentes migraram para o Diagnóstico, com dados estruturados"
   assert.match(d, /"@type": "FAQPage"/);
   assert.doesNotMatch(ler("index.html"), /FAQPage|id="perguntas"/);
 });
+
+test("medição (Google Analytics) só nas páginas com ferramenta e na política de privacidade", () => {
+  const com = ["diagnostico.html", "teste-golpe.html", "proteger.html", "privacidade.html"];
+  const sem = ["index.html", "organizar.html", "crescer.html", "aconselhar.html"];
+  for (const p of com) assert.match(ler(p), /<script src="\/assets\/js\/medicao\.js" defer><\/script>/, p);
+  for (const p of sem) {
+    const h = ler(p);
+    assert.doesNotMatch(h, /medicao\.js|data-preferencias-cookies/, p);
+    assert.match(h, /Esta página não usa cookies\./, p);
+  }
+  assert.match(ler("privacidade.html"), /Diagnóstico 6 Moedas, teste de golpe, Proteger e esta política/);
+});
