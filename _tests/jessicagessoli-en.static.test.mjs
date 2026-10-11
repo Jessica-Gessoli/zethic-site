@@ -76,3 +76,13 @@ test("ProfilePage válido nas duas versões e llms.txt na raiz", () => {
   assert.match(llms, /https:\/\/zethic\.net\/jessicagessoli/);
   assert.doesNotMatch(llms, /\bPME\b/);
 });
+
+test("currículo de 1 página para baixar em cada idioma", () => {
+  assert.match(pt, /<a href="\/assets\/docs\/jessica-gessoli-cv\.pdf" type="application\/pdf">Currículo \(PDF, 1 página\)<\/a>/);
+  assert.match(en, /<a href="\/assets\/docs\/jessica-gessoli-resume\.pdf" type="application\/pdf">Resume \(PDF, 1 page\)<\/a>/);
+  for (const f of ["jessica-gessoli-cv.pdf", "jessica-gessoli-resume.pdf"]) {
+    const pdf = readFileSync(new URL(`../assets/docs/${f}`, import.meta.url));
+    assert.equal(pdf.subarray(0, 5).toString(), "%PDF-");
+    assert.equal((pdf.toString("latin1").match(/\/Type\s*\/Page[^s]/g) || []).length, 1, `${f} precisa ter 1 página`);
+  }
+});
