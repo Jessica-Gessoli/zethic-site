@@ -58,6 +58,10 @@ test("mensagens contextuais por utm_source (case-insensitive) e UTMs adicionais 
   assert.match(msg(runWith("?utm_source=crescer")), /atrair mais clientes/);
   assert.match(msg(runWith("?utm_source=aconselhar")), /decidir melhor/);
   assert.match(msg(runWith("?utm_source=podecurtir")), /Pode Curtir e quero um orçamento/);
+  assert.match(msg(runWith("?utm_source=jessicagessoli")), /^Olá, Jéssica! Vim pela sua página e gostaria de conversar\.$/);
+  assert.match(msg(runWith("?utm_source=jessicagessoli-mentoria")), /mentoria de recolocação/);
+  assert.match(msg(runWith("?utm_source=jessicagessoli-consultoria")), /conversa de 30 minutos/);
+  assert.match(msg(runWith("?utm_source=jessicagessoli-palestras")), /palestra ou apresentação de evento/);
 });
 
 test("origem desconhecida ou maliciosa cai na mensagem padrão", () => {
