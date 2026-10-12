@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 
 const ler = (p) => readFileSync(new URL("../" + p, import.meta.url), "utf8");
-const PAGINAS = ["index.html", "diagnostico.html", "proteger.html", "organizar.html", "crescer.html", "aconselhar.html", "teste-golpe.html", "privacidade.html"];
+const PAGINAS = ["index.html", "quem-somos.html", "diagnostico.html", "proteger.html", "organizar.html", "crescer.html", "aconselhar.html", "teste-golpe.html", "privacidade.html"];
 
 // O que precisa ficar por lei ou por decisão: razão social no rodapé, controladora na política de privacidade e o e-mail atual.
 const semObrigatorios = (html) => html
@@ -39,7 +39,7 @@ test("perguntas frequentes migraram para o Diagnóstico, com dados estruturados"
 
 test("medição (Google Analytics) só nas páginas com ferramenta e na política de privacidade", () => {
   const com = ["diagnostico.html", "teste-golpe.html", "proteger.html", "privacidade.html"];
-  const sem = ["index.html", "organizar.html", "crescer.html", "aconselhar.html"];
+  const sem = ["index.html", "quem-somos.html", "organizar.html", "crescer.html", "aconselhar.html"];
   for (const p of com) assert.match(ler(p), /<script src="\/assets\/js\/medicao\.js" defer><\/script>/, p);
   for (const p of sem) {
     const h = ler(p);

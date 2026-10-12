@@ -298,3 +298,11 @@
   /* No celular, o menu mostra só "Contato": as frentes estão logo abaixo do topo. */
   @media (max-width:70rem){.home nav{display:flex}.home nav a:not(.nav-contato){display:none}}
   @media (max-width:30rem){.home .hero-ctas .btn{display:inline-block;width:auto}.home .hero-ctas{flex-direction:column;align-items:flex-start}}
+
+  /* Quem somos: prazos de atendimento e dados da empresa em lista de duas colunas. */
+  .quem-somos .prazos{margin-top:3rem}
+  .quem-somos .contact h3{margin-bottom:1rem}
+  .quem-somos .contact .lead{margin-top:1.2rem}
+  .quem-somos .contact dt{flex:0 0 10.5rem}
+  .quem-somos .moedas{margin-top:2rem}
+  @media (max-width:30rem){.quem-somos .contact dl div{flex-direction:column;gap:.1rem}.quem-somos .contact dt{flex-basis:auto}}
