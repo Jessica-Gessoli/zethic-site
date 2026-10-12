@@ -3,107 +3,424 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Zethic | Risco digital e IA em linguagem de dono</title>
-<meta name="description" content="Risco digital e IA em linguagem de dono. A Zethic ajuda o Negócio a se proteger, se organizar e crescer. Atendimento remoto a partir de Campinas, SP.">
+<title>Zethic | Tecnologia, segurança e mídia digital para o Negócio</title>
+<meta name="description" content="Tecnologia, segurança e mídia digital para o Negócio. Cinco frentes em um só lugar: Proteger, Organizar, Crescer, Mídia digital com o Pode Curtir e Capacitar e aconselhar. Atendimento presencial num raio de 100 km de Campinas, incluindo a cidade de São Paulo.">
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-qbkZg1xHbtNmLG1v24pQyba/cJ6Qm7cuU/tC5X2cr/Y=' https://www.googletagmanager.com; img-src 'self' https://*.google-analytics.com https://*.googletagmanager.com; font-src 'self'; style-src 'self' 'unsafe-inline'; base-uri 'none'; form-action 'none'; connect-src https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com">
 <meta name="color-scheme" content="dark">
 <link rel="canonical" href="https://zethic.net/">
 <meta name="robots" content="index, follow">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Zethic">
-<meta property="og:title" content="Zethic | Risco digital e IA em linguagem de dono">
-<meta property="og:description" content="Proteja o caixa, a operação e os contratos da sua empresa. Comece pelo Diagnóstico 6 Moedas.">
+<meta property="og:title" content="Zethic | Tecnologia, segurança e mídia digital para o Negócio">
+<meta property="og:description" content="Uma empresa, várias frentes: proteger, organizar, crescer, aparecer e capacitar o Negócio, em linguagem de dono.">
 <meta property="og:url" content="https://zethic.net/">
 <meta property="og:locale" content="pt_BR">
 <meta property="og:image" content="https://zethic.net/assets/img/og-zethic.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Zethic: risco digital e IA em linguagem de dono.">
+<meta property="og:image:alt" content="Zethic: tecnologia, segurança e mídia digital para o Negócio.">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preload" href="/assets/fonts/public-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/public-sans-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/public-sans-latin-500-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/img/zethic-provisoria.webp" as="image" type="image/webp" fetchpriority="high">
 <link rel="icon" href="/assets/img/zethic-marca.svg" type="image/svg+xml">
 <link rel="icon" href="/assets/img/zethic-marca-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/assets/img/zethic-marca-180.png">
 <meta name="theme-color" content="#02041A">
 <link rel="stylesheet" href="/assets/css/zethic.css">
+<link rel="stylesheet" href="/assets/css/grupo.css">
+<link rel="stylesheet" href="/assets/css/torres.css">
+<script src="/assets/js/torres.js"></script>
 </head>
-<body class="home">
+<body class="home torres-home">
 
 <a class="skip" href="#inicio">Pular para o conteúdo</a>
+<!-- grupo:inicio -->
+<nav class="grupo" aria-label="Marcas">
+  <div class="grupo-in">
+    <a class="g-z atual" href="/">Zethic</a>
+    <a class="g-j" href="/jessicagessoli">Jéssica Gessoli</a>
+    <a class="g-p" href="/podecurtir">Pode Curtir</a>
+    <a class="g-q" href="/quem-somos">Quem somos</a>
+  </div>
+</nav>
+<!-- grupo:fim -->
 
+<!-- cabecalho:inicio -->
 <header>
   <div class="wrap bar">
-    <a class="logo" href="#inicio" aria-label="Zethic, início"><span aria-hidden="true">Z</span><svg class="logo-e" viewBox="0 0 72 52.5" aria-hidden="true" focusable="false"><rect width="72" height="7" rx="1"/><rect y="22.75" width="72" height="7" rx="1"/><rect y="45.5" width="72" height="7" rx="1"/></svg><span aria-hidden="true">THIC</span></a>
-    <nav aria-label="Frentes">
-      <a href="/proteger">Proteger</a>
-      <a href="/organizar">Organizar</a>
-      <a href="/crescer">Crescer</a>
-      <a href="/aconselhar">Capacitar e aconselhar</a>
-      <a class="nav-contato" href="#contato">Contato</a>
+    <a class="logo" href="/" aria-label="Zethic, início"><span aria-hidden="true">Z</span><svg class="logo-e" viewBox="0 0 72 52.5" aria-hidden="true" focusable="false"><rect width="72" height="7" rx="1"/><rect y="22.75" width="72" height="7" rx="1"/><rect y="45.5" width="72" height="7" rx="1"/></svg><span aria-hidden="true">THIC</span></a>
+    <nav id="menu-principal" class="menu" aria-label="Principal">
+      <ul class="menu-lista" role="list">
+        <li class="torre p-seg">
+          <button type="button" class="torre-btn" aria-expanded="false" aria-controls="painel-proteger">Proteger</button>
+          <div class="painel" id="painel-proteger">
+            <div class="wrap painel-in">
+              <a class="painel-capa" href="/proteger">
+                <picture><source type="image/webp" srcset="/assets/img/proteger-provisoria-800.webp"><img src="/assets/img/proteger-provisoria-800.jpg" alt="" width="800" height="500" loading="lazy"></picture>
+                <span class="painel-rotulo">Segurança</span>
+                <span class="painel-marca">Proteger</span>
+                <span class="painel-frase">Caixa, operação e dados protegidos.</span>
+                <span class="painel-ir">Conhecer Proteger</span>
+              </a>
+              <ul class="painel-lista" role="list">
+              <li><a href="/diagnostico"><strong>Diagnóstico 6 Moedas</strong><span>A porta de entrada, com autoavaliação grátis</span></a></li>
+              <li><a href="/teste-golpe"><strong>Teste de golpe</strong><span>Dez situações reais, grátis</span></a></li>
+              <li><a href="/proteger#antigolpe"><strong>Programa Antigolpe</strong><span>Equipe que reconhece golpes e regras contra pagamento indevido</span></a></li>
+              <li><a href="/proteger#seguranca-gerenciada"><strong>Segurança gerenciada</strong><span>Ameaças monitoradas e backup testado</span></a></li>
+              <li><a href="/proteger#privacidade"><strong>Privacidade e LGPD</strong><span>Dados pessoais tratados com responsabilidade e documentação</span></a></li>
+              <li><a href="/proteger#governanca-ia"><strong>Governança de IA</strong><span>IA usada com regras, controles e retorno medido</span></a></li>
+              </ul>
+            </div>
+          </div>
+        </li>
+        <li class="torre p-tec">
+          <button type="button" class="torre-btn" aria-expanded="false" aria-controls="painel-organizar">Organizar</button>
+          <div class="painel" id="painel-organizar">
+            <div class="wrap painel-in">
+              <a class="painel-capa" href="/organizar">
+                <picture><source type="image/webp" srcset="/assets/img/organizar-provisoria-800.webp"><img src="/assets/img/organizar-provisoria-800.jpg" alt="" width="800" height="500" loading="lazy"></picture>
+                <span class="painel-rotulo">Tecnologia</span>
+                <span class="painel-marca">Organizar</span>
+                <span class="painel-frase">Uma operação que não depende de uma pessoa só.</span>
+                <span class="painel-ir">Conhecer Organizar</span>
+              </a>
+              <ul class="painel-lista" role="list">
+              <li><a href="/organizar#processos"><strong>Processos e rotina operacional</strong><span>Menos erro e retrabalho no dia a dia</span></a></li>
+              <li><a href="/organizar#automacao"><strong>Automação e agentes de IA</strong><span>Trabalho repetitivo automatizado, com controle de acesso</span></a></li>
+              <li><a href="/organizar#financas"><strong>Finanças e recuperação de valores</strong><span>Valores a recuperar identificados e financeiro sob controle</span></a></li>
+              <li><a href="/organizar#projetos"><strong>Governança de projetos e serviços</strong><span>Escopo, responsáveis e indicadores</span></a></li>
+              <li><a href="/organizar#infraestrutura"><strong>Infraestrutura, redes e conectividade</strong><span>Infraestrutura que aguenta a operação</span></a></li>
+              <li><a href="/organizar#nuvem"><strong>Nuvem e identidade digital</strong><span>Custo e acesso sob controle</span></a></li>
+              </ul>
+            </div>
+          </div>
+        </li>
+        <li class="torre p-mid">
+          <button type="button" class="torre-btn" aria-expanded="false" aria-controls="painel-crescer">Crescer</button>
+          <div class="painel" id="painel-crescer">
+            <div class="wrap painel-in">
+              <a class="painel-capa" href="/crescer">
+                <picture><source type="image/webp" srcset="/assets/img/crescer-provisoria-800.webp"><img src="/assets/img/crescer-provisoria-800.jpg" alt="" width="800" height="500" loading="lazy"></picture>
+                <span class="painel-rotulo">Mídia digital</span>
+                <span class="painel-marca">Crescer</span>
+                <span class="painel-frase">Mais clientes chegando, com rotina e medição.</span>
+                <span class="painel-ir">Conhecer Crescer</span>
+              </a>
+              <ul class="painel-lista" role="list">
+              <li><a href="/crescer#presenca"><strong>Presença digital</strong><span>Canais digitais organizados e conectados</span></a></li>
+              <li><a href="/crescer#demanda"><strong>Geração de demanda</strong><span>Contatos qualificados chegando com rotina e medição</span></a></li>
+              <li><a href="/crescer#whatsapp"><strong>WhatsApp e CRM comercial</strong><span>Atendimento e vendas com regras, dono e histórico</span></a></li>
+              </ul>
+            </div>
+          </div>
+        </li>
+        <li class="torre p-mid">
+          <button type="button" class="torre-btn" aria-expanded="false" aria-controls="painel-midia">Mídia digital</button>
+          <div class="painel" id="painel-midia">
+            <div class="wrap painel-in">
+              <a class="painel-capa" href="/podecurtir">
+                <picture><source type="image/webp" srcset="/assets/img/podecurtir-provisoria-800.webp"><img src="/assets/img/podecurtir-provisoria-800.jpg" alt="" width="800" height="500" loading="lazy"></picture>
+                <span class="painel-rotulo">Mídia digital</span>
+                <span class="painel-marca">Mídia digital</span>
+                <span class="painel-frase">Foto e vídeo prontos para postar, com o Pode Curtir.</span>
+                <span class="painel-ir">Conhecer o Pode Curtir</span>
+              </a>
+              <ul class="painel-lista" role="list">
+              <li><a href="/podecurtir#eventos"><strong>Eventos</strong><span>Foto, vídeo, gravação e transmissão ao vivo</span></a></li>
+              <li><a href="/podecurtir#negocios"><strong>Negócios</strong><span>Vídeo institucional, sessão de conteúdo, entrevistas e estúdio</span></a></li>
+              <li><a href="/podecurtir#ensaios"><strong>Ensaios</strong><span>Fotografia profissional</span></a></li>
+              </ul>
+            </div>
+          </div>
+        </li>
+        <li class="torre p-tec">
+          <button type="button" class="torre-btn" aria-expanded="false" aria-controls="painel-capacitar">Capacitar e aconselhar</button>
+          <div class="painel" id="painel-capacitar">
+            <div class="wrap painel-in">
+              <a class="painel-capa" href="/aconselhar">
+                <picture><source type="image/webp" srcset="/assets/img/aconselhar-provisoria-800.webp"><img src="/assets/img/aconselhar-provisoria-800.jpg" alt="" width="800" height="500" loading="lazy"></picture>
+                <span class="painel-rotulo">Tecnologia</span>
+                <span class="painel-marca">Capacitar e aconselhar</span>
+                <span class="painel-frase">Equipe e diretoria decidindo melhor.</span>
+                <span class="painel-ir">Conhecer Capacitar e aconselhar</span>
+              </a>
+              <ul class="painel-lista" role="list">
+              <li><a href="/aconselhar#capacitacao"><strong>Capacitação em IA</strong><span>Pessoas usando IA com produtividade e sem vazar dados</span></a></li>
+              <li><a href="/aconselhar#consultoria"><strong>Consultoria especializada</strong><span>Uma questão específica resolvida com análise e recomendação</span></a></li>
+              <li><a href="/aconselhar#conselheira"><strong>Conselheira de risco</strong><span>Apoio mensal à diretoria nas decisões sobre risco digital e IA</span></a></li>
+              </ul>
+            </div>
+          </div>
+        </li>
+        <li class="so-celular"><a class="menu-link" href="/quem-somos">Quem somos</a></li>
+        <li class="so-celular"><a class="menu-link" href="#contato">Contato</a></li>
+      </ul>
     </nav>
+    <a class="btn btn-topo" href="/fale?utm_source=site">Falar no WhatsApp</a>
+    <button type="button" class="menu-btn" aria-expanded="false" aria-controls="menu-principal">Menu</button>
   </div>
 </header>
+<!-- cabecalho:fim -->
+
+<p class="faixa"><a href="/diagnostico"><b>Preço de fundador:</b> Diagnóstico 6 Moedas a partir de R$ 7.500 para os 3 primeiros clientes. <span>Saiba mais</span></a></p>
 
 <main id="inicio">
 
-  <section class="hero">
-    <div class="wrap">
-      <h1>Risco digital e IA em linguagem de dono.</h1>
-      <p class="lead">A Zethic ajuda o Negócio a se proteger, se organizar e crescer, com decisões tomadas sobre evidência.</p>
-      <div class="hero-ctas">
-        <a class="btn btn-main" href="/agendar?utm_source=site">Agendar uma conversa</a>
-        <a class="link-sec" href="/diagnostico">Conhecer o Diagnóstico 6 Moedas</a>
+  <section class="vitrine" aria-roledescription="carrossel" aria-label="Destaques das frentes">
+    <div class="slides">
+      <article class="slide p-hub ativo" role="group" aria-roledescription="destaque" aria-label="1 de 4: Zethic">
+        <picture class="slide-img"><source type="image/webp" srcset="/assets/img/zethic-provisoria.webp"><img src="/assets/img/zethic-provisoria.jpg" alt="" width="1600" height="1000" fetchpriority="high"></picture>
+        <div class="wrap slide-txt">
+          <p class="slide-marca">Zethic</p>
+          <h1>Tecnologia, segurança e mídia digital para o Negócio.</h1>
+          <p class="lead">Uma empresa, várias frentes: proteger, organizar, crescer, aparecer e capacitar o Negócio, em linguagem de dono.</p>
+          <div class="hero-ctas">
+            <a class="btn btn-main" href="/agendar?utm_source=site">Agendar uma conversa</a>
+            <a class="link-sec" href="#frentes">Conhecer as frentes</a>
+          </div>
+        </div>
+      </article>
+      <article class="slide p-seg" role="group" aria-roledescription="destaque" aria-label="2 de 4: Proteger">
+        <picture class="slide-img"><source type="image/webp" srcset="/assets/img/proteger-provisoria.webp"><img src="/assets/img/proteger-provisoria.jpg" alt="" width="1600" height="1000" loading="lazy"></picture>
+        <div class="wrap slide-txt">
+          <p class="slide-marca">Segurança · Proteger</p>
+          <p class="slide-t">Caixa, operação e dados protegidos.</p>
+          <p class="lead">Golpe, sistema parado, vazamento de dados e uso de IA viram decisão de negócio. Comece pelo Diagnóstico 6 Moedas.</p>
+          <div class="hero-ctas">
+            <a class="btn btn-line" href="/proteger">Conhecer Proteger</a>
+            <a class="link-sec" href="/diagnostico#autoavaliacao">Fazer a autoavaliação grátis</a>
+          </div>
+        </div>
+      </article>
+      <article class="slide p-tec" role="group" aria-roledescription="destaque" aria-label="3 de 4: Organizar">
+        <picture class="slide-img"><source type="image/webp" srcset="/assets/img/organizar-provisoria.webp"><img src="/assets/img/organizar-provisoria.jpg" alt="" width="1600" height="1000" loading="lazy"></picture>
+        <div class="wrap slide-txt">
+          <p class="slide-marca">Tecnologia · Organizar</p>
+          <p class="slide-t">Uma operação que não depende de uma pessoa só.</p>
+          <p class="lead">Processos claros, trabalho repetitivo automatizado com agentes de IA e financeiro sob controle.</p>
+          <div class="hero-ctas">
+            <a class="btn btn-line" href="/organizar">Conhecer Organizar</a>
+            <a class="link-sec" href="/organizar#automacao">Automação e agentes de IA</a>
+          </div>
+        </div>
+      </article>
+      <article class="slide p-mid" role="group" aria-roledescription="destaque" aria-label="4 de 4: Mídia digital">
+        <picture class="slide-img"><source type="image/webp" srcset="/assets/img/podecurtir-provisoria.webp"><img src="/assets/img/podecurtir-provisoria.jpg" alt="" width="1600" height="1000" loading="lazy"></picture>
+        <div class="wrap slide-txt">
+          <p class="slide-marca">Mídia digital · Pode Curtir</p>
+          <p class="slide-t">Você curte, a gente registra.</p>
+          <p class="lead">Foto e vídeo prontos para postar, no seu evento, no seu negócio ou no seu ensaio.</p>
+          <div class="hero-ctas">
+            <a class="btn btn-line" href="/podecurtir">Conhecer o Pode Curtir</a>
+            <a class="link-sec" href="/fale?utm_source=home-podecurtir">Pedir orçamento</a>
+          </div>
+        </div>
+      </article>
+    </div>
+    <div class="wrap vitrine-ctrl">
+      <div class="pontos">
+        <button type="button" class="ponto p-hub ativo" aria-label="Mostrar o destaque da Zethic"><span class="ponto-nome">Zethic</span><span class="barra" aria-hidden="true"></span></button>
+        <button type="button" class="ponto p-seg" aria-label="Mostrar o destaque de Proteger"><span class="ponto-nome">Proteger</span><span class="barra" aria-hidden="true"></span></button>
+        <button type="button" class="ponto p-tec" aria-label="Mostrar o destaque de Organizar"><span class="ponto-nome">Organizar</span><span class="barra" aria-hidden="true"></span></button>
+        <button type="button" class="ponto p-mid" aria-label="Mostrar o destaque de Mídia digital"><span class="ponto-nome">Mídia digital</span><span class="barra" aria-hidden="true"></span></button>
       </div>
-      <small>Atendimento remoto a partir de Campinas,&nbsp;SP.</small>
+      <button type="button" class="pausa">Pausar</button>
     </div>
   </section>
 
-  <section id="frentes" class="frentes">
+  <section id="frentes" class="marcas">
     <div class="wrap">
-      <h2>Quatro frentes, um método.</h2>
-      <ul class="doors" role="list">
-        <li><a class="door" href="/proteger"><span class="door-n">Proteger</span><strong>Caixa, operação e dados protegidos</strong></a></li>
-        <li><a class="door" href="/organizar"><span class="door-n">Organizar</span><strong>Uma operação que não depende de uma pessoa só</strong></a></li>
-        <li><a class="door" href="/crescer"><span class="door-n">Crescer</span><strong>Mais clientes chegando, com rotina e medição</strong></a></li>
-        <li><a class="door" href="/aconselhar"><span class="door-n">Capacitar e aconselhar</span><strong>Equipe e diretoria decidindo melhor</strong></a></li>
+      <h2 class="revela">Cinco frentes, um só lugar</h2>
+      <p class="lead revela">Cada frente tem a sua página e os seus serviços. Você fala com uma responsável do começo ao fim.</p>
+      <ul class="cartoes" role="list">
+        <li class="cartao p-seg revela">
+          <picture class="cartao-img"><source type="image/webp" srcset="/assets/img/proteger-provisoria-800.webp"><img src="/assets/img/proteger-provisoria-800.jpg" alt="" width="800" height="500" loading="lazy"></picture>
+          <div class="cartao-txt">
+            <p class="cartao-rotulo">Segurança</p>
+            <h3>Proteger</h3>
+            <p>Caixa, operação e dados protegidos.</p>
+            <ul class="cartao-lista" role="list">
+              <li><a href="/diagnostico">Diagnóstico 6 Moedas</a></li>
+              <li><a href="/teste-golpe">Teste de golpe</a></li>
+              <li><a href="/proteger#antigolpe">Programa Antigolpe</a></li>
+              <li><a href="/proteger#seguranca-gerenciada">Segurança gerenciada</a></li>
+              <li><a href="/proteger#privacidade">Privacidade e LGPD</a></li>
+              <li><a href="/proteger#governanca-ia">Governança de IA</a></li>
+            </ul>
+            <a class="cartao-ir" href="/proteger">Conhecer Proteger</a>
+          </div>
+        </li>
+        <li class="cartao p-tec revela">
+          <picture class="cartao-img"><source type="image/webp" srcset="/assets/img/organizar-provisoria-800.webp"><img src="/assets/img/organizar-provisoria-800.jpg" alt="" width="800" height="500" loading="lazy"></picture>
+          <div class="cartao-txt">
+            <p class="cartao-rotulo">Tecnologia</p>
+            <h3>Organizar</h3>
+            <p>Uma operação que não depende de uma pessoa só.</p>
+            <ul class="cartao-lista" role="list">
+              <li><a href="/organizar#processos">Processos e rotina operacional</a></li>
+              <li><a href="/organizar#automacao">Automação e agentes de IA</a></li>
+              <li><a href="/organizar#financas">Finanças e recuperação de valores</a></li>
+              <li><a href="/organizar#projetos">Governança de projetos e serviços</a></li>
+              <li><a href="/organizar#infraestrutura">Infraestrutura, redes e conectividade</a></li>
+              <li><a href="/organizar#nuvem">Nuvem e identidade digital</a></li>
+            </ul>
+            <a class="cartao-ir" href="/organizar">Conhecer Organizar</a>
+          </div>
+        </li>
+        <li class="cartao p-mid revela">
+          <picture class="cartao-img"><source type="image/webp" srcset="/assets/img/crescer-provisoria-800.webp"><img src="/assets/img/crescer-provisoria-800.jpg" alt="" width="800" height="500" loading="lazy"></picture>
+          <div class="cartao-txt">
+            <p class="cartao-rotulo">Mídia digital</p>
+            <h3>Crescer</h3>
+            <p>Mais clientes chegando, com rotina e medição.</p>
+            <ul class="cartao-lista" role="list">
+              <li><a href="/crescer#presenca">Presença digital</a></li>
+              <li><a href="/crescer#demanda">Geração de demanda</a></li>
+              <li><a href="/crescer#whatsapp">WhatsApp e CRM comercial</a></li>
+            </ul>
+            <a class="cartao-ir" href="/crescer">Conhecer Crescer</a>
+          </div>
+        </li>
+        <li class="cartao p-mid revela">
+          <picture class="cartao-img"><source type="image/webp" srcset="/assets/img/podecurtir-provisoria-800.webp"><img src="/assets/img/podecurtir-provisoria-800.jpg" alt="" width="800" height="500" loading="lazy"></picture>
+          <div class="cartao-txt">
+            <p class="cartao-rotulo">Mídia digital</p>
+            <h3>Mídia digital</h3>
+            <p>Foto e vídeo prontos para postar, com o Pode Curtir.</p>
+            <ul class="cartao-lista" role="list">
+              <li><a href="/podecurtir#eventos">Eventos</a></li>
+              <li><a href="/podecurtir#negocios">Negócios</a></li>
+              <li><a href="/podecurtir#ensaios">Ensaios</a></li>
+            </ul>
+            <a class="cartao-ir" href="/podecurtir">Conhecer o Pode Curtir</a>
+          </div>
+        </li>
+        <li class="cartao p-tec revela">
+          <picture class="cartao-img"><source type="image/webp" srcset="/assets/img/aconselhar-provisoria-800.webp"><img src="/assets/img/aconselhar-provisoria-800.jpg" alt="" width="800" height="500" loading="lazy"></picture>
+          <div class="cartao-txt">
+            <p class="cartao-rotulo">Tecnologia</p>
+            <h3>Capacitar e aconselhar</h3>
+            <p>Equipe e diretoria decidindo melhor.</p>
+            <ul class="cartao-lista" role="list">
+              <li><a href="/aconselhar#capacitacao">Capacitação em IA</a></li>
+              <li><a href="/aconselhar#consultoria">Consultoria especializada</a></li>
+              <li><a href="/aconselhar#conselheira">Conselheira de risco</a></li>
+            </ul>
+            <a class="cartao-ir" href="/aconselhar">Conhecer Capacitar e aconselhar</a>
+          </div>
+        </li>
       </ul>
     </div>
   </section>
 
-  <section id="como-funciona">
+  <section class="destaque p-seg">
+    <div class="wrap destaque-grid">
+      <picture class="destaque-img revela"><source type="image/webp" srcset="/assets/img/diagnostico-provisoria-800.webp"><img src="/assets/img/diagnostico-provisoria-800.jpg" alt="" width="800" height="600" loading="lazy"></picture>
+      <div class="revela">
+        <p class="slide-marca">Segurança · Proteger</p>
+        <h2>Diagnóstico 6 Moedas</h2>
+        <p class="lead">Os riscos cibernéticos, de IA e de operação da sua empresa traduzidos em decisão de negócio: o que pode custar caro, o que resolver primeiro e por quê.</p>
+        <ul class="destaque-lista" role="list">
+          <li><b>Mapa de riscos</b> organizado nas 6 Moedas de Negócio</li>
+          <li><b>Prioridades</b> em linguagem de dono</li>
+          <li><b>Plano de ação</b> com responsável e ordem de execução</li>
+        </ul>
+        <p class="destaque-preco">De 2 a 4 semanas. A partir de R$ 12.000; preço de fundador a partir de R$ 7.500 para os 3 primeiros clientes.</p>
+        <div class="hero-ctas">
+          <a class="btn btn-line" href="/diagnostico#autoavaliacao">Fazer a autoavaliação grátis</a>
+          <a class="link-sec" href="/diagnostico">Ver o Diagnóstico</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="porta" aria-labelledby="t-fundadora">
+    <div class="wrap porta-grid revela">
+      <picture class="porta-retrato"><source type="image/webp" srcset="/assets/img/jessica-gessoli-400.webp"><img src="/assets/img/jessica-gessoli-400.jpg" alt="Retrato de Jéssica Gessoli" width="400" height="400" loading="lazy"></picture>
+      <div>
+        <p class="porta-rotulo">Quem fundou a Zethic</p>
+        <h2 id="t-fundadora">Jéssica Gessoli</h2>
+        <p class="porta-txt">Fundadora e diretora executiva da Zethic, acompanha cada trabalho do diagnóstico ao fechamento.</p>
+      </div>
+      <a class="btn btn-latao" href="/jessicagessoli">Conhecer a fundadora</a>
+    </div>
+  </section>
+
+  <section class="atalhos">
     <div class="wrap">
-      <h2>Como trabalhamos</h2>
-      <ol class="steps" role="list">
-        <li><strong>Diagnóstico 6 Moedas</strong><span>A operação como ela é hoje.</span></li>
-        <li><strong>Estruturação</strong><span>Processo, responsáveis e medição.</span></li>
-        <li><strong>Operação supervisionada</strong><span>Execução acompanhada e registrada.</span></li>
-        <li><strong>Fechamento com evidência</strong><span>Números verificáveis e próximo passo.</span></li>
-      </ol>
-      <p class="mais"><a href="/diagnostico">As 6 Moedas de Negócio e a autoavaliação gratuita</a></p>
+      <h2 class="revela">Como podemos ajudar?</h2>
+      <ul class="atalhos-grade" role="list">
+        <li class="revela"><a href="/agendar?utm_source=site"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><span>Agendar uma conversa</span></a></li>
+        <li class="revela"><a href="/fale?utm_source=site"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 20l1.4-4A8 8 0 1 1 8 18.6z"/></svg><span>Falar no WhatsApp</span></a></li>
+        <li class="revela"><a href="/diagnostico#autoavaliacao"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 12l4-4M12 7v1M7 12h1M17 12h-1"/></svg><span>Autoavaliação 6 Moedas</span></a></li>
+        <li class="revela"><a href="/teste-golpe"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 3l8 3v6c0 4.5-3.4 8-8 9-4.6-1-8-4.5-8-9V6z"/><path d="M12 8v5M12 16v.5"/></svg><span>Teste de golpe</span></a></li>
+        <li class="revela"><a href="/fale?utm_source=home-podecurtir"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7l2-3h4l2 3"/><circle cx="12" cy="13.5" r="3.5"/></svg><span>Orçamento de foto e vídeo</span></a></li>
+        <li class="revela"><a href="/quem-somos"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg><span>Quem somos</span></a></li>
+      </ul>
     </div>
   </section>
 
   <section id="contato">
     <div class="wrap contact">
-      <h2>Fale com a Zethic</h2>
+      <h2>Fale com a gente</h2>
       <dl>
         <div><dt>Agenda</dt><dd><a href="/agendar?utm_source=site">Marcar uma conversa de 45 min</a></dd></div>
         <div><dt>WhatsApp</dt><dd><a href="/fale?utm_source=site">+55 19 98180-0221</a></dd></div>
         <div><dt>E-mail</dt><dd><a href="mailto:jessica.gessoli@zethic.net">jessica.gessoli@zethic.net</a></dd></div>
+        <div><dt>Atendimento</dt><dd>Presencial num raio de 100 km de Campinas, incluindo a cidade de São Paulo; tecnologia e segurança também a distância.</dd></div>
       </dl>
     </div>
   </section>
 
 </main>
 
-<footer>
+<footer class="rodape-grupo">
   <div class="wrap">
+    <div class="rodape-colunas">
+      <div>
+        <p class="rodape-titulo">Frentes</p>
+        <ul role="list">
+          <li><a href="/proteger">Proteger</a></li>
+          <li><a href="/organizar">Organizar</a></li>
+          <li><a href="/crescer">Crescer</a></li>
+          <li><a href="/podecurtir">Mídia digital (Pode Curtir)</a></li>
+          <li><a href="/aconselhar">Capacitar e aconselhar</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="rodape-titulo">Comece por aqui</p>
+        <ul role="list">
+          <li><a href="/diagnostico">Diagnóstico 6 Moedas</a></li>
+          <li><a href="/teste-golpe">Teste de golpe</a></li>
+          <li><a href="/fale?utm_source=home-podecurtir">Orçamento de foto e vídeo</a></li>
+          <li><a href="/agendar?utm_source=site">Agendar uma conversa</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="rodape-titulo">Quem fundou a Zethic</p>
+        <ul role="list">
+          <li><a href="/jessicagessoli">Jéssica Gessoli</a></li>
+          <li><a href="https://www.linkedin.com/in/jessicagessoli" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://www.instagram.com/jessicagessoli/" rel="noopener">Instagram</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="rodape-titulo">Institucional</p>
+        <ul role="list">
+          <li><a href="/quem-somos">Quem somos</a></li>
+          <li><a href="/privacidade">Privacidade e termos de uso</a></li>
+          <li><a href="https://www.linkedin.com/company/144656905/">LinkedIn da Zethic</a></li>
+          <li><a href="https://www.instagram.com/zethic_net/">Instagram da Zethic</a></li>
+          <li><a href="https://www.instagram.com/podecurtir.oficial/" rel="noopener">Instagram do Pode Curtir</a></li>
+        </ul>
+      </div>
+    </div>
     <div class="logo" role="img" aria-label="Zethic"><span aria-hidden="true">Z</span><svg class="logo-e" viewBox="0 0 72 52.5" aria-hidden="true" focusable="false"><rect width="72" height="7" rx="1"/><rect y="22.75" width="72" height="7" rx="1"/><rect y="45.5" width="72" height="7" rx="1"/></svg><span aria-hidden="true">THIC</span></div>
     <p>© 2026 Zethic. Razão social: Jessica Caroline da Silva Secco Gessoli, Microempreendedor Individual (MEI).</p>
     <p>CNPJ 67.678.226/0001-17. Campinas, São Paulo, Brasil.</p>
-    <p><a href="https://www.linkedin.com/company/144656905/">LinkedIn</a> · <a href="https://www.instagram.com/zethic_net/">Instagram</a> · <a href="/privacidade">Privacidade e termos de uso</a>. Esta página não usa cookies.</p>
+    <p><a href="/quem-somos">Quem somos</a> · <a href="/privacidade">Privacidade e termos de uso</a>. Esta página não usa cookies.</p>
   </div>
 </footer>
 
@@ -116,11 +433,14 @@
   "url": "https://zethic.net/",
   "logo": "https://zethic.net/assets/img/zethic-marca-512.png",
   "image": "https://zethic.net/assets/img/og-zethic.jpg",
-  "description": "Risco digital e IA em linguagem de dono para o Negócio. Porta de entrada: Diagnóstico 6 Moedas.",
+  "description": "Tecnologia, segurança e mídia digital para o Negócio, com cinco frentes: Proteger, Organizar, Crescer, Mídia digital (Pode Curtir) e Capacitar e aconselhar.",
   "taxID": "67.678.226/0001-17",
   "email": "jessica.gessoli@zethic.net",
   "telephone": "+55-19-98180-0221",
-  "areaServed": "BR",
+  "areaServed": [
+    {"@type": "GeoCircle", "geoMidpoint": {"@type": "GeoCoordinates", "latitude": -22.9053, "longitude": -47.0659}, "geoRadius": "100000"},
+    {"@type": "City", "name": "São Paulo"}
+  ],
   "knowsLanguage": "pt-BR",
   "address": {
     "@type": "PostalAddress",
@@ -128,6 +448,10 @@
     "addressRegion": "SP",
     "addressCountry": "BR"
   },
+  "founder": {"@type": "Person", "name": "Jéssica Gessoli", "url": "https://zethic.net/jessicagessoli"},
+  "brand": [
+    {"@type": "Brand", "name": "Pode Curtir", "url": "https://zethic.net/podecurtir"}
+  ],
   "sameAs": ["https://www.linkedin.com/company/144656905/", "https://www.instagram.com/zethic_net/"]
 }
 </script>

@@ -73,7 +73,9 @@ test("ProfilePage válido nas duas versões e llms.txt só com a Zethic", () => 
   }
   const llms = readFileSync(new URL("../llms.txt", import.meta.url), "utf8");
   assert.match(llms, /^# Zethic/);
-  assert.doesNotMatch(llms, /jessicagessoli|podecurtir/i);
+  // Hub de 12/10/2026: o Pode Curtir é a frente Mídia digital e entra no llms.txt; a página profissional continua fora.
+  assert.doesNotMatch(llms, /jessicagessoli/i);
+  assert.match(llms, /\(https:\/\/zethic\.net\/podecurtir\)/);
   assert.doesNotMatch(llms, /\bPME\b/);
 });
 
