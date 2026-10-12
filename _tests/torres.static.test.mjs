@@ -2,8 +2,9 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync, existsSync } from "node:fs";
 
-// Zethic em torres (11/10/2026): barra do grupo em todas as páginas, menu das marcas nas páginas da Zethic,
-// home com banners em movimento, cartões das marcas e atalhos. Os blocos são gerados por _ferramentas/cabecalhos.py.
+// Zethic como hub (aprovado em 12/10/2026): barra das marcas em todas as páginas, menu das cinco frentes nas páginas da Zethic,
+// página inicial com vitrine em movimento, cartões das frentes, porta da fundadora e atalhos.
+// Os blocos do topo são gerados por _ferramentas/cabecalhos.py.
 const ler = (p) => readFileSync(new URL("../" + p, import.meta.url), "utf8");
 const existe = (p) => existsSync(new URL("../" + p, import.meta.url));
 const ZETHIC = ["index.html", "quem-somos.html", "diagnostico.html", "proteger.html", "organizar.html", "crescer.html", "aconselhar.html", "teste-golpe.html", "privacidade.html"];
@@ -40,9 +41,12 @@ test("menu das marcas igual em todas as páginas da Zethic", () => {
   }
 });
 
-test("cada marca do menu abre um painel acessível", () => {
+const FRENTES = { proteger: "p-seg", organizar: "p-tec", crescer: "p-mid", midia: "p-mid", capacitar: "p-tec" };
+
+test("cada frente do menu abre um painel acessível, na cor do seu pilar", () => {
   const c = bloco(ler("index.html"), "cabecalho");
-  for (const id of ["zethic", "jessicagessoli", "podecurtir"]) {
+  for (const [id, pilar] of Object.entries(FRENTES)) {
+    assert.match(c, new RegExp(`<li class="torre ${pilar}">\\s*<button type="button" class="torre-btn" aria-expanded="false" aria-controls="painel-${id}">`), id);
     assert.match(c, new RegExp(`<button type="button" class="torre-btn" aria-expanded="false" aria-controls="painel-${id}">`), id);
     assert.match(c, new RegExp(`<div class="painel" id="painel-${id}">`), id);
   }
@@ -61,15 +65,26 @@ test("todo link de serviço leva a uma página e a uma âncora que existem", () 
   }
 });
 
-test("home: três banners, um título principal e uma chamada principal", () => {
+test("Jéssica Gessoli não é frente: só a porta \"Quem fundou a Zethic\" e a barra das marcas", () => {
+  const h = ler("index.html");
+  assert.doesNotMatch(bloco(h, "cabecalho"), /jessicagessoli|J[ée]ssica/);
+  const main = h.match(/<main[\s\S]*?<\/main>/)[0];
+  assert.equal((main.match(/href="\/jessicagessoli[^"]*"/g) || []).length, 1, "uma única porta para a página profissional");
+  assert.match(main, /Quem fundou a Zethic/);
+  assert.doesNotMatch(main, /mentoria|palestra|recoloca|kit-palestrante/i);
+});
+
+test("home: quatro destaques, um título principal e uma chamada principal", () => {
   const h = ler("index.html");
   const main = h.match(/<main[\s\S]*?<\/main>/)[0];
-  assert.equal((main.match(/class="slide /g) || []).length, 3);
-  assert.equal((main.match(/class="ponto(?: ativo)?"/g) || []).length, 3);
+  assert.equal((main.match(/class="slide /g) || []).length, 4);
+  assert.equal((main.match(/class="ponto p-[a-z]+(?: ativo)?"/g) || []).length, 4);
+  assert.match(main, /<h1>Tecnologia, segurança e mídia digital para o Negócio\.<\/h1>/);
   assert.equal((h.match(/<h1[ >]/g) || []).length, 1);
   assert.equal((h.match(/class="btn btn-main"/g) || []).length, 1);
   assert.match(main, /<button type="button" class="pausa">Pausar<\/button>/);
-  assert.equal((main.match(/class="cartao c-[zjp]/g) || []).length, 3);
+  const cartoes = [...main.matchAll(/class="cartao (p-[a-z]+) revela"[\s\S]*?<h3>([^<]+)<\/h3>/g)].map((m) => [m[2], m[1]]);
+  assert.deepEqual(cartoes, [["Proteger", "p-seg"], ["Organizar", "p-tec"], ["Crescer", "p-mid"], ["Mídia digital", "p-mid"], ["Capacitar e aconselhar", "p-tec"]]);
   assert.doesNotMatch(h, /98331|0769/);
 });
 
@@ -92,4 +107,33 @@ test("movimento respeita quem pede menos movimento", () => {
   const js = ler("assets/js/torres.js");
   assert.match(js, /prefers-reduced-motion: reduce/);
   assert.match(js, /pausadoPeloUsuario = calmo/);
+});
+
+test("cores do sistema de design: pilares e tema claro", () => {
+  const css = ler("assets/css/torres.css");
+  for (const t of ["--pilar-seguranca:#00E5FF", "--pilar-tecnologia:#9B8CFF", "--pilar-midia:#FF5C9A", "--ciano-texto:#00E5FF"]) assert.ok(css.includes(t), t);
+  const z = ler("assets/css/zethic.css");
+  for (const t of ["--ciano-texto:#006E84", "--pilar-seguranca:#007A8F", "--pilar-tecnologia:#5B45E0", "--pilar-midia:#C2185B", "background:#F4F6FB"]) assert.ok(z.includes(t), t);
+  for (const [p, pilar] of [["proteger.html", "p-seg"], ["organizar.html", "p-tec"], ["crescer.html", "p-mid"], ["aconselhar.html", "p-tec"]]) {
+    const h = ler(p);
+    assert.match(h, new RegExp(`<body class="frente ${pilar}">`), p);
+    assert.match(h, /<p class="rotulo-pilar">/, p);
+    assert.match(h, /<section class="alt papel"/, p);
+  }
+});
+
+test("atendimento: raio de 100 km de Campinas com a cidade de São Paulo, sem \"remoto a partir de Campinas\"", () => {
+  for (const p of [...ZETHIC, "podecurtir.html", "llms.txt"]) {
+    assert.doesNotMatch(ler(p), /remoto, a partir de Campinas|Atendimento remoto|Remoto, também fora|Hortolândia, Jundiaí e região/, p);
+  }
+  for (const p of ["index.html", "quem-somos.html", "diagnostico.html", "podecurtir.html", "llms.txt"]) {
+    assert.match(ler(p), /raio de 100 km de Campinas,? (?:SP, )?incluindo a cidade de São Paulo/, p);
+  }
+});
+
+test("autoavaliação: a frase de privacidade segue a política", () => {
+  const d = ler("diagnostico.html");
+  assert.doesNotMatch(d, /nada é enviado/);
+  assert.match(d, /não são enviadas nem guardadas/);
+  assert.match(ler("privacidade.html"), /não são enviadas nem guardadas\. Se você aceitou a medição, só a nota final e a moeda mais exposta são registradas/);
 });

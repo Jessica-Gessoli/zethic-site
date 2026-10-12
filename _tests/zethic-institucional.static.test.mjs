@@ -3,10 +3,10 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 
 const ler = (p) => readFileSync(new URL("../" + p, import.meta.url), "utf8");
-// Regra de 11/10/2026 (substitui a opção B): a Zethic reúne três marcas, como um grupo.
-// A home apresenta Zethic, Jéssica Gessoli e Pode Curtir; o topo (barra do grupo e menu) e o rodapé ligam as marcas em todas as páginas.
-// O corpo das páginas das frentes da Zethic continua falando só da Zethic.
-const FRENTES = ["quem-somos.html", "diagnostico.html", "proteger.html", "organizar.html", "crescer.html", "aconselhar.html", "teste-golpe.html", "privacidade.html"];
+// Regra de 12/10/2026 (hub): a Zethic é uma empresa de tecnologia, segurança e mídia digital com cinco frentes.
+// Pode Curtir é a frente Mídia digital (marca endossada); Jéssica Gessoli não é frente, aparece só como "Quem fundou a Zethic".
+// O corpo das páginas das frentes continua falando só da Zethic. A Quem somos pode citar a fundadora e o Pode Curtir.
+const FRENTES = ["diagnostico.html", "proteger.html", "organizar.html", "crescer.html", "aconselhar.html", "teste-golpe.html", "privacidade.html"];
 
 // O que pode citar as outras marcas: barra do grupo, menu, rodapé, razão social, controladora na política de privacidade e o e-mail atual.
 const semObrigatorios = (html) => html
@@ -22,6 +22,13 @@ test("corpo das páginas das frentes fala só da Zethic", () => {
     const resto = semObrigatorios(ler(p));
     assert.doesNotMatch(resto, /j[ée]ssica|jessicagessoli|pode ?curtir|podecurtir/i, p);
   }
+});
+
+test("quem somos cita a fundadora e o Pode Curtir, mas não os serviços pessoais dela", () => {
+  const resto = semObrigatorios(ler("quem-somos.html"));
+  assert.match(resto, /fundada e é dirigida por Jéssica Gessoli, fundadora e diretora executiva/);
+  assert.match(resto, /Pode Curtir/);
+  assert.doesNotMatch(resto, /mentoria|palestra|recoloca/i);
 });
 
 test("perguntas frequentes migraram para o Diagnóstico, com dados estruturados", () => {

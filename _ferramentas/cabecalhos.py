@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Monta a barra do grupo e o cabeçalho com o menu das marcas em todas as páginas.
+"""Monta a barra das marcas e o cabeçalho com o menu das cinco frentes em todas as páginas da Zethic.
 
 Uso (na raiz do repositório):  python3 _ferramentas/cabecalhos.py
 Edite os modelos abaixo e rode de novo: as páginas são atualizadas entre os marcadores
@@ -11,7 +11,7 @@ from pathlib import Path
 
 RAIZ = Path(__file__).resolve().parent.parent
 
-# Páginas da Zethic: recebem a barra do grupo e o cabeçalho com o menu das marcas.
+# Páginas da Zethic: recebem a barra das marcas e o cabeçalho com o menu das frentes.
 # (arquivo, origem usada no botão do WhatsApp, item do menu marcado como página atual)
 ZETHIC = [
     ("index.html", "site", None),
@@ -32,43 +32,69 @@ LOGO = ('<a class="logo" href="/" aria-label="Zethic, início"><span aria-hidden
         '<rect y="22.75" width="72" height="7" rx="1"/><rect y="45.5" width="72" height="7" rx="1"/></svg>'
         '<span aria-hidden="true">THIC</span></a>')
 
-# Serviços de cada marca, na ordem em que aparecem no menu, nos cartões da home e no rodapé.
-TORRES = [
+# As cinco frentes da Zethic (hub aprovado em 12/10/2026), na ordem do menu, dos cartões da página inicial e do rodapé.
+# Cada frente pertence a um pilar da categoria: p-seg (segurança), p-tec (tecnologia) ou p-mid (mídia digital).
+# Jéssica Gessoli não é frente: aparece só como a porta "Quem fundou a Zethic" e na barra das marcas.
+FRENTES = [
     {
-        "id": "zethic", "classe": "t-z", "nome": "Zethic",
-        "frase": "Risco digital e IA em linguagem de dono.",
-        "pagina": "/quem-somos", "ir": "Conhecer a Zethic",
-        "img": ("/assets/img/zethic-provisoria-800", 800, 500),
+        "id": "proteger", "pilar": "p-seg", "nome": "Proteger", "rotulo": "Segurança",
+        "frase": "Caixa, operação e dados protegidos.",
+        "pagina": "/proteger", "ir": "Conhecer Proteger",
+        "img": ("/assets/img/proteger-provisoria-800", 800, 500),
         "servicos": [
-            ("/proteger", "Proteger", "Caixa, operação e dados protegidos"),
-            ("/organizar", "Organizar", "Uma operação que não depende de uma pessoa só"),
-            ("/crescer", "Crescer", "Mais clientes chegando, com rotina e medição"),
-            ("/aconselhar", "Capacitar e aconselhar", "Equipe e diretoria decidindo melhor"),
             ("/diagnostico", "Diagnóstico 6 Moedas", "A porta de entrada, com autoavaliação grátis"),
             ("/teste-golpe", "Teste de golpe", "Dez situações reais, grátis"),
+            ("/proteger#antigolpe", "Programa Antigolpe", "Equipe que reconhece golpes e regras contra pagamento indevido"),
+            ("/proteger#seguranca-gerenciada", "Segurança gerenciada", "Ameaças monitoradas e backup testado"),
+            ("/proteger#privacidade", "Privacidade e LGPD", "Dados pessoais tratados com responsabilidade e documentação"),
+            ("/proteger#governanca-ia", "Governança de IA", "IA usada com regras, controles e retorno medido"),
         ],
     },
     {
-        "id": "jessicagessoli", "classe": "t-j", "nome": "Jéssica Gessoli",
-        "frase": "Risco cibernético e governança de IA para diretoria e conselho.",
-        "pagina": "/jessicagessoli", "ir": "Conhecer Jéssica Gessoli",
-        "img": ("/assets/img/jessica-gessoli-400", 400, 400),
+        "id": "organizar", "pilar": "p-tec", "nome": "Organizar", "rotulo": "Tecnologia",
+        "frase": "Uma operação que não depende de uma pessoa só.",
+        "pagina": "/organizar", "ir": "Conhecer Organizar",
+        "img": ("/assets/img/organizar-provisoria-800", 800, 500),
         "servicos": [
-            ("/jessicagessoli#lideranca", "Posições de liderança", "Coordenação e gerência em risco cibernético e governança de IA"),
-            ("/jessicagessoli#consultoria", "Consultoria para grandes organizações", "Tecnologia operacional, infraestrutura crítica e governança de risco"),
-            ("/jessicagessoli#palestras", "Palestras e apresentação de eventos", "Risco cibernético, governança de IA e golpes digitais"),
-            ("/jessicagessoli#mentoria", "Mentoria de recolocação", "Para profissionais de tecnologia e segurança da informação"),
+            ("/organizar#processos", "Processos e rotina operacional", "Menos erro e retrabalho no dia a dia"),
+            ("/organizar#automacao", "Automação e agentes de IA", "Trabalho repetitivo automatizado, com controle de acesso"),
+            ("/organizar#financas", "Finanças e recuperação de valores", "Valores a recuperar identificados e financeiro sob controle"),
+            ("/organizar#projetos", "Governança de projetos e serviços", "Escopo, responsáveis e indicadores"),
+            ("/organizar#infraestrutura", "Infraestrutura, redes e conectividade", "Infraestrutura que aguenta a operação"),
+            ("/organizar#nuvem", "Nuvem e identidade digital", "Custo e acesso sob controle"),
         ],
     },
     {
-        "id": "podecurtir", "classe": "t-p", "nome": "Pode Curtir",
-        "frase": "Você curte, a gente registra.",
+        "id": "crescer", "pilar": "p-mid", "nome": "Crescer", "rotulo": "Mídia digital",
+        "frase": "Mais clientes chegando, com rotina e medição.",
+        "pagina": "/crescer", "ir": "Conhecer Crescer",
+        "img": ("/assets/img/crescer-provisoria-800", 800, 500),
+        "servicos": [
+            ("/crescer#presenca", "Presença digital", "Canais digitais organizados e conectados"),
+            ("/crescer#demanda", "Geração de demanda", "Contatos qualificados chegando com rotina e medição"),
+            ("/crescer#whatsapp", "WhatsApp e CRM comercial", "Atendimento e vendas com regras, dono e histórico"),
+        ],
+    },
+    {
+        "id": "midia", "pilar": "p-mid", "nome": "Mídia digital", "rotulo": "Mídia digital",
+        "frase": "Foto e vídeo prontos para postar, com o Pode Curtir.",
         "pagina": "/podecurtir", "ir": "Conhecer o Pode Curtir",
         "img": ("/assets/img/podecurtir-provisoria-800", 800, 500),
         "servicos": [
             ("/podecurtir#eventos", "Eventos", "Foto, vídeo, gravação e transmissão ao vivo"),
             ("/podecurtir#negocios", "Negócios", "Vídeo institucional, sessão de conteúdo, entrevistas e estúdio"),
             ("/podecurtir#ensaios", "Ensaios", "Fotografia profissional"),
+        ],
+    },
+    {
+        "id": "capacitar", "pilar": "p-tec", "nome": "Capacitar e aconselhar", "rotulo": "Tecnologia",
+        "frase": "Equipe e diretoria decidindo melhor.",
+        "pagina": "/aconselhar", "ir": "Conhecer Capacitar e aconselhar",
+        "img": ("/assets/img/aconselhar-provisoria-800", 800, 500),
+        "servicos": [
+            ("/aconselhar#capacitacao", "Capacitação em IA", "Pessoas usando IA com produtividade e sem vazar dados"),
+            ("/aconselhar#consultoria", "Consultoria especializada", "Uma questão específica resolvida com análise e recomendação"),
+            ("/aconselhar#conselheira", "Conselheira de risco", "Apoio mensal à diretoria nas decisões sobre risco digital e IA"),
         ],
     },
 ]
@@ -97,12 +123,13 @@ def painel(t):
     img, w, h = t["img"]
     servicos = "\n".join(
         '              <li><a href="%s"><strong>%s</strong><span>%s</span></a></li>' % s for s in t["servicos"])
-    return f"""        <li class="torre {t['classe']}">
+    return f"""        <li class="torre {t['pilar']}">
           <button type="button" class="torre-btn" aria-expanded="false" aria-controls="painel-{t['id']}">{t['nome']}</button>
           <div class="painel" id="painel-{t['id']}">
             <div class="wrap painel-in">
               <a class="painel-capa" href="{t['pagina']}">
                 <picture><source type="image/webp" srcset="{img}.webp"><img src="{img}.jpg" alt="" width="{w}" height="{h}" loading="lazy"></picture>
+                <span class="painel-rotulo">{t['rotulo']}</span>
                 <span class="painel-marca">{t['nome']}</span>
                 <span class="painel-frase">{t['frase']}</span>
                 <span class="painel-ir">{t['ir']}</span>
@@ -118,7 +145,7 @@ def painel(t):
 def cabecalho(origem, atual, home):
     contato = "#contato" if home else "/#contato"
     qs = ' aria-current="page"' if atual == "quem-somos" else ""
-    paineis = "\n".join(painel(t) for t in TORRES)
+    paineis = "\n".join(painel(t) for t in FRENTES)
     return f"""<!-- cabecalho:inicio -->
 <header>
   <div class="wrap bar">
@@ -126,8 +153,8 @@ def cabecalho(origem, atual, home):
     <nav id="menu-principal" class="menu" aria-label="Principal">
       <ul class="menu-lista" role="list">
 {paineis}
-        <li><a class="menu-link" href="/quem-somos"{qs}>Quem somos</a></li>
-        <li><a class="menu-link" href="{contato}">Contato</a></li>
+        <li class="so-celular"><a class="menu-link" href="/quem-somos"{qs}>Quem somos</a></li>
+        <li class="so-celular"><a class="menu-link" href="{contato}">Contato</a></li>
       </ul>
     </nav>
     <a class="btn btn-topo" href="/fale?utm_source={origem}">Falar no WhatsApp</a>
