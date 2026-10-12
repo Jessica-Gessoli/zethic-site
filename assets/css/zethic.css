@@ -295,8 +295,6 @@
   .home .contact{grid-template-columns:1fr 1fr;align-items:start}
   @media (max-width:52rem){.home .contact{grid-template-columns:1fr}}
   .home footer a{color:var(--ice)}
-  /* No celular, o menu mostra só "Contato": as frentes estão logo abaixo do topo. */
-  @media (max-width:70rem){.home nav{display:flex}.home nav a:not(.nav-contato){display:none}}
   @media (max-width:30rem){.home .hero-ctas .btn{display:inline-block;width:auto}.home .hero-ctas{flex-direction:column;align-items:flex-start}}
 
   /* Quem somos: prazos de atendimento e dados da empresa em lista de duas colunas. */
