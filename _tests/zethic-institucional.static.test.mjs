@@ -48,3 +48,7 @@ test("medição (Google Analytics) só nas páginas com ferramenta e na polític
   }
   assert.match(ler("privacidade.html"), /Diagnóstico 6 Moedas, teste de golpe, Proteger e esta política/);
 });
+
+test("contato da home volta a uma coluna no celular", () => {
+  assert.match(ler("assets/css/zethic.css"), /@media \(max-width:52rem\)\{\.home \.contact\{grid-template-columns:1fr\}\}/);
+});
