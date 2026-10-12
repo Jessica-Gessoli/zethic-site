@@ -1,17 +1,22 @@
 # Zethic
 
-> Risco digital e IA em linguagem de dono para o Negócio. Atendimento remoto a partir de Campinas, SP.
+> Tecnologia, segurança e mídia digital para o Negócio, em linguagem de dono. Cinco frentes em um só lugar. Atendimento presencial num raio de 100 km de Campinas, SP, incluindo a cidade de São Paulo; tecnologia e segurança também a distância.
 
-## Zethic
+## Frentes da Zethic
 
-- [Início](https://zethic.net/): risco digital e IA em linguagem de dono; ponto de partida é o Diagnóstico 6 Moedas.
+- [Início](https://zethic.net/): a Zethic como hub, com as cinco frentes e as portas de entrada.
+- [Proteger](https://zethic.net/proteger): golpes, continuidade, LGPD e uso seguro de IA (pilar segurança).
+- [Organizar](https://zethic.net/organizar): processos, automação e agentes de IA, finanças, infraestrutura e nuvem (pilar tecnologia).
+- [Crescer](https://zethic.net/crescer): presença digital, geração de demanda, WhatsApp e CRM comercial (pilar mídia digital).
+- [Mídia digital: Pode Curtir](https://zethic.net/podecurtir): foto e vídeo prontos para postar em eventos, negócios e ensaios (pilar mídia digital).
+- [Capacitar e aconselhar](https://zethic.net/aconselhar): capacitação em IA, consultoria e apoio à diretoria (pilar tecnologia).
+
+## Portas de entrada
+
 - [Diagnóstico 6 Moedas](https://zethic.net/diagnostico): autoavaliação grátis sobre golpe, sistema parado, vazamento de dados e uso de IA.
-- [Proteger](https://zethic.net/proteger): golpes, continuidade, LGPD e uso seguro de IA.
-- [Organizar](https://zethic.net/organizar): processos, automação e agentes de IA, finanças, infraestrutura e nuvem.
-- [Crescer](https://zethic.net/crescer): presença digital, geração de demanda, WhatsApp e CRM comercial.
-- [Capacitar e aconselhar](https://zethic.net/aconselhar): capacitação em IA, consultoria e apoio à diretoria.
 - [Teste de golpe](https://zethic.net/teste-golpe): teste grátis com 10 situações reais de golpe.
 
 ## Institucional
 
+- [Quem somos](https://zethic.net/quem-somos): o que a Zethic faz, para quem, como trabalha, onde atende, prazos de atendimento, princípios, quem conduz o trabalho e dados da empresa.
 - [Privacidade e termos de uso](https://zethic.net/privacidade)

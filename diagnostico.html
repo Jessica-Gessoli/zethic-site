@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-US/dMCrnXfCsAHdaJ795Y4RInYDp8Drov7mFg4jCPV8=' https://www.googletagmanager.com; img-src 'self' https://*.google-analytics.com https://*.googletagmanager.com; font-src 'self'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'; connect-src https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-US/dMCrnXfCsAHdaJ795Y4RInYDp8Drov7mFg4jCPV8=' https://www.googletagmanager.com; img-src 'self' https://*.google-analytics.com https://*.googletagmanager.com; font-src 'self'; style-src 'self' 'unsafe-inline'; base-uri 'none'; form-action 'none'; connect-src https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com">
 <title>Diagnóstico 6 Moedas | Zethic</title>
 <meta name="description" content="Descubra onde golpe, sistema parado, vazamento de dados e uso de IA podem custar caro para a sua empresa. Faça a autoavaliação grátis e agende o Diagnóstico 6 Moedas.">
 <link rel="canonical" href="https://zethic.net/diagnostico">
@@ -153,17 +153,140 @@
   footer{background:var(--navy);color:var(--muted);font-size:.85rem;padding:2rem 0;border-top:1px solid var(--rule)}
   footer p{margin:0 0 .3rem}
 </style>
+<link rel="stylesheet" href="/assets/css/grupo.css">
+<link rel="stylesheet" href="/assets/css/torres.css">
+<script src="/assets/js/torres.js"></script>
 </head>
 <body>
 
 <a class="skip" href="#conteudo">Pular para o conteúdo</a>
+<!-- grupo:inicio -->
+<nav class="grupo" aria-label="Marcas">
+  <div class="grupo-in">
+    <a class="g-z atual" href="/">Zethic</a>
+    <a class="g-j" href="/jessicagessoli">Jéssica Gessoli</a>
+    <a class="g-p" href="/podecurtir">Pode Curtir</a>
+    <a class="g-q" href="/quem-somos">Quem somos</a>
+  </div>
+</nav>
+<!-- grupo:fim -->
 
+<!-- cabecalho:inicio -->
 <header>
   <div class="wrap bar">
     <a class="logo" href="/" aria-label="Zethic, início"><span aria-hidden="true">Z</span><svg class="logo-e" viewBox="0 0 72 52.5" aria-hidden="true" focusable="false"><rect width="72" height="7" rx="1"/><rect y="22.75" width="72" height="7" rx="1"/><rect y="45.5" width="72" height="7" rx="1"/></svg><span aria-hidden="true">THIC</span></a>
-    <a class="btn btn-main" href="/fale?utm_source=site">Falar no WhatsApp</a>
+    <nav id="menu-principal" class="menu" aria-label="Principal">
+      <ul class="menu-lista" role="list">
+        <li class="torre p-seg">
+          <button type="button" class="torre-btn" aria-expanded="false" aria-controls="painel-proteger">Proteger</button>
+          <div class="painel" id="painel-proteger">
+            <div class="wrap painel-in">
+              <a class="painel-capa" href="/proteger">
+                <picture><source type="image/webp" srcset="/assets/img/proteger-provisoria-800.webp"><img src="/assets/img/proteger-provisoria-800.jpg" alt="" width="800" height="500" loading="lazy"></picture>
+                <span class="painel-rotulo">Segurança</span>
+                <span class="painel-marca">Proteger</span>
+                <span class="painel-frase">Caixa, operação e dados protegidos.</span>
+                <span class="painel-ir">Conhecer Proteger</span>
+              </a>
+              <ul class="painel-lista" role="list">
+              <li><a href="/diagnostico"><strong>Diagnóstico 6 Moedas</strong><span>A porta de entrada, com autoavaliação grátis</span></a></li>
+              <li><a href="/teste-golpe"><strong>Teste de golpe</strong><span>Dez situações reais, grátis</span></a></li>
+              <li><a href="/proteger#antigolpe"><strong>Programa Antigolpe</strong><span>Equipe que reconhece golpes e regras contra pagamento indevido</span></a></li>
+              <li><a href="/proteger#seguranca-gerenciada"><strong>Segurança gerenciada</strong><span>Ameaças monitoradas e backup testado</span></a></li>
+              <li><a href="/proteger#privacidade"><strong>Privacidade e LGPD</strong><span>Dados pessoais tratados com responsabilidade e documentação</span></a></li>
+              <li><a href="/proteger#governanca-ia"><strong>Governança de IA</strong><span>IA usada com regras, controles e retorno medido</span></a></li>
+              </ul>
+            </div>
+          </div>
+        </li>
+        <li class="torre p-tec">
+          <button type="button" class="torre-btn" aria-expanded="false" aria-controls="painel-organizar">Organizar</button>
+          <div class="painel" id="painel-organizar">
+            <div class="wrap painel-in">
+              <a class="painel-capa" href="/organizar">
+                <picture><source type="image/webp" srcset="/assets/img/organizar-provisoria-800.webp"><img src="/assets/img/organizar-provisoria-800.jpg" alt="" width="800" height="500" loading="lazy"></picture>
+                <span class="painel-rotulo">Tecnologia</span>
+                <span class="painel-marca">Organizar</span>
+                <span class="painel-frase">Uma operação que não depende de uma pessoa só.</span>
+                <span class="painel-ir">Conhecer Organizar</span>
+              </a>
+              <ul class="painel-lista" role="list">
+              <li><a href="/organizar#processos"><strong>Processos e rotina operacional</strong><span>Menos erro e retrabalho no dia a dia</span></a></li>
+              <li><a href="/organizar#automacao"><strong>Automação e agentes de IA</strong><span>Trabalho repetitivo automatizado, com controle de acesso</span></a></li>
+              <li><a href="/organizar#financas"><strong>Finanças e recuperação de valores</strong><span>Valores a recuperar identificados e financeiro sob controle</span></a></li>
+              <li><a href="/organizar#projetos"><strong>Governança de projetos e serviços</strong><span>Escopo, responsáveis e indicadores</span></a></li>
+              <li><a href="/organizar#infraestrutura"><strong>Infraestrutura, redes e conectividade</strong><span>Infraestrutura que aguenta a operação</span></a></li>
+              <li><a href="/organizar#nuvem"><strong>Nuvem e identidade digital</strong><span>Custo e acesso sob controle</span></a></li>
+              </ul>
+            </div>
+          </div>
+        </li>
+        <li class="torre p-mid">
+          <button type="button" class="torre-btn" aria-expanded="false" aria-controls="painel-crescer">Crescer</button>
+          <div class="painel" id="painel-crescer">
+            <div class="wrap painel-in">
+              <a class="painel-capa" href="/crescer">
+                <picture><source type="image/webp" srcset="/assets/img/crescer-provisoria-800.webp"><img src="/assets/img/crescer-provisoria-800.jpg" alt="" width="800" height="500" loading="lazy"></picture>
+                <span class="painel-rotulo">Mídia digital</span>
+                <span class="painel-marca">Crescer</span>
+                <span class="painel-frase">Mais clientes chegando, com rotina e medição.</span>
+                <span class="painel-ir">Conhecer Crescer</span>
+              </a>
+              <ul class="painel-lista" role="list">
+              <li><a href="/crescer#presenca"><strong>Presença digital</strong><span>Canais digitais organizados e conectados</span></a></li>
+              <li><a href="/crescer#demanda"><strong>Geração de demanda</strong><span>Contatos qualificados chegando com rotina e medição</span></a></li>
+              <li><a href="/crescer#whatsapp"><strong>WhatsApp e CRM comercial</strong><span>Atendimento e vendas com regras, dono e histórico</span></a></li>
+              </ul>
+            </div>
+          </div>
+        </li>
+        <li class="torre p-mid">
+          <button type="button" class="torre-btn" aria-expanded="false" aria-controls="painel-midia">Mídia digital</button>
+          <div class="painel" id="painel-midia">
+            <div class="wrap painel-in">
+              <a class="painel-capa" href="/podecurtir">
+                <picture><source type="image/webp" srcset="/assets/img/podecurtir-provisoria-800.webp"><img src="/assets/img/podecurtir-provisoria-800.jpg" alt="" width="800" height="500" loading="lazy"></picture>
+                <span class="painel-rotulo">Mídia digital</span>
+                <span class="painel-marca">Mídia digital</span>
+                <span class="painel-frase">Foto e vídeo prontos para postar, com o Pode Curtir.</span>
+                <span class="painel-ir">Conhecer o Pode Curtir</span>
+              </a>
+              <ul class="painel-lista" role="list">
+              <li><a href="/podecurtir#eventos"><strong>Eventos</strong><span>Foto, vídeo, gravação e transmissão ao vivo</span></a></li>
+              <li><a href="/podecurtir#negocios"><strong>Negócios</strong><span>Vídeo institucional, sessão de conteúdo, entrevistas e estúdio</span></a></li>
+              <li><a href="/podecurtir#ensaios"><strong>Ensaios</strong><span>Fotografia profissional</span></a></li>
+              </ul>
+            </div>
+          </div>
+        </li>
+        <li class="torre p-tec">
+          <button type="button" class="torre-btn" aria-expanded="false" aria-controls="painel-capacitar">Capacitar e aconselhar</button>
+          <div class="painel" id="painel-capacitar">
+            <div class="wrap painel-in">
+              <a class="painel-capa" href="/aconselhar">
+                <picture><source type="image/webp" srcset="/assets/img/aconselhar-provisoria-800.webp"><img src="/assets/img/aconselhar-provisoria-800.jpg" alt="" width="800" height="500" loading="lazy"></picture>
+                <span class="painel-rotulo">Tecnologia</span>
+                <span class="painel-marca">Capacitar e aconselhar</span>
+                <span class="painel-frase">Equipe e diretoria decidindo melhor.</span>
+                <span class="painel-ir">Conhecer Capacitar e aconselhar</span>
+              </a>
+              <ul class="painel-lista" role="list">
+              <li><a href="/aconselhar#capacitacao"><strong>Capacitação em IA</strong><span>Pessoas usando IA com produtividade e sem vazar dados</span></a></li>
+              <li><a href="/aconselhar#consultoria"><strong>Consultoria especializada</strong><span>Uma questão específica resolvida com análise e recomendação</span></a></li>
+              <li><a href="/aconselhar#conselheira"><strong>Conselheira de risco</strong><span>Apoio mensal à diretoria nas decisões sobre risco digital e IA</span></a></li>
+              </ul>
+            </div>
+          </div>
+        </li>
+        <li class="so-celular"><a class="menu-link" href="/quem-somos">Quem somos</a></li>
+        <li class="so-celular"><a class="menu-link" href="/#contato">Contato</a></li>
+      </ul>
+    </nav>
+    <a class="btn btn-topo" href="/fale?utm_source=site">Falar no WhatsApp</a>
+    <button type="button" class="menu-btn" aria-expanded="false" aria-controls="menu-principal">Menu</button>
   </div>
 </header>
+<!-- cabecalho:fim -->
 
 <main id="conteudo">
   <section class="hero hex">
@@ -176,7 +299,7 @@
       </div>
       <div class="facts">
         <div><b>Para quem</b><span>Donos do Negócio e diretorias, inclusive quem fornece para clientes grandes.</span></div>
-        <div><b>Formato</b><span>Remoto, a partir de Campinas, SP.</span></div>
+        <div><b>Formato</b><span>Presencial num raio de 100 km de Campinas, incluindo a cidade de São Paulo, ou a distância.</span></div>
         <div><b>Prazo e investimento</b><span>De 2 a 4 semanas. Investimento a partir de R$ 12.000. Preço de fundador, a partir de R$ 7.500, para os 3 primeiros clientes.</span></div>
         <div><b>Você não precisa</b><span>Entender de tecnologia. As perguntas são de dono.</span></div>
       </div>
@@ -198,7 +321,7 @@
   <section id="autoavaliacao">
     <div class="wrap">
       <h2>Autoavaliação 6 Moedas</h2>
-      <p class="lead">12 perguntas, cerca de 3 minutos. As respostas ficam no seu navegador: nada é enviado.</p>
+      <p class="lead">12 perguntas, cerca de 3 minutos. As respostas são calculadas no seu navegador e não são enviadas nem guardadas. Se você aceitar a medição de visitas, da autoavaliação registramos só a nota final e a moeda mais exposta.</p>
       <form class="quiz" id="quiz" novalidate></form>
       <div class="result" id="resultado" hidden tabindex="-1"></div>
     </div>
@@ -229,7 +352,7 @@
         </details>
         <details>
           <summary>Atende fora de Campinas?</summary>
-          <p>Sim. O atendimento é remoto, a partir de Campinas, SP.</p>
+          <p>Sim. O atendimento presencial cobre um raio de 100 km de Campinas, incluindo a cidade de São Paulo, e o Diagnóstico também pode ser feito a distância.</p>
         </details>
         <details>
           <summary>A Zethic faz a parte jurídica da LGPD?</summary>
@@ -246,7 +369,7 @@
     <div class="logo" role="img" aria-label="Zethic"><span aria-hidden="true">Z</span><svg class="logo-e" viewBox="0 0 72 52.5" aria-hidden="true" focusable="false"><rect width="72" height="7" rx="1"/><rect y="22.75" width="72" height="7" rx="1"/><rect y="45.5" width="72" height="7" rx="1"/></svg><span aria-hidden="true">THIC</span></div>
     <p>© 2026 Zethic. Razão social: Jessica Caroline da Silva Secco Gessoli, Microempreendedor Individual (MEI).</p>
     <p>CNPJ 67.678.226/0001-17. Campinas, São Paulo, Brasil.</p>
-    <p><a href="/privacidade">Privacidade e termos de uso</a>. Cookies só com a sua permissão.<a href="#" data-preferencias-cookies hidden> · Preferências de cookies</a></p>
+    <p><a href="/quem-somos">Quem somos</a> · <a href="/privacidade">Privacidade e termos de uso</a>. Cookies só com a sua permissão.<a href="#" data-preferencias-cookies hidden> · Preferências de cookies</a></p>
   </div>
 </footer>
 
@@ -414,7 +537,7 @@
    "name": "Atende fora de Campinas?",
    "acceptedAnswer": {
     "@type": "Answer",
-    "text": "Sim. O atendimento é remoto, a partir de Campinas, SP."
+    "text": "Sim. O atendimento presencial cobre um raio de 100 km de Campinas, incluindo a cidade de São Paulo, e o Diagnóstico também pode ser feito a distância."
    }
   },
   {

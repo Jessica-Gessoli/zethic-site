@@ -295,6 +295,59 @@
   .home .contact{grid-template-columns:1fr 1fr;align-items:start}
   @media (max-width:52rem){.home .contact{grid-template-columns:1fr}}
   .home footer a{color:var(--ice)}
-  /* No celular, o menu mostra só "Contato": as frentes estão logo abaixo do topo. */
-  @media (max-width:70rem){.home nav{display:flex}.home nav a:not(.nav-contato){display:none}}
   @media (max-width:30rem){.home .hero-ctas .btn{display:inline-block;width:auto}.home .hero-ctas{flex-direction:column;align-items:flex-start}}
+
+  /* Quem somos: prazos de atendimento e dados da empresa em lista de duas colunas. */
+  .quem-somos .prazos{margin-top:3rem}
+  .quem-somos .contact h3{margin-bottom:1rem}
+  .quem-somos .contact .lead{margin-top:1.2rem}
+  .quem-somos .contact dt{flex:0 0 10.5rem}
+  .quem-somos .moedas{margin-top:2rem}
+  @media (max-width:30rem){.quem-somos .contact dl div{flex-direction:column;gap:.1rem}.quem-somos .contact dt{flex-basis:auto}}
+
+  /* Tema claro (papel) do sistema de design "Zethic": seções de leitura longa (Quem somos, listas de serviços).
+     O topo, a vitrine, as chamadas finais e o rodapé seguem no tema escuro. Contraste conferido nos tokens (texto 4,5:1 ou mais). */
+  .papel{--white:#02041A;--ice:#4A5270;--line:#D5DAE8;--line-strong:#7C86A4;--surface:#FFFFFF;--surface-2:#FFFFFF;
+    --ciano-texto:#006E84;--pilar-seguranca:#007A8F;--pilar-tecnologia:#5B45E0;--pilar-midia:#C2185B;--foco:#02041A;
+    background:#F4F6FB;color:#02041A}
+  .papel+.papel{padding-top:0}
+  .papel a{text-decoration-color:var(--ciano-texto)}
+  .papel a:focus-visible,.papel summary:focus-visible{outline-color:var(--foco)}
+  .papel h2::after{box-shadow:none}
+  .papel .steps li::before,.papel .moedas b,.papel .principle b,.papel .door-n,.papel .door .door-go{color:var(--ciano-texto)}
+  .papel .situ li{border-left-color:var(--ciano-texto)}
+  .papel .btn-main:hover{background:#02041A;color:#FFFFFF}
+  .papel .btn-line:hover{border-color:var(--ciano-texto)}
+  .papel .svc.feature{border-color:var(--ciano-texto);box-shadow:none}
+  .papel .svc{background:#FFFFFF}
+  .papel .svc-link a{color:var(--ciano-texto)}
+
+  /* Pilar das frentes: rótulo acima do título e fio de 3px nos cartões de serviço (só em pequenas doses). */
+  .p-seg{--pilar:var(--pilar-seguranca,#00E5FF)} .p-tec{--pilar:var(--pilar-tecnologia,#9B8CFF)} .p-mid{--pilar:var(--pilar-midia,#FF5C9A)}
+  .rotulo-pilar{display:inline-flex;align-items:center;gap:.5rem;margin:0 0 1rem;font-size:.8rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--pilar)}
+  .rotulo-pilar::before{content:"";width:.5rem;height:.5rem;border-radius:50%;background:var(--pilar)}
+  .frente .svc{border-top:3px solid var(--pilar)}
+  /* A cor do pilar é recalculada dentro do papel, para usar a versão escura do pilar sobre o fundo claro. */
+  .p-seg .papel{--pilar:var(--pilar-seguranca)} .p-tec .papel{--pilar:var(--pilar-tecnologia)} .p-mid .papel{--pilar:var(--pilar-midia)}
+
+  /* Quem somos (hub, 12/10/2026): as cinco frentes no topo, as portas de entrada e a lista do que pode ser conferido. */
+  .qs-frentes{list-style:none;margin:2rem 0 0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:1rem;border-top:1px solid var(--line)}
+  .qs-frentes a{display:block;height:100%;padding:1.1rem 0 .4rem;text-decoration:none;color:var(--white)}
+  .qs-frentes b{display:flex;align-items:center;gap:.5rem;font-weight:600;font-size:1.02rem;line-height:1.3}
+  .qs-frentes b::before{content:"";flex:none;width:.5rem;height:.5rem;border-radius:50%;background:var(--pilar)}
+  .qs-frentes span{display:block;margin-top:.35rem;color:var(--ice);font-size:.92rem;line-height:1.45}
+  .qs-frentes a:hover b{color:var(--pilar)}
+  @media (max-width:60rem){.qs-frentes{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  @media (max-width:34rem){.qs-frentes{grid-template-columns:minmax(0,1fr)}}
+  .qs-evidencia{margin:1.8rem 0 0;font-weight:600;color:var(--white)}
+  .qs-portas{list-style:none;margin:1.4rem 0 2rem;padding:0;border-top:1px solid var(--line);max-width:52rem}
+  .qs-portas li{display:grid;grid-template-columns:minmax(0,16rem) minmax(0,1fr);gap:.4rem 1.5rem;padding:.8rem 0;border-bottom:1px solid var(--line)}
+  .qs-portas b{display:flex;align-items:center;gap:.5rem;font-weight:600}
+  .qs-portas b::before{content:"";flex:none;width:.5rem;height:.5rem;border-radius:50%;background:var(--pilar,var(--ice))}
+  @media (max-width:40rem){.qs-portas li{grid-template-columns:minmax(0,1fr)}}
+  .quem-somos .steps{margin:1.4rem 0 2rem}
+  .qs-onde{margin-top:0}
+  .qs-diferenca{grid-template-columns:repeat(2,minmax(0,1fr))}
+  @media (max-width:40rem){.qs-diferenca{grid-template-columns:minmax(0,1fr)}}
+  .qs-confere{margin:1rem 0 1.2rem;padding-left:1.2rem;max-width:48rem;font-size:1.1rem;line-height:1.6}
+  .qs-confere li{margin:.3rem 0}
