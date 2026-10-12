@@ -293,6 +293,7 @@
   .home .mais a{color:var(--white);font-weight:500;text-decoration-color:var(--line-strong);text-underline-offset:.3em}
   .home .mais a:hover{text-decoration-color:var(--cyan)}
   .home .contact{grid-template-columns:1fr 1fr;align-items:start}
+  @media (max-width:52rem){.home .contact{grid-template-columns:1fr}}
   .home footer a{color:var(--ice)}
   /* No celular, o menu mostra só "Contato": as frentes estão logo abaixo do topo. */
   @media (max-width:70rem){.home nav{display:flex}.home nav a:not(.nav-contato){display:none}}
