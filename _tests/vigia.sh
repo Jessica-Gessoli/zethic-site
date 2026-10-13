@@ -21,7 +21,7 @@ conferir() {
   done
   if curl -fsSL --max-time 20 "$SITE/fale" | grep -q 'wa.me/5519981800221'; then echo "ok: /fale leva ao WhatsApp da Zethic"; else echo "FALHA: /fale sem o destino oficial"; falhas=$((falhas+1)); fi
   if curl -fsSL --max-time 20 "$SITE/agendar" | grep -q 'calendar.app.google/s1dxqRWcqwvEiK927'; then echo "ok: /agendar leva à agenda da Zethic"; else echo "FALHA: /agendar sem o destino oficial"; falhas=$((falhas+1)); fi
-  if curl -fsSL --max-time 20 "$SITE/.well-known/security.txt" | grep -q '^Contact: mailto:jessica.gessoli@zethic.net'; then echo "ok: security.txt"; else echo "FALHA: security.txt ausente ou alterado"; falhas=$((falhas+1)); fi
+  if curl -fsSL --max-time 20 "$SITE/.well-known/security.txt" | grep -q '^Contact: mailto:contato@zethic.net'; then echo "ok: security.txt"; else echo "FALHA: security.txt ausente ou alterado"; falhas=$((falhas+1)); fi
   codigo=$(curl -s -o /dev/null -w '%{http_code}' --max-time 20 "http://zethic.net/")
   case "$codigo" in 301|308) echo "ok: http redireciona para https ($codigo)";; *) echo "FALHA: http respondeu $codigo, esperado redirecionar para https"; falhas=$((falhas+1));; esac
   return $falhas

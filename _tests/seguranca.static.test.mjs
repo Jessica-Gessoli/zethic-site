@@ -6,7 +6,7 @@ const ler = (p) => readFileSync(new URL("../" + p, import.meta.url), "utf8");
 
 test("security.txt tem contato oficial e validade em dia", () => {
   const s = ler(".well-known/security.txt");
-  assert.match(s, /^Contact: mailto:jessica\.gessoli@zethic\.net$/m);
+  assert.match(s, /^Contact: mailto:contato@zethic\.net$/m);
   const exp = new Date(s.match(/^Expires: (.+)$/m)[1]);
   assert.ok(exp > new Date(), "security.txt vencido: atualize o campo Expires (máximo de 1 ano)");
 });
