@@ -62,6 +62,7 @@ FRENTES = [
             ("/organizar#projetos", "Governança de projetos e serviços", "Escopo, responsáveis e indicadores"),
             ("/organizar#infraestrutura", "Infraestrutura, redes e conectividade", "Infraestrutura que aguenta a operação"),
             ("/organizar#nuvem", "Nuvem e identidade digital", "Custo e acesso sob controle"),
+            ("/organizar#reforma-tributaria", "Adaptação à Reforma Tributária", "Sistemas e processos prontos, junto com o seu contador"),
         ],
     },
     {
@@ -96,6 +97,8 @@ FRENTES = [
         "img": ("/assets/img/aconselhar-800", 800, 450),
         "servicos": [
             ("/aconselhar#capacitacao", "Capacitação em IA", "Pessoas usando IA com produtividade e sem vazar dados"),
+            ("/aconselhar#treinamento", "Treinamento técnico", "Equipe treinada em tecnologia e segurança"),
+            ("/aconselhar#produto-digital", "Produto digital", "O seu conhecimento transformado em curso ou produto"),
             ("/aconselhar#consultoria", "Consultoria especializada", "Uma questão específica resolvida com análise e recomendação"),
             ("/aconselhar#conselheira", "Conselheira de risco", "Apoio mensal à diretoria nas decisões sobre cibersegurança e IA"),
         ],
