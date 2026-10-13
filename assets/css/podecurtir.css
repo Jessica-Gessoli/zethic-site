@@ -105,3 +105,4 @@ footer p{margin:.25rem 0}
 .galeria video{display:block;width:100%;height:auto;aspect-ratio:9/16;object-fit:cover;background:var(--tinta);border-radius:1rem}
 .galeria figcaption{display:flex;flex-direction:column;gap:.15rem;margin-top:.6rem;font-size:.95rem}
 .galeria figcaption span{color:var(--cinza)}
+.galeria figcaption a{margin-top:.2rem;font-weight:600}
