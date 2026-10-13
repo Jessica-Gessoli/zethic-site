@@ -79,6 +79,8 @@ h2{font-weight:700;font-size:clamp(1.8rem,3.6vw,2.6rem);line-height:1.08;letter-
 .fim .wrap{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:2rem;align-items:center}
 .fim h2{max-width:none}
 .fim p{color:#D9D4E6;margin:0}
+.fim p + p{margin-top:.5rem}
+.fim p a{color:var(--flash)}
 .fim .actions{justify-content:flex-start}
 .fim .btn.cheio{background:var(--rosa);color:var(--branco)}
 .fim .btn.cheio:hover{background:var(--flash);color:var(--tinta)}
@@ -96,3 +98,15 @@ footer p{margin:.25rem 0}
   section{padding:3rem 0}
   .hero{padding:1.5rem 0 2rem}
 }
+
+/* Trabalhos (portfólio): cada capa abre o reel no Instagram */
+.galeria{display:grid;grid-template-columns:repeat(auto-fit,minmax(12rem,16rem));gap:1.5rem;margin-top:1.5rem}
+.reel{display:flex;flex-direction:column;gap:.15rem;color:var(--tinta);text-decoration:none;font-size:.95rem}
+.reel .capa{position:relative;display:block;margin-bottom:.45rem;border-radius:1rem;overflow:hidden;background:var(--tinta)}
+.reel img{display:block;width:100%;height:auto;aspect-ratio:9/16;object-fit:cover;transition:transform .3s}
+.reel .play{position:absolute;inset:0;margin:auto;width:4rem;height:4rem;border-radius:50%;background:rgba(27,21,48,.72)}
+.reel .play::after{content:"";position:absolute;left:1.6rem;top:1.25rem;border-style:solid;border-width:.75rem 0 .75rem 1.2rem;border-color:transparent transparent transparent #fff}
+.reel .sub{color:var(--cinza)}
+.reel .ver{margin-top:.2rem;font-weight:600;color:var(--rosa-escuro);text-decoration:underline}
+.reel:hover img{transform:scale(1.03)}
+.reel:focus-visible{outline:3px solid var(--rosa);outline-offset:4px;border-radius:1rem}

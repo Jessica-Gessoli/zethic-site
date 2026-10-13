@@ -20,3 +20,7 @@ test("marca pessoal mantém jessica.gessoli@ e não usa contato@", () => {
     assert.doesNotMatch(ler(p), /contato@zethic\.net/, p);
   }
 });
+
+test("Pode Curtir mostra o e-mail geral", () => {
+  assert.match(ler("podecurtir.html"), /mailto:contato@zethic\.net/);
+});
