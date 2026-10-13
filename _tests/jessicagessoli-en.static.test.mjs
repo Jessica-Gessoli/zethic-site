@@ -35,8 +35,20 @@ test("versão em inglês não mistura português no texto visível", () => {
 });
 
 test("agenda de 30 minutos aparece nas duas versões", () => {
-  assert.match(pt, /<a class="btn" href="\/agendar">Agendar 30 minutos<\/a>/);
-  assert.match(en, /<a class="btn" href="\/agendar">Book a 30-minute call<\/a>/);
+  // Decisão 6 (13/10/2026): a conversa de 30 minutos usa a agenda própria no Calendly,
+  // separada da agenda de 45 minutos do Diagnóstico da Zethic (/agendar).
+  const cal = 'https://calendly\\.com/jessica-gessoli-zethic/conversa-de-30-minutos-com-a-jessica-gessoli';
+  assert.match(pt, new RegExp(`<a class="btn" href="${cal}" rel="noopener">Agendar 30 minutos</a>`));
+  assert.match(en, new RegExp(`<a class="btn" href="${cal}" rel="noopener">Book a 30-minute call</a>`));
+  for (const html of [pt, en]) assert.doesNotMatch(html, /href="\/agendar"/);
+});
+
+test("a Zethic aparece com a frase do hub nas duas versões", () => {
+  // 13/10/2026: a trajetória usa a mesma frase da página inicial da Zethic.
+  assert.match(pt, /<p>Fundadora\. Tecnologia, segurança e mídia digital para o Negócio\.<\/p>/);
+  assert.match(en, /<p>Founder\. Technology, security and digital media for businesses\.<\/p>/);
+  assert.doesNotMatch(pt, /Risco digital e tecnologia/);
+  assert.doesNotMatch(en, /Digital risk and technology/);
 });
 
 test("nível de cargo: sem promessa de diretoria ou conselho como alvo", () => {
