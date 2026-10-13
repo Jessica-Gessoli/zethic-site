@@ -42,7 +42,7 @@ FRENTES = [
         "pagina": "/proteger", "ir": "Conhecer Proteger",
         "img": ("/assets/img/proteger-800", 800, 450),
         "servicos": [
-            ("/diagnostico", "Diagnóstico 6 Moedas", "A porta de entrada, com autoavaliação grátis"),
+            ("/diagnostico", "Diagnóstico de Cibersegurança e IA", "A porta de entrada, com autoavaliação grátis"),
             ("/teste-golpe", "Teste de golpe", "Dez situações reais, grátis"),
             ("/proteger#antigolpe", "Programa Antigolpe", "Equipe que reconhece golpes e regras contra pagamento indevido"),
             ("/proteger#seguranca-gerenciada", "Segurança gerenciada", "Ameaças monitoradas e backup testado"),
@@ -94,7 +94,7 @@ FRENTES = [
         "servicos": [
             ("/aconselhar#capacitacao", "Capacitação em IA", "Pessoas usando IA com produtividade e sem vazar dados"),
             ("/aconselhar#consultoria", "Consultoria especializada", "Uma questão específica resolvida com análise e recomendação"),
-            ("/aconselhar#conselheira", "Conselheira de risco", "Apoio mensal à diretoria nas decisões sobre risco digital e IA"),
+            ("/aconselhar#conselheira", "Conselheira de risco", "Apoio mensal à diretoria nas decisões sobre cibersegurança e IA"),
         ],
     },
 ]
