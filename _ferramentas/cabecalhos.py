@@ -94,7 +94,7 @@ FRENTES = [
         "servicos": [
             ("/aconselhar#capacitacao", "Capacitação em IA", "Pessoas usando IA com produtividade e sem vazar dados"),
             ("/aconselhar#consultoria", "Consultoria especializada", "Uma questão específica resolvida com análise e recomendação"),
-            ("/aconselhar#conselheira", "Conselheira de risco", "Apoio mensal à diretoria nas decisões sobre risco digital e IA"),
+            ("/aconselhar#conselheira", "Conselheira de risco", "Apoio mensal à diretoria nas decisões sobre cibersegurança e IA"),
         ],
     },
 ]
