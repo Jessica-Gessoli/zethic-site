@@ -40,7 +40,7 @@ FRENTES = [
         "id": "proteger", "pilar": "p-seg", "nome": "Proteger", "rotulo": "Segurança",
         "frase": "Caixa, operação e dados protegidos.",
         "pagina": "/proteger", "ir": "Conhecer Proteger",
-        "img": ("/assets/img/proteger-provisoria-800", 800, 500),
+        "img": ("/assets/img/proteger-800", 800, 450),
         "servicos": [
             ("/diagnostico", "Diagnóstico de Cibersegurança e IA", "A porta de entrada, com autoavaliação grátis"),
             ("/teste-golpe", "Teste de golpe", "Dez situações reais, grátis"),
@@ -54,7 +54,7 @@ FRENTES = [
         "id": "organizar", "pilar": "p-tec", "nome": "Organizar", "rotulo": "Tecnologia",
         "frase": "Uma operação que não depende de uma pessoa só.",
         "pagina": "/organizar", "ir": "Conhecer Organizar",
-        "img": ("/assets/img/organizar-provisoria-800", 800, 500),
+        "img": ("/assets/img/organizar-800", 800, 450),
         "servicos": [
             ("/organizar#processos", "Processos e rotina operacional", "Menos erro e retrabalho no dia a dia"),
             ("/organizar#automacao", "Automação e agentes de IA", "Trabalho repetitivo automatizado, com controle de acesso"),
@@ -68,7 +68,7 @@ FRENTES = [
         "id": "crescer", "pilar": "p-mid", "nome": "Crescer", "rotulo": "Mídia digital",
         "frase": "Mais clientes chegando, com rotina e medição.",
         "pagina": "/crescer", "ir": "Conhecer Crescer",
-        "img": ("/assets/img/crescer-provisoria-800", 800, 500),
+        "img": ("/assets/img/crescer-800", 800, 450),
         "servicos": [
             ("/crescer#presenca", "Presença digital", "Canais digitais organizados e conectados"),
             ("/crescer#demanda", "Geração de demanda", "Contatos qualificados chegando com rotina e medição"),
@@ -79,7 +79,7 @@ FRENTES = [
         "id": "midia", "pilar": "p-mid", "nome": "Mídia digital", "rotulo": "Mídia digital",
         "frase": "Foto e vídeo prontos para postar, com o Pode Curtir.",
         "pagina": "/podecurtir", "ir": "Conhecer o Pode Curtir",
-        "img": ("/assets/img/podecurtir-provisoria-800", 800, 500),
+        "img": ("/assets/img/podecurtir-800", 800, 450),
         "servicos": [
             ("/podecurtir#eventos", "Eventos", "Foto, vídeo, gravação e transmissão ao vivo"),
             ("/podecurtir#negocios", "Negócios", "Vídeo institucional, sessão de conteúdo, entrevistas e estúdio"),
@@ -90,7 +90,7 @@ FRENTES = [
         "id": "capacitar", "pilar": "p-tec", "nome": "Capacitar e aconselhar", "rotulo": "Tecnologia",
         "frase": "Equipe e diretoria decidindo melhor.",
         "pagina": "/aconselhar", "ir": "Conhecer Capacitar e aconselhar",
-        "img": ("/assets/img/aconselhar-provisoria-800", 800, 500),
+        "img": ("/assets/img/aconselhar-800", 800, 450),
         "servicos": [
             ("/aconselhar#capacitacao", "Capacitação em IA", "Pessoas usando IA com produtividade e sem vazar dados"),
             ("/aconselhar#consultoria", "Consultoria especializada", "Uma questão específica resolvida com análise e recomendação"),
