@@ -13,7 +13,7 @@
 -->
 <meta name="robots" content="noindex, nofollow">
 <meta name="referrer" content="origin">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-TqzZT53ZbtyEFUcix8m8Nw4MDBQjnSMhGaMUE3vQzaM='; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-6UncgZuYO4mwkZozLz2KhStuJ92yt5o8mR5jAobHMCk='; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'">
 <meta http-equiv="refresh" content="0; url=https://wa.me/5519981800221?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Zethic%20e%20gostaria%20de%20conhecer%20melhor%20os%20servi%C3%A7os%20de%20consultoria%20em%20ciberseguran%C3%A7a%2C%20GRC%20e%20governan%C3%A7a%20de%20IA.">
 <style>body{font:16px/1.5 system-ui,sans-serif;max-width:32rem;margin:3rem auto;padding:0 1rem;color:#111;background:#fff}a{color:#0a5c36}</style>
 </head>
@@ -48,9 +48,23 @@
       "jessicagessoli-palestras": "Olá, Jéssica! Vim pela sua página e quero uma proposta de palestra ou apresentação de evento."
     }
   };
-  var fonte = "";
-  try { fonte = (new URLSearchParams(window.location.search).get("utm_source") || "").toLowerCase(); } catch (e) {}
+  // Resultado das iscas: a mensagem é montada só a partir de números validados e de nomes fixos abaixo.
+  // Nenhum texto vem da URL. Valor fora do esperado: usa a mensagem da isca sem o resultado.
+  var MOEDAS = ["Continuidade operacional", "Conformidade regulatória", "Prevenção de fraude e de vazamento", "Reputação", "Habilitação de negócio", "Auditoria e contratos"];
+  function inteiro(v, max) { return /^\d{1,3}$/.test(v || "") && parseInt(v, 10) <= max ? parseInt(v, 10) : null; }
+  var fonte = "", q = null;
+  try { q = new URLSearchParams(window.location.search); fonte = (q.get("utm_source") || "").toLowerCase(); } catch (e) {}
   var msg = Object.prototype.hasOwnProperty.call(CONFIG.origens, fonte) ? CONFIG.origens[fonte] : CONFIG.padrao;
+  if (q && fonte === "diagnostico-resultado") {
+    var nota = inteiro(q.get("nota"), 100), moeda = inteiro(q.get("moeda"), MOEDAS.length - 1);
+    msg = nota === null || moeda === null ? CONFIG.origens["diagnostico"]
+      : "Olá! Fiz a autoavaliação de cibersegurança no site da Zethic. Minha nota foi " + nota + " de 100 e a moeda mais exposta é " + MOEDAS[moeda] + ". Quero entender o próximo passo.";
+  }
+  if (q && fonte === "teste-golpe-resultado") {
+    var acertos = inteiro(q.get("acertos"), 10);
+    msg = acertos === null ? CONFIG.origens["teste-golpe"]
+      : "Olá! Fiz o teste \"Sua empresa cai num golpe?\" no site da Zethic e acertei " + acertos + " de 10. Quero conversar sobre proteger a minha equipe.";
+  }
   var url = CONFIG.base + "?text=" + encodeURIComponent(msg);
   document.getElementById("destino").href = url;
   window.location.replace(url);
