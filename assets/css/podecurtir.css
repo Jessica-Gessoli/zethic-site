@@ -79,6 +79,8 @@ h2{font-weight:700;font-size:clamp(1.8rem,3.6vw,2.6rem);line-height:1.08;letter-
 .fim .wrap{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:2rem;align-items:center}
 .fim h2{max-width:none}
 .fim p{color:#D9D4E6;margin:0}
+.fim p + p{margin-top:.5rem}
+.fim p a{color:var(--flash)}
 .fim .actions{justify-content:flex-start}
 .fim .btn.cheio{background:var(--rosa);color:var(--branco)}
 .fim .btn.cheio:hover{background:var(--flash);color:var(--tinta)}
