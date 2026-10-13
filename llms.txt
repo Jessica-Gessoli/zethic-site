@@ -6,10 +6,10 @@
 
 - [Início](https://zethic.net/): a Zethic como hub, com as cinco frentes e as portas de entrada.
 - [Proteger](https://zethic.net/proteger): golpes, continuidade, LGPD e uso seguro de IA (pilar segurança).
-- [Organizar](https://zethic.net/organizar): processos, automação e agentes de IA, finanças, infraestrutura e nuvem (pilar tecnologia).
+- [Organizar](https://zethic.net/organizar): processos, automação e agentes de IA, finanças, infraestrutura, nuvem e adaptação à Reforma Tributária (pilar tecnologia).
 - [Crescer](https://zethic.net/crescer): presença digital, geração de demanda, WhatsApp e CRM comercial (pilar mídia digital).
 - [Mídia digital: Pode Curtir](https://zethic.net/podecurtir): foto e vídeo prontos para postar em eventos, negócios e ensaios (pilar mídia digital).
-- [Capacitar e aconselhar](https://zethic.net/aconselhar): capacitação em IA, consultoria e apoio à diretoria (pilar tecnologia).
+- [Capacitar e aconselhar](https://zethic.net/aconselhar): capacitação em IA, treinamento técnico, produto digital, consultoria e apoio à diretoria (pilar tecnologia).
 
 ## Portas de entrada
 
