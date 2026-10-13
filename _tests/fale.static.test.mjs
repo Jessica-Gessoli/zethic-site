@@ -51,7 +51,7 @@ test("mensagens contextuais por utm_source (case-insensitive) e UTMs adicionais 
   assert.match(msg(runWith("?utm_source=instagram")), /pelo Instagram/);
   assert.match(msg(runWith("?utm_source=LinkedIn&utm_medium=post&utm_campaign=c&utm_content=x&utm_term=y")), /pelo LinkedIn/);
   assert.match(msg(runWith("?utm_source=grc")), /estruturar GRC/);
-  assert.match(msg(runWith("?utm_source=diagnostico")), /autoavaliação 6 Moedas/);
+  assert.match(msg(runWith("?utm_source=diagnostico")), /autoavaliação de cibersegurança e IA/);
   assert.match(msg(runWith("?utm_source=teste-golpe")), /Programa Antigolpe/);
   assert.match(msg(runWith("?utm_source=proteger")), /proteger o caixa/);
   assert.match(msg(runWith("?utm_source=organizar")), /organizar e automatizar/);
@@ -81,7 +81,7 @@ test("mensagem padrão é a institucional, codificada corretamente", () => {
 test("resultado das iscas: mensagem montada só com números validados", () => {
   assert.equal(
     msg(runWith("?utm_source=diagnostico-resultado&nota=62&moeda=2")),
-    "Olá! Fiz a autoavaliação 6 Moedas no site da Zethic. Minha nota foi 62 de 100 e a moeda mais exposta é Prevenção de fraude e de vazamento. Quero entender o próximo passo.",
+    "Olá! Fiz a autoavaliação de cibersegurança e IA no site da Zethic. Minha nota foi 62 de 100 e a moeda mais exposta é Prevenção de fraude e de vazamento. Quero entender o próximo passo.",
   );
   assert.match(msg(runWith("?utm_source=teste-golpe-resultado&acertos=7")), /acertei 7 de 10\./);
   const diag = msg(runWith("?utm_source=diagnostico"));
