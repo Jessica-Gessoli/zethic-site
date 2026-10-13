@@ -146,6 +146,8 @@ html:not(.js) .vitrine-ctrl{display:none}
 .cartao{position:relative;display:flex;flex-direction:column;justify-content:flex-end;min-height:31rem;border-radius:14px;overflow:hidden;border:1px solid var(--line);isolation:isolate;--c-cor:var(--pilar,var(--ciano));--c-fundo:2,4,26;background:var(--superficie)}
 .cartao-img{position:absolute;inset:0;z-index:-2}
 .cartao-img img{width:100%;height:100%;object-fit:cover;object-position:85% 50%;display:block;transition:transform .8s ease}
+/* Cartões com imagem em retrato (4:5) no computador: o assunto fica no alto da imagem, acima do texto. */
+@media (min-width:60.01rem){.cartao-img-retrato img{object-position:50% 0%}}
 .cartao::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(var(--c-fundo),.05) 15%,rgba(var(--c-fundo),.88) 55%,rgba(var(--c-fundo),.98) 100%)}
 .cartao::after{content:"";position:absolute;left:0;right:0;top:0;height:3px;background:var(--c-cor);transform:scaleX(0);transform-origin:left;transition:transform .5s ease}
 .cartao:hover::after,.cartao:focus-within::after{transform:scaleX(1)}
