@@ -122,12 +122,12 @@ test("cores do sistema de design: pilares e tema claro", () => {
   }
 });
 
-test("atendimento: raio de 100 km de Campinas com a cidade de São Paulo, sem \"remoto a partir de Campinas\"", () => {
+test("atendimento: sem raio fixo nem \"remoto a partir de Campinas\" (decisão de 13/10/2026)", () => {
   for (const p of [...ZETHIC, "podecurtir.html", "llms.txt"]) {
     assert.doesNotMatch(ler(p), /remoto, a partir de Campinas|Atendimento remoto|Remoto, também fora|Hortolândia, Jundiaí e região/, p);
   }
-  for (const p of ["index.html", "quem-somos.html", "diagnostico.html", "podecurtir.html", "llms.txt"]) {
-    assert.match(ler(p), /raio de 100 km de Campinas,? (?:SP, )?incluindo a cidade de São Paulo/, p);
+  for (const p of [...ZETHIC, "podecurtir.html", "llms.txt", "jessicagessoli.html"]) {
+    assert.doesNotMatch(ler(p), /100 km|geoRadius/, p);
   }
 });
 
