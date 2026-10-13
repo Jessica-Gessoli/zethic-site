@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-US/dMCrnXfCsAHdaJ795Y4RInYDp8Drov7mFg4jCPV8=' https://www.googletagmanager.com; img-src 'self' https://*.google-analytics.com https://*.googletagmanager.com; font-src 'self'; style-src 'self' 'unsafe-inline'; base-uri 'none'; form-action 'none'; connect-src https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com">
-<title>Diagnóstico 6 Moedas | Zethic</title>
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-p1YLZ0HDPzzdkgW+5qdmIv/MQaHDDGpy1y6SYa3GdRg=' https://www.googletagmanager.com; img-src 'self' https://*.google-analytics.com https://*.googletagmanager.com; font-src 'self'; style-src 'self' 'unsafe-inline'; base-uri 'none'; form-action 'none'; connect-src https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com">
+<title>Diagnóstico 6 Moedas: riscos digitais da empresa | Zethic</title>
 <meta name="description" content="Descubra onde golpe, sistema parado, vazamento de dados e uso de IA podem custar caro para a sua empresa. Faça a autoavaliação grátis e agende o Diagnóstico 6 Moedas.">
 <link rel="canonical" href="https://zethic.net/diagnostico">
 <meta name="robots" content="index, follow">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Zethic">
-<meta property="og:title" content="Diagnóstico 6 Moedas | Zethic">
+<meta property="og:title" content="Diagnóstico 6 Moedas: riscos digitais da empresa | Zethic">
 <meta property="og:description" content="Faça a autoavaliação grátis em 3 minutos e veja em qual das 6 Moedas a sua empresa está mais exposta.">
 <meta property="og:url" content="https://zethic.net/diagnostico">
 <meta property="og:locale" content="pt_BR">
@@ -469,8 +469,11 @@
     out.appendChild(ul);
     out.appendChild(el("p", {}, "Primeiro passo que você pode dar sozinho: " + pior.dica));
     out.appendChild(el("p", {}, "Serviço relacionado: " + pior.servico + "."));
-    var cta = el("a", { "class": "btn btn-main", href: "/agendar?utm_source=diagnostico" }, "Agendar o Diagnóstico 6 Moedas");
-    out.appendChild(cta);
+    var ctas = el("div", { "class": "hero-ctas" });
+    ctas.appendChild(el("a", { "class": "btn btn-main", href: "/fale?utm_source=diagnostico-resultado&nota=" + total + "&moeda=" + ordem[0] }, "Receber meu resultado no WhatsApp"));
+    ctas.appendChild(el("a", { "class": "btn btn-line", href: "/agendar?utm_source=diagnostico" }, "Agendar o Diagnóstico 6 Moedas"));
+    out.appendChild(ctas);
+    out.appendChild(el("p", { "class": "note" }, "O WhatsApp abre com a sua nota e a moeda mais exposta já escritas. A mensagem só chega à Zethic se você apertar enviar."));
     out.appendChild(el("p", { "class": "note" }, "Autoavaliação indicativa, baseada só nas suas respostas. Não substitui o Diagnóstico 6 Moedas, que olha a operação real da empresa."));
     out.hidden = false;
     if (window.zethicEvento) window.zethicEvento("autoavaliacao_concluida", { nota: total, moeda_mais_exposta: pior.nome });
@@ -487,6 +490,47 @@
 })();
 </script>
 <script src="/assets/js/medicao.js" defer></script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Diagnóstico 6 Moedas",
+  "serviceType": "Diagnóstico de riscos digitais e de IA",
+  "description": "Os riscos cibernéticos, de IA e de operação da empresa traduzidos em decisão de negócio: mapa de riscos, prioridades e plano de ação, de 2 a 4 semanas.",
+  "url": "https://zethic.net/diagnostico",
+  "provider": {
+    "@type": "Organization",
+    "name": "Zethic",
+    "url": "https://zethic.net/"
+  },
+  "areaServed": [
+    {
+      "@type": "GeoCircle",
+      "geoMidpoint": {
+        "@type": "GeoCoordinates",
+        "latitude": -22.9053,
+        "longitude": -47.0659
+      },
+      "geoRadius": "100000"
+    },
+    {
+      "@type": "City",
+      "name": "São Paulo"
+    }
+  ],
+  "offers": {
+    "@type": "Offer",
+    "url": "https://zethic.net/diagnostico",
+    "priceCurrency": "BRL",
+    "priceSpecification": {
+      "@type": "PriceSpecification",
+      "minPrice": 12000,
+      "priceCurrency": "BRL"
+    },
+    "description": "A partir de R$ 12.000. Preço de fundador, a partir de R$ 7.500, para os 3 primeiros clientes."
+  }
+}
+</script>
 <script type="application/ld+json">
 {
  "@context": "https://schema.org",

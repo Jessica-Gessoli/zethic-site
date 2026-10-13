@@ -3,14 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-lTQYMWc/aXlKUeUC/vi4dn++hrjmUCySd0wCZKpuOeI=' https://www.googletagmanager.com; img-src 'self' https://*.google-analytics.com https://*.googletagmanager.com; font-src 'self'; style-src 'self' 'unsafe-inline'; base-uri 'none'; form-action 'none'; connect-src https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com">
-<title>Sua empresa cai num golpe? | Zethic</title>
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-09xZP+EaQVuwWPNsn6XvRxp0/kllhTrVDb48WDrMbiY=' https://www.googletagmanager.com; img-src 'self' https://*.google-analytics.com https://*.googletagmanager.com; font-src 'self'; style-src 'self' 'unsafe-inline'; base-uri 'none'; form-action 'none'; connect-src https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com">
+<title>Teste de golpe grátis para empresas | Zethic</title>
 <meta name="description" content="Teste grátis de 10 situações reais de golpe: boleto falso, Pix pedido por mensagem, falso suporte. Veja quantas a sua equipe acerta.">
 <link rel="canonical" href="https://zethic.net/teste-golpe">
 <meta name="robots" content="index, follow">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Zethic">
-<meta property="og:title" content="Sua empresa cai num golpe? | Zethic">
+<meta property="og:title" content="Teste de golpe grátis para empresas | Zethic">
 <meta property="og:description" content="10 situações reais de golpe. Faça o teste grátis em 3 minutos e descubra onde a sua equipe está exposta.">
 <meta property="og:url" content="https://zethic.net/teste-golpe">
 <meta property="og:locale" content="pt_BR">
@@ -427,9 +427,10 @@
     }
     out.appendChild(el("p", {}, "O Programa Antigolpe da Zethic treina a equipe e deixa por escrito as regras que impedem pagamento indevido."));
     var ctas = el("div", { "class": "hero-ctas" });
-    ctas.appendChild(el("a", { "class": "btn btn-main", href: "/agendar?utm_source=teste-golpe" }, "Agendar uma conversa"));
-    ctas.appendChild(el("a", { "class": "btn btn-line", href: "/fale?utm_source=teste-golpe" }, "Falar no WhatsApp"));
+    ctas.appendChild(el("a", { "class": "btn btn-main", href: "/fale?utm_source=teste-golpe-resultado&acertos=" + acertos }, "Receber meu resultado no WhatsApp"));
+    ctas.appendChild(el("a", { "class": "btn btn-line", href: "/agendar?utm_source=teste-golpe" }, "Agendar uma conversa"));
     out.appendChild(ctas);
+    out.appendChild(el("p", { "class": "note" }, "O WhatsApp abre com o seu número de acertos já escrito. A mensagem só chega à Zethic se você apertar enviar."));
     out.appendChild(el("p", { "class": "note" }, "Teste indicativo, com situações comuns. Não substitui um treinamento com simulação real."));
     out.hidden = false; out.focus();
     // Medição anônima, só com consentimento (ver /privacidade). Conta apenas a primeira conclusão de cada visita.

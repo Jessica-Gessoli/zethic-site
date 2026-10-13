@@ -77,3 +77,26 @@ test("mensagem padrão é a institucional, codificada corretamente", () => {
     "Olá! Vim pelo site da Zethic e gostaria de conhecer melhor os serviços de consultoria em cibersegurança, GRC e governança de IA.",
   );
 });
+
+test("resultado das iscas: mensagem montada só com números validados", () => {
+  assert.equal(
+    msg(runWith("?utm_source=diagnostico-resultado&nota=62&moeda=2")),
+    "Olá! Fiz a autoavaliação 6 Moedas no site da Zethic. Minha nota foi 62 de 100 e a moeda mais exposta é Prevenção de fraude e de vazamento. Quero entender o próximo passo.",
+  );
+  assert.match(msg(runWith("?utm_source=teste-golpe-resultado&acertos=7")), /acertei 7 de 10\./);
+  const diag = msg(runWith("?utm_source=diagnostico"));
+  const golpe = msg(runWith("?utm_source=teste-golpe"));
+  for (const qs of ["nota=101&moeda=2", "nota=50&moeda=6", "nota=-1&moeda=0", "nota=5e1&moeda=0", "nota=50", "nota=%3Cb%3E&moeda=1", "nota=50&moeda=__proto__"]) {
+    assert.equal(msg(runWith(`?utm_source=diagnostico-resultado&${qs}`)), diag, qs);
+  }
+  for (const qs of ["acertos=11", "acertos=", "acertos=7%20ou%20mais", "acertos=0x7"]) {
+    assert.equal(msg(runWith(`?utm_source=teste-golpe-resultado&${qs}`)), golpe, qs);
+  }
+});
+
+test("nomes das moedas no /fale seguem a ordem da autoavaliação", () => {
+  const diagHtml = readFileSync(new URL("../diagnostico.html", import.meta.url), "utf8");
+  const daAutoavaliacao = [...diagHtml.matchAll(/\{ nome: "([^"]+)"/g)].map((m) => m[1]);
+  const doFale = JSON.parse(script.match(/var MOEDAS = (\[[^\]]+\]);/)[1]);
+  assert.deepEqual(doFale, daAutoavaliacao);
+});
