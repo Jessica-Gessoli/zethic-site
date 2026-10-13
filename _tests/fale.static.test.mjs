@@ -51,7 +51,7 @@ test("mensagens contextuais por utm_source (case-insensitive) e UTMs adicionais 
   assert.match(msg(runWith("?utm_source=instagram")), /pelo Instagram/);
   assert.match(msg(runWith("?utm_source=LinkedIn&utm_medium=post&utm_campaign=c&utm_content=x&utm_term=y")), /pelo LinkedIn/);
   assert.match(msg(runWith("?utm_source=grc")), /estruturar GRC/);
-  assert.match(msg(runWith("?utm_source=diagnostico")), /autoavaliação de cibersegurança e IA/);
+  assert.match(msg(runWith("?utm_source=diagnostico")), /autoavaliação de cibersegurança no site/);
   assert.match(msg(runWith("?utm_source=teste-golpe")), /Programa Antigolpe/);
   assert.match(msg(runWith("?utm_source=proteger")), /proteger o caixa/);
   assert.match(msg(runWith("?utm_source=organizar")), /organizar e automatizar/);
