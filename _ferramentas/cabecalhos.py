@@ -42,7 +42,7 @@ FRENTES = [
         "pagina": "/proteger", "ir": "Conhecer Proteger",
         "img": ("/assets/img/proteger-provisoria-800", 800, 500),
         "servicos": [
-            ("/diagnostico", "Diagnóstico 6 Moedas", "A porta de entrada, com autoavaliação grátis"),
+            ("/diagnostico", "Diagnóstico de Cibersegurança e IA", "A porta de entrada, com autoavaliação grátis"),
             ("/teste-golpe", "Teste de golpe", "Dez situações reais, grátis"),
             ("/proteger#antigolpe", "Programa Antigolpe", "Equipe que reconhece golpes e regras contra pagamento indevido"),
             ("/proteger#seguranca-gerenciada", "Segurança gerenciada", "Ameaças monitoradas e backup testado"),
