@@ -37,7 +37,7 @@ test("versão em inglês não mistura português no texto visível", () => {
 test("agenda de 30 minutos aparece nas duas versões", () => {
   // Decisão 6 (13/10/2026): a conversa de 30 minutos usa a agenda própria no Calendly,
   // separada da agenda de 45 minutos do Diagnóstico da Zethic (/agendar).
-  const cal = 'https://calendly\\.com/jessica-gessoli-zethic/30min';
+  const cal = 'https://calendly\\.com/jessica-gessoli-zethic/conversa-de-30-minutos-com-a-jessica-gessoli';
   assert.match(pt, new RegExp(`<a class="btn" href="${cal}" rel="noopener">Agendar 30 minutos</a>`));
   assert.match(en, new RegExp(`<a class="btn" href="${cal}" rel="noopener">Book a 30-minute call</a>`));
   for (const html of [pt, en]) assert.doesNotMatch(html, /href="\/agendar"/);
