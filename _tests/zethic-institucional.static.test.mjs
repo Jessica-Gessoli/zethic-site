@@ -47,7 +47,7 @@ test("medição (Google Analytics) só nas páginas com ferramenta e na polític
     assert.doesNotMatch(h, /medicao\.js|data-preferencias-cookies/, p);
     assert.match(h, /Esta página não usa cookies\./, p);
   }
-  assert.match(ler("privacidade.html"), /Diagnóstico 6 Moedas, teste de golpe, Proteger e esta política/);
+  assert.match(ler("privacidade.html"), /Diagnóstico de Cibersegurança e IA, teste de golpe, Proteger e esta política/);
 });
 
 test("contato da home volta a uma coluna no celular", () => {
