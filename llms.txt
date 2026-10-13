@@ -13,7 +13,7 @@
 
 ## Portas de entrada
 
-- [Diagnóstico de Cibersegurança e IA](https://zethic.net/diagnostico): pelo método 6 Moedas; autoavaliação grátis sobre golpe, sistema parado, vazamento de dados e uso de IA.
+- [Diagnóstico de Cibersegurança e IA](https://zethic.net/diagnostico): onde o Negócio pode perder dinheiro com golpe, sistema parado ou vazamento de dados, e o que fazer primeiro; inclui o uso de IA pela equipe; pelo método 6 Moedas; com autoavaliação grátis.
 - [Teste de golpe](https://zethic.net/teste-golpe): teste grátis com 10 situações reais de golpe.
 
 ## Institucional
