@@ -70,8 +70,11 @@ FRENTES = [
         "pagina": "/crescer", "ir": "Conhecer Crescer",
         "img": ("/assets/img/crescer-800", 800, 450),
         "servicos": [
-            ("/crescer#presenca", "Presença digital", "Canais digitais organizados e conectados"),
-            ("/crescer#demanda", "Geração de demanda", "Contatos qualificados chegando com rotina e medição"),
+            ("/crescer#redes", "Gestão de redes sociais", "Instagram, TikTok e Facebook com plano e medição"),
+            ("/crescer#linkedin", "Gestão de LinkedIn para empresas", "Página da empresa e perfil dos donos ativos"),
+            ("/crescer#trafego", "Tráfego pago", "Anúncios no Instagram, no Facebook e no Google"),
+            ("/crescer#restaurantes", "Marketing para restaurantes e delivery", "Mais pedidos no delivery e mais gente no salão"),
+            ("/crescer#site", "Site e presença no Google", "O cliente encontra a empresa e chega ao contato"),
             ("/crescer#whatsapp", "WhatsApp e CRM comercial", "Atendimento e vendas com regras, dono e histórico"),
         ],
     },
