@@ -264,6 +264,8 @@
   .svc ul{margin:0;padding:0;list-style:none;border-top:1px solid var(--line)}
   .svc li{padding:.5rem 0;border-bottom:1px solid var(--line);font-size:.95rem}
   .svc .svc-link{margin:1rem 0 0}
+  .svc .svc-preco{margin:1rem 0 0;font-weight:600}
+  .svc .svc-preco span{display:block;font-weight:400;font-size:.9rem}
 
   footer{background:var(--navy);color:var(--ice);font-weight:300;font-size:.85rem;padding:2.2rem 0 2rem;border-top:1px solid var(--line)}
   footer .logo{font-size:1.5rem;margin-bottom:1rem}
