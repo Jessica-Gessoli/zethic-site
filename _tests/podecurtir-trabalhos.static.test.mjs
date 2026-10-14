@@ -23,3 +23,14 @@ test("Página profissional: a seção se chama Serviços", () => {
   assert.match(h, /<h2 id="t-trabalho">Serviços<\/h2>/);
   assert.doesNotMatch(h, /Como trabalhar comigo/);
 });
+
+// 14/10/2026 (aprovado pela Jéssica): símbolos novos das marcas e endosso da Zethic só em texto.
+test("Símbolos: monograma JG e visor da Pode Curtir, com endosso só em texto", () => {
+  const jg = ler("assets/img/jessicagessoli-icone.svg");
+  assert.match(jg, /fill="#12352B"/);
+  assert.doesNotMatch(jg, /<text/, "letras em contorno, não dependem de fonte instalada");
+  const pc = ler("assets/img/podecurtir-icone.svg");
+  assert.match(pc, /fill="#FFD23F"/);
+  assert.match(ler("podecurtir.html"), /Pode Curtir é uma marca da <a href="\/">Zethic<\/a>\./);
+  assert.doesNotMatch(ler("podecurtir.html"), /zethic-marca\.svg/);
+});
