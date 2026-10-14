@@ -13,7 +13,7 @@
 -->
 <meta name="robots" content="noindex, nofollow">
 <meta name="referrer" content="origin">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-cpVRGyGiQDWoskH82BdtRz9DepSAtbMO8P/dsgpen+Y='; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-u5MKkOhpNcZjSd8cwB8B9cd9umAA6RgcxnA4fxOKxXk='; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'">
 <meta http-equiv="refresh" content="0; url=https://wa.me/5519981800221?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Zethic%20e%20gostaria%20de%20conhecer%20melhor%20os%20servi%C3%A7os%20de%20consultoria%20em%20ciberseguran%C3%A7a%2C%20GRC%20e%20governan%C3%A7a%20de%20IA.">
 <style>body{font:16px/1.5 system-ui,sans-serif;max-width:32rem;margin:3rem auto;padding:0 1rem;color:#111;background:#fff}a{color:#0a5c36}</style>
 </head>
@@ -25,6 +25,8 @@
   // CONFIG — fonte única do destino e das mensagens.
   var CONFIG = {
     base: "https://wa.me/5519981800221",
+    // Marca Jéssica Gessoli (decisão de 14/10/2026): origens "jessicagessoli*" vão para o WhatsApp profissional dela.
+    baseJessica: "https://wa.me/5519983310769",
     padrao: "Olá! Vim pelo site da Zethic e gostaria de conhecer melhor os serviços de consultoria em cibersegurança, GRC e governança de IA.",
     // Allowlist: utm_source desconhecido usa a mensagem padrão. O destino nunca vem da URL.
     origens: {
@@ -65,7 +67,8 @@
     msg = acertos === null ? CONFIG.origens["teste-golpe"]
       : "Olá! Fiz o teste \"Sua empresa cai num golpe?\" no site da Zethic e acertei " + acertos + " de 10. Quero conversar sobre proteger a minha equipe.";
   }
-  var url = CONFIG.base + "?text=" + encodeURIComponent(msg);
+  var base = fonte.indexOf("jessicagessoli") === 0 ? CONFIG.baseJessica : CONFIG.base;
+  var url = base + "?text=" + encodeURIComponent(msg);
   document.getElementById("destino").href = url;
   window.location.replace(url);
 })();

@@ -100,3 +100,22 @@ test("nomes das moedas no /fale seguem a ordem da autoavaliação", () => {
   const doFale = JSON.parse(script.match(/var MOEDAS = (\[[^\]]+\]);/)[1]);
   assert.deepEqual(doFale, daAutoavaliacao);
 });
+
+// 14/10/2026 (decisão da Jéssica): 0221 é da Zethic e da Pode Curtir; 0769 é o profissional da Jéssica Gessoli.
+test("origens da Jéssica vão para o 0769; Zethic e Pode Curtir ficam no 0221", () => {
+  for (const o of ["jessicagessoli", "jessicagessoli-mentoria", "jessicagessoli-consultoria", "jessicagessoli-palestras"]) {
+    assert.ok(runWith("?utm_source=" + o).startsWith("https://wa.me/5519983310769?text="), o);
+  }
+  for (const o of ["", "?utm_source=podecurtir", "?utm_source=site", "?utm_source=diagnostico"]) {
+    assert.ok(runWith(o).startsWith(WA + "?text="), o || "padrão");
+  }
+});
+
+test("página e documentos da Jéssica mostram o 0769, não o 0221", () => {
+  const ler = (p) => readFileSync(new URL("../" + p, import.meta.url), "utf8");
+  for (const p of ["jessicagessoli.html", "_docs/curriculo.html", "_docs/resume.html", "_docs/kit-palestrante.html"]) {
+    const h = ler(p);
+    assert.match(h, /98331-0769/, p);
+    assert.doesNotMatch(h, /98180-0221/, p);
+  }
+});
