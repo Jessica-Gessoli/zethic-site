@@ -49,6 +49,7 @@
      com ~70% da altura das maiúsculas, centralizadas nelas. A marca reduzida (favicon) usa a barra do meio ciano. */
   .logo{display:inline-flex;align-items:flex-start;font-weight:500;font-size:1.75rem;letter-spacing:0;line-height:1;text-decoration:none;color:var(--white)}
   .logo-e{display:block;flex:none;width:.72em;height:.525em;margin:.22em .11em 0 .09em;fill:currentColor}
+  .logo-simbolo{display:block;flex:none;width:1.2em;height:1.2em;margin:-.1em .45em 0 0}
 
   .btn{display:inline-block;padding:.95rem 1.5rem;border-radius:6px;font-weight:700;font-size:1rem;text-decoration:none;line-height:1.2}
   .btn-main{background:var(--cyan);color:var(--navy)}
