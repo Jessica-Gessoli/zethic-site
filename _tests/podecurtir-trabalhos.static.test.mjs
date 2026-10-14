@@ -34,3 +34,11 @@ test("Símbolos: monograma JG e visor da Pode Curtir, com endosso só em texto",
   assert.match(ler("podecurtir.html"), /Pode Curtir é uma marca da <a href="\/">Zethic<\/a>\./);
   assert.doesNotMatch(ler("podecurtir.html"), /zethic-marca\.svg/);
 });
+
+// 14/10/2026 (aprovado pela Jéssica, orientação da Goreti): primeiro a conversa, depois o preço. Nenhum valor publicado no site.
+test("Zethic: nenhum preço publicado nas páginas", () => {
+  for (const p of ["index.html", "diagnostico.html", "proteger.html", "organizar.html", "crescer.html", "aconselhar.html", "llms.txt"]) {
+    const h = ler(p).replace(/<label>[^<]*\(R\$\)/g, "");
+    assert.doesNotMatch(h, /R\$ ?\d|[Pp]reço de fundador|minPrice/, p);
+  }
+});
