@@ -79,7 +79,7 @@ test("home: quatro destaques, um título principal e uma chamada principal", () 
   const main = h.match(/<main[\s\S]*?<\/main>/)[0];
   assert.equal((main.match(/class="slide /g) || []).length, 4);
   assert.equal((main.match(/class="ponto p-[a-z]+(?: ativo)?"/g) || []).length, 4);
-  assert.match(main, /<h1>Tecnologia, segurança e mídia digital para o Negócio\.<\/h1>/);
+  assert.match(main, /<h1>Tecnologia, segurança e mídia digital <span class="realce">para o Negócio\.<\/span><\/h1>/);
   assert.equal((h.match(/<h1[ >]/g) || []).length, 1);
   assert.equal((h.match(/class="btn btn-main"/g) || []).length, 1);
   assert.match(main, /<button type="button" class="pausa">Pausar<\/button>/);
