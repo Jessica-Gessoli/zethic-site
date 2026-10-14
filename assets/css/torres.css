@@ -85,10 +85,6 @@ header .wrap.bar,.painel .wrap{max-width:72rem}
 @media (max-width:26rem){.btn-topo{display:none}.menu-btn{margin-left:auto}}
 
 /* ---------- Faixa de oferta ---------- */
-.faixa{margin:0;background:linear-gradient(90deg,var(--cyan),#8AF3FF);text-align:center;font-size:.9rem;line-height:1.4}
-.faixa a{display:block;padding:.6rem 1.25rem;color:var(--navy);text-decoration:none;font-weight:500}
-.faixa span{font-weight:700;text-decoration:underline;text-underline-offset:.2em;margin-left:.3rem}
-.faixa a:focus-visible{outline:2px solid var(--navy);outline-offset:-4px}
 
 /* ---------- Banners (vitrine) ---------- */
 .torres-home .vitrine{position:relative;padding:0;overflow:hidden;background:var(--navy)}
@@ -204,15 +200,16 @@ main>section.credenciais{background:var(--navy);border-top:1px solid #23273F;bor
 /* ---------- Porta da fundadora: a única entrada para a página profissional, nas cores dela ---------- */
 .porta,.torres-home .porta{background:var(--jessica-garrafa);padding:clamp(2.8rem,6vw,4rem) 0}
 .porta-grid{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:2rem 2.6rem;align-items:center}
-.porta-retrato img{display:block;width:8.5rem;height:8.5rem;object-fit:cover;object-position:50% 20%;border-radius:4px;border:1px solid rgba(217,183,110,.6);box-shadow:10px 10px 0 -1px rgba(217,183,110,.22)}
+.porta-retrato img{display:block;width:14rem;height:14rem;object-fit:cover;object-position:50% 20%;border-radius:4px;border:1px solid rgba(217,183,110,.6);box-shadow:10px 10px 0 -1px rgba(217,183,110,.22)}
 .porta-rotulo{margin:0 0 .5rem;font-size:.78rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--jessica-latao)}
 .porta h2{font-family:"Spectral",Georgia,serif;font-weight:400;font-size:clamp(1.7rem,3.4vw,2.3rem);max-width:none}
 .home .porta h2::after,.porta h2::after{content:none}
 .porta p.porta-txt{margin:.6rem 0 0;max-width:56ch;color:#C9D8CF}
+.porta p.porta-cargo{margin:.35rem 0 0;font-weight:600;color:#F2EBDC}
 .btn-latao{background:var(--jessica-latao);color:var(--jessica-garrafa);white-space:nowrap}
 .btn-latao:hover{background:#F0D9A6}
 .btn-latao:focus-visible{outline:2px solid var(--jessica-latao);outline-offset:3px}
-@media (max-width:52rem){.porta-grid{grid-template-columns:auto minmax(0,1fr)}.porta-grid>.btn{grid-column:1/-1;justify-self:start}.porta-retrato img{width:6rem;height:6rem}}
+@media (max-width:52rem){.porta-grid{grid-template-columns:minmax(0,1fr);gap:1.4rem}.porta-grid>.btn{justify-self:start}.porta-retrato img{width:11rem;height:11rem}}
 @media (max-width:52rem){.destaque-grid{grid-template-columns:minmax(0,1fr);gap:2rem}}
 
 /* ---------- Atalhos ---------- */
