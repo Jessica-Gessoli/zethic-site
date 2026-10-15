@@ -190,7 +190,7 @@ Na sua empresa, os administradores já usam a segunda etapa: todos, alguns ou ne
   slides=[("cover", "Lean Six Sigma em cibersegurança: [[medir]] antes de proteger.", "O que o método me ensinou, na legenda ↓")],
   texto="""Lean Six Sigma em cibersegurança: medir antes de proteger.
 
-Tenho certificação Green Belt e conduzi um projeto Lean Six Sigma numa seguradora. O método me deixou três hábitos que levo para qualquer diretoria:
+Tenho certificação Green Belt e fiz um projeto Lean Six Sigma numa seguradora. O método me deixou três hábitos que levo para qualquer diretoria:
 
 1. Começar pelo dado, não pela opinião. Quantos incidentes, quanto tempo parado, quanto custou.
 2. Achar a causa antes de comprar a solução. Ferramenta nova raramente resolve processo ruim.

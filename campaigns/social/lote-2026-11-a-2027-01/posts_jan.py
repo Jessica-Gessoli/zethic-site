@@ -108,7 +108,7 @@ Os bastidores dessa trajetória eu mostro no Instagram @jessicagessoli."""),
    ("text", "A POLÍTICA", "Decreto 11.856/2023", "Criou a Política Nacional de Cibersegurança e o Comitê Nacional de Cibersegurança, coordenado pelo GSI, com vagas para a sociedade civil e para empresas."),
    ("text", "A ESTRATÉGIA", "Decreto 12.573/2025", "A Estratégia Nacional de Cibersegurança (E-Ciber) reúne cerca de 40 ações e incentiva a criação de um órgão nacional de governança."),
    ("text", "O PROJETO DE LEI", "PL 4.752/2025", "O Marco Legal da Cibersegurança cria uma autoridade nacional. Foi aprovado na CCJ do Senado em dezembro de 2025 e segue em tramitação."),
-   ("list", "PARA O CONSELHO", "3 perguntas", ["Se surgir uma autoridade nacional, que obrigações nova ela pode trazer para o nosso setor?", "Já seguimos as regras do nosso regulador setorial?", "Quem acompanha esse projeto por nós?"]),
+   ("list", "PARA O CONSELHO", "3 perguntas", ["Se surgir uma autoridade nacional, que obrigações novas ela pode trazer para o nosso setor?", "Já seguimos as regras do nosso regulador setorial?", "Quem acompanha esse projeto por nós?"]),
    ("end", "AGORA ME RESPONDA", "A sua empresa acompanha o [[Marco Legal]] da Cibersegurança?", "Fontes: Planalto (Decreto 11.856), Câmara (Decreto 12.573) e Rádio Senado (dezembro de 2025)."),
   ],
   texto="""O Brasil ainda não tem uma autoridade nacional de cibersegurança. Pode ter em breve.
