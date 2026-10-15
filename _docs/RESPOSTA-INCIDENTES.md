@@ -1,6 +1,6 @@
 # Plano de resposta a incidentes do zethic.net
 
-> Controle 8 (monitoramento e resposta). Versão 1.0, 11/10/2026. Responsável: Jéssica Gessoli.
+> Controle 8 (monitoramento e resposta). Versão 1.1, 15/10/2026 (inclui o Calendly). Responsável: Jéssica Gessoli.
 > Este arquivo fica no repositório e não é publicado no site.
 
 ## Como um incidente chega até você
@@ -45,8 +45,9 @@ Sinais: zethic.net mostra outro site, o certificado HTTPS é estranho, ou o vigi
 ### 4. Conta Google invadida
 
 1. Troque a senha e faça a Verificação de segurança do Google.
-2. Confira quem tem acesso ao Google Analytics (Administrador → Gerenciamento de acesso) e à agenda de agendamento.
+2. Confira quem tem acesso ao Google Analytics (Administrador → Gerenciamento de acesso) e à página de agendamento do Google Agenda.
 3. Se a agenda recebeu formulários com dados de pessoas (nome, WhatsApp), veja a seção de LGPD abaixo.
+4. Se o login do Calendly é feito pela conta Google, siga também o item 6.
 
 ### 5. Site fora do ar sem sinal de invasão
 
@@ -54,9 +55,18 @@ Sinais: zethic.net mostra outro site, o certificado HTTPS é estranho, ou o vigi
 2. Se for instabilidade do GitHub: avise nos canais e use `wa.me/5519981800221` direto enquanto isso.
 3. Se o GitHub responder com erro 429 (limite de uso): avalie colocar uma CDN na frente do site.
 
+### 6. Conta do Calendly invadida
+
+O Calendly recebe a agenda de 30 minutos da página da fundadora (zethic.net/jessicagessoli).
+
+1. Troque a senha do Calendly (ou da conta usada para entrar nele) e confira o segundo fator.
+2. Em Integrações, confira as agendas e os aplicativos conectados e remova o que não reconhecer.
+3. Confira o evento de 30 minutos: descrição, link da política de privacidade (https://zethic.net/privacidade) e perguntas do formulário. Um invasor pode trocar um link por um site falso.
+4. O formulário recebe nome, e-mail e as respostas dos convidados (empresa, cargo, assunto): veja a seção de LGPD abaixo.
+
 ## LGPD
 
-O site não guarda dados pessoais, mas a agenda e o Google Analytics recebem dados de visitantes. Se houver acesso indevido a esses dados, avalie com o advogado a comunicação à ANPD e aos titulares. Pelo regulamento da ANPD (Resolução CD/ANPD nº 15/2024), o prazo é de 3 dias úteis a partir do conhecimento do incidente, quando ele puder causar risco ou dano relevante. Confirme com o advogado.
+O site não guarda dados pessoais, mas as agendas (Google Agenda e Calendly) e o Google Analytics recebem dados de visitantes. Se houver acesso indevido a esses dados, avalie com o advogado a comunicação à ANPD e aos titulares. Pelo regulamento da ANPD (Resolução CD/ANPD nº 15/2024), o prazo é de 3 dias úteis a partir do conhecimento do incidente, quando ele puder causar risco ou dano relevante. Confirme com o advogado.
 
 ## Depois do incidente
 
