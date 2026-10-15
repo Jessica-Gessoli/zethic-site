@@ -101,21 +101,17 @@ test("nomes das moedas no /fale seguem a ordem da autoavaliação", () => {
   assert.deepEqual(doFale, daAutoavaliacao);
 });
 
-// 14/10/2026 (decisão da Jéssica): 0221 é da Zethic e da Pode Curtir; 0769 é o profissional da Jéssica Gessoli.
-test("origens da Jéssica vão para o 0769; Zethic e Pode Curtir ficam no 0221", () => {
-  for (const o of ["jessicagessoli", "jessicagessoli-mentoria", "jessicagessoli-consultoria", "jessicagessoli-palestras"]) {
-    assert.ok(runWith("?utm_source=" + o).startsWith("https://wa.me/5519983310769?text="), o);
-  }
-  for (const o of ["", "?utm_source=podecurtir", "?utm_source=site", "?utm_source=diagnostico"]) {
+// 14/10/2026 (decisão da Jéssica): o (19) 98180-0221 é o nível 1 de todas as marcas, inclusive a Jéssica Gessoli.
+// O (19) 98331-0769 é nível 2, passado caso a caso, e nunca aparece em página ou documento público.
+test("todas as origens do /fale vão para o 0221", () => {
+  for (const o of ["", "?utm_source=podecurtir", "?utm_source=site", "?utm_source=jessicagessoli", "?utm_source=jessicagessoli-palestras"]) {
     assert.ok(runWith(o).startsWith(WA + "?text="), o || "padrão");
   }
 });
 
-test("página e documentos da Jéssica mostram o 0769, não o 0221", () => {
-  const ler = (p) => readFileSync(new URL("../" + p, import.meta.url), "utf8");
-  for (const p of ["jessicagessoli.html", "_docs/curriculo.html", "_docs/resume.html", "_docs/kit-palestrante.html"]) {
-    const h = ler(p);
-    assert.match(h, /98331-0769/, p);
-    assert.doesNotMatch(h, /98180-0221/, p);
-  }
+test("o 0769 (nível 2) não aparece em nenhum material público", async () => {
+  const { readdirSync } = await import("node:fs");
+  const raiz = new URL("../", import.meta.url);
+  const arquivos = [...readdirSync(raiz).filter((f) => /\.(html|txt|xml)$/.test(f)), ...readdirSync(new URL("en/", raiz)).map((f) => "en/" + f), ...readdirSync(new URL("_docs/", raiz)).filter((f) => f.endsWith(".html")).map((f) => "_docs/" + f)];
+  for (const p of arquivos) assert.doesNotMatch(readFileSync(new URL(p, raiz), "utf8"), /98331|0769|5519983310769/, p);
 });
