@@ -60,8 +60,8 @@ Sinais: zethic.net mostra outro site, o certificado HTTPS é estranho, ou o vigi
 O Calendly recebe a agenda de 30 minutos da página da fundadora (zethic.net/jessicagessoli).
 
 1. Troque a senha do Calendly (ou da conta usada para entrar nele) e confira o segundo fator.
-2. Em Integrações, confira as agendas e os aplicativos conectados e remova o que não reconhecer.
-3. Confira o evento de 30 minutos: descrição, link da política de privacidade (https://zethic.net/privacidade) e perguntas do formulário. Um invasor pode trocar um link por um site falso.
+2. Confira as agendas conectadas (configurações de calendários do Calendly) e, à parte, os aplicativos conectados (integrações e apps). Remova o que não reconhecer e, se a agenda tiver sido trocada ou desconectada, reconecte a certa (jessica.gessoli@zethic.net).
+3. Confira o evento de 30 minutos: local da reunião (deve ser o Google Meet), descrição, link da política de privacidade (https://zethic.net/privacidade) e perguntas do formulário. Um invasor pode trocar o local da reunião ou um link por um endereço falso, e os próximos convites levariam as pessoas para lá.
 4. O formulário recebe nome, e-mail e as respostas dos convidados (empresa, cargo, assunto): veja a seção de LGPD abaixo.
 
 ## LGPD
