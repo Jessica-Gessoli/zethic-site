@@ -103,7 +103,7 @@ Na última reunião, o conselho decidiu alguma coisa sobre cibersegurança, ou s
    ("text", "A SITUAÇÃO", "Sem norma específica", "Não existe regra de cibersegurança própria para as entidades fechadas de previdência complementar. A PREVIC escolheu um caminho gradual."),
    ("text", "O CAMINHO GRADUAL", "Primeiro conscientizar, depois cobrar", "A PREVIC começou por conscientização e autoavaliação das entidades. Cibersegurança entrou no plano de fiscalização de 2026 para os fundos dos segmentos S1 e S2."),
    ("text", "OS VIZINHOS", "O resto do sistema já tem regra", "Banco Central, CVM e SUSEP já têm normas. Os quatro reguladores debateram cibersegurança juntos no CORE Summit do Coremec, em setembro de 2025."),
-   ("list", "PARA O CONSELHO", "3 perguntas", ["Já fizemos a autoavaliação de cibersegurança?", "Estamos prontos se a fiscalização chegar este ano?", "Nossos gestores e administradores terceirizados seguem regras de quais reguladores?"]),
+   ("list", "PARA O CONSELHO", "3 perguntas", ["Já fizemos a autoavaliação de cibersegurança?", "Estamos prontos se a fiscalização chegar no próximo ciclo?", "Nossos gestores e administradores terceirizados seguem regras de quais reguladores?"]),
    ("end", "AGORA ME RESPONDA", "O seu fundo vai esperar a norma ou se adiantar a ela [[agora]]?", "Fontes: Okai (setembro de 2025) e Legismap (2026)."),
   ],
   texto="""Fundo de pensão: a PREVIC ainda não tem norma de cibersegurança. Mas já fiscaliza.
@@ -113,7 +113,7 @@ O que está acontecendo:
 2. Cibersegurança entrou no plano de fiscalização de 2026 para os fundos dos segmentos S1 e S2.
 3. Banco Central, CVM e SUSEP já têm normas, e os quatro reguladores debateram o tema juntos no CORE Summit do Coremec, em setembro de 2025.
 
-Regra que ainda não existe não é motivo para esperar. Fiscalização sem norma costuma comparar o fundo com o que os vizinhos do sistema financeiro já fazem.
+Regra que ainda não existe não é motivo para esperar. Na minha leitura, quem esperar a norma vai começar atrasado em relação ao resto do sistema financeiro.
 
 O seu fundo vai esperar a norma ou se adiantar a ela? Me conta nos comentários.
 
