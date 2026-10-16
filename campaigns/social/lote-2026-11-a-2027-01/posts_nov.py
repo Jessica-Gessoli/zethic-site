@@ -19,7 +19,7 @@ POSTS = [
 A Resolução BCB 85/2021 já pedia que o conselho aprovasse a política de segurança cibernética e o plano de resposta a incidentes. A Resolução BCB 538/2025 foi além:
 
 1. Passou a valer também para corretoras, distribuidoras e corretoras de câmbio.
-2. Exige teste de intrusão anual e independente, com plano de ação para cada achado.
+2. Exige teste de intrusão anual e independente, com plano de ação.
 3. O relatório que chega ao conselho até 31 de março agora traz os incidentes relevantes e o resultado dos testes.
 
 Na prática, o teste deixou de ser assunto da equipe técnica. Virou documento que o conselho precisa ler e cobrar.
@@ -31,7 +31,7 @@ Série "O que o regulador exige do board", parte 5. """ + IG),
  dict(slug="2026-11-11-agente-ia-permissoes", rede="linkedin", data="2026-11-11T11:00:00", tipo="carrossel",
   slides=[
    ("cover", "Agente de IA com acesso a tudo é um funcionário que [[ninguém entrevistou]].", "3 controles antes de liberar →"),
-   ("text", "O QUE MUDOU", "A IA começou a agir", "Agentes de IA não só respondem: enviam e-mail, mexem em planilha, aprovam etapas. Cada acesso que ele recebe é um acesso que alguém pode usar contra a empresa."),
+   ("text", "O QUE MUDOU", "A IA começou a agir", "Agentes de IA não só respondem: enviam e-mail, mexem em planilha, aprovam etapas. Cada acesso que um agente recebe é um acesso que alguém pode usar contra a empresa."),
    ("text", "CONTROLE Nº 1", "Acesso mínimo", "O agente recebe só o acesso que a tarefa exige, por tempo definido. Nada de copiar o perfil de um gestor."),
    ("text", "CONTROLE Nº 2", "Humano no que não volta atrás", "Pagamento, exclusão de dados e envio para cliente passam por aprovação de uma pessoa."),
    ("text", "CONTROLE Nº 3", "Registro de tudo", "Cada ação do agente fica registrada, com data e motivo. Sem registro, ninguém explica o erro depois."),
@@ -107,7 +107,7 @@ Passei por telecomunicações, bancos, seguros, saúde e infraestrutura crítica
 
 Em todos esses anos, a pergunta de quem decide foi a mesma: "quanto isso custa se der errado, e o que eu preciso decidir hoje?"
 
-O que mudou foi a velocidade:
+Na minha leitura, o que mudou foi a velocidade:
 1. O incidente que levava dias para aparecer hoje aparece em horas.
 2. O regulador que pedia política agora pede teste e relatório.
 3. A IA colocou decisão automática onde antes havia uma pessoa.
@@ -202,7 +202,7 @@ Qual fornecedor, se parar amanhã, para a sua empresa? Responde só com o tipo d
   ],
   texto="""Telecom: a Anatel já cobra cibersegurança também dos fornecedores.
 
-O Regulamento de Segurança Cibernética (Resolução Anatel 740/2020) pede política de segurança cibernética e gestão de incidentes. Desde então, três mudanças:
+O Regulamento de Segurança Cibernética (Resolução Anatel 740/2020) pede política de segurança cibernética e gestão de incidentes. Desde então, vieram duas mudanças e uma revisão está em andamento:
 
 1. Resolução Anatel 767/2024: toda prestadora avisa a Anatel sempre que notificar um incidente à ANPD, e a política passa a cobrir fornecedores (capacidade, risco e dependência).
 2. Resolução Anatel 780/2025: a prestadora só contrata data center certificado, com segurança física e cibernética.
@@ -217,7 +217,7 @@ Série "O que o regulador exige do board", parte 7. """ + IG),
  dict(slug="2026-11-25-deepfake-voz", rede="linkedin", data="2026-11-25T11:00:00", tipo="carrossel",
   slides=[
    ("cover", "A voz era do diretor. O pedido de transferência, [[não]].", "Deepfake de voz: 3 controles →"),
-   ("text", "O GOLPE", "IA imita a voz de quem manda", "Com áudios públicos de entrevistas e vídeos, ferramentas de IA já imitam a voz de um executivo e pedem um pagamento urgente ao financeiro."),
+   ("text", "O GOLPE", "IA imita a voz de quem manda", "Com áudios públicos de entrevistas e vídeos, ferramentas de IA podem imitar a voz de um executivo para pedir um pagamento urgente ao financeiro."),
    ("text", "CONTROLE Nº 1", "Confirmação por outro canal", "Pedido de pagamento fora do comum é confirmado por um canal diferente do que chegou, com número já conhecido."),
    ("text", "CONTROLE Nº 2", "Dupla aprovação", "Acima de um valor definido, duas pessoas aprovam. Sem exceção para \"urgência do diretor\"."),
    ("text", "CONTROLE Nº 3", "Treino do financeiro", "Quem paga precisa ter autorização para dizer \"vou confirmar\" até para o presidente."),
@@ -225,7 +225,7 @@ Série "O que o regulador exige do board", parte 7. """ + IG),
   ],
   texto="""A voz era do diretor. O pedido de transferência, não.
 
-Com áudios públicos de entrevistas e vídeos, ferramentas de IA já conseguem imitar a voz de um executivo e pedir um pagamento urgente ao financeiro.
+Com áudios públicos de entrevistas e vídeos, ferramentas de IA podem imitar a voz de um executivo para pedir um pagamento urgente ao financeiro.
 
 Três controles que funcionam mesmo contra uma voz perfeita:
 1. Confirmação por outro canal, com número já conhecido.

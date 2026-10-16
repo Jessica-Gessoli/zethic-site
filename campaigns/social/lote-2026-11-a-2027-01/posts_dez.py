@@ -55,7 +55,7 @@ Você sabe onde ficam os dados dos seus pacientes? Me chama no direct que eu te 
  dict(slug="2026-12-03-ransomware-decisoes", rede="linkedin", data="2026-12-03T11:00:00", tipo="carrossel",
   slides=[
    ("cover", "Ransomware às 3 da manhã: as decisões que a diretoria deveria ter tomado [[ontem]].", "4 decisões para tomar antes →"),
-   ("text", "DECISÃO Nº 1", "Quem pode desligar tudo", "Isolar sistemas para conter o ataque também para a operação. Alguém precisa ter autoridade para isso, sem reunião."),
+   ("text", "DECISÃO Nº 1", "Quem pode desligar tudo", "Isolar sistemas contém o ataque, mas também para a operação. Alguém precisa ter autoridade para isso, sem reunião."),
    ("text", "DECISÃO Nº 2", "Quem fala com cliente e imprensa", "Uma voz só, com mensagem aprovada antes. O silêncio vira boato em poucas horas."),
    ("text", "DECISÃO Nº 3", "Quem chama jurídico e seguradora", "O contrato de seguro e as obrigações com a ANPD e o regulador do setor têm prazos. O relógio começa quando a empresa toma conhecimento."),
    ("text", "DECISÃO Nº 4", "Qual sistema volta primeiro", "A ordem de volta define quando a empresa volta a faturar. É decisão de negócio."),
@@ -170,7 +170,7 @@ Quem confere os boletos no seu Negócio? Salva e manda para quem paga as contas.
   slides=[
    ("cover", "Senha sozinha não [[protege]] mais. Por onde começar a segunda etapa.", "3 lugares primeiro →"),
    ("text", "LUGAR Nº 1", "E-mail", "Quem entra no e-mail troca a senha de quase todo o resto. É a primeira porta a fechar."),
-   ("text", "LUGAR Nº 2", "Banco e pagamentos", "Contas da empresa, gateway de pagamento e qualquer sistema que movimente dinheiro."),
+   ("text", "LUGAR Nº 2", "Banco e pagamentos", "Contas da empresa, meios de pagamento e qualquer sistema que movimente dinheiro."),
    ("text", "LUGAR Nº 3", "Acesso remoto e nuvem", "VPN, painel de administração da nuvem e contas com poder de apagar ou exportar dados."),
    ("end", "AGORA ME RESPONDA", "Na sua empresa, os [[administradores]] já usam a segunda etapa?", "Responde nos comentários: todos, alguns ou nenhum."),
   ],
@@ -231,7 +231,7 @@ Série "O que o regulador exige do board", parte 10. """ + IG),
    ("cover", "Férias coletivas: quem cuida da [[empresa digital]] enquanto todo mundo descansa?", "Checklist antes de fechar →"),
    ("list", "ANTES DE SAIR", "3 coisas", ["Faça uma cópia dos dados importantes e confira se ela abre.", "Corte o acesso de quem saiu da equipe no ano.", "Ative a confirmação em duas etapas no e-mail e no banco."]),
    ("list", "DURANTE AS FÉRIAS", "2 coisas", ["Uma pessoa de plantão, com telefone de quem chamar.", "Pagamento novo só depois da volta, ou com confirmação por telefone."]),
-   ("end", "AGORA ME RESPONDE", "Quem fica de [[plantão]] no seu Negócio?", "Salva este checklist e manda para a equipe."),
+   ("end", "AGORA ME RESPONDE", "Quem fica de [[plantão]] no seu Negócio?", "Salva esta lista e manda para a equipe."),
   ],
   texto="""Férias coletivas: quem cuida da empresa digital enquanto todo mundo descansa?
 
@@ -242,7 +242,7 @@ Antes de sair:
 
 Durante as férias: uma pessoa de plantão com o telefone de quem chamar, e pagamento novo só com confirmação por telefone.
 
-Quem fica de plantão no seu Negócio? Salva este checklist e manda para a equipe. Ficou dúvida? Me chama no direct.
+Quem fica de plantão no seu Negócio? Salva esta lista e manda para a equipe. Ficou dúvida? Me chama no direct.
 
 #empreendedorismo #cibersegurança #férias #gestão #segurançadigital"""),
 
@@ -314,7 +314,7 @@ Qual dessas 3 já está no seu orçamento? Responde nos comentários: 1, 2, 3 ou
   slides=[("cover", "Em 2027, a pergunta não será se a equipe usa IA. Será [[quem responde]] por ela.", "Boas festas e até janeiro ↓")],
   texto="""Em 2027, a pergunta não será se a equipe usa IA. Será quem responde por ela.
 
-Neste ano, falei aqui de IA com acesso demais, de contrato com fornecedor de IA e de regras simples para a equipe. O fio que liga tudo é o mesmo: cada uso de IA precisa de um dono de negócio.
+Neste ano, falei aqui de controles mínimos de IA, de agentes com acesso demais e de contrato com fornecedor de IA. O fio que liga tudo é o mesmo: cada uso de IA precisa de um dono de negócio.
 
 Três perguntas para levar para janeiro:
 1. Sabemos quais ferramentas de IA a equipe usa?

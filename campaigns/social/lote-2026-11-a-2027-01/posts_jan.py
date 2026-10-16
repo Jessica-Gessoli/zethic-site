@@ -49,13 +49,13 @@ A política de IA da sua empresa cabe em 1 página, ou ela ainda não existe? Me
   slides=[
    ("cover", "Ano novo, senha nova? Faça [[isto]] no lugar.", "2 passos que protegem mais →"),
    ("text", "PASSO Nº 1", "Gerenciador de senhas", "Um aplicativo que cria e guarda uma senha diferente para cada conta. Você só decora uma."),
-   ("text", "PASSO Nº 2", "Confirmação em duas etapas", "No e-mail, no banco, no WhatsApp e nas redes do seu Negócio. Mesmo com a senha, o golpista não entra."),
+   ("text", "PASSO Nº 2", "Confirmação em duas etapas", "No e-mail, no banco, no WhatsApp e nas redes do seu Negócio. Mesmo com a senha, fica muito mais difícil o golpista entrar."),
    ("end", "AGORA ME RESPONDE", "Você usa a [[mesma senha]] em mais de um lugar?", "Seja sincero no direct. Eu te ajudo a começar."),
   ],
   texto="""Ano novo, senha nova? Faça isto no lugar.
 
 1. Gerenciador de senhas: um aplicativo que cria e guarda uma senha diferente para cada conta. Você só decora uma.
-2. Confirmação em duas etapas no e-mail, no banco, no WhatsApp e nas redes do seu Negócio. Mesmo com a senha, o golpista não entra.
+2. Confirmação em duas etapas no e-mail, no banco, no WhatsApp e nas redes do seu Negócio. Mesmo com a senha, fica muito mais difícil o golpista entrar.
 
 Trocar todas as senhas por outras parecidas não resolve. Senha repetida é o que faz um vazamento virar vários.
 
@@ -78,7 +78,7 @@ Continuidade de negócios começa por três perguntas:
 2. Em quanto tempo dói? Em quantas horas a parada vira multa, cliente perdido ou operação travada.
 3. O plano cabe nesse tempo? Se o processo aguenta 4 horas e a restauração leva 2 dias, o plano não existe.
 
-Em infraestrutura crítica, onde parar não é opção, essa conta é o ponto de partida. Na maioria das empresas, ela só aparece na crise.
+Em infraestrutura crítica, onde parar não é opção, essa conta é o ponto de partida. Em muitas empresas, ela só aparece na crise.
 
 Qual processo da sua empresa aguenta menos tempo parado? Responde nos comentários com o processo e as horas.
 
@@ -91,7 +91,7 @@ Qual processo da sua empresa aguenta menos tempo parado? Responde nos comentári
 Entre 2016 e 2019, tive um restaurante próprio, com operação digital, pagamentos, indicadores e atendimento ao cliente. Do outro lado da mesa, três coisas ficaram claras:
 
 1. Para o dono, sistema parado não é incidente. É fila, pedido perdido e caixa vazio no fim do dia.
-2. Quem tem um negócio pequeno não precisa de mais ferramenta. Precisa saber o que fazer primeiro.
+2. Quem é dono de um Negócio não precisa de mais ferramenta. Precisa saber o que fazer primeiro.
 3. Recomendação que não cabe no orçamento e na rotina não é recomendação.
 
 Hoje, quando falo com diretoria ou com dono de Negócio, essa é a régua.
@@ -169,8 +169,8 @@ Quantas contas de administrador a sua empresa tem hoje? Se ninguém sabe o núme
   slides=[
    ("cover", "Quanto custa [[1 hora parada]]? A conta que a diretoria entende.", "A fórmula em 4 partes →"),
    ("list", "A FÓRMULA", "Custo de 1 hora parada =", ["Receita que deixa de entrar na hora.", "+ Custo da equipe parada.", "+ Multas e penalidades de contrato.", "+ Custo de recuperação: horas extras, fornecedor, retrabalho."]),
-   ("text", "EXEMPLO HIPOTÉTICO", "R$ 4 mil por hora, antes das multas", "Empresa que fatura R$ 600 mil em 200 horas de operação por mês perde R$ 3 mil de receita por hora. Com 20 pessoas paradas a R$ 50 por hora, soma mais R$ 1 mil."),
-   ("text", "PARA QUE SERVE", "Comparar com o custo de prevenir", "Um teste de restauração ou uma segunda etapa de login custa menos que algumas horas paradas. Agora a diretoria consegue comparar."),
+   ("text", "EXEMPLO HIPOTÉTICO", "R$ 4 mil por hora, antes de multas e recuperação", "Empresa que fatura R$ 600 mil em 200 horas de operação por mês perde R$ 3 mil de receita por hora. Com 20 pessoas paradas a R$ 50 por hora, soma mais R$ 1 mil."),
+   ("text", "PARA QUE SERVE", "Comparar com o custo de prevenir", "Um teste de restauração ou uma segunda etapa de login costuma custar menos que algumas horas paradas. Agora a diretoria consegue comparar."),
    ("end", "AGORA ME RESPONDA", "A sua diretoria sabe o custo de [[1 hora parada]]?", "Responde nos comentários: sim, mais ou menos ou não."),
   ],
   texto="""Quanto custa 1 hora parada? Essa é a conta que a diretoria entende.
@@ -181,7 +181,7 @@ Custo de 1 hora parada =
 3. + Multas e penalidades de contrato
 4. + Custo de recuperação: horas extras, fornecedor, retrabalho
 
-Exemplo hipotético: uma empresa que fatura R$ 600 mil em 200 horas de operação por mês perde R$ 3 mil de receita por hora. Com 20 pessoas paradas a R$ 50 por hora, soma mais R$ 1 mil. São R$ 4 mil por hora antes das multas.
+Exemplo hipotético: uma empresa que fatura R$ 600 mil em 200 horas de operação por mês perde R$ 3 mil de receita por hora. Com 20 pessoas paradas a R$ 50 por hora, soma mais R$ 1 mil. São R$ 4 mil por hora, antes de multas e custos de recuperação.
 
 Com esse número, a diretoria consegue comparar o custo de prevenir com o custo de parar.
 
@@ -193,14 +193,14 @@ A sua diretoria sabe o custo de 1 hora parada? Responde nos comentários: sim, m
  dict(slug="2027-01-19-ia-sem-lei", rede="linkedin", data="2027-01-19T11:00:00", tipo="documento",
   titulo_doc="O que o regulador exige do board: inteligência artificial",
   slides=[
-   ("cover", "O Brasil ainda não tem lei de IA. Isso [[não deixa]] o board sem obrigação.", "O que já vale hoje →"),
+   ("cover", "O Brasil ainda não tem lei de IA. Isso [[não deixa]] o conselho sem obrigação.", "O que já vale hoje →"),
    ("text", "O PROJETO", "PL 2338/2023", "O Marco Legal da IA foi aprovado no Senado em dezembro de 2024. Na Câmara, aguarda o parecer do relator na comissão especial."),
    ("text", "O QUE JÁ VALE", "LGPD, artigo 20", "Quem é afetado por decisão tomada só com base em tratamento automatizado de dados pessoais pode pedir a revisão dessa decisão. Vale para IA que decide crédito, preço ou acesso."),
    ("text", "O QUE OS SETORES FAZEM", "Regras de cibersegurança e de terceirização", "Banco Central, CVM e SUSEP ainda não têm norma de IA. Mas a IA contratada de fornecedor já cai nas regras de cibersegurança, dados e terceirização de cada setor."),
    ("list", "PARA O CONSELHO", "3 perguntas", ["Que decisões automáticas da empresa afetam clientes?", "Conseguimos explicar e revisar essas decisões se alguém pedir?", "A IA dos fornecedores está nos nossos contratos e na nossa política?"]),
    ("end", "AGORA ME RESPONDA", "A sua empresa espera a lei de IA ou [[se prepara]] com as regras que já existem?", "Fontes: Câmara dos Deputados, LCF Monitor e TozziniFreire (2026)."),
   ],
-  texto="""O Brasil ainda não tem lei de IA. Isso não deixa o board sem obrigação.
+  texto="""O Brasil ainda não tem lei de IA. Isso não deixa o conselho sem obrigação.
 
 O que já vale hoje:
 1. O PL 2338/2023, o Marco Legal da IA, foi aprovado no Senado em dezembro de 2024 e aguarda parecer na Câmara.
@@ -241,13 +241,13 @@ Os assistentes de IA da sua empresa podem agir ou só responder? Me conta nos co
  dict(slug="2027-01-20-ig-ia-sem-lei", rede="instagram", data="2027-01-20T10:00:00", tipo="carrossel",
   slides=[
    ("cover", "Ainda não existe lei de IA no Brasil. Isso [[não te protege]].", "O que já vale para o seu Negócio →"),
-   ("text", "O QUE JÁ VALE", "A LGPD", "Se a IA decide algo sobre o seu cliente, como preço ou crédito, ele pode pedir que uma pessoa revise. E dado de cliente continua protegido."),
+   ("text", "O QUE JÁ VALE", "A LGPD", "Se a IA decide sozinha algo sobre o seu cliente, como preço ou crédito, ele pode pedir a revisão dessa decisão. E dado de cliente continua protegido."),
    ("list", "O QUE FAZER AGORA", "3 regras", ["Saiba quais IAs a sua equipe usa.", "Dado de cliente não entra em IA aberta.", "Decisão importante passa por uma pessoa."]),
    ("end", "AGORA ME RESPONDE", "A sua equipe já tem [[regras]] para usar IA?", "Me chama no direct que eu te ajudo a montar."),
   ],
   texto="""Ainda não existe lei de IA no Brasil. Isso não te protege.
 
-A LGPD já vale: se a IA decide algo sobre o seu cliente, como preço ou crédito, ele pode pedir que uma pessoa revise. E dado de cliente continua protegido.
+A LGPD já vale: se a IA decide sozinha algo sobre o seu cliente, como preço ou crédito, ele pode pedir a revisão dessa decisão. E dado de cliente continua protegido.
 
 O que fazer agora:
 1. Saiba quais IAs a sua equipe usa.
@@ -297,7 +297,7 @@ I share the Portuguese version of these topics for business owners on Instagram 
   ],
   texto="""O mapa do regulador: quem cobra cibersegurança do seu setor.
 
-Em 12 partes, a série "O que o regulador exige do board" passou por todos os setores regulados. O resumo:
+Em 12 partes, a série "O que o regulador exige do board" passou pelos principais setores regulados. O resumo:
 
 1. Sistema financeiro já tem regra: CMN 4.893 para bancos, BCB 85 e BCB 538 para pagamentos e corretoras, CVM 35 e 135 para o mercado de capitais e Circular SUSEP 638 para seguros.
 2. Infraestrutura e dados também: REN ANEEL 964 e rotina do ONS para energia, Resolução Anatel 740 para telecom, Resolução CD/ANPD 15 para dados pessoais e RDC Anvisa 657 para software médico.
