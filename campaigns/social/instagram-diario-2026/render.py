@@ -2,7 +2,7 @@ import html, os, re, subprocess, sys, json
 sys.path.insert(0, os.path.dirname(__file__))
 import importlib.util
 POSTS=[]
-for _m in ["semana01"]:
+for _m in (os.environ.get("MODS") or "semana01").split(","):
     _sp=importlib.util.spec_from_file_location(_m, os.path.join(os.path.dirname(__file__), _m+".py")); _mod=importlib.util.module_from_spec(_sp); _sp.loader.exec_module(_mod); POSTS+=_mod.POSTS
 
 R = "/home/claude/zethic-site"
@@ -40,12 +40,24 @@ td.k{{font-weight:600;width:300px;padding-right:24px}}
 body.s-golpe{{background:#F58028;color:#12352B}}.s-golpe .at,.s-golpe .pg{{color:#12352B;opacity:.8}}.s-golpe mark{{background:#12352B;color:#F58028;padding:0 10px}}.s-golpe .tag{{background:#12352B;color:#F58028}}.s-golpe .cta{{color:#12352B}}
 .tri{{position:absolute;right:92px;top:240px;width:0;height:0;border-left:44px solid transparent;border-right:44px solid transparent;border-bottom:78px solid #12352B}}
 .tri:after{{content:"!";position:absolute;left:-8px;top:18px;color:#F58028;font-weight:600;font-size:52px}}
-.phone{{position:absolute;left:180px;top:640px;width:720px;height:620px;background:#fff;border:14px solid #12352B;border-bottom:none;border-radius:60px 60px 0 0;padding:70px 46px 0;box-sizing:border-box}}
+.phone{{position:absolute;left:180px;top:720px;width:720px;height:620px;background:#fff;border:14px solid #12352B;border-bottom:none;border-radius:60px 60px 0 0;padding:70px 46px 0;box-sizing:border-box}}
 .phone .from{{font-size:26px;color:#55655E;font-weight:600;margin-bottom:18px}}.phone .sms{{background:#E2E7E2;border-radius:28px 28px 28px 6px;padding:28px 32px;font-size:36px;line-height:1.35;color:#1A2B25}}.phone u{{color:#1a5fb4}}
 body.s-dk{{background:#12352B;color:#F3F5F2}}.s-dk .at,.s-dk .pg{{color:#C9D8CF}}.s-dk mark{{background:none;color:#D9B76E;padding:0}}.s-dk .cta{{color:#D9B76E}}.s-dk .tag{{background:#D9B76E;color:#12352B}}
 .wm{{position:absolute;right:-30px;bottom:-120px;font-weight:600;font-size:620px;line-height:1;color:transparent;-webkit-text-stroke:4px rgba(217,183,110,.35)}}
-.stamp{{position:absolute;right:90px;top:820px;transform:rotate(-12deg);border:8px solid #AE4F0B;color:#AE4F0B;font-weight:600;font-size:96px;letter-spacing:8px;padding:6px 34px;border-radius:14px}}
+.stamp{{position:absolute;right:90px;top:960px;transform:rotate(-12deg);border:8px solid #AE4F0B;color:#AE4F0B;font-weight:600;font-size:96px;letter-spacing:8px;padding:6px 34px;border-radius:14px}}
 .stamp.ok{{border-color:#21763C;color:#21763C}}
+.btns{{position:absolute;left:88px;top:880px;display:flex;gap:30px}}.btns div{{font-weight:600;font-size:48px;padding:30px 44px;border-radius:999px}}
+.b1{{background:#F58028;color:#12352B}}.b2{{border:5px solid #F3F5F2;color:#F3F5F2}}
+.s-dk .tag.alerta{{background:#F58028;color:#12352B}}
+.ctab{{display:inline-block;background:#D9B76E;color:#12352B;font-weight:600;font-size:40px;padding:26px 44px;border-radius:999px;margin-top:40px}}
+.mq{{position:absolute;left:88px;top:250px;font-weight:600;font-size:30px;letter-spacing:4px;color:#7E5E22}}
+.mt{{position:absolute;left:88px;top:300px;width:904px;font-weight:600;font-size:64px;line-height:1.12;color:#12352B}}
+.phone2{{position:absolute;left:150px;top:480px;width:780px;height:880px;background:#fff;border:14px solid #12352B;border-bottom:none;border-radius:60px 60px 0 0;padding:70px 50px 0;box-sizing:border-box}}
+.phone2 .from{{font-size:30px;color:#55655E;font-weight:600;margin-bottom:22px}}.phone2 .sms{{background:#E2E7E2;border-radius:30px 30px 30px 6px;padding:32px 36px;font-size:42px;line-height:1.35;color:#1A2B25}}.phone2 u{{color:#1a5fb4}}
+.st2{{position:absolute;left:88px;top:270px;transform:rotate(-6deg);border:8px solid #AE4F0B;color:#AE4F0B;font-weight:600;font-size:84px;letter-spacing:6px;padding:4px 30px;border-radius:14px}}
+.st2.ok{{border-color:#21763C;color:#21763C}}
+.rb{{position:absolute;left:88px;top:470px;width:904px}}
+
 body.s-por{{background:#F3F5F2}}
 .foto{{position:absolute;right:0;bottom:0;width:620px;height:720px;background:url(file://{R}/assets/img/jessica-gessoli.jpg) 50% 20%/cover;-webkit-mask-image:linear-gradient(to top,#000 75%,transparent)}}
 .bub2{{position:absolute;left:88px;top:330px;width:760px;background:#fff;border-radius:40px;padding:44px 44px 54px;box-shadow:0 6px 0 #E2E7E2;z-index:2}}.bub2 .q{{font-weight:600;font-size:84px;line-height:1.1}}
@@ -86,6 +98,19 @@ def slide_html(s, i, n):
         boxes = "".join('<div class="ok"></div>' if k < ok else '<div></div>' for k in range(tot))
         body = header(i, n, True) + f'<div class="tag">CHECKLIST DE SEXTA</div><h1>{hl(s[1])}</h1><div class="chk">{boxes}</div><div class="cta">{hl(s[2])}</div>'
         cls = "cover s-dk"
+    elif kind == "cover" and se == "jogo":
+        body = header(i, n, True) + f'<div class="tag alerta">GOLPE OU NÃO?</div><h1>{hl(s[1])}</h1><div class="btns"><div class="b1">GOLPE</div><div class="b2">NÃO É</div></div><div class="cta">{hl(s[2])}</div>'
+        cls = "cover s-dk"
+    elif kind == "cover" and se == "caso":
+        body = header(i, n, True) + f'<div class="tag">CASO DE DOMINGO</div><h1>{hl(s[1])}</h1><div class="cta">{hl(s[2])}</div>'
+        cls = "cover s-dk"
+    elif kind == "msg":
+        body += f'<div class="mq">{hl(s[1])}</div><div class="mt">Golpe ou não?</div><div class="phone2"><div class="from">{html.escape(s[2])}</div><div class="sms">{s[3]}</div></div>'
+        cls = ""
+    elif kind == "resp":
+        ok = s[1].upper().startswith("NÃO")
+        body += f'<div class="st2{" ok" if ok else ""}">{html.escape(s[1])}</div><div class="rb"><div class="tt">{hl(s[2])}</div><div class="bd">{hl(s[3])}</div></div>'
+        cls = ""
     elif kind == "cover":
         body += f'<h1>{hl(s[1])}</h1><div class="cta">{hl(s[2])}</div>'
         cls = "cover"
@@ -97,7 +122,8 @@ def slide_html(s, i, n):
         body += f'<div class="box"><div class="eb">{hl(s[1])}</div><div class="tt">{hl(s[2])}</div><ol>{items}</ol></div>'
         cls = ""
     elif kind == "end":
-        body += f'<div class="box"><div class="eb">{hl(s[1])}</div><div class="tt">{hl(s[2])}</div><div class="bd">{hl(s[3])}</div></div>'
+        btn = f'<div class="ctab">{html.escape(s[4])}</div>' if len(s) > 4 else ""
+        body += f'<div class="box"><div class="eb">{hl(s[1])}</div><div class="tt">{hl(s[2])}</div><div class="bd">{hl(s[3])}</div>{btn}</div>'
         cls = "dark"
     elif kind == "quote" and se == "frase-lat":
         body = header(i, n) + f'<div class="qt"><div class="qm">“</div><div class="qx">{hl(s[1])}</div><div class="qa">{hl(s[2])}</div></div>'
