@@ -33,6 +33,7 @@ li{{counter-increment:n;font-size:44px;line-height:1.35;margin:0 0 34px;padding-
 li:before{{content:counter(n);position:absolute;left:0;top:0;width:56px;height:56px;border-radius:50%;background:#12352B;color:#F3F5F2;font-weight:600;font-size:32px;display:flex;align-items:center;justify-content:center}}
 table{{border-collapse:collapse;width:904px}}td{{font-size:36px;line-height:1.3;padding:26px 0;border-top:2px solid #E2E7E2;vertical-align:top}}
 .qt{{position:absolute;left:88px;top:330px;width:904px}}.qm{{font-size:200px;line-height:.8;color:#D9B76E;font-weight:600}}.qx{{font-weight:600;font-size:88px;line-height:1.15;margin-top:10px}}.qa{{margin-top:60px;font-size:36px;color:#D9B76E;font-weight:600}}
+.camp{{position:absolute;left:0;bottom:0;width:1080px;height:64px;box-sizing:border-box;padding:0 88px;display:flex;align-items:center;justify-content:space-between;font-weight:600;font-size:24px;letter-spacing:3px;background:#12352B;color:#D9B76E;z-index:9}}.dark .camp,.s-dk .camp{{background:#D9B76E;color:#12352B}}
 td.k{{font-weight:600;width:300px;padding-right:24px}}
 
 .cover.s-golpe h1,.cover.s-dk h1,body.cover:has(.tag) h1{{top:345px}}
@@ -76,6 +77,11 @@ def header(i, n, dark=False):
     return f'<div class="hdr"><div class="av"></div><div><div class="nm">Jéssica Gessoli</div><div class="at">@jessicagessoli</div></div></div>{pg}'
 
 SERIE = None
+CAMPSTRIP = None
+try:
+    import importlib.util as _iu
+    _sp=_iu.spec_from_file_location('campanhas', os.path.join(os.path.dirname(__file__),'campanhas.py')); _cm=_iu.module_from_spec(_sp); _sp.loader.exec_module(_cm); _SLUG2=_cm.SLUG2
+except Exception: _SLUG2={}
 def slide_html(s, i, n):
     kind = s[0]
     se = SERIE
@@ -137,6 +143,7 @@ def slide_html(s, i, n):
         rows = "".join(f'<tr><td class="k"{st}>{hl(a)}</td><td{st}>{hl(b)}</td></tr>' for a, b in s[3])
         body += f'<div class="box" style="top:{'250' if small else '300'}px"><div class="eb">{hl(s[1])}</div><div class="tt" style="font-size:{'60' if small else '68'}px">{hl(s[2])}</div><table>{rows}</table></div>'
         cls = ""
+    if CAMPSTRIP: body += f'<div class="camp"><span>{CAMPSTRIP[0]}</span><span>{CAMPSTRIP[1]}</span></div>'
     return f'<!doctype html><html><head><meta charset="utf-8"><style>{CSS}</style></head><body class="{cls}">{body}</body></html>'
 
 manifest = []
@@ -145,6 +152,7 @@ SUF = os.environ.get("SUF","")
 for p in POSTS:
     if ONLY and p["slug"] not in ONLY: continue
     SERIE = p.get("serie")
+    CAMPSTRIP = _SLUG2.get(p["slug"])
     n = len(p["slides"])
     files = []
     for i, s in enumerate(p["slides"], 1):
