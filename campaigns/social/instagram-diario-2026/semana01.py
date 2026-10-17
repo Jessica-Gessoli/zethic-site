@@ -8,32 +8,32 @@ POSTS = [
 
 Quase todo golpe que chega pelo celular tem os dois: "tem que ser agora" e "não conta para ninguém". Quando aparecerem juntos, pare e confirme por outro caminho antes de fazer qualquer coisa.
 
-A partir de hoje, todo dia tem post novo aqui, às 18h. Salva este e manda para a sua equipe.
+A partir de hoje, todo dia tem post novo aqui. Salva este e manda para a sua equipe.
 
 """ + TAGS),
 
- dict(slug="2026-10-18-resumo-boas-vindas", rede="instagram", data="2026-10-18T18:00:00", tipo="carrossel",
+ dict(slug="2026-10-18-resumo-boas-vindas", rede="instagram", data="2026-10-18T12:00:00", tipo="carrossel",
   slides=[
    ("cover", "A partir de agora, [[todo dia]] tem post novo aqui.", "O que vem em cada dia →"),
-   ("list", "DE SEGUNDA A QUARTA", "Para não cair e não errar", ["Segunda: Golpe da semana", "Terça: Mito ou verdade", "Quarta: IA no Negócio"]),
-   ("list", "DE QUINTA A DOMINGO", "Para resolver e lembrar", ["Quinta: Pergunta do direct", "Sexta: Checklist de sexta", "Sábado: Frase da semana", "Domingo: Resumo da semana"]),
+   ("list", "DE SEGUNDA A QUARTA", "Para não cair e não errar", ["Segunda: Golpe da semana", "Terça: IA no Negócio", "Quarta: Mito ou verdade"]),
+   ("list", "DE QUINTA A DOMINGO", "Para resolver e lembrar", ["Quinta: Pergunta do direct", "Sexta: Checklist de sexta", "Sábado: Frase da semana", "Domingo: Golpe ou não?"]),
    ("end", "AGORA ME CONTA", "Qual dúvida sobre [[golpe ou IA]] você quer ver aqui?", "Me manda no direct. As melhores viram post de quinta."),
   ],
-  texto="""A partir de agora, todo dia tem post novo aqui, às 18h. Cibersegurança e IA para quem é dono do Negócio, sem tecniquês.
+  texto="""A partir de agora, todo dia tem post novo aqui. Cibersegurança e IA para quem é dono do Negócio, sem tecniquês.
 
 Segunda: Golpe da semana
-Terça: Mito ou verdade
-Quarta: IA no Negócio
+Terça: IA no Negócio
+Quarta: Mito ou verdade
 Quinta: Pergunta do direct
 Sexta: Checklist de sexta
 Sábado: Frase da semana
-Domingo: Resumo da semana
+Domingo: Golpe ou não? (o jogo para fazer com a família)
 
 Qual dúvida sobre golpe ou IA você quer ver aqui? Me manda no direct. As melhores viram post de quinta.
 
 """ + TAGS),
 
- dict(slug="2026-10-19-golpe-taxa-encomenda", rede="instagram", data="2026-10-19T18:00:00", tipo="carrossel",
+ dict(slug="2026-10-19-golpe-taxa-encomenda", rede="instagram", data="2026-10-19T10:00:00", tipo="carrossel",
   slides=[
    ("cover", "\"Sua encomenda está retida. Pague a [[taxa]].\" É golpe.", "Golpe da semana →"),
    ("text", "COMO FUNCIONA", "Mensagem com link", "Chega por SMS, e-mail ou WhatsApp dizendo que a encomenda está presa e pedindo uma taxa para liberar. O link leva a um site falso."),
@@ -54,7 +54,7 @@ Você ou alguém da equipe já recebeu essa mensagem? Salva e manda para quem re
 
 #golpe #correios #encomenda #segurançadigital #empreendedorismo"""),
 
- dict(slug="2026-10-20-mito-pequeno-demais", rede="instagram", data="2026-10-20T18:00:00", tipo="carrossel",
+ dict(slug="2026-10-20-mito-pequeno-demais", rede="instagram", data="2026-10-21T18:00:00", tipo="carrossel",
   slides=[
    ("cover", "\"Meu Negócio é pequeno demais para ser alvo.\" [[Mito.]]", "Mito ou verdade →"),
    ("text", "POR QUE É MITO", "O golpe não escolhe tamanho", "Mensagem falsa, boleto falso e link de pagamento falso são enviados para milhares de pessoas ao mesmo tempo. Quem cair, caiu."),
@@ -77,7 +77,7 @@ Você já pensou que era pequeno demais para ser alvo? Comenta aqui.
 
 """ + TAGS),
 
- dict(slug="2026-10-21-ia-voz-falsa", rede="instagram", data="2026-10-21T18:00:00", tipo="carrossel",
+ dict(slug="2026-10-21-ia-voz-falsa", rede="instagram", data="2026-10-20T10:00:00", tipo="carrossel",
   slides=[
    ("cover", "O áudio tem a voz do seu sócio. [[Pode não ser ele.]]", "IA no Negócio →"),
    ("text", "O QUE MUDOU", "IA que imita voz", "Ferramentas de IA já imitam a voz de uma pessoa a partir de gravações. Um áudio no WhatsApp pode soar igual a quem você conhece."),
@@ -100,7 +100,7 @@ A sua equipe já tem uma palavra-código? Salva este post e combina a sua ainda 
 
 #inteligenciaartificial #IA #golpe #empreendedorismo #segurançadigital"""),
 
- dict(slug="2026-10-22-direct-cliquei-link", rede="instagram", data="2026-10-22T18:00:00", tipo="carrossel",
+ dict(slug="2026-10-22-direct-cliquei-link", rede="instagram", data="2026-10-22T10:00:00", tipo="carrossel",
   slides=[
    ("cover", "\"Cliquei num link estranho. [[E agora?]]\"", "Pergunta do direct →"),
    ("text", "PRIMEIRO", "Respira e não digite nada", "Se a página pediu senha, código ou dados do cartão e você ainda não preencheu, feche a página."),
@@ -122,7 +122,7 @@ Qual a sua dúvida sobre golpe ou IA? Me manda no direct. A sua pode virar o pos
 
 """ + TAGS),
 
- dict(slug="2026-10-23-checklist-celular", rede="instagram", data="2026-10-23T18:00:00", tipo="carrossel",
+ dict(slug="2026-10-23-checklist-celular", rede="instagram", data="2026-10-23T10:00:00", tipo="carrossel",
   slides=[
    ("cover", "4 ajustes no celular do Negócio [[antes do fim de semana]].", "Checklist de sexta →"),
    ("list", "AJUSTES 1 E 2", "Atualizar e travar", ["Atualize o sistema e os aplicativos do celular.", "Use bloqueio de tela com senha ou biometria. Nada de 1234."]),
@@ -140,7 +140,7 @@ Quantos dos 4 você já fez? Comenta o número. Ficou dúvida em algum? Me chama
 
 """ + TAGS),
 
- dict(slug="2026-10-24-frase-desliga", rede="instagram", data="2026-10-24T18:00:00", tipo="imagem",
+ dict(slug="2026-10-24-frase-desliga", rede="instagram", data="2026-10-24T10:00:00", tipo="imagem",
   slides=[("quote", "Na dúvida, [[desliga e liga você]].", "Frase da semana · Jéssica Gessoli")],
   texto="""Na dúvida, desliga e liga você.
 
