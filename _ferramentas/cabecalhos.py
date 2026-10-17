@@ -5,6 +5,8 @@ Uso (na raiz do repositório):  python3 _ferramentas/cabecalhos.py
 Edite os modelos abaixo e rode de novo: as páginas são atualizadas entre os marcadores
 <!-- grupo:inicio --> ... <!-- grupo:fim --> e <!-- cabecalho:inicio --> ... <!-- cabecalho:fim -->.
 O teste _tests/torres.static.test.mjs confere que nenhuma página ficou diferente do modelo.
+Para só conferir, sem gravar:  python3 _ferramentas/cabecalhos.py --conferir
+(o teste _tests/cabecalhos-ferramenta.test.mjs roda essa conferência).
 """
 import re
 from pathlib import Path
@@ -27,7 +29,9 @@ ZETHIC = [
 # Páginas das outras marcas: mantêm o cabeçalho próprio e recebem só a barra do grupo.
 MARCAS = [("jessicagessoli.html", "j"), ("podecurtir.html", "p")]
 
-LOGO = ('<a class="logo" href="/" aria-label="Zethic, início"><span aria-hidden="true">Z</span>'
+LOGO = ('<a class="logo" href="/" aria-label="Zethic, início">'
+        '<img class="logo-simbolo" src="/assets/img/zethic-marca.svg" alt="" width="34" height="34">'
+        '<span aria-hidden="true">Z</span>'
         '<svg class="logo-e" viewBox="0 0 72 52.5" aria-hidden="true" focusable="false"><rect width="72" height="7" rx="1"/>'
         '<rect y="22.75" width="72" height="7" rx="1"/><rect y="45.5" width="72" height="7" rx="1"/></svg>'
         '<span aria-hidden="true">THIC</span></a>')
@@ -189,25 +193,43 @@ def garantir_no_head(texto, linha):
     return texto.replace("</head>", linha + "\n</head>", 1)
 
 
-def main():
+def main(conferir=False):
+    """Atualiza as páginas. Com --conferir, não grava nada: só aponta as páginas que mudariam."""
+    diferentes = []
+
+    def gravar(p, original, novo):
+        if novo == original:
+            print("ok", p.name)
+        elif conferir:
+            diferentes.append(p.name)
+            print("DIFERENTE", p.name)
+        else:
+            p.write_text(novo, encoding="utf-8")
+            print("atualizada", p.name)
+
     for arq, origem, atual in ZETHIC:
         p = RAIZ / arq
-        t = p.read_text(encoding="utf-8")
+        original = p.read_text(encoding="utf-8")
+        t = original
         t = trocar_bloco(t, "cabecalho", cabecalho(origem, atual, arq == "index.html"), alvo_inicial=r"<header>.*?</header>")
         t = trocar_bloco(t, "grupo", grupo("q" if atual == "quem-somos" else "z"), depois_de=r'<a class="skip"[^>]*>[^<]*</a>')
         t = garantir_no_head(t, '<link rel="stylesheet" href="/assets/css/grupo.css">')
         t = garantir_no_head(t, '<link rel="stylesheet" href="/assets/css/torres.css">')
         t = garantir_no_head(t, '<script src="/assets/js/torres.js"></script>')
-        p.write_text(t, encoding="utf-8")
-        print("ok", arq)
+        gravar(p, original, t)
     for arq, chave in MARCAS:
         p = RAIZ / arq
-        t = p.read_text(encoding="utf-8")
+        original = p.read_text(encoding="utf-8")
+        t = original
         t = trocar_bloco(t, "grupo", grupo(chave), depois_de=r'<a class="skip"[^>]*>[^<]*</a>')
         t = garantir_no_head(t, '<link rel="stylesheet" href="/assets/css/grupo.css">')
-        p.write_text(t, encoding="utf-8")
-        print("ok", arq)
+        gravar(p, original, t)
+    if conferir and diferentes:
+        print("Páginas diferentes do modelo:", ", ".join(diferentes))
+        return 1
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    import sys
+    sys.exit(main(conferir="--conferir" in sys.argv[1:]))
