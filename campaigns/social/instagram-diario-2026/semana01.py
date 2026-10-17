@@ -33,9 +33,9 @@ Qual dúvida sobre golpe ou IA você quer ver aqui? Me manda no direct. As melho
 
 """ + TAGS),
 
- dict(slug="2026-10-19-golpe-taxa-encomenda", rede="instagram", data="2026-10-19T10:00:00", tipo="carrossel",
+ dict(slug="2026-10-19-golpe-taxa-encomenda", serie="golpe", rede="instagram", data="2026-10-19T10:00:00", tipo="carrossel",
   slides=[
-   ("cover", "\"Sua encomenda está retida. Pague a [[taxa]].\" É golpe.", "Golpe da semana →"),
+   ("cover", "Recebeu isto? [[É golpe.]]", "", "SMS · agora", "Sua encomenda está retida. Pague a taxa para liberar: <u>rastreio-entrega.exemplo</u>"),
    ("text", "COMO FUNCIONA", "Mensagem com link", "Chega por SMS, e-mail ou WhatsApp dizendo que a encomenda está presa e pedindo uma taxa para liberar. O link leva a um site falso."),
    ("text", "O QUE ELES QUEREM", "Seu dinheiro e seus dados", "O site falso pede CPF, endereço, cartão ou um Pix. Depois de pagar, a encomenda não chega e o dinheiro não volta."),
    ("list", "COMO SE PROTEGER", "Antes de pagar qualquer taxa", ["Não clique no link da mensagem.", "Rastreie no site ou no app oficial dos Correios.", "Pressa e Pix para liberar encomenda são sinal de golpe."]),
@@ -54,9 +54,9 @@ Você ou alguém da equipe já recebeu essa mensagem? Salva e manda para quem re
 
 #golpe #correios #encomenda #segurançadigital #empreendedorismo"""),
 
- dict(slug="2026-10-20-mito-pequeno-demais", rede="instagram", data="2026-10-21T18:00:00", tipo="carrossel",
+ dict(slug="2026-10-20-mito-pequeno-demais", serie="mito", rede="instagram", data="2026-10-21T18:00:00", tipo="carrossel",
   slides=[
-   ("cover", "\"Meu Negócio é pequeno demais para ser alvo.\" [[Mito.]]", "Mito ou verdade →"),
+   ("cover", "\"Meu Negócio é pequeno demais para ser alvo.\"", "Arrasta para ver por quê →", "MITO"),
    ("text", "POR QUE É MITO", "O golpe não escolhe tamanho", "Mensagem falsa, boleto falso e link de pagamento falso são enviados para milhares de pessoas ao mesmo tempo. Quem cair, caiu."),
    ("text", "O QUE MUDA NO PEQUENO", "Menos gente para conferir", "Em muitos Negócios, uma pessoa só paga, recebe e responde clientes. Sem segunda conferência, o golpe passa mais fácil."),
    ("list", "O QUE FAZER", "Proteção que cabe em qualquer tamanho", ["Confirmação em duas etapas no e-mail, no banco e no WhatsApp.", "Pagamento fora do comum: confirme por telefone conhecido.", "Cópia dos arquivos fora do computador."]),
@@ -77,9 +77,9 @@ Você já pensou que era pequeno demais para ser alvo? Comenta aqui.
 
 """ + TAGS),
 
- dict(slug="2026-10-21-ia-voz-falsa", rede="instagram", data="2026-10-20T10:00:00", tipo="carrossel",
+ dict(slug="2026-10-21-ia-voz-falsa", serie="ia", rede="instagram", data="2026-10-20T10:00:00", tipo="carrossel",
   slides=[
-   ("cover", "O áudio tem a voz do seu sócio. [[Pode não ser ele.]]", "IA no Negócio →"),
+   ("cover", "O áudio tem a voz do seu sócio. [[Pode não ser ele.]]", "Como conferir antes de pagar →"),
    ("text", "O QUE MUDOU", "IA que imita voz", "Ferramentas de IA já imitam a voz de uma pessoa a partir de gravações. Um áudio no WhatsApp pode soar igual a quem você conhece."),
    ("text", "COMO O GOLPE USA ISSO", "Pedido urgente de dinheiro", "O áudio pede um Pix ou um pagamento fora do comum, com pressa. A voz convence; o pedido é o mesmo de sempre."),
    ("list", "COMO SE PROTEGER", "Antes de pagar por áudio", ["Ligue de volta para o número que você já tinha.", "Combine uma palavra-código com sócios e equipe.", "Pagamento fora do comum: duas pessoas conferem."]),
@@ -100,7 +100,7 @@ A sua equipe já tem uma palavra-código? Salva este post e combina a sua ainda 
 
 #inteligenciaartificial #IA #golpe #empreendedorismo #segurançadigital"""),
 
- dict(slug="2026-10-22-direct-cliquei-link", rede="instagram", data="2026-10-22T10:00:00", tipo="carrossel",
+ dict(slug="2026-10-22-direct-cliquei-link", serie="direct", rede="instagram", data="2026-10-22T10:00:00", tipo="carrossel",
   slides=[
    ("cover", "\"Cliquei num link estranho. [[E agora?]]\"", "Pergunta do direct →"),
    ("text", "PRIMEIRO", "Respira e não digite nada", "Se a página pediu senha, código ou dados do cartão e você ainda não preencheu, feche a página."),
@@ -122,9 +122,9 @@ Qual a sua dúvida sobre golpe ou IA? Me manda no direct. A sua pode virar o pos
 
 """ + TAGS),
 
- dict(slug="2026-10-23-checklist-celular", rede="instagram", data="2026-10-23T10:00:00", tipo="carrossel",
+ dict(slug="2026-10-23-checklist-celular", serie="check", rede="instagram", data="2026-10-23T10:00:00", tipo="carrossel",
   slides=[
-   ("cover", "4 ajustes no celular do Negócio [[antes do fim de semana]].", "Checklist de sexta →"),
+   ("cover", "4 ajustes no celular do Negócio [[antes do fim de semana]].", "Quantos você já fez? →", "2", "4"),
    ("list", "AJUSTES 1 E 2", "Atualizar e travar", ["Atualize o sistema e os aplicativos do celular.", "Use bloqueio de tela com senha ou biometria. Nada de 1234."]),
    ("list", "AJUSTES 3 E 4", "Conferir e copiar", ["No WhatsApp, abra Configurações > Aparelhos conectados e desconecte o que você não reconhece.", "Confira se a cópia de segurança das conversas e fotos está ativa."]),
    ("end", "AGORA ME RESPONDE", "Quantos dos 4 [[você já fez]]?", "Comenta o número. Leva 10 minutos para fazer os que faltam."),
@@ -140,7 +140,7 @@ Quantos dos 4 você já fez? Comenta o número. Ficou dúvida em algum? Me chama
 
 """ + TAGS),
 
- dict(slug="2026-10-24-frase-desliga", rede="instagram", data="2026-10-24T10:00:00", tipo="imagem",
+ dict(slug="2026-10-24-frase-desliga", serie="frase-lat", rede="instagram", data="2026-10-24T10:00:00", tipo="imagem",
   slides=[("quote", "Na dúvida, [[desliga e liga você]].", "Frase da semana · Jéssica Gessoli")],
   texto="""Na dúvida, desliga e liga você.
 
