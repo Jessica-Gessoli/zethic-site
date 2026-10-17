@@ -85,10 +85,6 @@ header .wrap.bar,.painel .wrap{max-width:72rem}
 @media (max-width:26rem){.btn-topo{display:none}.menu-btn{margin-left:auto}}
 
 /* ---------- Faixa de oferta ---------- */
-.faixa{margin:0;background:linear-gradient(90deg,var(--cyan),#8AF3FF);text-align:center;font-size:.9rem;line-height:1.4}
-.faixa a{display:block;padding:.6rem 1.25rem;color:var(--navy);text-decoration:none;font-weight:500}
-.faixa span{font-weight:700;text-decoration:underline;text-underline-offset:.2em;margin-left:.3rem}
-.faixa a:focus-visible{outline:2px solid var(--navy);outline-offset:-4px}
 
 /* ---------- Banners (vitrine) ---------- */
 .torres-home .vitrine{position:relative;padding:0;overflow:hidden;background:var(--navy)}
@@ -108,6 +104,14 @@ html:not(.js) .vitrine-ctrl{display:none}
 .slide h1{max-width:17ch}
 .slide .lead{max-width:44ch;margin:1.4rem 0 2rem;color:#DCE2F2}
 .p-hub{--pilar:var(--ciano)}
+/* Sistema da marca: destaque de palavra e arco do anel (aberto, só como moldura). */
+.slide h1 .realce{color:var(--ciano)}
+.arco-anel{position:absolute;z-index:1;right:-4%;top:44%;width:min(34rem,42vw);height:auto;transform:translateY(-50%);fill:none;stroke:var(--ciano);stroke-width:1.4;stroke-linecap:round;stroke-dasharray:505 73;pointer-events:none}
+/* Faixa "Quem conduz": credenciais logo abaixo da vitrine. */
+main>section.credenciais{background:var(--navy);border-top:1px solid #23273F;border-bottom:1px solid #23273F;padding:1.1rem 0}
+.credenciais .wrap{display:flex;flex-wrap:wrap;align-items:center;gap:.6rem 1.8rem}
+.cred-rot{margin:0;font-size:.78rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--white)}
+.credenciais ul{display:flex;flex-wrap:wrap;gap:.4rem 1.6rem;margin:0;padding:0;list-style:none;color:var(--ice);font-size:.92rem}
 .slide .link-sec{text-decoration-color:var(--s-cor)}
 /* Movimento: aproximação lenta da imagem e entrada do texto a cada troca. */
 .slide.ativo .slide-img img{animation:aproxima 9s ease-out both}
@@ -131,6 +135,7 @@ html:not(.js) .vitrine-ctrl{display:none}
 .pausa:hover{border-color:var(--white)}
 
 @media (max-width:52rem){
+  .arco-anel{display:none}
   .slide{min-height:0;align-items:flex-start}
   .slide-txt{padding-top:3rem;padding-bottom:7rem}
   .slide-img::after{background:linear-gradient(180deg,rgba(2,4,26,.55) 0%,rgba(2,4,26,.9) 55%,rgba(2,4,26,.97) 100%)}
@@ -195,15 +200,16 @@ html:not(.js) .vitrine-ctrl{display:none}
 /* ---------- Porta da fundadora: a única entrada para a página profissional, nas cores dela ---------- */
 .porta,.torres-home .porta{background:var(--jessica-garrafa);padding:clamp(2.8rem,6vw,4rem) 0}
 .porta-grid{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:2rem 2.6rem;align-items:center}
-.porta-retrato img{display:block;width:8.5rem;height:8.5rem;object-fit:cover;object-position:50% 20%;border-radius:4px;border:1px solid rgba(217,183,110,.6);box-shadow:10px 10px 0 -1px rgba(217,183,110,.22)}
+.porta-retrato img{display:block;width:14rem;height:14rem;object-fit:cover;object-position:50% 20%;border-radius:4px;border:1px solid rgba(217,183,110,.6);box-shadow:10px 10px 0 -1px rgba(217,183,110,.22)}
 .porta-rotulo{margin:0 0 .5rem;font-size:.78rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--jessica-latao)}
 .porta h2{font-family:"Spectral",Georgia,serif;font-weight:400;font-size:clamp(1.7rem,3.4vw,2.3rem);max-width:none}
 .home .porta h2::after,.porta h2::after{content:none}
 .porta p.porta-txt{margin:.6rem 0 0;max-width:56ch;color:#C9D8CF}
+.porta p.porta-cargo{margin:.35rem 0 0;font-weight:600;color:#F2EBDC}
 .btn-latao{background:var(--jessica-latao);color:var(--jessica-garrafa);white-space:nowrap}
 .btn-latao:hover{background:#F0D9A6}
 .btn-latao:focus-visible{outline:2px solid var(--jessica-latao);outline-offset:3px}
-@media (max-width:52rem){.porta-grid{grid-template-columns:auto minmax(0,1fr)}.porta-grid>.btn{grid-column:1/-1;justify-self:start}.porta-retrato img{width:6rem;height:6rem}}
+@media (max-width:52rem){.porta-grid{grid-template-columns:minmax(0,1fr);gap:1.4rem}.porta-grid>.btn{justify-self:start}.porta-retrato img{width:11rem;height:11rem}}
 @media (max-width:52rem){.destaque-grid{grid-template-columns:minmax(0,1fr);gap:2rem}}
 
 /* ---------- Atalhos ---------- */

@@ -100,3 +100,9 @@ test("currículo de 1 página para baixar em cada idioma", () => {
     assert.equal((pdf.toString("latin1").match(/\/Type\s*\/Page[^s]/g) || []).length, 1, `${f} precisa ter 1 página`);
   }
 });
+
+test("rodapé leva à política de privacidade nas duas versões (agenda pelo Calendly)", () => {
+  // 15/10/2026: o agendamento de 30 minutos começa nesta página, e a política 1.9 cobre o Calendly.
+  assert.match(pt, /<footer>[\s\S]*<a href="\/privacidade">política de privacidade<\/a>[\s\S]*<\/footer>/);
+  assert.match(en, /<footer>[\s\S]*<a href="\/privacidade" hreflang="pt-BR">privacy policy<\/a> \(in Portuguese\)[\s\S]*<\/footer>/);
+});
