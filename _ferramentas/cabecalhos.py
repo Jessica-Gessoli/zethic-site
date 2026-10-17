@@ -6,7 +6,7 @@ Edite os modelos abaixo e rode de novo: as páginas são atualizadas entre os ma
 <!-- grupo:inicio --> ... <!-- grupo:fim --> e <!-- cabecalho:inicio --> ... <!-- cabecalho:fim -->.
 O teste _tests/torres.static.test.mjs confere que nenhuma página ficou diferente do modelo.
 Para só conferir, sem gravar:  python3 _ferramentas/cabecalhos.py --conferir
-(o teste _tests/cabecalhos-ferramenta.test.mjs roda essa conferência).
+(o teste _tests/cabecalhos-ferramenta.static.test.mjs roda essa conferência).
 """
 import re
 from pathlib import Path
