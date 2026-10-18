@@ -7,19 +7,19 @@ POSTS = [
  dict(slug="2026-12-01-saude-anvisa-ans", rede="linkedin", data="2026-12-01T11:00:00", tipo="documento",
   titulo_doc="O que o regulador exige do board: saúde",
   slides=[
-   ("cover", "Saúde: a Anvisa cobra o fabricante. A ANS ainda [[não tem regra]]. E o hospital?", "Quem cobra o quê →"),
-   ("text", "SOFTWARE E DISPOSITIVO MÉDICO", "RDC Anvisa 657/2022", "Software que é dispositivo médico precisa de segurança da informação em todo o ciclo de vida. Nas classes III e IV, os controles de cibersegurança entram no relatório técnico."),
-   ("text", "O GUIA", "Guia Anvisa 38/2020", "Orienta a cibersegurança em dispositivos médicos. A obrigação recai sobre o fabricante, não sobre o hospital que compra."),
-   ("text", "PLANOS DE SAÚDE", "A ANS ainda não tem norma de cibersegurança", "Em abril de 2026, a ANS disse que vai acompanhar o uso de IA pelas operadoras, ainda em fase de planejamento. Enquanto isso, vale a LGPD: dado de saúde é dado sensível."),
-   ("list", "PARA O CONSELHO", "3 perguntas", ["Os softwares e equipamentos conectados que compramos têm a avaliação de cibersegurança exigida do fabricante?", "Quem avisa a ANPD se dados de pacientes vazarem?", "Esperamos a regra ou decidimos antes?"]),
-   ("end", "AGORA ME RESPONDA", "No seu hospital ou operadora, quem é o [[dono]] do risco digital?", "Fontes: Anvisa (RDC 657/2022), Legismap e Futuro da Saúde (abril de 2026)."),
+   ("cover", "Hospital: o guia de cibersegurança da Anvisa também foi escrito para [[você]].", "O que existe hoje →"),
+   ("text", "SOFTWARE E DISPOSITIVO MÉDICO", "RDC Anvisa 657/2022", "Para regularizar software que é dispositivo médico, a Anvisa exige segurança da informação em todo o ciclo de vida. Nas classes III e IV, os controles de cibersegurança entram no relatório técnico."),
+   ("text", "O GUIA", "Guia Anvisa 38/2020", "Orienta a cibersegurança em dispositivos médicos, com recomendações para fabricantes, serviços de saúde e usuários. Não é obrigatório, mas mostra o papel de cada um."),
+   ("text", "PLANOS DE SAÚDE", "A ANS começou pela IA", "Em abril de 2026, a ANS disse que pretende reforçar a vigilância sobre o uso de IA pelas operadoras. Enquanto isso, vale a LGPD: dado de saúde é dado sensível."),
+   ("list", "PARA O CONSELHO", "3 perguntas", ["Os softwares médicos que compramos têm a avaliação de cibersegurança exigida do fabricante?", "Quem avisa a ANPD se dados de pacientes vazarem?", "Já usamos as recomendações do Guia 38 do nosso lado?"]),
+   ("end", "AGORA ME RESPONDA", "No seu hospital ou operadora, quem é o [[dono]] do risco digital?", "Fontes: Anvisa (RDC 657/2022 e Guia 38/2020) e Futuro da Saúde (abril de 2026)."),
   ],
-  texto="""Saúde: a Anvisa cobra o fabricante. A ANS ainda não tem regra. E o hospital?
+  texto="""Hospital: o guia de cibersegurança da Anvisa também foi escrito para você.
 
 O que existe hoje:
-1. A RDC Anvisa 657/2022 exige segurança da informação em todo o ciclo de vida do software que é dispositivo médico. Nas classes III e IV, os controles de cibersegurança entram no relatório técnico.
-2. O Guia Anvisa 38/2020 orienta a cibersegurança em dispositivos médicos. A obrigação é do fabricante.
-3. A ANS ainda não tem norma de cibersegurança para operadoras. Em abril de 2026, disse que vai acompanhar o uso de IA, ainda em fase de planejamento.
+1. Para regularizar software que é dispositivo médico, a RDC Anvisa 657/2022 exige segurança da informação em todo o ciclo de vida. Nas classes III e IV, os controles de cibersegurança entram no relatório técnico.
+2. O Guia Anvisa 38/2020 orienta a cibersegurança em dispositivos médicos, com recomendações para fabricantes, serviços de saúde e usuários. Não é obrigatório, mas mostra o papel de cada um.
+3. Em abril de 2026, a ANS disse que pretende reforçar a vigilância sobre o uso de IA pelas operadoras.
 
 Enquanto isso, vale a LGPD: dado de saúde é dado sensível, e incidente relevante vai para a ANPD em até 3 dias úteis.
 

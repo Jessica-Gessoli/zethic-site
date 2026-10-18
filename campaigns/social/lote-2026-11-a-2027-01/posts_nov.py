@@ -122,23 +122,23 @@ Os bastidores dessa trajetória eu mostro no Instagram @jessicagessoli."""),
  dict(slug="2026-11-17-cvm-mercado", rede="linkedin", data="2026-11-17T11:00:00", tipo="documento",
   titulo_doc="O que o regulador exige do board: mercado de capitais",
   slides=[
-   ("cover", "Corretora e bolsa: a CVM coloca cibersegurança na [[pauta do conselho]].", "As duas regras →"),
-   ("text", "INTERMEDIÁRIOS", "Resolução CVM 35/2021", "Os órgãos de administração aprovam e supervisionam as regras de cibersegurança e recebem relatório anual até o último dia útil de abril."),
-   ("text", "INCIDENTES", "Aviso imediato", "Incidente relevante é comunicado de imediato aos órgãos de administração. A empresa pode indicar um diretor específico para cibersegurança."),
-   ("text", "INFRAESTRUTURA DE MERCADO", "Resolução CVM 135/2022", "Nas entidades que administram mercados, o conselho aprova e revisa, no mínimo uma vez por ano, o programa de cibersegurança e o plano de continuidade."),
-   ("list", "PARA O CONSELHO", "3 perguntas", ["Quando aprovamos as regras de cibersegurança pela última vez?", "O relatório de abril trouxe decisões ou só números?", "Qual incidente nos foi comunicado no último ano?"]),
-   ("end", "AGORA ME RESPONDA", "O seu conselho ficou sabendo do último incidente [[de imediato]]?", "Fontes: Resolução CVM 35/2021 e Resolução CVM 135/2022 (CVM)."),
+   ("cover", "Corretora e bolsa: a CVM quer o conselho informado [[a tempo]], não pela imprensa.", "As duas regras →"),
+   ("text", "INTERMEDIÁRIOS", "Resolução CVM 35/2021", "Os órgãos de administração aprovam as regras e procedimentos, que incluem o programa de segurança cibernética, e recebem relatório anual até o último dia útil de abril."),
+   ("text", "INCIDENTES", "Comunicação tempestiva", "Incidente relevante é comunicado tempestivamente aos órgãos de administração e à CVM. O que é \"a tempo\" precisa estar escrito na regra interna."),
+   ("text", "INFRAESTRUTURA DE MERCADO", "Resolução CVM 135/2022", "Nas entidades que administram mercados, o conselho aprova e revisa, no mínimo uma vez por ano, as políticas que definem o programa de cibersegurança e o plano de continuidade."),
+   ("list", "PARA O CONSELHO", "3 perguntas", ["Quando aprovamos as regras de cibersegurança pela última vez?", "Em quantas horas um incidente relevante chega até nós?", "O relatório de abril trouxe decisões ou só números?"]),
+   ("end", "AGORA ME RESPONDA", "Em quantas horas um incidente chega ao [[seu conselho]]?", "Fontes: Resolução CVM 35/2021 e Resolução CVM 135/2022 (CVM)."),
   ],
-  texto="""Corretora, distribuidora ou bolsa: a CVM coloca cibersegurança na pauta do conselho há anos.
+  texto="""Corretora, distribuidora ou bolsa: a CVM quer o conselho informado a tempo, não pela imprensa.
 
 Duas regras para conhecer pelo número:
 
-1. Resolução CVM 35/2021, para intermediários: os órgãos de administração aprovam e supervisionam as regras de cibersegurança, recebem relatório anual até o último dia útil de abril e são avisados de imediato sobre incidente relevante.
-2. Resolução CVM 135/2022, para quem administra mercados: o conselho aprova e revisa, no mínimo uma vez por ano, o programa de cibersegurança e o plano de continuidade.
+1. Resolução CVM 35/2021, para intermediários: os órgãos de administração aprovam as regras e procedimentos, que incluem o programa de segurança cibernética, recebem relatório anual até o último dia útil de abril e são comunicados tempestivamente sobre incidente relevante.
+2. Resolução CVM 135/2022, para quem administra mercados: o conselho aprova e revisa, no mínimo uma vez por ano, as políticas que definem o programa de cibersegurança e o plano de continuidade.
 
-O ponto que mais escapa na prática é o aviso imediato. Conselho que fica sabendo do incidente pela imprensa já perdeu a primeira decisão.
+A norma fala em comunicação tempestiva. Por isso, o que é "a tempo" precisa estar escrito na regra interna. Conselho que fica sabendo do incidente pela imprensa já perdeu a primeira decisão.
 
-O seu conselho ficou sabendo do último incidente de imediato? Me conta nos comentários.
+Em quantas horas um incidente relevante chega ao seu conselho? Me conta nos comentários.
 
 Série "O que o regulador exige do board", parte 6. """ + IG),
 
@@ -193,22 +193,22 @@ Qual fornecedor, se parar amanhã, para a sua empresa? Responde só com o tipo d
  dict(slug="2026-11-24-anatel-rciber", rede="linkedin", data="2026-11-24T11:00:00", tipo="documento",
   titulo_doc="O que o regulador exige do board: telecomunicações",
   slides=[
-   ("cover", "Telecom: a Anatel já cobra cibersegurança também dos [[fornecedores]].", "O R-Ciber em 4 páginas →"),
-   ("text", "A REGRA", "Resolução Anatel 740/2020", "O Regulamento de Segurança Cibernética (R-Ciber) pede política de segurança cibernética e gestão de incidentes das prestadoras de telecomunicações."),
-   ("text", "O QUE MUDOU EM 2024", "Resolução Anatel 767/2024", "Toda prestadora avisa a Anatel sempre que notificar um incidente à ANPD. A política passa a cobrir a contratação de fornecedores: capacidade, risco e dependência."),
-   ("text", "DATA CENTERS", "Resolução Anatel 780/2025", "A prestadora só pode contratar data center certificado, com segurança física e cibernética. A Anatel também revisa o R-Ciber em consulta pública, com temas como IA e auditoria independente."),
-   ("list", "PARA O CONSELHO", "3 perguntas", ["Quem decide avisar a ANPD e a Anatel, e em quanto tempo?", "Nossos fornecedores críticos foram avaliados no último ano?", "Nossos data centers têm a certificação exigida?"]),
-   ("end", "AGORA ME RESPONDA", "Na sua empresa, o fornecedor faz parte da [[política]] de segurança?", "Fontes: Demarest (2024), Mattos Filho e Cescon Barrieu (2025)."),
+   ("cover", "Telecom: a regra dos data centers foi suspensa. O risco do fornecedor, [[não]].", "O R-Ciber em 4 páginas →"),
+   ("text", "A REGRA", "Resolução Anatel 740/2020", "O Regulamento de Segurança Cibernética (R‑Ciber) pede política de segurança cibernética, aprovada pelo conselho ou órgão equivalente, e plano de resposta a incidentes das prestadoras."),
+   ("text", "O QUE MUDOU EM 2024", "Resolução Anatel 767/2024", "A prestadora avisa a Anatel quando precisar comunicar um incidente à ANPD. A política passa a cobrir a contratação de nuvem e de processamento e armazenamento de dados, e a dependência de fornecedores."),
+   ("text", "DATA CENTERS", "Resolução Anatel 780/2025", "Previa data center certificado para novas contratações. Em março de 2026, a Anatel suspendeu essa exigência. Em 2025, uma consulta pública também discutiu IA e auditoria independente de fornecedores."),
+   ("list", "PARA O CONSELHO", "3 perguntas", ["Quem decide avisar a ANPD e a Anatel, e em quanto tempo?", "Nossos fornecedores críticos foram avaliados no último ano?", "Se a certificação de data center voltar a valer, estamos prontos?"]),
+   ("end", "AGORA ME RESPONDA", "Na sua empresa, o fornecedor faz parte da [[política]] de segurança?", "Fontes: Anatel (Resoluções 740/2020, 767/2024 e 780/2025) e Participa Anatel."),
   ],
-  texto="""Telecom: a Anatel já cobra cibersegurança também dos fornecedores.
+  texto="""Telecom: a regra dos data centers foi suspensa. O risco do fornecedor, não.
 
-O Regulamento de Segurança Cibernética (Resolução Anatel 740/2020) pede política de segurança cibernética e gestão de incidentes. Desde então, vieram duas mudanças e uma revisão está em andamento:
+O Regulamento de Segurança Cibernética (Resolução Anatel 740/2020) pede política de segurança cibernética, aprovada pelo conselho ou órgão equivalente, e plano de resposta a incidentes. Depois dele:
 
-1. Resolução Anatel 767/2024: toda prestadora avisa a Anatel sempre que notificar um incidente à ANPD, e a política passa a cobrir fornecedores (capacidade, risco e dependência).
-2. Resolução Anatel 780/2025: a prestadora só contrata data center certificado, com segurança física e cibernética.
-3. Revisão em consulta pública, com temas como IA e auditoria independente.
+1. Resolução Anatel 767/2024: a prestadora avisa a Anatel quando precisar comunicar um incidente à ANPD, e a política passa a cobrir a contratação de nuvem e de processamento e armazenamento de dados, além da dependência de fornecedores.
+2. Resolução Anatel 780/2025: previa data center certificado para novas contratações. Em março de 2026, a Anatel suspendeu essa exigência.
+3. Em 2025, uma consulta pública sobre a revisão do R-Ciber discutiu IA e auditoria independente de fornecedores.
 
-O recado para o conselho: o risco do fornecedor agora é risco regulatório da prestadora.
+O recado para o conselho: a exigência dos data centers está suspensa, mas a de 2024 vale. O risco do fornecedor já é risco regulatório da prestadora.
 
 Na sua empresa, o fornecedor faz parte da política de segurança? Me conta nos comentários.
 
