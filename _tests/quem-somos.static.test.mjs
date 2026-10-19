@@ -34,7 +34,9 @@ test("quem-somos: compromissos aprovados aparecem como foram aprovados", () => {
 
 test("quem-somos: dados da empresa no corpo, razão social só no rodapé", () => {
   assert.ok(texto.includes("67.678.226/0001-17"));
-  assert.ok(texto.includes("Microempreendedor Individual (MEI)"));
+  assert.ok(texto.includes("Zethic (nome comercial)"));
+  // 19/10/2026: orientação do Sebrae — o porte (MEI) não aparece no site.
+  assert.doesNotMatch(pagina, /Microempreendedor|\(MEI\)/);
   assert.doesNotMatch(main, /Raz[ãa]o social/i);
 });
 
