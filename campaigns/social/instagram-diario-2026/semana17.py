@@ -84,7 +84,7 @@ O seu Negócio já avisou o horário do feriado? Salva e deixa o aviso pronto ho
  dict(slug="2027-02-10-mito-ia-inventa", serie="mito", rede="instagram", data="2027-02-10T18:00:00", tipo="carrossel",
   slides=[
    ("cover", "\"A IA pode inventar uma informação com cara de verdade.\"", "Arrasta para ver por quê →", "VERDADE"),
-   ("text", "POR QUE É VERDADE", "Resposta bonita não é certa", "A CVM lembra que ferramentas de IA podem gerar resultados que parecem precisos, mas são enganosos. São as chamadas alucinações."),
+   ("text", "POR QUE É VERDADE", "Resposta bonita não é certa", "A CVM lembra que ferramentas de IA podem gerar resultados que parecem precisos, mas podem ser enganosos. São as chamadas alucinações."),
    ("text", "ONDE ISSO PESA", "Número, prazo e regra", "O erro aparece com segurança no texto: um valor, uma data, uma regra que não existe. No Negócio, isso vira proposta errada ou cliente mal orientado."),
    ("list", "O QUE FAZER", "Antes de usar a resposta", ["Confira número, data e regra em fonte oficial.", "Peça para a IA dizer de onde tirou a informação, e abra a fonte.", "Texto para cliente: alguém da equipe lê antes de enviar."]),
    ("end", "AGORA ME RESPONDE", "A IA já te deu uma [[resposta errada]] com toda a confiança?", "Comenta aqui. Saber disso já é meio caminho."),

@@ -26,40 +26,42 @@ Como pedir para a IA:
 
 A IA adianta o texto. Quem confere é você.
 
-Amanhã, às 18h: site com cadeado é site seguro? Mito ou verdade.
+Amanhã, às 18h: anúncio na rede social garante loja confiável? Mito ou verdade.
 
 Fontes: Código de Defesa do Consumidor e Decreto 7.962/2013 (links no primeiro comentário).
 
 """ + TAGS,
   fonte=[{"nome": "Código de Defesa do Consumidor, art. 49", "url": "https://www.planalto.gov.br/ccivil_03/leis/l8078compilado.htm"}, {"nome": "Decreto 7.962/2013, art. 5º", "url": "https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2013/decreto/d7962.htm"}]),
 
- dict(slug="2027-03-10-mito-cadeado", serie="mito", rede="instagram", data="2027-03-10T18:00:00", tipo="carrossel",
+ dict(slug="2027-03-10-mito-anuncio", serie="mito", rede="instagram", data="2027-03-10T18:00:00", tipo="carrossel",
   slides=[
-   ("cover", "\"Site com cadeado é site seguro.\"", "Arrasta para ver por quê →", "MITO"),
-   ("text", "O QUE O CADEADO DIZ", "Conexão protegida", "O cadeado mostra que os dados viajam protegidos entre o seu celular e o site. Só isso. Ele não diz quem está do outro lado."),
-   ("text", "POR QUE NÃO BASTA", "Golpista também tem", "Hoje qualquer pessoa consegue o certificado do cadeado de graça e em poucos minutos, inclusive quem monta site falso. Por isso, site falso também pode ter cadeado."),
-   ("list", "O QUE CONFERIR", "Antes de pagar", ["O endereço do site, letra por letra.", "O CNPJ da loja, consultado no site da Receita Federal.", "Se o Pix vai para a empresa ou para uma pessoa."]),
-   ("end", "AGORA ME CONTA", "Você também [[achava]] que o cadeado bastava?", "Comenta aqui e manda para quem compra on-line."),
+   ("cover", "\"Se o anúncio apareceu na rede social, a loja é confiável.\"", "Arrasta para ver por quê →", "MITO"),
+   ("text", "POR QUE É MITO", "Anúncio não é selo", "Anunciar é pagar para aparecer, e golpista também paga. Em janeiro de 2025, um estudo do NetLab/UFRJ achou 1.770 anúncios fraudulentos impulsionados com símbolos do governo."),
+   ("text", "COMO O GOLPE FUNCIONA", "Preço bom e pressa", "O anúncio leva para uma loja falsa, muitas vezes parecida com uma marca conhecida, com preço muito abaixo do normal e pressa para pagar."),
+   ("list", "ANTES DE COMPRAR", "3 conferências", ["Não compre pelo anúncio: digite você mesmo o endereço da loja.", "Desconfie de preço muito abaixo das lojas conhecidas.", "Pix ou boleto para conta de pessoa: não pague."]),
+   ("end", "AGORA ME CONTA", "Você já comprou por [[anúncio]] de rede social?", "Comenta aqui e manda para quem compra on-line."),
   ],
-  texto="""Mito ou verdade: "Site com cadeado é site seguro."
+  texto="""Mito ou verdade: "Se o anúncio apareceu na rede social, a loja é confiável."
 
 Semana do Consumidor sem Golpe, dia 2 de 7.
 
-Mito. O cadeado ao lado do endereço mostra que os dados viajam protegidos entre o seu celular e o site. Só isso. Ele não diz quem está do outro lado. Hoje qualquer pessoa consegue o certificado do cadeado de graça e em poucos minutos, inclusive quem monta site falso.
+Mito. Anunciar é pagar para aparecer, e golpista também paga. Em janeiro de 2025, um estudo do NetLab/UFRJ identificou 1.770 anúncios fraudulentos impulsionados que usavam símbolos do governo. O caso levou a AGU a entrar com uma ação contra a Meta.
 
-O que conferir antes de pagar:
-1. O endereço do site, letra por letra.
-2. O CNPJ da loja, consultado no site da Receita Federal.
-3. Se o Pix vai para a empresa ou para uma pessoa.
+O anúncio costuma levar para uma loja falsa, muitas vezes parecida com uma marca conhecida, com preço muito abaixo do normal e pressa para pagar.
 
-Você também achava que o cadeado bastava? Comenta aqui e manda para quem compra on-line.
+Antes de comprar:
+1. Não compre pelo anúncio: digite você mesmo o endereço da loja.
+2. Desconfie de preço muito abaixo das lojas conhecidas.
+3. Pix ou boleto para conta de pessoa: não pague.
+
+Você já comprou por anúncio de rede social? Comenta aqui e manda para quem compra on-line.
 
 Amanhã: como saber se uma loja on-line é de verdade.
 
-Fonte: Canaltech (link no primeiro comentário).
+Fonte: Congresso em Foco, sobre a ação da AGU (link no primeiro comentário).
 
 """ + TAGS,
-  fonte={"nome": "Canaltech, 15/03/2026: Todo site com cadeado é seguro? Entenda por que ele não garante proteção", "url": "https://canaltech.com.br/seguranca/todo-site-com-cadeado-e-seguro-entenda-por-ele-nao-garante-protecao/"}),
+  fonte=[{"nome": "Congresso em Foco, 28/04/2025: AGU move ação contra Meta para impedir golpes com símbolos do governo", "url": "https://www.congressoemfoco.com.br/noticia/108065/agu-move-acao-contra-meta-para-impedir-golpes-com-simbolos-do-governo"}, {"nome": "O Antagonista, 05/05/2026: sinais de anúncio falso", "url": "https://oantagonista.com.br/brasil/produto-barato-demais-no-instagram-veja-os-sinais-de-anuncio-falso-antes-de-cair-no-golpe/"}]),
 
  dict(slug="2027-03-11-direct-loja-de-verdade", serie="direct", rede="instagram", data="2027-03-11T10:00:00", tipo="carrossel",
   slides=[

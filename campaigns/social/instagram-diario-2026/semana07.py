@@ -87,7 +87,7 @@ A sua equipe acertaria as 5? Comenta aqui. E salva o post para fazer o teste ant
   slides=[
    ("cover", "\"Loja cheia de elogios nos comentários é loja confiável.\"", "Arrasta para ver por quê →", "MITO"),
    ("text", "POR QUE É MITO", "Elogio também se fabrica", "Quem monta uma loja falsa pode escrever os próprios elogios e apagar as críticas. Comentário bonito no perfil não prova que alguém recebeu o produto."),
-   ("text", "O SINAL DE ALERTA", "Perfil novo, só com elogios", "A Febraban orienta desconfiar de perfil de loja recém-criado, com oferta muito atraente e só depoimentos positivos."),
+   ("text", "O SINAL DE ALERTA", "Perfil novo, só com elogios", "A Febraban alerta para perfis falsos de loja nas redes. Em geral, são recém-criados, com oferta muito atraente e só depoimentos positivos."),
    ("list", "O QUE CONFERIR", "Fora do perfil da loja", ["Pesquise o nome da loja em sites de reclamação.", "Veja há quanto tempo o perfil existe e se os seguidores combinam com a loja.", "Pague só dentro do ambiente da loja e confira quem recebe o Pix."]),
    ("end", "AGORA ME RESPONDE", "Você já comprou [[só pelos elogios]]?", "Comenta aqui. E manda para quem faz as compras on-line do seu Negócio."),
   ],
@@ -95,7 +95,7 @@ A sua equipe acertaria as 5? Comenta aqui. E salva o post para fazer o teste ant
 
 Mito. Quem monta uma loja falsa pode escrever os próprios elogios e apagar as críticas. Comentário bonito no perfil não prova que alguém recebeu o produto.
 
-A Febraban orienta desconfiar de perfis de loja recém-criados, com ofertas muito atraentes e só depoimentos positivos.
+A Febraban alerta que perfis falsos de loja nas redes sociais são um golpe comum. Em geral, são perfis recém-criados, com ofertas muito atraentes e só depoimentos positivos.
 
 O que conferir, fora do perfil da loja:
 1. Pesquise o nome da loja em sites de reclamação.

@@ -32,14 +32,14 @@ Manda no grupo da família e vê quem acerta mais. Depois me conta nos comentár
  dict(slug="2027-03-15-golpe-ofertas-falsas", serie="golpe", rede="instagram", data="2027-03-15T10:00:00", tipo="carrossel",
   slides=[
    ("cover", "Oferta imperdível? [[Confira.]]", "", "Anúncio · agora", "Dia do Consumidor: celular com 70% de desconto só hoje. Pague no Pix e garanta o seu: <u>loja-promo.exemplo</u>"),
-   ("text", "COMO FUNCIONA", "Site falso imitando loja real", "Golpistas criam sites que imitam lojas conhecidas, com descontos exagerados. O pagamento vai para eles. Alguns links ainda podem infectar o celular."),
+   ("text", "COMO FUNCIONA", "Site falso imitando loja real", "Golpistas criam sites que imitam lojas conhecidas, com descontos exagerados. O pagamento vai para eles. Alguns links podem até invadir o computador."),
    ("text", "O QUE ELES QUEREM", "Seu pagamento e seus dados", "O site pede pagamento e preenchimento de cadastro. O dinheiro vai para o golpista, e os dados que você digitou ficam com ele."),
    ("list", "COMO SE PROTEGER", "Antes de pagar a oferta", ["Confira se o endereço do site é o mesmo do site oficial da loja.", "Não clique em link de oferta que chegou por mensagem ou anúncio.", "Em página suspeita, não preencha nada e não pague.", "Caiu? Junte capturas de tela e comprovantes e registre boletim de ocorrência."]),
    ("end", "AGORA ME RESPONDE", "Você ou o seu Negócio [[compra pela internet]] nesta semana?", "Salva e manda para quem faz as compras do Negócio."),
   ],
   texto="""Golpe da semana: a oferta do Dia do Consumidor que leva para um site falso.
 
-A Polícia Civil do Paraná alertou para sites que imitam lojas conhecidas, anunciam descontos exagerados e mandam boletos e links de pagamento falsos. Segundo o alerta, alguns links ainda podem infectar o computador ou o celular de quem clica.
+A Polícia Civil do Paraná alertou para sites que imitam lojas conhecidas, anunciam descontos exagerados e mandam boletos e links de pagamento falsos. Segundo o alerta, alguns links podem até permitir a invasão do computador de quem clica.
 
 Como se proteger:
 1. Confira se o endereço do site é o mesmo do site oficial da loja.

@@ -3,12 +3,14 @@ sys.path.insert(0, os.path.dirname(__file__))
 import importlib.util
 POSTS=[]
 for _m in (os.environ.get("MODS") or "semana01").split(","):
-    _sp=importlib.util.spec_from_file_location(_m, os.path.join(os.path.dirname(__file__), _m+".py")); _mod=importlib.util.module_from_spec(_sp); _sp.loader.exec_module(_mod); POSTS+=_mod.POSTS
+    # aceita o nome de um módulo desta pasta (ex.: semana01) ou o caminho de um .py em qualquer pasta
+    _path = _m if _m.endswith(".py") else os.path.join(os.path.dirname(__file__), _m+".py")
+    _sp=importlib.util.spec_from_file_location(os.path.basename(_path)[:-3], _path); _mod=importlib.util.module_from_spec(_sp); _sp.loader.exec_module(_mod); POSTS+=_mod.POSTS
 
 R = "/home/claude/zethic-site"
 OUT = os.environ.get("OUTDIR") or os.path.join(os.path.dirname(__file__), "out")
 os.makedirs(OUT, exist_ok=True)
-SHOT = os.path.join(os.path.dirname(os.path.dirname(__file__)), "shot.mjs")
+SHOT = os.path.join(os.path.dirname(os.path.dirname(__file__)), "shot.py")  # print 1080x1350 com Playwright (Python)
 
 CSS = f"""
 @font-face{{font-family:Plex;src:url(file://{R}/assets/fonts/ibm-plex-sans-latin-400-normal.woff2);font-weight:400}}
@@ -159,7 +161,7 @@ for p in POSTS:
         name = (f'{p["slug"]}{SUF}-{i}' if n > 1 else p["slug"]+SUF)
         hp = os.path.join(OUT, name + ".html"); pp = os.path.join(OUT, name + ".png")
         open(hp, "w").write(slide_html(s, i, n))
-        subprocess.run(["node", SHOT, hp, pp], check=True)
+        subprocess.run([sys.executable, SHOT, hp, pp], check=True)
         files.append(name + ".png")
     manifest.append({"slug": p["slug"], "files": files})
 json.dump(manifest, open(os.path.join(OUT, "manifest.json"), "w"), ensure_ascii=False, indent=1)

@@ -200,14 +200,14 @@ No Instagram @jessicagessoli eu falo de IA para quem é dono do Negócio."""),
  dict(slug="2026-10-21-ig-ia-equipe", rede="instagram", data="2026-10-21T10:00:00", tipo="carrossel",
   slides=[
    ("cover", "Seu funcionário colou dado de cliente no ChatGPT. E [[agora]]?", "3 regras para combinar hoje →"),
-   ("text", "ISSO JÁ ACONTECE", "Um em cada três", "Um terço dos profissionais usa IA que a empresa não aprovou (Thomson Reuters, 2026)."),
+   ("text", "ISSO JÁ ACONTECE", "Um em cada três", "Advogados, contadores e profissionais de compliance: um terço usa IA que a empresa não aprovou (Thomson Reuters, 2026)."),
    ("text", "PROIBIR NÃO RESOLVE", "O uso só fica escondido", "O caminho é combinar regras simples, que a equipe entende e consegue seguir."),
    ("list", "COMBINE COM A EQUIPE", "3 regras", ["Dado de cliente não entra em IA aberta.", "As ferramentas liberadas ficam numa lista.", "Errou? Avisa na hora, sem medo de punição."]),
    ("end", "AGORA ME RESPONDE", "Sua equipe [[sabe]] essas 3 regras?", "Me chama no direct que eu te ajudo a montar."),
   ],
   texto="""Seu funcionário colou dado de cliente no ChatGPT. E agora?
 
-Isso já acontece: um terço dos profissionais usa IA que a empresa não aprovou (Thomson Reuters, 2026).
+Isso já acontece: um terço dos advogados, contadores e profissionais de compliance usa IA que a empresa não aprovou (Thomson Reuters, 2026).
 
 Proibir não resolve. O uso só fica escondido. Combine 3 regras com a equipe:
 

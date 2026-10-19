@@ -196,16 +196,16 @@ A sua diretoria sabe o custo de 1 hora parada? Responde nos comentários: sim, m
    ("cover", "O Brasil ainda não tem lei de IA. Isso [[não deixa]] o conselho sem obrigação.", "O que já vale hoje →"),
    ("text", "O PROJETO", "PL 2338/2023", "O Marco Legal da IA foi aprovado no Senado em dezembro de 2024. Na Câmara, aguarda o parecer do relator na comissão especial."),
    ("text", "O QUE JÁ VALE", "LGPD, artigo 20", "Quem é afetado por decisão tomada só com base em tratamento automatizado de dados pessoais pode pedir a revisão dessa decisão. Vale para IA que decide crédito, preço ou acesso."),
-   ("text", "O QUE OS SETORES FAZEM", "Regras de cibersegurança e de terceirização", "Banco Central, CVM e SUSEP ainda não têm norma de IA. Mas a IA contratada de fornecedor já cai nas regras de cibersegurança, dados e terceirização de cada setor."),
+   ("text", "O QUE OS SETORES FAZEM", "Regras de cibersegurança e de terceirização", "O Banco Central disse que não planeja regra de IA antes do fim de 2026. Mas a IA contratada de fornecedor já cai nas regras de cibersegurança, dados e terceirização de cada setor."),
    ("list", "PARA O CONSELHO", "3 perguntas", ["Que decisões automáticas da empresa afetam clientes?", "Conseguimos explicar e revisar essas decisões se alguém pedir?", "A IA dos fornecedores está nos nossos contratos e na nossa política?"]),
-   ("end", "AGORA ME RESPONDA", "A sua empresa espera a lei de IA ou [[se prepara]] com as regras que já existem?", "Fontes: Câmara dos Deputados, LCF Monitor e TozziniFreire (2026)."),
+   ("end", "AGORA ME RESPONDA", "A sua empresa espera a lei de IA ou [[se prepara]] com as regras que já existem?", "Fontes: Câmara dos Deputados, LGPD e Banco Central, via Revista Oeste (2025)."),
   ],
   texto="""O Brasil ainda não tem lei de IA. Isso não deixa o conselho sem obrigação.
 
 O que já vale hoje:
 1. O PL 2338/2023, o Marco Legal da IA, foi aprovado no Senado em dezembro de 2024 e aguarda parecer na Câmara.
 2. A LGPD, no artigo 20, já dá a quem é afetado por decisão tomada só com base em tratamento automatizado de dados pessoais o direito de pedir revisão. Vale para IA que decide crédito, preço ou acesso.
-3. Banco Central, CVM e SUSEP ainda não têm norma de conduta para IA. Mas a IA contratada de fornecedor já cai nas regras de cibersegurança, dados e terceirização de cada setor.
+3. O Banco Central disse, em setembro de 2025, que não planejava regra específica de IA pelo menos até o fim de 2026. Mas a IA contratada de fornecedor já cai nas regras de cibersegurança, dados e terceirização de cada setor.
 
 Esperar a lei é a decisão mais cara. Quando ela vier, quem já organizou seus usos de IA só vai ajustar.
 

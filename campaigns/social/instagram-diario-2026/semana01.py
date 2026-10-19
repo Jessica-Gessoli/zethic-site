@@ -126,14 +126,14 @@ Qual a sua dúvida sobre golpe ou IA? Me manda no direct. A sua pode virar o pos
   slides=[
    ("cover", "4 ajustes no celular do Negócio [[antes do fim de semana]].", "Quantos você já fez? →", "2", "4"),
    ("list", "AJUSTES 1 E 2", "Atualizar e travar", ["Atualize o sistema e os aplicativos do celular.", "Use bloqueio de tela com senha ou biometria. Nada de 1234."]),
-   ("list", "AJUSTES 3 E 4", "Conferir e copiar", ["No WhatsApp, abra Configurações > Aparelhos conectados e desconecte o que você não reconhece.", "Confira se a cópia de segurança das conversas e fotos está ativa."]),
+   ("list", "AJUSTES 3 E 4", "Conferir e copiar", ["No WhatsApp, abra Dispositivos conectados e desconecte o que você não reconhece.", "Confira se a cópia de segurança das conversas e fotos está ativa."]),
    ("end", "AGORA ME RESPONDE", "Quantos dos 4 [[você já fez]]?", "Comenta o número. Leva 10 minutos para fazer os que faltam."),
   ],
   texto="""Checklist de sexta: 4 ajustes no celular do Negócio antes do fim de semana.
 
 1. Atualize o sistema e os aplicativos.
 2. Use bloqueio de tela com senha ou biometria. Nada de 1234.
-3. No WhatsApp, abra Configurações > Aparelhos conectados e desconecte o que você não reconhece.
+3. No WhatsApp, abra Dispositivos conectados (no menu ⋮ do Android ou em Configurações no iPhone) e desconecte o que você não reconhece.
 4. Confira se a cópia de segurança das conversas e fotos está ativa.
 
 Quantos dos 4 você já fez? Comenta o número. Ficou dúvida em algum? Me chama no direct.
