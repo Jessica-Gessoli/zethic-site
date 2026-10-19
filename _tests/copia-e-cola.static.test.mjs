@@ -2,18 +2,19 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync, existsSync } from "node:fs";
 
-// 18/10/2026: páginas de captação da marca pessoal (Caderno Prompt Joia e teste de IA segura).
+// 18/10/2026: páginas de captação da marca pessoal (Caderno Copia e Cola, antes Prompt Joia, e teste de IA segura).
+// 19/10/2026: série renomeada; /prompt-joia redireciona para /copia-e-cola.
 // Regras: identidade da marca pessoal, sem preço, sem "PME", sem rastreador e sem coleta de dados.
 const ler = (p) => readFileSync(new URL("../" + p, import.meta.url), "utf8");
-const PAGINAS = ["prompt-joia.html", "teste-ia.html"];
+const PAGINAS = ["copia-e-cola.html", "teste-ia.html"];
 const WA = "https://wa.me/5519981800221?text=";
 const texto = (h) => decodeURIComponent(h.split("?text=")[1]);
 
 test("o caderno em PDF existe e a página leva a ele sem cadastro", () => {
-  const pdf = readFileSync(new URL("../assets/docs/caderno-prompt-joia.pdf", import.meta.url));
+  const pdf = readFileSync(new URL("../assets/docs/caderno-copia-e-cola.pdf", import.meta.url));
   assert.equal(pdf.subarray(0, 5).toString(), "%PDF-");
-  const h = ler("prompt-joia.html");
-  assert.match(h, /<a class="btn" href="\/assets\/docs\/caderno-prompt-joia\.pdf" type="application\/pdf" download>Baixar o caderno grátis \(PDF\)<\/a>/);
+  const h = ler("copia-e-cola.html");
+  assert.match(h, /<a class="btn" href="\/assets\/docs\/caderno-copia-e-cola\.pdf" type="application\/pdf" download>Baixar o caderno grátis \(PDF\)<\/a>/);
   assert.doesNotMatch(h, /<form|<input/);
 });
 
@@ -58,10 +59,10 @@ test("LinkedIn sempre com o Instagram ao lado", () => {
 });
 
 test("mensagens do WhatsApp vão para o número público com o texto combinado", () => {
-  const h = ler("prompt-joia.html");
+  const h = ler("copia-e-cola.html");
   const links = [...h.matchAll(/href="(https:\/\/wa\.me\/[^"]+)"/g)].map((m) => m[1]);
-  assert.ok(links.some((l) => l.startsWith(WA) && texto(l) === "Olá, Jéssica! Quero receber as próximas joias do Prompt Joia."));
-  assert.ok(links.some((l) => l.startsWith("https://wa.me/?text=") && texto(l) === "Olha este caderno com 26 prompts prontos para o Negócio: https://zethic.net/prompt-joia.html"));
+  assert.ok(links.some((l) => l.startsWith(WA) && texto(l) === "Olá, Jéssica! Quero receber o Copia e Cola toda semana."));
+  assert.ok(links.some((l) => l.startsWith("https://wa.me/?text=") && texto(l) === "Olha este caderno com 26 prompts prontos para o Negócio: https://zethic.net/copia-e-cola.html"));
   const js = ler("assets/js/teste-ia.js");
   const wa = [...js.matchAll(/href: "(https:\/\/wa\.me\/[^"]+)"/g)].map((m) => m[1]);
   assert.ok(wa.some((l) => l.startsWith(WA) && texto(l) === "Olá, Jéssica! Fiz o teste de IA segura e quero conversar."));
@@ -69,7 +70,7 @@ test("mensagens do WhatsApp vão para o número público com o texto combinado",
 });
 
 test("as 10 regras Antes de colar e a fonte da ANPD", () => {
-  const h = ler("prompt-joia.html");
+  const h = ler("copia-e-cola.html");
   const regras = h.match(/<ol class="regras">([\s\S]*?)<\/ol>/)[1].match(/<li>/g);
   assert.equal(regras.length, 10);
   assert.match(h, /radar_tecnologico_ia_generativa_anpd\.pdf/);
@@ -92,8 +93,15 @@ test("links internos levam a páginas que existem e o mapa do site lista as duas
     for (const [, l] of ler(p).matchAll(/href="\/([a-z-]+)(?:#[a-z-]+)?"/g)) assert.ok(existsSync(new URL(`../${l}.html`, import.meta.url)), `${p}: /${l}`);
   }
   const sm = ler("sitemap.xml");
-  for (const u of ["prompt-joia", "teste-ia"]) assert.match(sm, new RegExp(`<loc>https://zethic\\.net/${u}</loc>`));
+  for (const u of ["copia-e-cola", "teste-ia"]) assert.match(sm, new RegExp(`<loc>https://zethic\\.net/${u}</loc>`));
   const pessoal = ler("jessicagessoli.html");
-  assert.match(pessoal, /href="\/prompt-joia"/);
+  assert.match(pessoal, /href="\/copia-e-cola"/);
   assert.match(pessoal, /href="\/teste-ia"/);
+});
+
+test("o endereço antigo /prompt-joia redireciona para /copia-e-cola", () => {
+  const h = ler("prompt-joia.html");
+  assert.match(h, /<meta http-equiv="refresh" content="0; url=\/copia-e-cola">/);
+  assert.match(h, /<link rel="canonical" href="https:\/\/zethic\.net\/copia-e-cola">/);
+  assert.match(h, /<meta name="robots" content="noindex">/);
 });

@@ -52,7 +52,7 @@
       out.appendChild(el("p", {}, "Nenhuma resposta de risco. Deixe as regras por escrito para que quem entrar na equipe também siga."));
     }
     var acoes = el("div", { "class": "acoes" });
-    acoes.appendChild(el("a", { "class": "btn", href: "/prompt-joia" }, "Baixar o caderno grátis"));
+    acoes.appendChild(el("a", { "class": "btn", href: "/copia-e-cola" }, "Baixar o caderno grátis"));
     acoes.appendChild(el("a", { "class": "btn-linha", href: "/diagnostico" }, "Quero um Diagnóstico de Cibersegurança e IA"));
     acoes.appendChild(el("a", { "class": "btn-linha", href: "https://wa.me/5519981800221?text=Ol%C3%A1%2C%20J%C3%A9ssica!%20Fiz%20o%20teste%20de%20IA%20segura%20e%20quero%20conversar.", rel: "noopener" }, "Conversar no WhatsApp"));
     acoes.appendChild(el("a", { "class": "btn-linha", href: "https://wa.me/5519981800221?text=Ol%C3%A1%2C%20J%C3%A9ssica%21%20Quero%20entrar%20no%20grupo%20Zethic%20Alerta.", rel: "noopener" }, "Quero entrar no grupo Zethic Alerta"));
