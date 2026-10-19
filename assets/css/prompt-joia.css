@@ -1,0 +1,98 @@
+/* Prompt Joia e teste de IA segura: páginas da marca pessoal Jéssica Gessoli.
+   Complementa /assets/css/jessicagessoli.css (porcelana, verde-garrafa e latão; Spectral e IBM Plex Sans).
+   Sem azul, ciano, rosa ou amarelo: essas cores são da Zethic e da Pode Curtir. */
+:root{--alerta:#8C3A1E;--alerta-fundo:#F4E6DF}
+
+.top nav a[aria-current="page"]{color:var(--garrafa);text-decoration:underline;text-decoration-color:var(--latao)}
+
+/* Abertura */
+.pj-hero{padding:3.5rem 0 4rem;border-bottom:1px solid var(--linha)}
+.pj-hero .rotulo{font:500 .9rem/1.4 var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--latao-texto);margin:0 0 1rem}
+.pj-hero h1{font-weight:300;font-size:clamp(2.3rem,6vw,4.4rem);line-height:1.04;letter-spacing:-.02em;max-width:20ch}
+.pj-hero .sub{font:400 clamp(1.2rem,2.2vw,1.55rem)/1.4 var(--serif);color:var(--tinta);margin:1.5rem 0 2rem;max-width:40ch}
+.pj-hero .nota{color:var(--neblina);font-size:.95rem;margin:1.25rem 0 0;max-width:60ch}
+.acoes{display:flex;flex-wrap:wrap;align-items:center;gap:.75rem 1rem}
+.btn-linha{display:inline-block;padding:.8rem 1.35rem;border-radius:2px;border:1px solid var(--garrafa);color:var(--garrafa);background:transparent;font:500 1rem/1.3 var(--sans);text-decoration:none;cursor:pointer}
+.btn-linha:hover{background:var(--garrafa);color:#fff}
+button.btn{border:0;font:500 1rem/1.3 var(--sans);cursor:pointer}
+.btn{line-height:1.3}
+
+/* Conteúdo do caderno */
+.conteudo{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:2.5rem 3rem;margin:0;padding:0;list-style:none}
+.conteudo > li{padding-top:1.25rem;border-top:2px solid var(--latao)}
+.conteudo h3{font-weight:400;font-size:1.5rem;line-height:1.2;margin-bottom:.75rem}
+.conteudo p{margin:0 0 .75rem;color:var(--neblina)}
+.conteudo ol,.conteudo ul{margin:0;padding-left:1.2rem}
+.conteudo li li{margin:.3rem 0}
+
+/* Faixa escura: por que o prompt muda a resposta */
+.faixa{background:var(--garrafa);color:#fff;padding:4.5rem 0}
+.faixa h2{color:#fff}
+.faixa .numeros{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.5rem 3rem;margin:2rem 0 1.5rem;max-width:44rem}
+.faixa .numeros div{border-top:1px solid rgba(255,255,255,.2);padding-top:1rem}
+.faixa .numeros b{display:block;font:300 clamp(2.8rem,6vw,4rem)/1 var(--serif);color:var(--latao-claro)}
+.faixa .numeros span{color:var(--verde-claro)}
+.faixa p{max-width:60ch;color:#fff}
+.faixa a{color:var(--latao-claro)}
+.faixa a:hover{color:#fff}
+.faixa :focus-visible{outline-color:var(--latao-claro)}
+
+/* Regras Antes de colar */
+.regras{margin:0;padding:0;list-style:none;counter-reset:r;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 3rem}
+.regras li{counter-increment:r;display:grid;grid-template-columns:2.5rem minmax(0,1fr);gap:.75rem;padding:1rem 0;border-top:1px solid var(--linha)}
+.regras li::before{content:counter(r);font:400 1.6rem/1.1 var(--serif);color:var(--latao-texto)}
+.fonte{color:var(--neblina);font-size:.95rem;margin:2rem 0 0;max-width:70ch}
+
+/* Seguir e compartilhar */
+.seguir{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:2rem 3rem;align-items:start}
+.seguir .redes{display:flex;flex-wrap:wrap;gap:.5rem 1.75rem;margin:0 0 1.5rem;font-weight:500}
+
+/* Cartões: ir além do prompt */
+.cartoes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.5rem;margin:0;padding:0;list-style:none}
+.cartoes > li{background:var(--porcelana);border:1px solid var(--linha);border-top:3px solid var(--latao);padding:1.5rem;display:flex;flex-direction:column}
+.cartoes h3{font-weight:400;font-size:1.4rem;line-height:1.2;margin-bottom:.5rem}
+.cartoes p{margin:0 0 1rem;color:var(--neblina)}
+.cartoes a{margin-top:auto;font-weight:500}
+
+/* Teste */
+.privado{display:inline-block;margin:0 0 1.5rem;padding:.6rem .9rem;border-left:3px solid var(--latao);background:var(--pedra);font-size:.97rem}
+.quiz fieldset{border:0;margin:0;padding:1.25rem 0;border-top:1px solid var(--linha);min-width:0}
+.quiz legend{padding:0;font-weight:500;font-size:1.05rem;line-height:1.5;margin-bottom:.8rem;max-width:62ch;float:left;width:100%}
+.quiz legend + *{clear:both}
+.quiz .num{display:block;color:var(--latao-texto);font-size:.85rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;margin-bottom:.2rem}
+.opcoes{display:flex;flex-wrap:wrap;gap:.6rem}
+.opcoes label{position:relative;display:inline-flex}
+.opcoes input{position:absolute;opacity:0;inset:0;width:100%;height:100%;margin:0;cursor:pointer}
+.opcoes span{display:inline-block;min-width:5.5rem;text-align:center;padding:.6rem 1.2rem;border:1px solid var(--neblina);border-radius:2px;background:#fff;color:var(--tinta)}
+.opcoes input:checked + span{background:var(--garrafa);border-color:var(--garrafa);color:#fff}
+.opcoes input:focus-visible + span{outline:2px solid var(--latao-texto);outline-offset:3px}
+.quiz-pe{display:flex;flex-wrap:wrap;align-items:center;gap:1rem;padding-top:1.5rem;border-top:1px solid var(--linha)}
+.quiz-pe small{color:var(--neblina);font-size:.95rem}
+.quiz-pe .erro{color:var(--alerta);font-weight:600}
+.resultado{margin-top:2.5rem;background:#fff;border:1px solid var(--linha);border-top:4px solid var(--garrafa);padding:1.75rem 1.5rem}
+.resultado:focus{outline:none}
+.resultado.n-medio{border-top-color:var(--latao)}
+.resultado.n-alto{border-top-color:var(--alerta)}
+.resultado h2{font-size:clamp(1.6rem,3vw,2.1rem)}
+.placar{font:300 clamp(2.6rem,7vw,3.6rem)/1 var(--serif);color:var(--garrafa);margin:.5rem 0 .5rem}
+.n-alto .placar{color:var(--alerta)}
+.n-medio .placar{color:var(--latao-texto)}
+.nivel{font:400 1.3rem/1.4 var(--serif);margin:0 0 1.25rem;max-width:44ch}
+.dicas{margin:0 0 1.5rem;padding:0;list-style:none}
+.dicas li{padding:.8rem 0;border-top:1px solid var(--linha)}
+.dicas strong{display:block;font-weight:600;margin-bottom:.15rem}
+.resultado .acoes{margin-top:1.5rem}
+.resultado .nota{color:var(--neblina);font-size:.92rem;margin:1.25rem 0 0}
+
+footer .aviso{margin-top:.6rem}
+
+@media (max-width:56rem){
+  .pj-hero{padding:2rem 0 3rem}
+  .conteudo,.regras,.seguir,.cartoes,.faixa .numeros{grid-template-columns:minmax(0,1fr)}
+  .faixa{padding:3.5rem 0}
+}
+@media (max-width:30rem){
+  .acoes .btn,.acoes .btn-linha{display:block;width:100%;text-align:center}
+  .faixa .numeros{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .resultado{padding:1.5rem 1.1rem}
+}
