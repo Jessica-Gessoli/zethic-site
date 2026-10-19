@@ -16,6 +16,11 @@
 - [Diagnóstico de Cibersegurança e IA](https://zethic.net/diagnostico): onde o Negócio pode perder dinheiro com golpe, sistema parado ou vazamento de dados, e o que fazer primeiro; inclui o uso de IA pela equipe; pelo método 6 Moedas; com autoavaliação grátis.
 - [Teste de golpe](https://zethic.net/teste-golpe): teste grátis com 10 situações reais de golpe.
 
+## Materiais gratuitos
+
+- [Caderno Prompt Joia](https://zethic.net/prompt-joia): 26 prompts prontos para o dono do Negócio, com as 10 regras do que não colar na IA; PDF grátis, sem cadastro.
+- [Teste de IA segura](https://zethic.net/teste-ia): 10 perguntas de sim ou não para saber se o uso de IA expõe os dados do Negócio; roda só no navegador.
+
 ## Institucional
 
 - [Quem somos](https://zethic.net/quem-somos): o que a Zethic faz, para quem, como trabalha, onde atende, prazos de atendimento, princípios, quem conduz o trabalho e dados da empresa.
