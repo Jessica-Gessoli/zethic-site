@@ -109,6 +109,9 @@ def slide_html(s, i, n):
     elif kind == "cover" and se == "jogo":
         body = header(i, n, True) + f'<div class="tag alerta">GOLPE OU NÃO?</div><h1>{hl(s[1])}</h1><div class="btns"><div class="b1">GOLPE</div><div class="b2">NÃO É</div></div><div class="cta">{hl(s[2])}</div>'
         cls = "cover s-dk"
+    elif kind == "cover" and se == "historia":
+        body = '<div class="foto"></div>' + header(i, n) + f'<div class="tag">HISTÓRIA REAL</div><h1 style="width:620px;font-size:112px">{hl(s[1])}</h1><div class="cta" style="width:340px;bottom:120px;font-size:34px;line-height:1.3">{hl(s[2])}</div>'
+        cls = "cover s-por"
     elif kind == "cover" and se == "caso":
         body = header(i, n, True) + f'<div class="tag">CASO DE DOMINGO</div><h1>{hl(s[1])}</h1><div class="cta">{hl(s[2])}</div>'
         cls = "cover s-dk"
