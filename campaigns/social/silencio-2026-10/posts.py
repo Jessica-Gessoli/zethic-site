@@ -9,7 +9,7 @@ POSTS = [
    ("text", "NAS EMPRESAS", "O silêncio também vira regra", "Em 2025, [[57,6%]] dos profissionais de TI e segurança ouvidos pela Bitdefender disseram que já receberam ordem para manter um incidente em sigilo."),
    ("text", "A AVIAÇÃO JÁ ENTENDEU", "Erro contado vira proteção", "Desde 1976, pilotos e controladores relatam erros à NASA sem medo de punição. Já são [[mais de 2,3 milhões]] de relatos."),
    ("list", "COMO QUEBRAR O SILÊNCIO", "Caiu? Faça isto no mesmo dia", ["Conte para alguém de confiança.", "Avise o banco e faça boletim de ocorrência.", "Na equipe: quem avisa rápido não é punido.", "Compartilhe o roteiro do golpe, não a culpa."]),
-   ("end", "POR ISSO EU CONTEI", "Quem esconde protege a própria imagem. [[Quem conta protege os outros.]]", "Salva e manda para quem já caiu e nunca contou."),
+   ("end", "POR ISSO EU CONTEI", "Quem esconde protege a própria imagem. [[Quem conta protege os outros.]]", "Amanhã eu abro um canal para você contar o seu, sem se identificar. Salva e manda para quem já caiu e nunca contou."),
   ],
   texto=""),
 ]

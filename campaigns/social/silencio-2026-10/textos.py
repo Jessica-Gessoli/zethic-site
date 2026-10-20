@@ -1,10 +1,10 @@
 IG = """Especialistas também caem. E escondem.
 
-Nesta semana eu contei o golpe em que caí. Hesitei antes de contar. Quem é da área sente que não tem o direito de cair, e a frase que vem é: "se eu contar, perco a credibilidade".
+Nesta semana eu contei o golpe em que caí. Hesitei antes de contar. Quem é da área sente que não pode cair, e pensa: "se eu contar, perco a credibilidade".
 
 Esse silêncio não é só de especialista. Numa pesquisa britânica de 2020, 80% disseram que teriam vergonha de admitir que caíram num golpe, e só 9% contariam ao chefe. No Brasil, só 18% de quem perdeu dinheiro em golpe de anúncio fez boletim de ocorrência (Datafolha, 2024).
 
-E o golpista agradece: quem esconde não avisa ninguém, e o mesmo roteiro funciona com o próximo.
+E o golpista agradece: o mesmo roteiro funciona com o próximo.
 
 Caiu? Faça isto no mesmo dia:
 1. Conte para alguém de confiança.
@@ -12,7 +12,9 @@ Caiu? Faça isto no mesmo dia:
 3. Na equipe: quem avisa rápido não é punido.
 4. Compartilhe o roteiro do golpe, não a culpa.
 
-Quem esconde protege a própria imagem. Quem conta protege os outros. Salva e manda para quem já caiu e nunca contou.
+Quem esconde protege a própria imagem. Quem conta protege os outros. Amanhã eu abro um canal para você contar o seu, sem se identificar.
+
+Salva e manda para quem já caiu e nunca contou.
 
 Fontes: Take Five, Datafolha, Bitdefender e NASA (links no primeiro comentário).
 
@@ -36,7 +38,7 @@ Outras áreas já aprenderam o contrário:
 
 Na empresa, quem esconde um golpe por medo da punição atrasa a resposta e deixa o mesmo roteiro funcionar com o colega ao lado.
 
-Credibilidade em segurança não vem de parecer infalível. Vem de mostrar como você reage quando falha.
+Credibilidade em segurança não vem de parecer infalível. Vem de mostrar como você reage quando falha. Por isso, amanhã eu abro aqui um canal para quem quiser contar o próprio golpe, sem se identificar.
 
 Na sua empresa, quem cai num golpe avisa no mesmo dia ou esconde?
 
@@ -56,5 +58,5 @@ ALT = [
  "Nas empresas: o silêncio também vira regra. Em 2025, 57,6% dos profissionais de TI e segurança ouvidos pela Bitdefender disseram que já receberam ordem para manter um incidente em sigilo.",
  "A aviação já entendeu: erro contado vira proteção. Desde 1976, pilotos e controladores relatam erros à NASA sem medo de punição. Já são mais de 2,3 milhões de relatos.",
  "Como quebrar o silêncio. Caiu? Faça isto no mesmo dia: 1. Conte para alguém de confiança. 2. Avise o banco e faça boletim de ocorrência. 3. Na equipe: quem avisa rápido não é punido. 4. Compartilhe o roteiro do golpe, não a culpa.",
- "Por isso eu contei: quem esconde protege a própria imagem. Quem conta protege os outros. Salva e manda para quem já caiu e nunca contou.",
+ "Por isso eu contei: quem esconde protege a própria imagem. Quem conta protege os outros. Amanhã eu abro um canal para você contar o seu, sem se identificar. Salva e manda para quem já caiu e nunca contou.",
 ]
