@@ -1,15 +1,15 @@
 # 22/10/2026: "Especialistas também caem. E escondem." (terceiro post da trilogia).
 # Tom escolhido no BSC: quebra de silêncio em primeira pessoa + cultura sem culpa.
 POSTS = [
- dict(slug="2026-10-22-especialistas-caem-e-escondem", serie="especialistas", rede="instagram", data="2026-10-22T12:00:00", tipo="carrossel",
+ dict(slug="2026-10-22-especialistas-caem-e-escondem", serie="pergunta", rede="instagram", data="2026-10-22T12:00:00", tipo="carrossel",
   slides=[
-   ("cover", "Especialistas também caem. [[E\u00a0escondem.]]", "Eu também pensei em esconder o meu. Bora falar disso?"),
-   ("text", "O MEDO", "\"Se eu contar, ninguém mais confia em mim\"", "É o que passa na cabeça de quem é da área. Aí a pessoa cai e [[fica quietinha]]."),
-   ("text", "E NÃO É SÓ ESPECIALISTA", "8 em cada 10 teriam vergonha", "Pesquisa britânica de 2020: 80% teriam vergonha de admitir que caíram num golpe. Contar pro chefe? [[Só 9%.]]"),
-   ("text", "NAS EMPRESAS", "Tem até ordem pra ficar quieto", "Em 2025, [[57,6%]] dos profissionais de TI e segurança ouvidos pela Bitdefender disseram que já receberam ordem para manter um incidente em sigilo."),
-   ("text", "IMAGINA SE PILOTO ESCONDESSE ERRO", "Na aviação, erro contado vira proteção", "Desde 1976, piloto e controlador contam seus erros pra NASA, sem medo de punição. Já são [[mais de 2,3 milhões]] de relatos."),
-   ("list", "CAIU? FAZ ISSO NO MESMO DIA", "Sem vergonha e sem demora", ["Conta pra alguém de confiança.", "Avisa o banco e faz o boletim de ocorrência.", "Na equipe: quem avisa rápido não leva bronca.", "Espalha o roteiro do golpe, não a culpa."]),
-   ("end", "VERGONHA NÃO DEVOLVE DINHEIRO", "Quem esconde protege a própria imagem. [[Quem conta protege os outros.]]", "Amanhã eu abro um canal pra você contar o seu, sem se identificar. Salva e manda pra quem já caiu e nunca contou."),
+   ("cover", "Se um golpe levasse o seu dinheiro hoje, [[pra quem você contaria?]]", "Responde de cabeça e arrasta.", "VERGONHA NÃO PROTEGE"),
+   ("text", "SE A RESPOSTA FOI \"NINGUÉM\"", "Você não está sozinho", "Na Bélgica, 64% sentiriam vergonha de ser vítimas de golpe online. De um assalto em casa? [[Só 20%.]]"),
+   ("text", "MAS PENSA COMIGO", "Assalto não dá vergonha. Por que golpe daria?", "Nos dois casos, um criminoso roubou você. [[A culpa é de quem roubou.]]"),
+   ("text", "O QUE O SILÊNCIO FAZ", "Ele protege o criminoso", "Quem não conta não avisa a mãe, o sócio, o funcionário. E o [[mesmo roteiro]] chega neles."),
+   ("text", "O QUE A MAIORIA PENSA", "8 em cada 10 acham que contar ajuda", "Na mesma pesquisa belga, de 78% a 84% disseram que contar a experiência ajuda os outros a [[reconhecer o golpe mais rápido]]."),
+   ("list", "SE ACONTECER COM VOCÊ", "Faz isso no mesmo dia", ["Conta pra alguém de confiança.", "Avisa o banco e faz o boletim de ocorrência.", "Contesta o Pix no app do banco.", "Espalha o roteiro do golpe, não a culpa."]),
+   ("end", "AGORA ME RESPONDE", "Quem da sua família [[precisa ouvir isso?]]", "Manda pra essa pessoa. Amanhã eu abro um canal pra você contar o seu, sem se identificar."),
   ],
   texto=""),
 ]

@@ -115,6 +115,9 @@ def slide_html(s, i, n):
     elif kind == "cover" and se == "especialistas":
         body = '<div class="foto"></div>' + header(i, n) + f'<div class="tag">ESPECIALISTAS TAMBÉM CAEM</div><h1 style="width:640px;font-size:100px">{hl(s[1])}</h1><div class="cta" style="width:340px;bottom:120px;font-size:34px;line-height:1.3">{hl(s[2])}</div>'
         cls = "cover s-por"
+    elif kind == "cover" and se == "pergunta":
+        body = header(i, n, True) + f'<div class="tag">{html.escape(s[3])}</div><h1 style="font-size:92px">{hl(s[1])}</h1><div class="cta">{hl(s[2])}</div>'
+        cls = "cover s-dk"
     elif kind == "cover" and se == "caso":
         body = header(i, n, True) + f'<div class="tag">CASO DE DOMINGO</div><h1>{hl(s[1])}</h1><div class="cta">{hl(s[2])}</div>'
         cls = "cover s-dk"
