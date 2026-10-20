@@ -48,5 +48,5 @@ test("Instagram ao lado do LinkedIn e página no mapa do site", () => {
 });
 
 test("link do formulário aponta para o Google Forms", { skip: form && form.includes("PENDENTE") ? "o link do Google Forms ainda não foi colado (não fazer merge antes)" : false }, () => {
-  assert.match(form, /^https:\/\/(forms\.gle\/[A-Za-z0-9]+|docs\.google\.com\/forms\/d\/e\/[A-Za-z0-9_-]+\/viewform)$/);
+  assert.match(form, /^https:\/\/(forms\.gle\/[A-Za-z0-9]+|docs\.google\.com\/forms\/d\/(e\/)?[A-Za-z0-9_-]+\/viewform)$/);
 });
