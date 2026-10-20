@@ -9,7 +9,7 @@ POSTS = [
    ("text", "LÁ FORA JÁ É CAMPANHA", "\"Faça barulho, conte a sua história\"", "É a campanha de 2026 dos bancos da Bélgica. Na Austrália, em 2024, o tema foi [[\"Compartilhe uma história, pare um golpe\"]]."),
    ("list", "AQUI TAMBÉM: CONTE O SEU GOLPE", "Leva poucos minutos", ["Não pede o seu nome.", "Você decide se o relato pode virar post.", "Nome, cidade e valor são trocados.", "Quer apagar depois? É só pedir."]),
    ("text", "O QUE NUNCA VAI APARECER", "O passo a passo do criminoso", "Os posts mostram os sinais de alerta. E o formulário [[nunca pede]] CPF, telefone ou dado de banco."),
-   ("end", "AGORA ME RESPONDE", "Qual golpe você queria que alguém [[tivesse te contado antes?]]", "Conta no link da bio. E manda este post pra quem precisa contar o dele."),
+   ("end", "AGORA ME RESPONDE", "Qual golpe você queria que alguém [[tivesse te contado antes?]]", "Conta em [[zethic.net/conte-seu-golpe]]. E manda este post pra quem precisa contar o dele."),
   ],
   texto=""),
 ]

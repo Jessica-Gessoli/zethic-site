@@ -14,9 +14,9 @@ Agora tem aqui também: Conte o seu golpe.
 
 O passo a passo do criminoso nunca aparece, só os sinais de alerta. E o formulário nunca pede CPF, telefone ou dado de banco.
 
-Golpe recente? Avisa o banco, faz o boletim e contesta o Pix. O formulário não substitui isso.
+Golpe recente? Avisa o banco, faz o boletim e contesta o Pix.
 
-Qual golpe você queria que alguém tivesse te contado antes? Conta no link da bio. E manda este post pra quem precisa contar o dele.
+Qual golpe você queria que alguém tivesse te contado antes? Conta em zethic.net/conte-seu-golpe. E manda este post pra quem precisa contar o dele.
 
 Fontes: Febelfin e National Anti-Scam Centre (links no primeiro comentário).
 
@@ -26,11 +26,12 @@ COMENTARIO = """Fontes:
 Febelfin (federação dos bancos da Bélgica), campanha "Maak kabaal, deel je online fraudeverhaal", via VRT NWS (28/04/2026): 64% sentiriam vergonha de golpe online e 20% de assalto em casa; de 78% a 84% acham que contar ajuda os outros: https://www.vrt.be/vrtnws/nl/2026/04/27/febelfin-campagne-schaamte-online-oplichting-maak-kabaal/
 National Anti-Scam Centre (Austrália), "Share a story, stop a scam", Scams Awareness Week de 26 a 30/08/2024: https://www.nasc.gov.au/news/share-a-story-stop-a-scam
 AARP (26/03/2025), linguagem sem culpa: "This isn't your fault – you experienced a crime": https://www.aarp.org/states/new-hampshire/shifting-the-conversation-about-scams-no-more-victim-blaming/
+Conte o seu golpe: https://zethic.net/conte-seu-golpe
 Política de privacidade: https://zethic.net/privacidade"""
 
 LI_COMENTARIO = COMENTARIO + """
 FTC, campanha "Pass It On" (09/09/2014): https://ftc.gov/news-events/news/press-releases/2014/09/pass-it-new-ftc-education-campaign-encourages-older-consumers-share-their-knowledge-help-fight-fraud
-Conte o seu golpe: [link do formulário, entra quando o canal estiver no ar]
+Conte o seu golpe: https://zethic.net/conte-seu-golpe
 
 Quer saber onde o seu Negócio está mais exposto a golpe e vazamento de dados? Vamos conversar 30 minutos: https://calendly.com/jessica-gessoli-zethic/conversa-de-30-minutos-com-a-jessica-gessoli"""
 
@@ -50,7 +51,7 @@ Os relatos vão virar alertas e, mais à frente, um programa: Especialistas tamb
 
 Que golpe você gostaria que alguém da sua equipe tivesse contado antes?
 
-O link está no primeiro comentário. Este conteúdo também está no Instagram @jessicagessoli, onde eu traduzo Cibersegurança e IA para quem é dono do Negócio.
+O endereço é zethic.net/conte-seu-golpe e também está no primeiro comentário. Este conteúdo também está no Instagram @jessicagessoli, onde eu traduzo Cibersegurança e IA para quem é dono do Negócio.
 
 #cibersegurança #culturadesegurança #golpe #governança #liderança"""
 
@@ -61,5 +62,5 @@ ALT = [
  "Lá fora já é campanha: Faça barulho, conte a sua história. É a campanha de 2026 dos bancos da Bélgica. Na Austrália, em 2024, o tema foi Compartilhe uma história, pare um golpe.",
  "Aqui também: Conte o seu golpe. Leva poucos minutos: 1. Não pede o seu nome. 2. Você decide se o relato pode virar post. 3. Nome, cidade e valor são trocados. 4. Quer apagar depois? É só pedir.",
  "O que nunca vai aparecer: o passo a passo do criminoso. Os posts mostram os sinais de alerta. E o formulário nunca pede CPF, telefone ou dado de banco.",
- "Agora me responde: qual golpe você queria que alguém tivesse te contado antes? Conta no link da bio. E manda este post pra quem precisa contar o dele.",
+ "Agora me responde: qual golpe você queria que alguém tivesse te contado antes? Conta em zethic.net/conte-seu-golpe. E manda este post pra quem precisa contar o dele.",
 ]
