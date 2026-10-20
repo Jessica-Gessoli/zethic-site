@@ -1,7 +1,8 @@
 /* Copia e Cola (antes Prompt Joia) e teste de IA segura: páginas da marca pessoal Jéssica Gessoli.
    Complementa /assets/css/jessicagessoli.css (porcelana, verde-garrafa e latão; Spectral e IBM Plex Sans).
    Sem azul, ciano, rosa ou amarelo: essas cores são da Zethic e da Pode Curtir. */
-:root{--alerta:#8C3A1E;--alerta-fundo:#F4E6DF}
+/* Sinais conforme o kit "Jéssica Gessoli v2" do Canva (17/10/2026): laranja-alerta só em fio e borda (contraste 2,4:1, não serve para texto); laranja-texto para texto (4,9:1 sobre porcelana). */
+:root{--alerta:#F58028;--alerta-texto:#AE4F0B;--certo:#21763C}
 
 .top nav a[aria-current="page"]{color:var(--garrafa);text-decoration:underline;text-decoration-color:var(--latao)}
 
@@ -68,14 +69,14 @@ button.btn{border:0;font:500 1rem/1.3 var(--sans);cursor:pointer}
 .opcoes input:focus-visible + span{outline:2px solid var(--latao-texto);outline-offset:3px}
 .quiz-pe{display:flex;flex-wrap:wrap;align-items:center;gap:1rem;padding-top:1.5rem;border-top:1px solid var(--linha)}
 .quiz-pe small{color:var(--neblina);font-size:.95rem}
-.quiz-pe .erro{color:var(--alerta);font-weight:600}
+.quiz-pe .erro{color:var(--alerta-texto);font-weight:600}
 .resultado{margin-top:2.5rem;background:#fff;border:1px solid var(--linha);border-top:4px solid var(--garrafa);padding:1.75rem 1.5rem}
 .resultado:focus{outline:none}
 .resultado.n-medio{border-top-color:var(--latao)}
 .resultado.n-alto{border-top-color:var(--alerta)}
 .resultado h2{font-size:clamp(1.6rem,3vw,2.1rem)}
 .placar{font:300 clamp(2.6rem,7vw,3.6rem)/1 var(--serif);color:var(--garrafa);margin:.5rem 0 .5rem}
-.n-alto .placar{color:var(--alerta)}
+.n-alto .placar{color:var(--alerta-texto)}
 .n-medio .placar{color:var(--latao-texto)}
 .nivel{font:400 1.3rem/1.4 var(--serif);margin:0 0 1.25rem;max-width:44ch}
 .dicas{margin:0 0 1.5rem;padding:0;list-style:none}
