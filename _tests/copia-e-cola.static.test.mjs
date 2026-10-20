@@ -108,5 +108,8 @@ test("o nome antigo só sobrevive no redirecionamento de /prompt-joia", () => {
   assert.match(r, /<link rel="canonical" href="https:\/\/zethic\.net\/copia-e-cola">/);
   assert.match(r, /<meta name="robots" content="noindex, follow">/);
   assert.match(r, /href="\/copia-e-cola"/);
-  assert.ok(!existsSync(new URL("../assets/docs/caderno-prompt-joia.pdf", import.meta.url)));
+  // Quem salvou o link direto do PDF antigo recebe o caderno novo (o GitHub Pages não redireciona arquivos).
+  const novo = readFileSync(new URL("../assets/docs/caderno-copia-e-cola.pdf", import.meta.url));
+  const antigo = readFileSync(new URL("../assets/docs/caderno-prompt-joia.pdf", import.meta.url));
+  assert.ok(novo.equals(antigo));
 });
