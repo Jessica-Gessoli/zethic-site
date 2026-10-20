@@ -1,20 +1,22 @@
 IG = """Especialistas também caem. E escondem.
 
-Nesta semana eu contei o golpe em que caí. Hesitei antes de contar. Quem é da área sente que não pode cair, e pensa: "se eu contar, perco a credibilidade".
+Segredo da minha área: quando o especialista cai num golpe, ele fica quietinho. E pensa: "se eu contar, ninguém mais confia em mim".
 
-Esse silêncio não é só de especialista. Numa pesquisa britânica de 2020, 80% disseram que teriam vergonha de admitir que caíram num golpe, e só 9% contariam ao chefe. No Brasil, só 18% de quem perdeu dinheiro em golpe de anúncio fez boletim de ocorrência (Datafolha, 2024).
+Eu sei, porque também pensei em esconder o meu.
 
-E o golpista agradece: o mesmo roteiro funciona com o próximo.
+E não é só especialista, não. Numa pesquisa britânica de 2020, 80% disseram que teriam vergonha de admitir que caíram num golpe. Contar pro chefe? Só 9%. No Brasil, só 18% de quem perdeu dinheiro em golpe de anúncio fez boletim de ocorrência (Datafolha, 2024).
 
-Caiu? Faça isto no mesmo dia:
-1. Conte para alguém de confiança.
-2. Avise o banco e faça boletim de ocorrência.
-3. Na equipe: quem avisa rápido não é punido.
-4. Compartilhe o roteiro do golpe, não a culpa.
+Sabe quem adora esse silêncio? O golpista, que usa o mesmo roteiro com o próximo.
 
-Quem esconde protege a própria imagem. Quem conta protege os outros. Amanhã eu abro um canal para você contar o seu, sem se identificar.
+Caiu? Faz isso no mesmo dia:
+1. Conta pra alguém de confiança.
+2. Avisa o banco e faz o boletim de ocorrência.
+3. Na equipe: quem avisa rápido não leva bronca.
+4. Espalha o roteiro do golpe, não a culpa.
 
-Salva e manda para quem já caiu e nunca contou.
+Vergonha não devolve dinheiro. Contar protege o próximo.
+
+Amanhã eu abro um canal pra você contar o seu, sem se identificar. Salva e manda pra quem já caiu e nunca contou.
 
 Fontes: Take Five, Datafolha, Bitdefender e NASA (links no primeiro comentário).
 
@@ -28,17 +30,17 @@ NASA, Aviation Safety Reporting System: 2.321.050 relatos de abr/1976 a dez/2025
 
 LI = """Especialistas também caem. E escondem.
 
-Nesta semana contei aqui o golpe do aluguel em que caí há 6 anos, já com 12 anos de carreira em risco. Hesitei antes de contar. Na nossa área, a frase que vem é: "se eu contar, perco a credibilidade".
+Vou contar um segredo da nossa área: quando o especialista cai num golpe, ele fica quieto. O pensamento é um só: "se eu contar, ninguém mais confia em mim".
 
-O silêncio não é só individual. Em 2025, 57,6% dos 1.200 profissionais de TI e segurança ouvidos pela Bitdefender disseram que já receberam ordem para manter um incidente em sigilo, mesmo quando achavam que ele deveria ser comunicado.
+Eu sei, porque também pensei em esconder o meu antes de contar aqui, nesta semana.
 
-Outras áreas já aprenderam o contrário:
-1. Aviação: desde 1976, a NASA recebe relatos de erro de pilotos e controladores com confidencialidade e sem punição. São mais de 2,3 milhões de relatos.
-2. Engenharia: o Google analisa falhas "sem indiciar nenhuma pessoa ou equipe", porque a culpa faz os problemas serem varridos para debaixo do tapete.
+E o silêncio não é só individual. Em 2025, 57,6% dos 1.200 profissionais de TI e segurança ouvidos pela Bitdefender disseram que já receberam ordem para manter um incidente em sigilo.
 
-Na empresa, quem esconde um golpe por medo da punição atrasa a resposta e deixa o mesmo roteiro funcionar com o colega ao lado.
+Agora imagina se piloto escondesse erro. Na aviação, desde 1976, a NASA recebe relatos de erro com confidencialidade e sem punição. São mais de 2,3 milhões. No Google, falha se analisa "sem indiciar nenhuma pessoa ou equipe", porque a culpa faz o problema ir para debaixo do tapete.
 
-Credibilidade em segurança não vem de parecer infalível. Vem de mostrar como você reage quando falha. Por isso, amanhã eu abro aqui um canal para quem quiser contar o próprio golpe, sem se identificar.
+Na empresa, quem esconde um golpe por medo da bronca atrasa a resposta e deixa o mesmo roteiro pegar o colega ao lado.
+
+Credibilidade em segurança não vem de parecer infalível. Vem de como você reage quando falha. Por isso, amanhã eu abro aqui um canal para quem quiser contar o próprio golpe, sem se identificar.
 
 Na sua empresa, quem cai num golpe avisa no mesmo dia ou esconde?
 
@@ -52,11 +54,11 @@ Google, SRE Book, "Postmortem Culture: Learning from Failure": https://sre.googl
 Quer saber onde o seu Negócio está mais exposto a golpe e vazamento de dados? Vamos conversar 30 minutos: https://calendly.com/jessica-gessoli-zethic/conversa-de-30-minutos-com-a-jessica-gessoli"""
 
 ALT = [
- "Especialistas também caem, de Jéssica Gessoli: Especialistas também caem. E escondem. Eu escolhi contar. Este é o porquê. Foto de Jéssica sorrindo.",
- "O medo: se eu contar, perco a credibilidade. Quem é da área sente que não tem o direito de cair. Então, quando cai, cai calado.",
- "Não é só com especialista: 8 em cada 10 teriam vergonha. Numa pesquisa britânica de 2020, 80% disseram que teriam vergonha de admitir que caíram num golpe. Só 9% contariam ao chefe.",
- "Nas empresas: o silêncio também vira regra. Em 2025, 57,6% dos profissionais de TI e segurança ouvidos pela Bitdefender disseram que já receberam ordem para manter um incidente em sigilo.",
- "A aviação já entendeu: erro contado vira proteção. Desde 1976, pilotos e controladores relatam erros à NASA sem medo de punição. Já são mais de 2,3 milhões de relatos.",
- "Como quebrar o silêncio. Caiu? Faça isto no mesmo dia: 1. Conte para alguém de confiança. 2. Avise o banco e faça boletim de ocorrência. 3. Na equipe: quem avisa rápido não é punido. 4. Compartilhe o roteiro do golpe, não a culpa.",
- "Por isso eu contei: quem esconde protege a própria imagem. Quem conta protege os outros. Amanhã eu abro um canal para você contar o seu, sem se identificar. Salva e manda para quem já caiu e nunca contou.",
+ "Especialistas também caem, de Jéssica Gessoli: Especialistas também caem. E escondem. Eu também pensei em esconder o meu. Bora falar disso? Foto de Jéssica sorrindo.",
+ "O medo: se eu contar, ninguém mais confia em mim. É o que passa na cabeça de quem é da área. Aí a pessoa cai e fica quietinha.",
+ "E não é só especialista: 8 em cada 10 teriam vergonha. Pesquisa britânica de 2020: 80% teriam vergonha de admitir que caíram num golpe. Contar pro chefe? Só 9%.",
+ "Nas empresas: tem até ordem pra ficar quieto. Em 2025, 57,6% dos profissionais de TI e segurança ouvidos pela Bitdefender disseram que já receberam ordem para manter um incidente em sigilo.",
+ "Imagina se piloto escondesse erro. Na aviação, erro contado vira proteção. Desde 1976, piloto e controlador contam seus erros pra NASA, sem medo de punição. Já são mais de 2,3 milhões de relatos.",
+ "Caiu? Faz isso no mesmo dia, sem vergonha e sem demora: 1. Conta pra alguém de confiança. 2. Avisa o banco e faz o boletim de ocorrência. 3. Na equipe: quem avisa rápido não leva bronca. 4. Espalha o roteiro do golpe, não a culpa.",
+ "Vergonha não devolve dinheiro. Quem esconde protege a própria imagem. Quem conta protege os outros. Amanhã eu abro um canal pra você contar o seu, sem se identificar. Salva e manda pra quem já caiu e nunca contou.",
 ]
