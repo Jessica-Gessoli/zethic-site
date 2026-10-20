@@ -32,7 +32,7 @@ Na Bélgica, a federação dos bancos perguntou e 64% disseram que sentiriam ver
 
 Dentro das empresas, o silêncio às vezes vira regra. Em 2025, 57,6% dos 1.200 profissionais de TI e segurança ouvidos pela Bitdefender disseram que já receberam ordem para manter um incidente em sigilo.
 
-Outras áreas fizeram o contrário e ficaram mais seguras:
+Outras áreas fizeram o contrário:
 1. Aviação: desde 1976, a NASA recebe relatos de erro com confidencialidade e sem punição. São mais de 2,3 milhões.
 2. Engenharia: o Google analisa falhas "sem indiciar nenhuma pessoa ou equipe", porque a culpa faz o problema ir para debaixo do tapete.
 
