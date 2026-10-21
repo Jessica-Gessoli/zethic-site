@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import { readFileSync, existsSync } from "node:fs";
 
 // 20/10/2026: canal "Conte o seu golpe" (relatos sem identificação, formulário no Google Forms).
+// 21/10/2026: formulário criado no Jotform (o Google Forms não foi criado); política 1.12 informa o registro de IP.
 const ler = (p) => readFileSync(new URL("../" + p, import.meta.url), "utf8");
 const h = ler("conte-seu-golpe.html");
 const form = (h.match(/<a class="btn" id="formulario" href="([^"]+)"/) || [])[1];
@@ -28,9 +29,12 @@ test("orienta o que fazer antes e diz que não substitui o boletim de ocorrênci
 
 test("promete o que a política de privacidade cumpre", () => {
   const pol = ler("privacidade.html");
-  assert.match(pol, /Versão 1\.11/);
+  assert.match(pol, /Versão 1\.1[2-9]/);
   assert.match(pol, /Conte o seu golpe/);
-  assert.match(pol, /Google Forms/);
+  assert.match(pol, /Jotform/);
+  assert.match(pol, /endereço IP de quem envia/);
+  assert.match(h, /Jotform/);
+  assert.match(h, /endereço IP/);
   assert.match(pol, /até 12 meses/);
   assert.match(pol, /palavra-código/);
   assert.doesNotMatch(pol, /Este site não tem formulário/);
@@ -47,6 +51,6 @@ test("Instagram ao lado do LinkedIn e página no mapa do site", () => {
   for (const [, l] of h.matchAll(/href="\/([a-z-]+)(?:#[a-z-]+)?"/g)) assert.ok(existsSync(new URL(`../${l}.html`, import.meta.url)), `/${l}`);
 });
 
-test("link do formulário aponta para o Google Forms", { skip: form && form.includes("PENDENTE") ? "o link do Google Forms ainda não foi colado (não fazer merge antes)" : false }, () => {
-  assert.match(form, /^https:\/\/(forms\.gle\/[A-Za-z0-9]+|docs\.google\.com\/forms\/d\/(e\/)?[A-Za-z0-9_-]+\/viewform)$/);
+test("link do formulário aponta para o formulário do Jotform", () => {
+  assert.match(form, /^https:\/\/form\.jotform\.com\/[0-9]+$/);
 });
