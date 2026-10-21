@@ -19,6 +19,7 @@
 ## Materiais gratuitos
 
 - [Caderno Copia e Cola](https://zethic.net/copia-e-cola): 26 prompts prontos para o dono do Negócio, com as 10 regras do que não colar na IA; PDF grátis, sem cadastro.
+- [Conte o seu golpe](https://zethic.net/conte-seu-golpe): canal para contar, sem se identificar, um golpe de que a pessoa foi vítima; os relatos autorizados viram alertas sem identificar ninguém.
 - [Teste de IA segura](https://zethic.net/teste-ia): 10 perguntas de sim ou não para saber se o uso de IA expõe os dados do Negócio; roda só no navegador.
 
 ## Institucional
