@@ -20,7 +20,7 @@ Qual golpe você queria que alguém tivesse te contado antes? Conta em zethic.ne
 
 Fontes: Febelfin e National Anti-Scam Centre (links no primeiro comentário).
 
-#golpe #contesseugolpe #pix"""
+#golpe #conteseugolpe #pix"""
 
 COMENTARIO = """Fontes:
 Febelfin (federação dos bancos da Bélgica), campanha "Maak kabaal, deel je online fraudeverhaal", via VRT NWS (28/04/2026): 64% sentiriam vergonha de golpe online e 20% de assalto em casa; de 78% a 84% acham que contar ajuda os outros: https://www.vrt.be/vrtnws/nl/2026/04/27/febelfin-campagne-schaamte-online-oplichting-maak-kabaal/
@@ -31,7 +31,6 @@ Política de privacidade: https://zethic.net/privacidade"""
 
 LI_COMENTARIO = COMENTARIO + """
 FTC, campanha "Pass It On" (09/09/2014): https://ftc.gov/news-events/news/press-releases/2014/09/pass-it-new-ftc-education-campaign-encourages-older-consumers-share-their-knowledge-help-fight-fraud
-Conte o seu golpe: https://zethic.net/conte-seu-golpe
 
 Quer saber onde o seu Negócio está mais exposto a golpe e vazamento de dados? Vamos conversar 30 minutos: https://calendly.com/jessica-gessoli-zethic/conversa-de-30-minutos-com-a-jessica-gessoli"""
 

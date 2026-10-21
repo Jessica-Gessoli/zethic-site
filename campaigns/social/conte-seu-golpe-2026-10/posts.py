@@ -1,4 +1,4 @@
-# Lançamento do canal "Conte o seu golpe" (rascunho; só publica depois que o canal estiver no ar).
+# Lançamento do canal "Conte o seu golpe" (canal no ar em 21/10/2026: formulário no Jotform, página zethic.net/conte-seu-golpe).
 # Tom escolhido no BSC: convite sem culpa, contar protege o próximo (modelo australiano 2024).
 POSTS = [
  dict(slug="2026-10-23-conte-o-seu-golpe", serie="pergunta", rede="instagram", data="2026-10-23T18:00:00", tipo="carrossel",
