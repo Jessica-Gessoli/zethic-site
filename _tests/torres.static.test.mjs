@@ -2,7 +2,8 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync, existsSync } from "node:fs";
 
-// Zethic como hub (aprovado em 12/10/2026): barra das marcas em todas as páginas, menu das cinco frentes nas páginas da Zethic,
+// Zethic como hub (aprovado em 12/10/2026): barra das marcas nas páginas da Zethic, menu das cinco frentes nas páginas da Zethic,
+// Desde 21/10/2026 (decisão da Jéssica): Pode Curtir e Jéssica Gessoli são páginas próprias, sem a barra do grupo.
 // página inicial com vitrine em movimento, cartões das frentes, porta da fundadora e atalhos.
 // Os blocos do topo são gerados por _ferramentas/cabecalhos.py.
 const ler = (p) => readFileSync(new URL("../" + p, import.meta.url), "utf8");
@@ -11,8 +12,8 @@ const ZETHIC = ["index.html", "quem-somos.html", "diagnostico.html", "proteger.h
 const MARCAS = { "jessicagessoli.html": "g-j", "podecurtir.html": "g-p" };
 const bloco = (html, nome) => html.match(new RegExp(`<!-- ${nome}:inicio -->([\\s\\S]*?)<!-- ${nome}:fim -->`))?.[1] ?? "";
 
-test("barra do grupo em todas as páginas, com a marca da página destacada", () => {
-  for (const p of [...ZETHIC, ...Object.keys(MARCAS)]) {
+test("barra do grupo em todas as páginas da Zethic, com a página atual destacada", () => {
+  for (const p of ZETHIC) {
     const html = ler(p);
     const g = bloco(html, "grupo");
     assert.ok(g, `${p}: sem barra do grupo`);
@@ -26,6 +27,14 @@ test("barra do grupo em todas as páginas, com a marca da página destacada", ()
     assert.match(html, /style-src 'self'/, `${p}: a política de segurança precisa permitir as folhas de estilo do próprio site`);
     // A barra vem logo depois do atalho "Pular para o conteúdo", que continua sendo o primeiro item da página.
     assert.ok(html.indexOf('class="skip"') < html.indexOf("<!-- grupo:inicio -->"), p);
+  }
+});
+
+test("páginas das marcas são próprias: sem barra do grupo e sem menu da Zethic (21/10/2026)", () => {
+  for (const p of Object.keys(MARCAS)) {
+    const html = ler(p);
+    assert.doesNotMatch(html, /<!-- grupo:inicio -->|class="grupo"|grupo\.css/, p);
+    assert.doesNotMatch(html, /<!-- cabecalho:inicio -->/, p);
   }
 });
 

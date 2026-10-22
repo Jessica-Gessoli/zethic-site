@@ -26,8 +26,9 @@ ZETHIC = [
     ("teste-golpe.html", "teste-golpe", None),
     ("privacidade.html", "privacidade", None),
 ]
-# Páginas das outras marcas: mantêm o cabeçalho próprio e recebem só a barra do grupo.
-MARCAS = [("jessicagessoli.html", "j"), ("podecurtir.html", "p")]
+# Páginas das outras marcas: desde 21/10/2026 (decisão da Jéssica) são páginas próprias, sem a barra do grupo.
+# A Zethic aparece nelas só como endosso em texto, no rodapé.
+MARCAS = []
 
 LOGO = ('<a class="logo" href="/" aria-label="Zethic, início">'
         '<img class="logo-simbolo" src="/assets/img/zethic-marca.svg" alt="" width="34" height="34">'
@@ -92,6 +93,7 @@ FRENTES = [
             ("/podecurtir#eventos", "Eventos", "Foto, vídeo, gravação e transmissão ao vivo"),
             ("/podecurtir#negocios", "Negócios", "Vídeo institucional, sessão de conteúdo, entrevistas e estúdio"),
             ("/podecurtir#ensaios", "Ensaios", "Fotografia profissional"),
+            ("/podecurtir#redes", "Redes sociais", "Perfil Pronto, gestão mensal e conta protegida"),
         ],
     },
     {

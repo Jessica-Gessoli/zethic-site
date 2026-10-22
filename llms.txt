@@ -8,7 +8,7 @@
 - [Proteger](https://zethic.net/proteger): golpes, continuidade, LGPD e uso seguro de IA (pilar segurança).
 - [Organizar](https://zethic.net/organizar): processos, automação e agentes de IA, finanças, infraestrutura, nuvem e adaptação à Reforma Tributária (pilar tecnologia).
 - [Crescer](https://zethic.net/crescer): presença digital, geração de demanda, WhatsApp e CRM comercial (pilar mídia digital).
-- [Mídia digital: Pode Curtir](https://zethic.net/podecurtir): foto e vídeo prontos para postar em eventos, negócios e ensaios (pilar mídia digital).
+- [Pode Curtir](https://zethic.net/podecurtir): produtora de foto, vídeo e redes sociais, marca da Zethic com página própria: eventos, negócios, ensaios, Perfil Pronto e gestão mensal de redes (pilar mídia digital).
 - [Capacitar e aconselhar](https://zethic.net/aconselhar): capacitação em IA, treinamento técnico, produto digital, consultoria e apoio à diretoria (pilar tecnologia).
 
 ## Portas de entrada
