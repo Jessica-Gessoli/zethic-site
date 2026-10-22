@@ -93,6 +93,7 @@ FRENTES = [
             ("/podecurtir#eventos", "Eventos", "Foto, vídeo, gravação e transmissão ao vivo"),
             ("/podecurtir#negocios", "Negócios", "Vídeo institucional, sessão de conteúdo, entrevistas e estúdio"),
             ("/podecurtir#ensaios", "Ensaios", "Fotografia profissional"),
+            ("/podecurtir#redes", "Redes sociais", "Perfil Pronto, gestão mensal e conta protegida"),
         ],
     },
     {

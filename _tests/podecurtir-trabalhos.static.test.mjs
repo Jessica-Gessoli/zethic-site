@@ -52,3 +52,12 @@ test("Pode Curtir: categoria clara e frente de redes sociais", () => {
   assert.doesNotMatch(h, /R\$ ?\d/);
   assert.doesNotMatch(h, /A publicação nas redes e os anúncios ficam com você/);
 });
+
+// Revisão do PR #58: a frente nova aparece no menu e no cartão da página inicial, o WhatsApp já cita redes sociais
+// e a página da Jéssica Gessoli mantém a Zethic no rodapé, em texto.
+test("Pode Curtir: redes sociais no menu, no cartão da home e na mensagem do WhatsApp", () => {
+  assert.match(ler("index.html"), /<a href="\/podecurtir#redes"><strong>Redes sociais<\/strong>/);
+  assert.match(ler("index.html"), /<li><a href="\/podecurtir#redes">Redes sociais<\/a><\/li>/);
+  assert.match(ler("fale.html"), /"podecurtir": "[^"]*redes sociais\."/);
+  assert.match(ler("jessicagessoli.html"), /<footer>[\s\S]*diretora executiva da <a href="\/">Zethic<\/a>[\s\S]*<\/footer>/);
+});
