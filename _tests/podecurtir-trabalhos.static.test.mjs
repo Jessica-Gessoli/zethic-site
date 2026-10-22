@@ -9,7 +9,7 @@ const ler = (p) => readFileSync(new URL("../" + p, import.meta.url), "utf8");
 test("Pode Curtir: sem vídeos de demonstração e com título direto", () => {
   const h = ler("podecurtir.html");
   assert.doesNotMatch(h, /class="reel"|class="trabalhos"|<video/);
-  assert.match(h, /<h1>Foto e vídeo para o seu evento e o seu Negócio\.<\/h1>/);
+  assert.match(h, /<h1>Produtora de foto, vídeo e redes sociais\.<\/h1>/);
   assert.doesNotMatch(h + ler("index.html"), /Você curte, a gente registra/);
 });
 
@@ -41,4 +41,14 @@ test("Zethic: nenhum preço publicado nas páginas", () => {
     const h = ler(p).replace(/<label>[^<]*\(R\$\)/g, "");
     assert.doesNotMatch(h, /R\$ ?\d|[Pp]reço de fundador|minPrice/, p);
   }
+});
+
+// 21/10/2026 (retorno da Lucinha, aprovado pela Jéssica): a página diz logo no título que categoria a Pode Curtir é,
+// e mostra a frente de redes sociais (Perfil Pronto e gestão mensal), sem preço e sem pedir senha.
+test("Pode Curtir: categoria clara e frente de redes sociais", () => {
+  const h = ler("podecurtir.html");
+  assert.match(h, /<title>Pode Curtir \| Produtora de foto, vídeo e redes sociais em Campinas<\/title>/);
+  assert.match(h, /<li id="redes">[\s\S]*Perfil Pronto[\s\S]*Gestão mensal[\s\S]*A gente não pede a sua senha\./);
+  assert.doesNotMatch(h, /R\$ ?\d/);
+  assert.doesNotMatch(h, /A publicação nas redes e os anúncios ficam com você/);
 });
