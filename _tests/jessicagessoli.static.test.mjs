@@ -38,3 +38,11 @@ test("publicações citadas com fonte verificável nas duas versões", () => {
     assert.doesNotMatch(bloco, /utm_source=chatgpt/);
   }
 });
+
+// 21/10/2026 (decisão da Jéssica, mesma regra da Pode Curtir): a categoria aparece no topo, antes do nome.
+test("página profissional: categoria clara acima do nome, em português e em inglês", () => {
+  const pt = readFileSync(new URL("../jessicagessoli.html", import.meta.url), "utf8");
+  const en = readFileSync(new URL("../en/jessicagessoli.html", import.meta.url), "utf8");
+  assert.match(pt, /<p class="categoria">Executiva de Cibersegurança e IA<\/p>\s*<h1>Jéssica Gessoli<\/h1>/);
+  assert.match(en, /<p class="categoria">Cybersecurity and AI executive<\/p>\s*<h1>Jéssica Gessoli<\/h1>/);
+});
