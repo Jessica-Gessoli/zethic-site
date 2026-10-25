@@ -1,6 +1,8 @@
 # Textos das frentes do tema "Conte o seu golpe" (rascunhos de 21/10/2026, aguardando ok da Jéssica).
 
 CALENDLY = "https://calendly.com/jessica-gessoli-zethic/conversa-de-30-minutos-com-a-jessica-gessoli"
+# 25/10/2026: regra das marcas independentes. O LinkedIn pessoal convida para oportunidades da Jéssica, não para serviço da Zethic.
+CONVITE_JG = "Quer me convidar para uma palestra, um podcast ou um projeto sobre Cibersegurança e IA? Vamos conversar 30 minutos: " + CALENDLY
 
 # ---------- Frente 3: Diagnóstico de cultura sem culpa (LinkedIn próprio, 26/10 às 17h) ----------
 CULTURA_LI = """Se alguém do financeiro fosse vítima de golpe hoje, quando a diretoria saberia?
@@ -11,7 +13,7 @@ Em 2025, 57,6% dos 1.200 profissionais de TI e segurança ouvidos pela Bitdefend
 
 Áreas que levam erro a sério fizeram o contrário. Desde 1976, a NASA recebe relatos de erro na aviação com confidencialidade e sem punição. São mais de 2,3 milhões.
 
-Por isso, dentro do Programa Antigolpe da Zethic, passo a oferecer o Diagnóstico de cultura sem culpa:
+O que uma empresa pode fazer, em 5 passos:
 1. Pesquisa sem identificação com a equipe, com uma pergunta central: se você fosse vítima de golpe, contaria para quem?
 2. Regra do mesmo dia: quem avisa quem, e o que fazer na primeira hora (banco, boletim, registro).
 3. Canal interno de relato, sem punição para quem avisa.
@@ -27,9 +29,8 @@ Este conteúdo também está no Instagram @jessicagessoli, onde eu traduzo Ciber
 CULTURA_LI_COMENTARIO = f"""Fontes:
 Bitdefender, 2025 Cybersecurity Assessment Report (1.200 profissionais): 57,6% receberam ordem de manter incidente em sigilo: https://www.businesswire.com/news/home/20250624779014/en
 NASA, Aviation Safety Reporting System: 2.321.050 relatos de abr/1976 a dez/2025: https://asrs.arc.nasa.gov/docs/ASRS_ProgramBriefing.pdf
-Programa Antigolpe da Zethic: https://zethic.net/proteger#antigolpe
 
-Se a sua diretoria quer transformar risco cibernético em decisão, vamos conversar 30 minutos: {CALENDLY}"""
+{CONVITE_JG}"""
 
 CULTURA_TITULO_PDF = "Se alguém do financeiro fosse vítima de golpe, quando a diretoria saberia?"
 
@@ -38,7 +39,7 @@ CULTURA_ALT = [
  "O silêncio tem número: 57,6% dos 1.200 profissionais de TI e segurança ouvidos pela Bitdefender em 2025 já receberam ordem para manter um incidente em sigilo.",
  "Quem aprende com erro: a aviação faz o contrário. Desde 1976, a NASA recebe relatos de erro com confidencialidade e sem punição. São mais de 2,3 milhões.",
  "A pergunta central: Se você fosse vítima de golpe, contaria para quem? A resposta da equipe mostra onde o próximo golpe vai se esconder.",
- "Diagnóstico de cultura sem culpa, em 5 partes: 1. Pesquisa sem identificação com a equipe. 2. Regra do mesmo dia: quem avisa quem. 3. Canal interno, sem punição para quem avisa. 4. Treino com histórias reais, com autorização. 5. Relatório do que mudou e do que falta.",
+ "Cultura sem culpa em 5 passos: 1. Pesquisa sem identificação com a equipe. 2. Regra do mesmo dia: quem avisa quem. 3. Canal interno, sem punição para quem avisa. 4. Treino com histórias reais, com autorização. 5. Relatório do que mudou e do que falta.",
  "Agora me responde: que frase a sua equipe ouviria primeiro? Como você não percebeu? Ou: que bom que você avisou rápido.",
 ]
 
@@ -77,9 +78,7 @@ FAMILIA_LI = FAMILIA_IG.replace(
  "Manda este post no grupo da família.\n\nFontes: Febelfin, AARP e FBI (links no primeiro comentário).\n\n#golpe #família #pix #segurançadigital",
  "Na sua equipe, quem cuida dos pais idosos já combinou isso em casa?\n\nEste conteúdo também está no Instagram @jessicagessoli, onde eu traduzo Cibersegurança e IA para quem é dono do Negócio.\n\n#golpe #família #pix #segurançadigital #cibersegurança")
 
-FAMILIA_LI_COMENTARIO = FAMILIA_COMENTARIO + f"""
-
-Quer saber onde o seu Negócio está mais exposto a golpe e vazamento de dados? Vamos conversar 30 minutos: {CALENDLY}"""
+FAMILIA_LI_COMENTARIO = FAMILIA_COMENTARIO + "\n\n" + CONVITE_JG
 
 FAMILIA_TITULO_PDF = "Se os seus pais fossem vítimas de golpe, eles contariam pra você?"
 

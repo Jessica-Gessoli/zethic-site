@@ -7,7 +7,7 @@ POSTS = [
    ("text", "O SILÊNCIO TEM NÚMERO", "57,6%", "dos 1.200 profissionais de TI e segurança ouvidos pela Bitdefender em 2025 já receberam ordem para [[manter um incidente em sigilo]]."),
    ("text", "QUEM APRENDE COM ERRO", "A aviação faz o contrário", "Desde 1976, a NASA recebe relatos de erro com confidencialidade e [[sem punição]]. São mais de 2,3 milhões."),
    ("text", "A PERGUNTA CENTRAL", "Se você fosse vítima de golpe, contaria para quem?", "A resposta da equipe mostra [[onde o próximo golpe vai se esconder]]."),
-   ("list", "DIAGNÓSTICO DE CULTURA SEM CULPA", "Em 5 partes", ["Pesquisa sem identificação com a equipe.", "Regra do mesmo dia: quem avisa quem.", "Canal interno, sem punição para quem avisa.", "Treino com histórias reais, com autorização.", "Relatório do que mudou e do que falta."]),
+   ("list", "CULTURA SEM CULPA", "Em 5 passos", ["Pesquisa sem identificação com a equipe.", "Regra do mesmo dia: quem avisa quem.", "Canal interno, sem punição para quem avisa.", "Treino com histórias reais, com autorização.", "Relatório do que mudou e do que falta."]),
    ("end", "AGORA ME RESPONDE", "Que frase a sua equipe [[ouviria primeiro?]]", "\"Como você não percebeu?\" ou \"Que bom que você avisou rápido\"."),
   ],
   texto=""),
