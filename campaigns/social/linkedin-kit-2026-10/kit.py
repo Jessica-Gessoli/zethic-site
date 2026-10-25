@@ -34,10 +34,9 @@ P = {
   <div style="position:absolute;left:150px;top:590px;width:1500px;font-family:Plex;font-size:52px;line-height:1.35;color:#C9D8CF">Risco cibernético e de IA em linguagem de decisão, para diretoria e conselho.</div>
   <div style="position:absolute;left:150px;bottom:140px;font-family:Spectral;font-size:52px">Jéssica Gessoli</div>
   <div style="position:absolute;right:150px;bottom:146px;font-family:Plex;font-size:34px;color:#C9D8CF">Instagram @jessicagessoli</div></body>"""),
- # Página da Zethic: logo (400x400) e capa (1128x191)
+ # Página da Zethic: logo (400x400, símbolo oficial do manual: anel ciano e Z) e capa (1128x191)
  "zethic-linkedin-logo": (400, 400, f"""<body style="width:400px;height:400px;background:{NAVY};position:relative;overflow:hidden">
-  <svg width="400" height="400" viewBox="0 0 400 400"><circle cx="200" cy="200" r="150" fill="none" stroke="{CIANO}" stroke-width="22"/>
-  <g transform="translate(104,104) scale(3)">{ZMARK}</g></svg></body>"""),
+  <svg width="400" height="400" viewBox="0 0 200 200"><circle cx="100" cy="100" r="80" fill="#02041A" stroke="#00E5FF" stroke-width="8"></circle><g transform="translate(100 100) scale(0.86) translate(-100 -100)"><rect x="58" y="56" width="84" height="23" rx="2" fill="#FFFFFF"></rect><polygon points="114,79 142,79 86,124 58,124" fill="#FFFFFF"></polygon><rect x="58" y="124" width="84" height="23" rx="2" fill="#FFFFFF"></rect><rect x="67" y="90" width="66" height="23" rx="2" fill="#00E5FF" stroke="#02041A" stroke-width="6"></rect></g></svg></body>"""),
  "zethic-linkedin-capa": (1128, 191, f"""<body style="width:1128px;height:191px;background:{NAVY};color:#FFFFFF;position:relative;overflow:hidden">
   <svg style="position:absolute;right:-150px;top:-170px" width="420" height="420" viewBox="0 0 200 200"><circle cx="100" cy="100" r="88" fill="none" stroke="{CIANO}" stroke-width="5"/></svg>
   <div style="position:absolute;left:80px;top:44px;font-family:Pub;font-weight:700;font-size:38px;line-height:1.1">Cibersegurança e IA <span style="color:{CIANO}">para o Negócio.</span></div>
