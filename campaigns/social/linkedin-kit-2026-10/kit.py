@@ -41,6 +41,14 @@ P = {
   <svg style="position:absolute;right:-150px;top:-170px" width="420" height="420" viewBox="0 0 200 200"><circle cx="100" cy="100" r="88" fill="none" stroke="{CIANO}" stroke-width="5"/></svg>
   <div style="position:absolute;left:80px;top:44px;font-family:Pub;font-weight:700;font-size:38px;line-height:1.1">Cibersegurança e IA <span style="color:{CIANO}">para o Negócio.</span></div>
   <div style="position:absolute;left:80px;top:104px;font-family:Pub;font-size:20px;color:#A7B2D1">Proteger · Organizar · Capacitar e aconselhar · zethic.net</div></body>"""),
+ # Página da Pode Curtir (25/10): logo (400x400, visor com o ponto gravando) e capa (1128x191)
+ "podecurtir-linkedin-logo": (400, 400, """<body style="width:400px;height:400px;background:#D4124A;position:relative;overflow:hidden">
+  <svg width="400" height="400" viewBox="0 0 200 200"><path d="M44 84 V44 H84 M116 44 H156 V84 M156 116 V156 H116 M84 156 H44 V116" fill="none" stroke="#FFFFFF" stroke-width="16"></path><circle cx="100" cy="100" r="30" fill="#FFD23F"></circle></svg></body>"""),
+ "podecurtir-linkedin-capa": (1128, 191, """<body style="width:1128px;height:191px;background:#D4124A;color:#FFFFFF;position:relative;overflow:hidden">
+  <svg style="position:absolute;left:0;top:0" width="1128" height="191" viewBox="0 0 1128 191"><path d="M24 64 V24 H64 M1064 24 H1104 V64 M1104 127 V167 H1064 M64 167 H24 V127" fill="none" stroke="#FFFFFF" stroke-width="8"></path></svg>
+  <div style="position:absolute;left:80px;top:36px;display:flex;align-items:center;gap:10px;font-family:Pub;font-weight:700;font-size:18px"><span style="width:16px;height:16px;border-radius:50%;background:#FFD23F;display:inline-block"></span>Gravando</div>
+  <div style="position:absolute;left:80px;top:68px;font-family:Pub;font-weight:700;font-size:38px;line-height:1.1">Foto e vídeo para o seu evento e o seu Negócio.</div>
+  <div style="position:absolute;left:80px;top:122px;font-family:Pub;font-size:20px;color:#FFE3EB">Eventos · Negócios · Ensaios · Redes sociais · zethic.net/podecurtir</div></body>"""),
 }
 with sync_playwright() as p:
     b = p.chromium.launch()
