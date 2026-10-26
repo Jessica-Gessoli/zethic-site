@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
+import { readFileSync, existsSync } from "node:fs";
 
 const ler = (p) => readFileSync(new URL("../" + p, import.meta.url), "utf8");
 
@@ -47,7 +47,7 @@ test("Zethic: nenhum preço publicado nas páginas", () => {
 // e mostra a frente de redes sociais (Perfil Pronto e gestão mensal), sem preço e sem pedir senha.
 test("Pode Curtir: categoria clara e frente de redes sociais", () => {
   const h = ler("podecurtir.html");
-  assert.match(h, /<title>Pode Curtir \| Produtora de foto, vídeo e redes sociais em Campinas<\/title>/);
+  assert.match(h, /<title>Pode Curtir \| Produtora de foto, vídeo e redes sociais<\/title>/);
   assert.match(h, /<li id="redes">[\s\S]*Perfil Pronto[\s\S]*Gestão mensal[\s\S]*A gente não pede a sua senha\./);
   assert.doesNotMatch(h, /R\$ ?\d/);
   assert.doesNotMatch(h, /A publicação nas redes e os anúncios ficam com você/);
@@ -60,4 +60,11 @@ test("Pode Curtir: redes sociais no menu, no cartão da home e na mensagem do Wh
   assert.match(ler("index.html"), /<li><a href="\/podecurtir#redes">Redes sociais<\/a><\/li>/);
   assert.match(ler("fale.html"), /"podecurtir": "[^"]*redes sociais\."/);
   assert.match(ler("jessicagessoli.html"), /<footer>[\s\S]*diretora executiva da <a href="\/">Zethic<\/a>[\s\S]*<\/footer>/);
+});
+
+test('Pode Curtir: prévia de link com imagem grande', () => {
+  const h = readFileSync(new URL('../podecurtir.html', import.meta.url), 'utf8');
+  assert.match(h, /<meta property="og:image" content="https:\/\/zethic\.net\/assets\/img\/og-podecurtir\.jpg">/);
+  assert.match(h, /<meta name="twitter:card" content="summary_large_image">/);
+  assert.ok(existsSync(new URL('../assets/img/og-podecurtir.jpg', import.meta.url)));
 });
