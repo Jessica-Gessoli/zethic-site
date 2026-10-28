@@ -49,20 +49,29 @@
     }
   }
 
+  // Cores do aviso pela marca da página (28/10/2026): páginas da Jéssica Gessoli usam verde-garrafa e latão.
+  function cores() {
+    var jg = !!document.querySelector(".marca-jg");
+    return jg
+      ? { fundo: "#12352B", borda: "rgba(217,183,110,.45)", link: "#D9B76E", principal: "border:0;background:#D9B76E;color:#12352B", linha: "border:1px solid #D9B76E;background:transparent;color:#F3F5F2", texto: "#F3F5F2" }
+      : { fundo: "#0E1640", borda: "rgba(140,170,255,.3)", link: "#00E5FF", principal: "border:0;background:linear-gradient(90deg,#00E5FF,#1F63FF);color:#02041A", linha: "border:1px solid #00E5FF;background:transparent;color:#fff", texto: "#fff" };
+  }
+
   function banner() {
     if (document.getElementById("zethic-consent")) return;
+    var c = cores();
     var b = document.createElement("div");
     b.id = "zethic-consent"; b.setAttribute("role", "dialog"); b.setAttribute("aria-label", "Medição de visitas");
-    b.style.cssText = "position:fixed;left:1rem;right:1rem;bottom:1rem;z-index:50;max-width:34rem;margin:0 auto;background:#0E1640;color:#fff;border:1px solid rgba(140,170,255,.3);border-radius:6px;padding:1rem 1.1rem;font:15px/1.5 system-ui,sans-serif;box-shadow:0 10px 30px rgba(0,0,0,.5)";
+    b.style.cssText = "position:fixed;left:1rem;right:1rem;bottom:1rem;z-index:50;max-width:34rem;margin:0 auto;background:" + c.fundo + ";color:" + c.texto + ";border:1px solid " + c.borda + ";border-radius:6px;padding:1rem 1.1rem;font:15px/1.5 system-ui,sans-serif;box-shadow:0 10px 30px rgba(0,0,0,.5)";
     var p = document.createElement("p");
     p.style.margin = "0 0 .8rem";
     p.appendChild(document.createTextNode("Posso medir sua visita com o Google Analytics para melhorar o site? Isso grava cookies. Nada é usado para anúncios. "));
-    var a = document.createElement("a"); a.href = "/privacidade#cookies"; a.textContent = "Saiba mais"; a.style.color = "#00E5FF";
+    var a = document.createElement("a"); a.href = "/privacidade#cookies"; a.textContent = "Saiba mais"; a.style.color = c.link;
     p.appendChild(a);
     b.appendChild(p);
     function botao(txt, principal, acao) {
       var x = document.createElement("button"); x.type = "button"; x.textContent = txt;
-      x.style.cssText = "font:600 15px system-ui,sans-serif;padding:.6rem 1rem;border-radius:4px;margin-right:.6rem;cursor:pointer;" + (principal ? "border:0;background:linear-gradient(90deg,#00E5FF,#1F63FF);color:#02041A" : "border:1px solid #00E5FF;background:transparent;color:#fff");
+      x.style.cssText = "font:600 15px system-ui,sans-serif;padding:.6rem 1rem;border-radius:4px;margin-right:.6rem;cursor:pointer;" + (principal ? c.principal : c.linha);
       x.addEventListener("click", function () { acao(); b.remove(); });
       return x;
     }

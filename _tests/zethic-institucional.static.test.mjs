@@ -27,6 +27,7 @@ test("corpo das páginas das frentes fala só da Zethic", () => {
 test("quem somos cita a fundadora e o Pode Curtir, mas não os serviços pessoais dela", () => {
   const resto = semObrigatorios(ler("quem-somos.html"));
   assert.match(resto, /fundada e é dirigida por Jéssica Gessoli, fundadora e diretora executiva/);
+  assert.doesNotMatch(resto, /href="\/jessicagessoli/); // 28/10/2026: só a frase institucional, sem link
   assert.match(resto, /Pode Curtir/);
   assert.doesNotMatch(resto, /mentoria|palestra|recoloca/i);
 });
@@ -60,7 +61,7 @@ test("Diagnóstico e Teste de golpe são páginas da Jéssica Gessoli", () => {
     const h = ler(p);
     assert.match(h, /<title>[^<]*\| Jéssica Gessoli<\/title>/, p);
     assert.match(h, /<meta property="og:site_name" content="Jéssica Gessoli">/, p);
-    assert.match(h, /class="g-j atual"/, p);
+    assert.doesNotMatch(h, /<!-- grupo:inicio -->|grupo\.css/, p);
     assert.doesNotMatch(semObrigatorios(h).replace(/zethicEvento/g, ""), /Zethic/, p);
     assert.match(h, /calendly\.com\/jessica-gessoli-zethic/, p);
   }

@@ -18,9 +18,11 @@ test("barra do grupo em todas as páginas da Zethic, com a página atual destaca
     const html = ler(p);
     const g = bloco(html, "grupo");
     assert.ok(g, `${p}: sem barra do grupo`);
-    for (const [href, nome] of [["/", "Zethic"], ["/jessicagessoli", "Jéssica Gessoli"], ["/podecurtir", "Pode Curtir"]]) {
+    for (const [href, nome] of [["/", "Zethic"], ["/podecurtir", "Pode Curtir"]]) {
       assert.match(g, new RegExp(`href="${href}">${nome}</a>`), `${p}: ${nome}`);
     }
+    // 28/10/2026 (decisão da Jéssica): a barra da Zethic não leva mais à página dela.
+    assert.doesNotMatch(g, /jessicagessoli|J[ée]ssica/, p);
     const atual = MARCAS[p] ?? (p === "quem-somos.html" ? "g-q" : "g-z");
     assert.match(g, new RegExp(`class="${atual} atual"`), p);
     assert.equal((g.match(/ atual"/g) || []).length, 1, p);
@@ -75,12 +77,12 @@ test("todo link de serviço leva a uma página e a uma âncora que existem", () 
   }
 });
 
-test("Jéssica Gessoli não é frente: só a porta \"Quem fundou a Zethic\" e a barra das marcas", () => {
+// 28/10/2026 (decisão da Jéssica): a porta "Quem fundou a Zethic" e a coluna do rodapé saíram da home.
+// A Jéssica aparece na Zethic só na frase institucional da Quem somos e na razão social.
+test("Jéssica Gessoli não aparece na home da Zethic, só na razão social", () => {
   const h = ler("index.html");
-  assert.doesNotMatch(bloco(h, "cabecalho"), /jessicagessoli|J[ée]ssica/);
+  assert.doesNotMatch(h.replace(/Razão social: [^<]*/, "").replace(/"legalName": "[^"]*"/, ""), /jessicagessoli|J[ée]ssica|Quem fundou a Zethic/);
   const main = h.match(/<main[\s\S]*?<\/main>/)[0];
-  assert.equal((main.match(/href="\/jessicagessoli[^"]*"/g) || []).length, 1, "uma única porta para a página profissional");
-  assert.match(main, /Quem fundou a Zethic/);
   assert.doesNotMatch(main, /mentoria|palestra|recoloca|kit-palestrante/i);
 });
 
