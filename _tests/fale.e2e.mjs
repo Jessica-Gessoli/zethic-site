@@ -8,10 +8,10 @@ import http from 'http'; import fs from 'fs';
 const html = fs.readFileSync(new URL('../fale.html', import.meta.url));
 const srv = http.createServer((q,r)=>{ if(q.url.split('?')[0]==='/fale'){r.writeHead(200,{'content-type':'text/html; charset=utf-8'});r.end(html);} else {r.writeHead(404);r.end();} }).listen(8765);
 const BASE='https://wa.me/5519981800221?text=';
-const M={def:'Olá! Vim pelo site da Zethic e gostaria de conhecer melhor os serviços de consultoria em cibersegurança, GRC e governança de IA.',
+const M={def:'Olá! Vim pelo site da Zethic e gostaria de conhecer melhor os serviços de tecnologia, automação e IA.',
 google:'Olá! Encontrei a Zethic no Google e gostaria de conhecer melhor os serviços.',
 instagram:'Olá! Vim pelo Instagram da Zethic e gostaria de conhecer melhor os serviços.',
-grc:'Olá! Tenho interesse em estruturar GRC na minha empresa e gostaria de conversar.'};
+grc:'Olá, Jéssica! Tenho interesse em estruturar GRC na minha empresa e gostaria de conversar.'};
 const cases=[['',M.def],['?utm_source=google',M.google],['?utm_source=instagram',M.instagram],['?utm_source=GRC&utm_medium=post&utm_campaign=x&utm_content=y&utm_term=z',M.grc],
 ['?utm_source=desconhecido',M.def],['?url=https://evil.example&utm_source=%3Cscript%3E',M.def],['?utm_source=__proto__',M.def],['?utm_source=toString',M.def]];
 const b=await chromium.launch({executablePath:'/opt/pw-browsers/chromium'}); let fail=0;
