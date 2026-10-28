@@ -61,7 +61,7 @@ test("Pode Curtir: a Zethic não cita o Pode Curtir", () => {
   for (const p of ["index.html", "quem-somos.html", "proteger.html", "organizar.html", "crescer.html", "aconselhar.html", "llms.txt"]) {
     assert.doesNotMatch(ler(p), /pode ?curtir|podecurtir|Mídia digital|Orçamento de foto e vídeo/i, p);
   }
-  assert.match(ler("fale.html"), /"podecurtir": "[^"]*redes sociais\."/);
+  assert.match(ler("fale.html"), /"podecurtir": "[^"]*redes sociais ou anúncios\."/);
   // 28/10/2026 (decisão da Jéssica): o rodapé da página dela não traz mais o título de fundadora da Zethic.
   assert.doesNotMatch(ler("jessicagessoli.html").match(/<footer>[\s\S]*<\/footer>/)[0], /diretora executiva|Zethic/);
 });

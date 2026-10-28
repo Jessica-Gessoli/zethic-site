@@ -7,7 +7,7 @@
 - [Início](https://zethic.net/): a Zethic como hub, com as quatro frentes e as portas de entrada.
 - [Organizar](https://zethic.net/organizar): processos, automação e agentes de IA, finanças, infraestrutura, nuvem e adaptação à Reforma Tributária (pilar tecnologia).
 - [Proteger](https://zethic.net/proteger): segurança gerenciada, segurança de IT/OT, blindagem técnica de contas e continuidade (pilar segurança técnica).
-- [Crescer](https://zethic.net/crescer): site e presença no Google, tráfego pago, WhatsApp e CRM comercial (pilar tecnologia).
+- [Crescer](https://zethic.net/crescer): site e presença no Google, WhatsApp e CRM comercial (pilar tecnologia).
 - [Capacitar](https://zethic.net/aconselhar): capacitação em IA, treinamento técnico e produto digital (pilar tecnologia).
 
 ## Institucional

@@ -107,3 +107,9 @@ test("Caderno Copia e Cola sem serviços da Zethic", () => {
     assert.match(pdf, /zethic\.net\/diagnostico\)/, f);
   }
 });
+
+// 28/10/2026 (decisão da Jéssica): tráfego pago passa da Zethic (Crescer) para a Pode Curtir.
+test("tráfego pago fica na Pode Curtir, fora da Zethic", () => {
+  for (const p of ["index.html", "crescer.html", "llms.txt", "_ferramentas/cabecalhos.py"]) assert.doesNotMatch(ler(p), /[Tt]ráfego pago|crescer#trafego/, p);
+  assert.match(ler("podecurtir.html"), /<li id="trafego"><strong>Tráfego pago<\/strong>/);
+});
