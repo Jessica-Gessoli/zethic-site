@@ -43,10 +43,12 @@ test("agenda de 30 minutos aparece nas duas versões", () => {
   for (const html of [pt, en]) assert.doesNotMatch(html, /href="\/agendar"/);
 });
 
-test("a Zethic aparece com a frase do hub nas duas versões", () => {
-  // 13/10/2026: a trajetória usa a mesma frase da página inicial da Zethic.
-  assert.match(pt, /<p>Fundadora\. Tecnologia, segurança e mídia digital para o Negócio\.<\/p>/);
-  assert.match(en, /<p>Founder\. Technology, security and digital media for businesses\.<\/p>/);
+test("a página da Jéssica não traz o título de fundadora nem os serviços da Zethic", () => {
+  // 28/10/2026 (decisão da Jéssica): o título "Fundadora e diretora executiva da Zethic" sai da bio e do site.
+  for (const html of [pt, en]) {
+    assert.doesNotMatch(html, /Fundadora|Founder|diretora executiva|executive director|<strong>Zethic<\/strong>/);
+    assert.doesNotMatch(html, /Tecnologia, automação e IA para o Negócio|Technology, automation and AI for businesses/);
+  }
   assert.doesNotMatch(pt, /Risco digital e tecnologia/);
   assert.doesNotMatch(en, /Digital risk and technology/);
 });

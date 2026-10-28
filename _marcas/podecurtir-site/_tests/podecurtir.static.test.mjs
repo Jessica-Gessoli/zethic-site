@@ -19,8 +19,10 @@ test("visor da Pode Curtir e endosso da Zethic só em texto, com link para zethi
 });
 
 test("categoria clara, frente de redes sociais e nenhum preço", () => {
-  assert.match(h, /<title>Pode Curtir \| Produtora de foto, vídeo e redes sociais em Campinas<\/title>/);
-  assert.match(h, /<li id="redes">[\s\S]*Perfil Pronto[\s\S]*Gestão mensal[\s\S]*A gente não pede a sua senha\./);
+  // 25/10/2026: o mercado é o Brasil inteiro, sem "em Campinas" no título. 28/10/2026: sem segurança na Pode Curtir.
+  assert.match(h, /<title>Pode Curtir \| Produtora de foto, vídeo e redes sociais<\/title>/);
+  assert.match(h, /<li id="redes">[\s\S]*Perfil Pronto[\s\S]*Gestão mensal/);
+  assert.doesNotMatch(h, /Conta protegida|[Ss]eguran[çc]a|senha/);
   assert.doesNotMatch(h, /R\$ ?\d/);
 });
 

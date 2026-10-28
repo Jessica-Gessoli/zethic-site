@@ -2,13 +2,14 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync, existsSync } from "node:fs";
 
-// Zethic como hub (aprovado em 12/10/2026): barra das marcas nas páginas da Zethic, menu das cinco frentes nas páginas da Zethic,
+// Zethic como hub (aprovado em 12/10/2026): barra das marcas nas páginas da Zethic, menu das quatro frentes (28/10/2026) nas páginas da Zethic,
 // Desde 21/10/2026 (decisão da Jéssica): Pode Curtir e Jéssica Gessoli são páginas próprias, sem a barra do grupo.
 // página inicial com vitrine em movimento, cartões das frentes, porta da fundadora e atalhos.
 // Os blocos do topo são gerados por _ferramentas/cabecalhos.py.
 const ler = (p) => readFileSync(new URL("../" + p, import.meta.url), "utf8");
 const existe = (p) => existsSync(new URL("../" + p, import.meta.url));
-const ZETHIC = ["index.html", "quem-somos.html", "diagnostico.html", "proteger.html", "organizar.html", "crescer.html", "aconselhar.html", "teste-golpe.html", "privacidade.html"];
+// 28/10/2026: Diagnóstico e Teste de golpe passaram para a Jéssica Gessoli e saíram desta lista.
+const ZETHIC = ["index.html", "quem-somos.html", "proteger.html", "organizar.html", "crescer.html", "aconselhar.html", "privacidade.html"];
 const MARCAS = { "jessicagessoli.html": "g-j", "podecurtir.html": "g-p" };
 const bloco = (html, nome) => html.match(new RegExp(`<!-- ${nome}:inicio -->([\\s\\S]*?)<!-- ${nome}:fim -->`))?.[1] ?? "";
 
@@ -17,9 +18,11 @@ test("barra do grupo em todas as páginas da Zethic, com a página atual destaca
     const html = ler(p);
     const g = bloco(html, "grupo");
     assert.ok(g, `${p}: sem barra do grupo`);
-    for (const [href, nome] of [["/", "Zethic"], ["/jessicagessoli", "Jéssica Gessoli"], ["/podecurtir", "Pode Curtir"]]) {
+    for (const [href, nome] of [["/", "Zethic"], ["/podecurtir", "Pode Curtir"]]) {
       assert.match(g, new RegExp(`href="${href}">${nome}</a>`), `${p}: ${nome}`);
     }
+    // 28/10/2026 (decisão da Jéssica): a barra da Zethic não leva mais à página dela.
+    assert.doesNotMatch(g, /jessicagessoli|J[ée]ssica/, p);
     const atual = MARCAS[p] ?? (p === "quem-somos.html" ? "g-q" : "g-z");
     assert.match(g, new RegExp(`class="${atual} atual"`), p);
     assert.equal((g.match(/ atual"/g) || []).length, 1, p);
@@ -50,7 +53,7 @@ test("menu das marcas igual em todas as páginas da Zethic", () => {
   }
 });
 
-const FRENTES = { proteger: "p-seg", organizar: "p-tec", crescer: "p-mid", midia: "p-mid", capacitar: "p-tec" };
+const FRENTES = { proteger: "p-seg", organizar: "p-tec", crescer: "p-tec", capacitar: "p-tec" };
 
 test("cada frente do menu abre um painel acessível, na cor do seu pilar", () => {
   const c = bloco(ler("index.html"), "cabecalho");
@@ -74,26 +77,28 @@ test("todo link de serviço leva a uma página e a uma âncora que existem", () 
   }
 });
 
-test("Jéssica Gessoli não é frente: só a porta \"Quem fundou a Zethic\" e a barra das marcas", () => {
+// 28/10/2026 (decisão da Jéssica): a porta "Quem fundou a Zethic" e a coluna do rodapé saíram da home.
+// A Jéssica aparece na Zethic só na frase institucional da Quem somos e na razão social.
+test("Jéssica Gessoli não aparece na home da Zethic, só na razão social", () => {
   const h = ler("index.html");
-  assert.doesNotMatch(bloco(h, "cabecalho"), /jessicagessoli|J[ée]ssica/);
+  assert.doesNotMatch(h.replace(/Razão social: [^<]*/, "").replace(/"legalName": "[^"]*"/, ""), /jessicagessoli|J[ée]ssica|Quem fundou a Zethic/);
   const main = h.match(/<main[\s\S]*?<\/main>/)[0];
-  assert.equal((main.match(/href="\/jessicagessoli[^"]*"/g) || []).length, 1, "uma única porta para a página profissional");
-  assert.match(main, /Quem fundou a Zethic/);
   assert.doesNotMatch(main, /mentoria|palestra|recoloca|kit-palestrante/i);
 });
 
-test("home: quatro destaques, um título principal e uma chamada principal", () => {
+// 28/10/2026: sem o destaque de Mídia digital, a vitrine tem três destaques (Zethic, Proteger e Organizar).
+test("home: três destaques, um título principal e uma chamada principal", () => {
   const h = ler("index.html");
   const main = h.match(/<main[\s\S]*?<\/main>/)[0];
-  assert.equal((main.match(/class="slide /g) || []).length, 4);
-  assert.equal((main.match(/class="ponto p-[a-z]+(?: ativo)?"/g) || []).length, 4);
-  assert.match(main, /<h1>Tecnologia, segurança e mídia digital <span class="realce">para o Negócio\.<\/span><\/h1>/);
+  assert.equal((main.match(/class="slide /g) || []).length, 3);
+  assert.equal((main.match(/class="ponto p-[a-z]+(?: ativo)?"/g) || []).length, 3);
+  // Escopo revisto em 28/10/2026: a Zethic é tecnologia, automação e IA.
+  assert.match(main, /<h1>Tecnologia, automação e IA <span class="realce">para o Negócio\.<\/span><\/h1>/);
   assert.equal((h.match(/<h1[ >]/g) || []).length, 1);
   assert.equal((h.match(/class="btn btn-main"/g) || []).length, 1);
   assert.match(main, /<button type="button" class="pausa">Pausar<\/button>/);
   const cartoes = [...main.matchAll(/class="cartao (p-[a-z]+) revela"[\s\S]*?<h3>([^<]+)<\/h3>/g)].map((m) => [m[2], m[1]]);
-  assert.deepEqual(cartoes, [["Proteger", "p-seg"], ["Organizar", "p-tec"], ["Crescer", "p-mid"], ["Mídia digital", "p-mid"], ["Capacitar e aconselhar", "p-tec"]]);
+  assert.deepEqual(cartoes, [["Proteger", "p-seg"], ["Organizar", "p-tec"], ["Crescer", "p-tec"], ["Capacitar", "p-tec"]]);
   assert.doesNotMatch(h, /98331|0769/);
 });
 
@@ -123,7 +128,7 @@ test("cores do sistema de design: pilares e tema claro", () => {
   for (const t of ["--pilar-seguranca:#00E5FF", "--pilar-tecnologia:#9B8CFF", "--pilar-midia:#FF5C9A", "--ciano-texto:#00E5FF"]) assert.ok(css.includes(t), t);
   const z = ler("assets/css/zethic.css");
   for (const t of ["--ciano-texto:#006E84", "--pilar-seguranca:#007A8F", "--pilar-tecnologia:#5B45E0", "--pilar-midia:#C2185B", "background:#F4F6FB"]) assert.ok(z.includes(t), t);
-  for (const [p, pilar] of [["proteger.html", "p-seg"], ["organizar.html", "p-tec"], ["crescer.html", "p-mid"], ["aconselhar.html", "p-tec"]]) {
+  for (const [p, pilar] of [["proteger.html", "p-seg"], ["organizar.html", "p-tec"], ["crescer.html", "p-tec"], ["aconselhar.html", "p-tec"]]) {
     const h = ler(p);
     assert.match(h, new RegExp(`<body class="frente ${pilar}">`), p);
     assert.match(h, /<p class="rotulo-pilar">/, p);

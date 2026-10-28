@@ -8,9 +8,8 @@ const ler = (caminho) => readFileSync(new URL(`../${caminho}`, import.meta.url),
 const LINKEDIN = /href="https:\/\/www\.linkedin\.com\/in\/jessicagessoli\/?"/g;
 const INSTAGRAM = /href="https:\/\/www\.instagram\.com\/jessicagessoli\/?"/g;
 
-// A home voltou à lista em 11/10/2026: com as três marcas, o rodapé dela cita o LinkedIn e o Instagram pessoais.
+// A home saiu da lista em 28/10/2026: por decisão da Jéssica, o site da Zethic não cita mais os perfis pessoais dela.
 const arquivos = [
-  "index.html",
   "jessicagessoli.html",
   "en/jessicagessoli.html",
   "_docs/kit-palestrante.html",
