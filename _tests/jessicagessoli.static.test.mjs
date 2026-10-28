@@ -39,6 +39,22 @@ test("publicações citadas com fonte verificável nas duas versões", () => {
   }
 });
 
+test("capítulo da LabLivro no prelo, nas duas versões, sem título de livro nem link ainda", () => {
+  // 28/10/2026: layout das páginas em aprovação com a editora. Título oficial do livro, ano e link entram na publicação.
+  const en = readFileSync(new URL("../en/jessicagessoli.html", import.meta.url), "utf8");
+  const casos = [
+    [html, "publicacoes", /<dt>Capítulo de livro, no prelo<\/dt>\s*<dd><strong>Do risco técnico à decisão executiva<\/strong>/],
+    [en, "publications", /<dt>Book chapter, forthcoming<\/dt>\s*<dd><strong>From technical risk to executive decision<\/strong>/],
+  ];
+  for (const [pagina, id, item] of casos) {
+    const bloco = pagina.match(new RegExp(`<div id="${id}"[\\s\\S]*?</dl>`))?.[0] ?? "";
+    assert.match(bloco, item);
+    assert.match(bloco, /LabLivro/);
+    const capitulo = bloco.match(/<div>\s*<dt>(?:Capítulo de livro|Book chapter)[\s\S]*?<\/div>/)?.[0] ?? "";
+    assert.doesNotMatch(capitulo, /<a /, "capítulo no prelo não deve ter link até a publicação");
+  }
+});
+
 // 21/10/2026 (decisão da Jéssica, mesma regra da Pode Curtir): a categoria aparece no topo, antes do nome.
 test("página profissional: categoria clara acima do nome, em português e em inglês", () => {
   const pt = readFileSync(new URL("../jessicagessoli.html", import.meta.url), "utf8");
