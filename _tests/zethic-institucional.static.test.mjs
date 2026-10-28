@@ -74,3 +74,18 @@ test("páginas da Zethic não falam de golpes, governança, consultoria nem míd
   }
   assert.doesNotMatch(corpo("quem-somos.html"), /golpe|LGPD|consultoria|[Mm]entoria|[Mm]ídia digital/);
 });
+
+// 28/10/2026 (decisão da Jéssica): experiência como tempo de área ("Há 18 anos"), não ano de início,
+// e o mercado é o Brasil inteiro (decisão de 25/10/2026), sem Campinas como local de atendimento.
+test("páginas da Jéssica: tempo de área e Brasil como mercado", () => {
+  for (const p of ["jessicagessoli.html", "en/jessicagessoli.html"]) {
+    assert.doesNotMatch(ler(p), /Desde 2008|Since 2008/, p);
+    assert.doesNotMatch(ler(p), /<figcaption>Campinas/, p);
+  }
+  assert.match(ler("jessicagessoli.html"), /Há 18 anos em bancos/);
+  for (const p of ["jessicagessoli.html", "diagnostico.html", "teste-golpe.html", "copia-e-cola.html", "teste-ia.html", "conte-seu-golpe.html"]) {
+    const rodape = ler(p).match(/<footer[^>]*>[\s\S]*?<\/footer>/)[0];
+    assert.doesNotMatch(rodape, /Campinas/, p);
+  }
+  assert.doesNotMatch(ler("diagnostico.html"), /Atende fora de Campinas/);
+});
