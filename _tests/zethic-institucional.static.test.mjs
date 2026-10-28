@@ -97,3 +97,13 @@ test("currículos e kit de palestrante sem a Zethic como cargo", () => {
     assert.doesNotMatch(h, /Zethic|Fundadora|Founder/, p);
   }
 });
+
+// 28/10/2026 (fronteiras): o Caderno Copia e Cola é da Jéssica Gessoli e não oferece serviços da Zethic.
+test("Caderno Copia e Cola sem serviços da Zethic", () => {
+  for (const f of ["caderno-copia-e-cola.pdf", "caderno-prompt-joia.pdf"]) {
+    const pdf = readFileSync(new URL(`../assets/docs/${f}`, import.meta.url)).toString("latin1")
+      .replace(/\\([0-7]{3})/g, (_, o) => String.fromCharCode(parseInt(o, 8))); // links gravados com escapes octais
+    assert.doesNotMatch(pdf, /diagnostico\.html/, f);
+    assert.match(pdf, /zethic\.net\/diagnostico\)/, f);
+  }
+});
