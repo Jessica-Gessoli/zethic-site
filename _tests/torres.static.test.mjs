@@ -13,24 +13,14 @@ const ZETHIC = ["index.html", "quem-somos.html", "proteger.html", "organizar.htm
 const MARCAS = { "jessicagessoli.html": "g-j", "podecurtir.html": "g-p" };
 const bloco = (html, nome) => html.match(new RegExp(`<!-- ${nome}:inicio -->([\\s\\S]*?)<!-- ${nome}:fim -->`))?.[1] ?? "";
 
-test("barra do grupo em todas as páginas da Zethic, com a página atual destacada", () => {
+// 28/10/2026 (decisão da Jéssica): Zethic, Jéssica Gessoli e Pode Curtir não se citam; a barra das marcas saiu.
+test("páginas da Zethic sem barra das marcas", () => {
   for (const p of ZETHIC) {
     const html = ler(p);
-    const g = bloco(html, "grupo");
-    assert.ok(g, `${p}: sem barra do grupo`);
-    for (const [href, nome] of [["/", "Zethic"], ["/podecurtir", "Pode Curtir"]]) {
-      assert.match(g, new RegExp(`href="${href}">${nome}</a>`), `${p}: ${nome}`);
-    }
-    // 28/10/2026 (decisão da Jéssica): a barra da Zethic não leva mais à página dela.
-    assert.doesNotMatch(g, /jessicagessoli|J[ée]ssica/, p);
-    const atual = MARCAS[p] ?? (p === "quem-somos.html" ? "g-q" : "g-z");
-    assert.match(g, new RegExp(`class="${atual} atual"`), p);
-    assert.equal((g.match(/ atual"/g) || []).length, 1, p);
-    assert.match(html, /<link rel="stylesheet" href="\/assets\/css\/grupo\.css">/, p);
+    assert.doesNotMatch(html, /<!-- grupo:inicio -->|class="grupo"|grupo\.css/, p);
     assert.match(html, /style-src 'self'/, `${p}: a política de segurança precisa permitir as folhas de estilo do próprio site`);
-    // A barra vem logo depois do atalho "Pular para o conteúdo", que continua sendo o primeiro item da página.
-    assert.ok(html.indexOf('class="skip"') < html.indexOf("<!-- grupo:inicio -->"), p);
   }
+  assert.ok(!existe("assets/css/grupo.css"));
 });
 
 test("páginas das marcas são próprias: sem barra do grupo e sem menu da Zethic (21/10/2026)", () => {

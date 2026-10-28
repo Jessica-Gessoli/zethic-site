@@ -89,7 +89,7 @@ test("ProfilePage válido nas duas versões e llms.txt só com a Zethic", () => 
   assert.match(llms, /^# Zethic/);
   // Hub de 12/10/2026: a página profissional continua fora. Desde 28/10/2026 o Pode Curtir entra só como marca endossada.
   assert.doesNotMatch(llms, /jessicagessoli/i);
-  assert.match(llms, /\(https:\/\/zethic\.net\/podecurtir\)/);
+  assert.doesNotMatch(llms, /podecurtir/i); // 28/10/2026: Zethic e Pode Curtir não se citam
   assert.doesNotMatch(llms, /\bPME\b/);
 });
 
