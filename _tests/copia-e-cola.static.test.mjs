@@ -34,7 +34,7 @@ test("identidade da marca pessoal, sem cores da Zethic nem da Pode Curtir", () =
   for (const p of PAGINAS) {
     const h = ler(p);
     assert.match(h, /<link rel="stylesheet" href="\/assets\/css\/jessicagessoli\.css">/, p);
-    assert.match(h, /class="g-j atual"/, p);
+    assert.doesNotMatch(h, /<!-- grupo:inicio -->|grupo\.css/, p); // 28/10/2026: sem a barra das marcas
     assert.match(h, /<html lang="pt-BR">/, p);
   }
   const css = ler("assets/css/prompt-joia.css");

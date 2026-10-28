@@ -39,7 +39,8 @@ LOGO = ('<a class="logo" href="/" aria-label="Zethic, início">'
 # consultoria, governança, golpes e diagnóstico passaram para a Jéssica Gessoli; foto, vídeo e redes sociais ficam só no Pode Curtir,
 # que aparece na Zethic apenas como marca endossada, na barra das marcas e no rodapé), na ordem do menu, dos cartões da página inicial e do rodapé.
 # Cada frente pertence a um pilar da categoria: p-seg (segurança) ou p-tec (tecnologia).
-# Jéssica Gessoli não é frente: aparece só como a porta "Quem fundou a Zethic" e na barra das marcas.
+# Jéssica Gessoli não é frente nem aparece no site da Zethic: desde 28/10/2026 (decisão da Jéssica) fica só a frase
+# institucional na Quem somos e a razão social no rodapé. A barra das marcas da Zethic mostra só Zethic e Pode Curtir.
 FRENTES = [
     {
         "id": "proteger", "pilar": "p-seg", "nome": "Proteger", "rotulo": "Segurança técnica",
@@ -102,7 +103,6 @@ def grupo(atual):
         '<nav class="grupo" aria-label="Marcas">',
         '  <div class="grupo-in">',
         item("g-z", "/", "Zethic", "z"),
-        item("g-j", "/jessicagessoli", "Jéssica Gessoli", "j"),
         item("g-p", "/podecurtir", "Pode Curtir", "p"),
         item("g-q", "/quem-somos", "Quem somos", "q"),
         "  </div>",

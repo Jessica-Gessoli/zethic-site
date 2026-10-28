@@ -63,7 +63,8 @@ test("Pode Curtir: fora do menu e dos cartões da Zethic, presente como marca en
   assert.doesNotMatch(home, /href="\/podecurtir#|Mídia digital|Orçamento de foto e vídeo/);
   assert.match(home, /<li><a href="\/podecurtir">Pode Curtir, uma marca da Zethic<\/a><\/li>/);
   assert.match(ler("fale.html"), /"podecurtir": "[^"]*redes sociais\."/);
-  assert.match(ler("jessicagessoli.html"), /<footer>[\s\S]*diretora executiva da <a href="\/">Zethic<\/a>[\s\S]*<\/footer>/);
+  // 28/10/2026 (decisão da Jéssica): o rodapé da página dela não traz mais o título de fundadora da Zethic.
+  assert.doesNotMatch(ler("jessicagessoli.html").match(/<footer>[\s\S]*<\/footer>/)[0], /diretora executiva|Zethic/);
 });
 
 test('Pode Curtir: prévia de link com imagem grande', () => {
