@@ -50,7 +50,7 @@ test("menu das marcas igual em todas as páginas da Zethic", () => {
   }
 });
 
-const FRENTES = { proteger: "p-seg", organizar: "p-tec", crescer: "p-mid", midia: "p-mid", capacitar: "p-tec" };
+const FRENTES = { proteger: "p-seg", organizar: "p-tec", crescer: "p-tec", midia: "p-mid", capacitar: "p-tec" };
 
 test("cada frente do menu abre um painel acessível, na cor do seu pilar", () => {
   const c = bloco(ler("index.html"), "cabecalho");
@@ -88,12 +88,13 @@ test("home: quatro destaques, um título principal e uma chamada principal", () 
   const main = h.match(/<main[\s\S]*?<\/main>/)[0];
   assert.equal((main.match(/class="slide /g) || []).length, 4);
   assert.equal((main.match(/class="ponto p-[a-z]+(?: ativo)?"/g) || []).length, 4);
-  assert.match(main, /<h1>Tecnologia, segurança e mídia digital <span class="realce">para o Negócio\.<\/span><\/h1>/);
+  // Escopo revisto em 28/10/2026: a Zethic é tecnologia, automação e IA.
+  assert.match(main, /<h1>Tecnologia, automação e IA <span class="realce">para o Negócio\.<\/span><\/h1>/);
   assert.equal((h.match(/<h1[ >]/g) || []).length, 1);
   assert.equal((h.match(/class="btn btn-main"/g) || []).length, 1);
   assert.match(main, /<button type="button" class="pausa">Pausar<\/button>/);
   const cartoes = [...main.matchAll(/class="cartao (p-[a-z]+) revela"[\s\S]*?<h3>([^<]+)<\/h3>/g)].map((m) => [m[2], m[1]]);
-  assert.deepEqual(cartoes, [["Proteger", "p-seg"], ["Organizar", "p-tec"], ["Crescer", "p-mid"], ["Mídia digital", "p-mid"], ["Capacitar e aconselhar", "p-tec"]]);
+  assert.deepEqual(cartoes, [["Proteger", "p-seg"], ["Organizar", "p-tec"], ["Crescer", "p-tec"], ["Mídia digital", "p-mid"], ["Capacitar", "p-tec"]]);
   assert.doesNotMatch(h, /98331|0769/);
 });
 
@@ -123,7 +124,7 @@ test("cores do sistema de design: pilares e tema claro", () => {
   for (const t of ["--pilar-seguranca:#00E5FF", "--pilar-tecnologia:#9B8CFF", "--pilar-midia:#FF5C9A", "--ciano-texto:#00E5FF"]) assert.ok(css.includes(t), t);
   const z = ler("assets/css/zethic.css");
   for (const t of ["--ciano-texto:#006E84", "--pilar-seguranca:#007A8F", "--pilar-tecnologia:#5B45E0", "--pilar-midia:#C2185B", "background:#F4F6FB"]) assert.ok(z.includes(t), t);
-  for (const [p, pilar] of [["proteger.html", "p-seg"], ["organizar.html", "p-tec"], ["crescer.html", "p-mid"], ["aconselhar.html", "p-tec"]]) {
+  for (const [p, pilar] of [["proteger.html", "p-seg"], ["organizar.html", "p-tec"], ["crescer.html", "p-tec"], ["aconselhar.html", "p-tec"]]) {
     const h = ler(p);
     assert.match(h, new RegExp(`<body class="frente ${pilar}">`), p);
     assert.match(h, /<p class="rotulo-pilar">/, p);

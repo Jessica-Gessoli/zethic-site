@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 
 const ler = (p) => readFileSync(new URL("../" + p, import.meta.url), "utf8");
-// Regra de 12/10/2026 (hub): a Zethic é uma empresa de tecnologia, segurança e mídia digital com cinco frentes.
+// Regra de 12/10/2026 (hub), escopo revisto em 28/10/2026: a Zethic é uma empresa de tecnologia, automação e IA com cinco frentes.
 // Pode Curtir é a frente Mídia digital (marca endossada); Jéssica Gessoli não é frente, aparece só como "Quem fundou a Zethic".
 // O corpo das páginas das frentes continua falando só da Zethic. A Quem somos pode citar a fundadora e o Pode Curtir.
 const FRENTES = ["diagnostico.html", "proteger.html", "organizar.html", "crescer.html", "aconselhar.html", "teste-golpe.html", "privacidade.html"];
