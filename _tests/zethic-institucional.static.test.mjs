@@ -89,3 +89,11 @@ test("páginas da Jéssica: tempo de área e Brasil como mercado", () => {
   }
   assert.doesNotMatch(ler("diagnostico.html"), /Atende fora de Campinas/);
 });
+
+// 28/10/2026 (decisão da Jéssica): currículos e kit de palestrante sem o título de fundadora e sem a Zethic como cargo.
+test("currículos e kit de palestrante sem a Zethic como cargo", () => {
+  for (const p of ["_docs/curriculo.html", "_docs/resume.html", "_docs/kit-palestrante.html"]) {
+    const h = ler(p).replace(/zethic\.net/g, "");
+    assert.doesNotMatch(h, /Zethic|Fundadora|Founder/, p);
+  }
+});
