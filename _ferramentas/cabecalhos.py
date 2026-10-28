@@ -73,7 +73,6 @@ FRENTES = [
         "pagina": "/crescer", "ir": "Conhecer Crescer",
         "img": ("/assets/img/crescer-800", 800, 450),
         "servicos": [
-            ("/crescer#trafego", "Tráfego pago", "Anúncios no Instagram, no Facebook e no Google"),
             ("/crescer#site", "Site e presença no Google", "O cliente encontra a empresa e chega ao contato"),
             ("/crescer#whatsapp", "WhatsApp e CRM comercial", "Atendimento e vendas com regras, dono e histórico"),
         ],
