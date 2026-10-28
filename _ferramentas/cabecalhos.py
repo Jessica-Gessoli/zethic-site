@@ -37,22 +37,21 @@ LOGO = ('<a class="logo" href="/" aria-label="Zethic, início">'
         '<rect y="22.75" width="72" height="7" rx="1"/><rect y="45.5" width="72" height="7" rx="1"/></svg>'
         '<span aria-hidden="true">THIC</span></a>')
 
-# As cinco frentes da Zethic (hub aprovado em 12/10/2026), na ordem do menu, dos cartões da página inicial e do rodapé.
+# As cinco frentes da Zethic (hub aprovado em 12/10/2026; escopo revisto em 28/10/2026: a Zethic é só tecnologia,
+# consultoria, governança, golpes e diagnóstico passaram para a Jéssica Gessoli, redes sociais para o Pode Curtir), na ordem do menu, dos cartões da página inicial e do rodapé.
 # Cada frente pertence a um pilar da categoria: p-seg (segurança), p-tec (tecnologia) ou p-mid (mídia digital).
 # Jéssica Gessoli não é frente: aparece só como a porta "Quem fundou a Zethic" e na barra das marcas.
 FRENTES = [
     {
-        "id": "proteger", "pilar": "p-seg", "nome": "Proteger", "rotulo": "Segurança",
-        "frase": "Caixa, operação e dados protegidos.",
+        "id": "proteger", "pilar": "p-seg", "nome": "Proteger", "rotulo": "Segurança técnica",
+        "frase": "Operação monitorada, protegida e recuperável.",
         "pagina": "/proteger", "ir": "Conhecer Proteger",
         "img": ("/assets/img/proteger-800", 800, 450),
         "servicos": [
-            ("/diagnostico", "Diagnóstico de Cibersegurança e IA", "A porta de entrada, com autoavaliação grátis"),
-            ("/teste-golpe", "Teste de golpe", "Dez situações reais, grátis"),
-            ("/proteger#antigolpe", "Programa Antigolpe", "Equipe que reconhece golpes e regras contra pagamento indevido"),
             ("/proteger#seguranca-gerenciada", "Segurança gerenciada", "Ameaças monitoradas e backup testado"),
-            ("/proteger#privacidade", "Privacidade e LGPD", "Dados pessoais tratados com responsabilidade e documentação"),
-            ("/proteger#governanca-ia", "Governança de IA", "IA usada com regras, controles e retorno medido"),
+            ("/proteger#it-ot", "Segurança de IT/OT", "Redes da produção, do campo e do escritório separadas e monitoradas"),
+            ("/proteger#blindagem", "Blindagem técnica de contas", "Acessos configurados e verificação em duas etapas"),
+            ("/proteger#continuidade", "Continuidade e recuperação", "Backup restaurado em teste e operação que volta rápido"),
         ],
     },
     {
@@ -71,15 +70,12 @@ FRENTES = [
         ],
     },
     {
-        "id": "crescer", "pilar": "p-mid", "nome": "Crescer", "rotulo": "Mídia digital",
+        "id": "crescer", "pilar": "p-tec", "nome": "Crescer", "rotulo": "Tecnologia",
         "frase": "Mais clientes chegando, com rotina e medição.",
         "pagina": "/crescer", "ir": "Conhecer Crescer",
         "img": ("/assets/img/crescer-800", 800, 450),
         "servicos": [
-            ("/crescer#redes", "Gestão de redes sociais", "Instagram, TikTok e Facebook com plano e medição"),
-            ("/crescer#linkedin", "Gestão de LinkedIn para empresas", "Página da empresa e perfil dos donos ativos"),
             ("/crescer#trafego", "Tráfego pago", "Anúncios no Instagram, no Facebook e no Google"),
-            ("/crescer#restaurantes", "Marketing para restaurantes e delivery", "Mais pedidos no delivery e mais gente no salão"),
             ("/crescer#site", "Site e presença no Google", "O cliente encontra a empresa e chega ao contato"),
             ("/crescer#whatsapp", "WhatsApp e CRM comercial", "Atendimento e vendas com regras, dono e histórico"),
         ],
@@ -97,16 +93,14 @@ FRENTES = [
         ],
     },
     {
-        "id": "capacitar", "pilar": "p-tec", "nome": "Capacitar e aconselhar", "rotulo": "Tecnologia",
-        "frase": "Equipe e diretoria decidindo melhor.",
-        "pagina": "/aconselhar", "ir": "Conhecer Capacitar e aconselhar",
+        "id": "capacitar", "pilar": "p-tec", "nome": "Capacitar", "rotulo": "Tecnologia",
+        "frase": "Equipe usando tecnologia e IA no dia a dia.",
+        "pagina": "/aconselhar", "ir": "Conhecer Capacitar",
         "img": ("/assets/img/aconselhar-800", 800, 450),
         "servicos": [
             ("/aconselhar#capacitacao", "Capacitação em IA", "Pessoas usando IA com produtividade e sem vazar dados"),
-            ("/aconselhar#treinamento", "Treinamento técnico", "Equipe treinada em tecnologia e segurança"),
+            ("/aconselhar#treinamento", "Treinamento técnico", "Equipe treinada nas ferramentas do dia a dia"),
             ("/aconselhar#produto-digital", "Produto digital", "O seu conhecimento transformado em curso ou produto"),
-            ("/aconselhar#consultoria", "Consultoria especializada", "Uma questão específica resolvida com análise e recomendação"),
-            ("/aconselhar#conselheira", "Conselheira de risco", "Apoio mensal à diretoria nas decisões sobre cibersegurança e IA"),
         ],
     },
 ]
