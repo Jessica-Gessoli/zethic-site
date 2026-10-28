@@ -24,14 +24,14 @@ test("Página profissional: a seção se chama Serviços", () => {
   assert.doesNotMatch(h, /Como trabalhar comigo/);
 });
 
-// 14/10/2026 (aprovado pela Jéssica): símbolos novos das marcas e endosso da Zethic só em texto.
-test("Símbolos: monograma JG e visor da Pode Curtir, com endosso só em texto", () => {
+// 14/10/2026 (aprovado pela Jéssica): símbolos novos das marcas. 28/10/2026: a Pode Curtir não cita mais a Zethic.
+test("Símbolos: monograma JG e visor da Pode Curtir, sem endosso da Zethic", () => {
   const jg = ler("assets/img/jessicagessoli-icone.svg");
   assert.match(jg, /fill="#12352B"/);
   assert.doesNotMatch(jg, /<text/, "letras em contorno, não dependem de fonte instalada");
   const pc = ler("assets/img/podecurtir-icone.svg");
   assert.match(pc, /fill="#FFD23F"/);
-  assert.match(ler("podecurtir.html"), /Pode Curtir é uma marca da <a href="\/">Zethic<\/a>\./);
+  assert.doesNotMatch(ler("podecurtir.html"), /marca da|parentOrganization|href="\/"/);
   assert.doesNotMatch(ler("podecurtir.html"), /zethic-marca\.svg/);
 });
 
@@ -55,13 +55,12 @@ test("Pode Curtir: categoria clara e frente de redes sociais", () => {
   assert.doesNotMatch(h, /Conta protegida|protegida pela Zethic|[Ss]eguran[çc]a|senha/);
 });
 
-// 28/10/2026 (fronteiras): a Zethic não anuncia foto, vídeo nem redes sociais; o Pode Curtir aparece nela só como
-// marca endossada (barra das marcas e rodapé). O WhatsApp da Pode Curtir cita redes sociais
-// e a página da Jéssica Gessoli mantém a Zethic no rodapé, em texto.
-test("Pode Curtir: fora do menu e dos cartões da Zethic, presente como marca endossada", () => {
-  const home = ler("index.html");
-  assert.doesNotMatch(home, /href="\/podecurtir#|Mídia digital|Orçamento de foto e vídeo/);
-  assert.match(home, /<li><a href="\/podecurtir">Pode Curtir, uma marca da Zethic<\/a><\/li>/);
+// 28/10/2026 (decisão da Jéssica): Zethic e Pode Curtir não se citam. O WhatsApp é compartilhado, e a mensagem
+// da Pode Curtir cita redes sociais.
+test("Pode Curtir: a Zethic não cita o Pode Curtir", () => {
+  for (const p of ["index.html", "quem-somos.html", "proteger.html", "organizar.html", "crescer.html", "aconselhar.html", "llms.txt"]) {
+    assert.doesNotMatch(ler(p), /pode ?curtir|podecurtir|Mídia digital|Orçamento de foto e vídeo/i, p);
+  }
   assert.match(ler("fale.html"), /"podecurtir": "[^"]*redes sociais\."/);
   // 28/10/2026 (decisão da Jéssica): o rodapé da página dela não traz mais o título de fundadora da Zethic.
   assert.doesNotMatch(ler("jessicagessoli.html").match(/<footer>[\s\S]*<\/footer>/)[0], /diretora executiva|Zethic/);

@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
-"""Monta a barra das marcas e o cabeçalho com o menu das quatro frentes em todas as páginas da Zethic.
+"""Monta o cabeçalho com o menu das quatro frentes em todas as páginas da Zethic.
 
 Uso (na raiz do repositório):  python3 _ferramentas/cabecalhos.py
 Edite os modelos abaixo e rode de novo: as páginas são atualizadas entre os marcadores
-<!-- grupo:inicio --> ... <!-- grupo:fim --> e <!-- cabecalho:inicio --> ... <!-- cabecalho:fim -->.
+<!-- cabecalho:inicio --> ... <!-- cabecalho:fim -->.
+Desde 28/10/2026 (decisão da Jéssica) não há barra das marcas: Zethic, Jéssica Gessoli e Pode Curtir não se citam.
 O teste _tests/torres.static.test.mjs confere que nenhuma página ficou diferente do modelo.
 Para só conferir, sem gravar:  python3 _ferramentas/cabecalhos.py --conferir
 (o teste _tests/cabecalhos-ferramenta.static.test.mjs roda essa conferência).
@@ -24,9 +25,6 @@ ZETHIC = [
     ("aconselhar.html", "site", None),
     ("privacidade.html", "privacidade", None),
 ]
-# Páginas das outras marcas: desde 21/10/2026 (decisão da Jéssica) são páginas próprias, sem a barra do grupo.
-# A Zethic aparece nelas só como endosso em texto, no rodapé.
-MARCAS = []
 
 LOGO = ('<a class="logo" href="/" aria-label="Zethic, início">'
         '<img class="logo-simbolo" src="/assets/img/zethic-marca.svg" alt="" width="34" height="34">'
@@ -40,7 +38,7 @@ LOGO = ('<a class="logo" href="/" aria-label="Zethic, início">'
 # que aparece na Zethic apenas como marca endossada, na barra das marcas e no rodapé), na ordem do menu, dos cartões da página inicial e do rodapé.
 # Cada frente pertence a um pilar da categoria: p-seg (segurança) ou p-tec (tecnologia).
 # Jéssica Gessoli não é frente nem aparece no site da Zethic: desde 28/10/2026 (decisão da Jéssica) fica só a frase
-# institucional na Quem somos e a razão social no rodapé. A barra das marcas da Zethic mostra só Zethic e Pode Curtir.
+# institucional na Quem somos e a razão social no rodapé. O Pode Curtir também não aparece na Zethic.
 FRENTES = [
     {
         "id": "proteger", "pilar": "p-seg", "nome": "Proteger", "rotulo": "Segurança técnica",
@@ -92,24 +90,6 @@ FRENTES = [
         ],
     },
 ]
-
-
-def grupo(atual):
-    def item(classe, href, nome, chave):
-        marca = ' class="%s atual"' % classe if chave == atual else ' class="%s"' % classe
-        return '    <a%s href="%s">%s</a>' % (marca, href, nome)
-    linhas = [
-        "<!-- grupo:inicio -->",
-        '<nav class="grupo" aria-label="Marcas">',
-        '  <div class="grupo-in">',
-        item("g-z", "/", "Zethic", "z"),
-        item("g-p", "/podecurtir", "Pode Curtir", "p"),
-        item("g-q", "/quem-somos", "Quem somos", "q"),
-        "  </div>",
-        "</nav>",
-        "<!-- grupo:fim -->",
-    ]
-    return "\n".join(linhas)
 
 
 def painel(t):
@@ -195,17 +175,10 @@ def main(conferir=False):
         original = p.read_text(encoding="utf-8")
         t = original
         t = trocar_bloco(t, "cabecalho", cabecalho(origem, atual, arq == "index.html"), alvo_inicial=r"<header>.*?</header>")
-        t = trocar_bloco(t, "grupo", grupo("q" if atual == "quem-somos" else "z"), depois_de=r'<a class="skip"[^>]*>[^<]*</a>')
-        t = garantir_no_head(t, '<link rel="stylesheet" href="/assets/css/grupo.css">')
+        t = re.sub(r"<!-- grupo:inicio -->.*?<!-- grupo:fim -->\n?", "", t, flags=re.S)
+        t = t.replace('<link rel="stylesheet" href="/assets/css/grupo.css">\n', "")
         t = garantir_no_head(t, '<link rel="stylesheet" href="/assets/css/torres.css">')
         t = garantir_no_head(t, '<script src="/assets/js/torres.js"></script>')
-        gravar(p, original, t)
-    for arq, chave in MARCAS:
-        p = RAIZ / arq
-        original = p.read_text(encoding="utf-8")
-        t = original
-        t = trocar_bloco(t, "grupo", grupo(chave), depois_de=r'<a class="skip"[^>]*>[^<]*</a>')
-        t = garantir_no_head(t, '<link rel="stylesheet" href="/assets/css/grupo.css">')
         gravar(p, original, t)
     if conferir and diferentes:
         print("Páginas diferentes do modelo:", ", ".join(diferentes))

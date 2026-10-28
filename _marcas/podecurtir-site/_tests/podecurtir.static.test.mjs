@@ -12,9 +12,10 @@ test("título direto, sem vídeos de demonstração", () => {
   assert.doesNotMatch(h, /Você curte, a gente registra/);
 });
 
-test("visor da Pode Curtir e endosso da Zethic só em texto, com link para zethic.net", () => {
+// 28/10/2026 (decisão da Jéssica): a Pode Curtir não cita mais a Zethic.
+test("visor da Pode Curtir, sem endosso da Zethic", () => {
   assert.match(ler("assets/img/podecurtir-icone.svg"), /fill="#FFD23F"/);
-  assert.match(h, /Pode Curtir é uma marca da <a href="https:\/\/zethic\.net\/">Zethic<\/a>\./);
+  assert.doesNotMatch(h, /marca da|parentOrganization|href="https:\/\/zethic\.net\/"/);
   assert.doesNotMatch(h, /zethic-marca\.svg/);
 });
 
