@@ -3,10 +3,10 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 
 const ler = (p) => readFileSync(new URL("../" + p, import.meta.url), "utf8");
-// Regra de 12/10/2026 (hub): a Zethic é uma empresa de tecnologia, segurança e mídia digital com cinco frentes.
-// Pode Curtir é a frente Mídia digital (marca endossada); Jéssica Gessoli não é frente, aparece só como "Quem fundou a Zethic".
+// Regra de 12/10/2026 (hub), escopo revisto em 28/10/2026: a Zethic é uma empresa de tecnologia, automação e IA com quatro frentes.
+// Pode Curtir é marca endossada, fora das frentes; Jéssica Gessoli não é frente, aparece só como "Quem fundou a Zethic".
 // O corpo das páginas das frentes continua falando só da Zethic. A Quem somos pode citar a fundadora e o Pode Curtir.
-const FRENTES = ["diagnostico.html", "proteger.html", "organizar.html", "crescer.html", "aconselhar.html", "teste-golpe.html", "privacidade.html"];
+const FRENTES = ["proteger.html", "organizar.html", "crescer.html", "aconselhar.html", "privacidade.html"];
 
 // O que pode citar as outras marcas: barra do grupo, menu, rodapé, razão social, controladora na política de privacidade e o e-mail atual.
 const semObrigatorios = (html) => html
@@ -27,6 +27,7 @@ test("corpo das páginas das frentes fala só da Zethic", () => {
 test("quem somos cita a fundadora e o Pode Curtir, mas não os serviços pessoais dela", () => {
   const resto = semObrigatorios(ler("quem-somos.html"));
   assert.match(resto, /fundada e é dirigida por Jéssica Gessoli, fundadora e diretora executiva/);
+  assert.doesNotMatch(resto, /href="\/jessicagessoli/); // 28/10/2026: só a frase institucional, sem link
   assert.match(resto, /Pode Curtir/);
   assert.doesNotMatch(resto, /mentoria|palestra|recoloca/i);
 });
@@ -52,4 +53,24 @@ test("medição (Google Analytics) só nas páginas com ferramenta e na polític
 
 test("contato da home volta a uma coluna no celular", () => {
   assert.match(ler("assets/css/zethic.css"), /@media \(max-width:52rem\)\{\.home \.contact\{grid-template-columns:1fr\}\}/);
+});
+
+// 28/10/2026 (fronteiras entre as marcas): golpes, diagnóstico, governança e consultoria são da Jéssica Gessoli.
+test("Diagnóstico e Teste de golpe são páginas da Jéssica Gessoli", () => {
+  for (const p of ["diagnostico.html", "teste-golpe.html"]) {
+    const h = ler(p);
+    assert.match(h, /<title>[^<]*\| Jéssica Gessoli<\/title>/, p);
+    assert.match(h, /<meta property="og:site_name" content="Jéssica Gessoli">/, p);
+    assert.doesNotMatch(h, /<!-- grupo:inicio -->|grupo\.css/, p);
+    assert.doesNotMatch(semObrigatorios(h).replace(/zethicEvento/g, ""), /Zethic/, p);
+    assert.match(h, /calendly\.com\/jessica-gessoli-zethic/, p);
+  }
+});
+
+test("páginas da Zethic não falam de golpes, governança, consultoria nem mídia", () => {
+  const corpo = (p) => semObrigatorios(ler(p)).replace(/<script[\s\S]*?<\/script>/g, "").replace(/<head>[\s\S]*?<\/head>/, "");
+  for (const p of ["index.html", "proteger.html", "organizar.html", "crescer.html", "aconselhar.html"]) {
+    assert.doesNotMatch(corpo(p), /golpe|LGPD|governan[çc]a de IA|consultoria|[Mm]entoria|[Mm]ídia digital|[Ff]oto e vídeo/, p);
+  }
+  assert.doesNotMatch(corpo("quem-somos.html"), /golpe|LGPD|consultoria|[Mm]entoria|[Mm]ídia digital/);
 });

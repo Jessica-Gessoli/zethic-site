@@ -48,18 +48,23 @@ test("Zethic: nenhum preço publicado nas páginas", () => {
 test("Pode Curtir: categoria clara e frente de redes sociais", () => {
   const h = ler("podecurtir.html");
   assert.match(h, /<title>Pode Curtir \| Produtora de foto, vídeo e redes sociais<\/title>/);
-  assert.match(h, /<li id="redes">[\s\S]*Perfil Pronto[\s\S]*Gestão mensal[\s\S]*A gente não pede a sua senha\./);
+  assert.match(h, /<li id="redes">[\s\S]*Perfil Pronto[\s\S]*Gestão mensal/);
   assert.doesNotMatch(h, /R\$ ?\d/);
   assert.doesNotMatch(h, /A publicação nas redes e os anúncios ficam com você/);
+  // 28/10/2026 (fronteiras): a Pode Curtir não comunica segurança; a blindagem técnica de contas é da Zethic.
+  assert.doesNotMatch(h, /Conta protegida|protegida pela Zethic|[Ss]eguran[çc]a|senha/);
 });
 
-// Revisão do PR #58: a frente nova aparece no menu e no cartão da página inicial, o WhatsApp já cita redes sociais
+// 28/10/2026 (fronteiras): a Zethic não anuncia foto, vídeo nem redes sociais; o Pode Curtir aparece nela só como
+// marca endossada (barra das marcas e rodapé). O WhatsApp da Pode Curtir cita redes sociais
 // e a página da Jéssica Gessoli mantém a Zethic no rodapé, em texto.
-test("Pode Curtir: redes sociais no menu, no cartão da home e na mensagem do WhatsApp", () => {
-  assert.match(ler("index.html"), /<a href="\/podecurtir#redes"><strong>Redes sociais<\/strong>/);
-  assert.match(ler("index.html"), /<li><a href="\/podecurtir#redes">Redes sociais<\/a><\/li>/);
+test("Pode Curtir: fora do menu e dos cartões da Zethic, presente como marca endossada", () => {
+  const home = ler("index.html");
+  assert.doesNotMatch(home, /href="\/podecurtir#|Mídia digital|Orçamento de foto e vídeo/);
+  assert.match(home, /<li><a href="\/podecurtir">Pode Curtir, uma marca da Zethic<\/a><\/li>/);
   assert.match(ler("fale.html"), /"podecurtir": "[^"]*redes sociais\."/);
-  assert.match(ler("jessicagessoli.html"), /<footer>[\s\S]*diretora executiva da <a href="\/">Zethic<\/a>[\s\S]*<\/footer>/);
+  // 28/10/2026 (decisão da Jéssica): o rodapé da página dela não traz mais o título de fundadora da Zethic.
+  assert.doesNotMatch(ler("jessicagessoli.html").match(/<footer>[\s\S]*<\/footer>/)[0], /diretora executiva|Zethic/);
 });
 
 test('Pode Curtir: prévia de link com imagem grande', () => {

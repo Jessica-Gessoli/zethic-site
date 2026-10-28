@@ -10,7 +10,8 @@ const form = (h.match(/<a class="btn" id="formulario" href="([^"]+)"/) || [])[1]
 
 test("página da marca pessoal, sem script inline, sem rastreador e sem formulário no próprio site", () => {
   assert.match(h, /<html lang="pt-BR">/);
-  assert.match(h, /class="g-j atual"/);
+  // 28/10/2026 (decisão da Jéssica): páginas dela sem a barra das marcas da Zethic.
+  assert.doesNotMatch(h, /<!-- grupo:inicio -->|grupo\.css/);
   assert.match(h, /script-src 'self';/);
   assert.match(h, /form-action 'none'/);
   assert.doesNotMatch(h, /<script>|googletagmanager|medicao\.js|analytics|<form|<input/);
