@@ -24,11 +24,11 @@ test("corpo das páginas das frentes fala só da Zethic", () => {
   }
 });
 
-test("quem somos cita a fundadora e o Pode Curtir, mas não os serviços pessoais dela", () => {
+test("quem somos cita só a fundadora, sem o Pode Curtir e sem os serviços pessoais dela", () => {
   const resto = semObrigatorios(ler("quem-somos.html"));
   assert.match(resto, /fundada e é dirigida por Jéssica Gessoli, fundadora e diretora executiva/);
   assert.doesNotMatch(resto, /href="\/jessicagessoli/); // 28/10/2026: só a frase institucional, sem link
-  assert.match(resto, /Pode Curtir/);
+  assert.doesNotMatch(resto, /pode ?curtir|podecurtir/i); // 28/10/2026: Zethic e Pode Curtir separadas
   assert.doesNotMatch(resto, /mentoria|palestra|recoloca/i);
 });
 
