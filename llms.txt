@@ -1,26 +1,18 @@
 # Zethic
 
-> Tecnologia, segurança e mídia digital para o Negócio, em linguagem de dono. Cinco frentes em um só lugar. Atendimento presencial ou a distância, conforme o serviço.
+> Tecnologia, automação e IA para o Negócio, em linguagem de dono. Quatro frentes em um só lugar: Organizar, Proteger, Crescer e Capacitar. Atendimento presencial ou a distância, conforme o serviço.
 
 ## Frentes da Zethic
 
-- [Início](https://zethic.net/): a Zethic como hub, com as cinco frentes e as portas de entrada.
-- [Proteger](https://zethic.net/proteger): golpes, continuidade, LGPD e uso seguro de IA (pilar segurança).
+- [Início](https://zethic.net/): a Zethic como hub, com as quatro frentes e as portas de entrada.
 - [Organizar](https://zethic.net/organizar): processos, automação e agentes de IA, finanças, infraestrutura, nuvem e adaptação à Reforma Tributária (pilar tecnologia).
-- [Crescer](https://zethic.net/crescer): presença digital, geração de demanda, WhatsApp e CRM comercial (pilar mídia digital).
-- [Pode Curtir](https://zethic.net/podecurtir): produtora de foto, vídeo e redes sociais, marca da Zethic com página própria: eventos, negócios, ensaios, Perfil Pronto e gestão mensal de redes (pilar mídia digital).
-- [Capacitar e aconselhar](https://zethic.net/aconselhar): capacitação em IA, treinamento técnico, produto digital, consultoria e apoio à diretoria (pilar tecnologia).
+- [Proteger](https://zethic.net/proteger): segurança gerenciada, segurança de IT/OT, blindagem técnica de contas e continuidade (pilar segurança técnica).
+- [Crescer](https://zethic.net/crescer): site e presença no Google, tráfego pago, WhatsApp e CRM comercial (pilar tecnologia).
+- [Capacitar](https://zethic.net/aconselhar): capacitação em IA, treinamento técnico e produto digital (pilar tecnologia).
 
-## Portas de entrada
+## Marca da Zethic
 
-- [Diagnóstico de Cibersegurança e IA](https://zethic.net/diagnostico): onde o Negócio pode perder dinheiro com golpe, sistema parado ou vazamento de dados, e o que fazer primeiro; inclui o uso de IA pela equipe; pelo método 6 Moedas; com autoavaliação grátis.
-- [Teste de golpe](https://zethic.net/teste-golpe): teste grátis com 10 situações reais de golpe.
-
-## Materiais gratuitos
-
-- [Caderno Copia e Cola](https://zethic.net/copia-e-cola): 26 prompts prontos para o dono do Negócio, com as 10 regras do que não colar na IA; PDF grátis, sem cadastro.
-- [Conte o seu golpe](https://zethic.net/conte-seu-golpe): canal para contar, sem se identificar, um golpe de que a pessoa foi vítima; os relatos autorizados viram alertas sem identificar ninguém.
-- [Teste de IA segura](https://zethic.net/teste-ia): 10 perguntas de sim ou não para saber se o uso de IA expõe os dados do Negócio; roda só no navegador.
+- [Pode Curtir](https://zethic.net/podecurtir): produtora de foto, vídeo e redes sociais. Pode Curtir é uma marca da Zethic, com página própria.
 
 ## Institucional
 

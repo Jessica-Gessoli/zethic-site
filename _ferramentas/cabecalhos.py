@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Monta a barra das marcas e o cabeçalho com o menu das cinco frentes em todas as páginas da Zethic.
+"""Monta a barra das marcas e o cabeçalho com o menu das quatro frentes em todas as páginas da Zethic.
 
 Uso (na raiz do repositório):  python3 _ferramentas/cabecalhos.py
 Edite os modelos abaixo e rode de novo: as páginas são atualizadas entre os marcadores
@@ -18,12 +18,10 @@ RAIZ = Path(__file__).resolve().parent.parent
 ZETHIC = [
     ("index.html", "site", None),
     ("quem-somos.html", "quem-somos", "quem-somos"),
-    ("diagnostico.html", "site", None),
     ("proteger.html", "site", None),
     ("organizar.html", "site", None),
     ("crescer.html", "site", None),
     ("aconselhar.html", "site", None),
-    ("teste-golpe.html", "teste-golpe", None),
     ("privacidade.html", "privacidade", None),
 ]
 # Páginas das outras marcas: desde 21/10/2026 (decisão da Jéssica) são páginas próprias, sem a barra do grupo.
@@ -37,9 +35,10 @@ LOGO = ('<a class="logo" href="/" aria-label="Zethic, início">'
         '<rect y="22.75" width="72" height="7" rx="1"/><rect y="45.5" width="72" height="7" rx="1"/></svg>'
         '<span aria-hidden="true">THIC</span></a>')
 
-# As cinco frentes da Zethic (hub aprovado em 12/10/2026; escopo revisto em 28/10/2026: a Zethic é só tecnologia,
-# consultoria, governança, golpes e diagnóstico passaram para a Jéssica Gessoli, redes sociais para o Pode Curtir), na ordem do menu, dos cartões da página inicial e do rodapé.
-# Cada frente pertence a um pilar da categoria: p-seg (segurança), p-tec (tecnologia) ou p-mid (mídia digital).
+# As quatro frentes da Zethic (hub aprovado em 12/10/2026; escopo revisto em 28/10/2026: a Zethic é só tecnologia,
+# consultoria, governança, golpes e diagnóstico passaram para a Jéssica Gessoli; foto, vídeo e redes sociais ficam só no Pode Curtir,
+# que aparece na Zethic apenas como marca endossada, na barra das marcas e no rodapé), na ordem do menu, dos cartões da página inicial e do rodapé.
+# Cada frente pertence a um pilar da categoria: p-seg (segurança) ou p-tec (tecnologia).
 # Jéssica Gessoli não é frente: aparece só como a porta "Quem fundou a Zethic" e na barra das marcas.
 FRENTES = [
     {
@@ -81,24 +80,12 @@ FRENTES = [
         ],
     },
     {
-        "id": "midia", "pilar": "p-mid", "nome": "Mídia digital", "rotulo": "Mídia digital",
-        "frase": "Foto e vídeo prontos para postar, com o Pode Curtir.",
-        "pagina": "/podecurtir", "ir": "Conhecer o Pode Curtir",
-        "img": ("/assets/img/podecurtir-800", 800, 450),
-        "servicos": [
-            ("/podecurtir#eventos", "Eventos", "Foto, vídeo, gravação e transmissão ao vivo"),
-            ("/podecurtir#negocios", "Negócios", "Vídeo institucional, sessão de conteúdo, entrevistas e estúdio"),
-            ("/podecurtir#ensaios", "Ensaios", "Fotografia profissional"),
-            ("/podecurtir#redes", "Redes sociais", "Perfil Pronto, gestão mensal e conta protegida"),
-        ],
-    },
-    {
         "id": "capacitar", "pilar": "p-tec", "nome": "Capacitar", "rotulo": "Tecnologia",
         "frase": "Equipe usando tecnologia e IA no dia a dia.",
         "pagina": "/aconselhar", "ir": "Conhecer Capacitar",
         "img": ("/assets/img/aconselhar-800", 800, 450),
         "servicos": [
-            ("/aconselhar#capacitacao", "Capacitação em IA", "Pessoas usando IA com produtividade e sem vazar dados"),
+            ("/aconselhar#capacitacao", "Capacitação em IA", "Pessoas usando ferramentas de IA com produtividade"),
             ("/aconselhar#treinamento", "Treinamento técnico", "Equipe treinada nas ferramentas do dia a dia"),
             ("/aconselhar#produto-digital", "Produto digital", "O seu conhecimento transformado em curso ou produto"),
         ],

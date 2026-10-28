@@ -53,15 +53,22 @@ test("mensagens contextuais por utm_source (case-insensitive) e UTMs adicionais 
   assert.match(msg(runWith("?utm_source=grc")), /estruturar GRC/);
   assert.match(msg(runWith("?utm_source=diagnostico")), /autoavaliação de cibersegurança no site/);
   assert.match(msg(runWith("?utm_source=teste-golpe")), /Programa Antigolpe/);
-  assert.match(msg(runWith("?utm_source=proteger")), /proteger o caixa/);
+  assert.match(msg(runWith("?utm_source=proteger")), /segurança gerenciada/);
   assert.match(msg(runWith("?utm_source=organizar")), /organizar e automatizar/);
   assert.match(msg(runWith("?utm_source=crescer")), /atrair mais clientes/);
-  assert.match(msg(runWith("?utm_source=aconselhar")), /decidir melhor/);
+  assert.match(msg(runWith("?utm_source=aconselhar")), /capacitar a minha equipe/);
   assert.match(msg(runWith("?utm_source=podecurtir")), /Pode Curtir e quero um orçamento/);
   assert.match(msg(runWith("?utm_source=jessicagessoli")), /^Olá, Jéssica! Vim pela sua página e gostaria de conversar\.$/);
   assert.match(msg(runWith("?utm_source=jessicagessoli-mentoria")), /mentoria de posicionamento estratégico de negócio e carreira/);
   assert.match(msg(runWith("?utm_source=jessicagessoli-consultoria")), /conversa de 30 minutos/);
   assert.match(msg(runWith("?utm_source=jessicagessoli-palestras")), /palestra ou apresentação de evento/);
+  // 28/10/2026: serviços que passaram para a Jéssica Gessoli têm mensagem própria, dirigida a ela.
+  assert.match(msg(runWith("?utm_source=jessicagessoli-diagnostico")), /^Olá, Jéssica!.*Diagnóstico de Cibersegurança e IA\.$/);
+  assert.match(msg(runWith("?utm_source=jessicagessoli-antigolpe")), /^Olá, Jéssica!.*Programa Antigolpe\.$/);
+  assert.match(msg(runWith("?utm_source=jessicagessoli-governanca")), /^Olá, Jéssica!.*governança de IA, privacidade e LGPD\.$/);
+  for (const o of ["diagnostico", "teste-golpe", "grc", "governanca-ia", "patrimonio-digital"]) {
+    assert.match(msg(runWith(`?utm_source=${o}`)), /^Olá, Jéssica!/, o);
+  }
 });
 
 test("origem desconhecida ou maliciosa cai na mensagem padrão", () => {
@@ -71,17 +78,18 @@ test("origem desconhecida ou maliciosa cai na mensagem padrão", () => {
   }
 });
 
+// 28/10/2026: a Zethic é tecnologia, automação e IA; consultoria, GRC e governança ficam com a Jéssica Gessoli.
 test("mensagem padrão é a institucional, codificada corretamente", () => {
   assert.equal(
     msg(runWith("")),
-    "Olá! Vim pelo site da Zethic e gostaria de conhecer melhor os serviços de consultoria em cibersegurança, GRC e governança de IA.",
+    "Olá! Vim pelo site da Zethic e gostaria de conhecer melhor os serviços de tecnologia, automação e IA.",
   );
 });
 
 test("resultado das iscas: mensagem montada só com números validados", () => {
   assert.equal(
     msg(runWith("?utm_source=diagnostico-resultado&nota=62&moeda=2")),
-    "Olá! Fiz a autoavaliação de cibersegurança no site da Zethic. Minha nota foi 62 de 100 e a moeda mais exposta é Prevenção de fraude e de vazamento. Quero entender o próximo passo.",
+    "Olá, Jéssica! Fiz a autoavaliação de cibersegurança no site. Minha nota foi 62 de 100 e a moeda mais exposta é Prevenção de fraude e de vazamento. Quero entender o próximo passo.",
   );
   assert.match(msg(runWith("?utm_source=teste-golpe-resultado&acertos=7")), /acertei 7 de 10\./);
   const diag = msg(runWith("?utm_source=diagnostico"));

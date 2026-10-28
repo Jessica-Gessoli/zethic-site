@@ -43,10 +43,11 @@ test("agenda de 30 minutos aparece nas duas versões", () => {
   for (const html of [pt, en]) assert.doesNotMatch(html, /href="\/agendar"/);
 });
 
-test("a Zethic aparece com a frase do hub nas duas versões", () => {
-  // 13/10/2026: a trajetória usa a mesma frase da página inicial da Zethic.
-  assert.match(pt, /<p>Fundadora\. Tecnologia, automação e IA para o Negócio\.<\/p>/);
-  assert.match(en, /<p>Founder\. Technology, automation and AI for businesses\.<\/p>/);
+test("a Zethic aparece na trajetória só como cargo, sem os serviços da Zethic", () => {
+  // 28/10/2026 (fronteiras entre as marcas): a página da Jéssica não comunica os serviços da Zethic.
+  assert.match(pt, /<p>Fundadora e diretora executiva\.<\/p>/);
+  assert.match(en, /<p>Founder and executive director\.<\/p>/);
+  for (const html of [pt, en]) assert.doesNotMatch(html, /Tecnologia, automação e IA para o Negócio|Technology, automation and AI for businesses/);
   assert.doesNotMatch(pt, /Risco digital e tecnologia/);
   assert.doesNotMatch(en, /Digital risk and technology/);
 });
@@ -85,7 +86,7 @@ test("ProfilePage válido nas duas versões e llms.txt só com a Zethic", () => 
   }
   const llms = readFileSync(new URL("../llms.txt", import.meta.url), "utf8");
   assert.match(llms, /^# Zethic/);
-  // Hub de 12/10/2026: o Pode Curtir é a frente Mídia digital e entra no llms.txt; a página profissional continua fora.
+  // Hub de 12/10/2026: a página profissional continua fora. Desde 28/10/2026 o Pode Curtir entra só como marca endossada.
   assert.doesNotMatch(llms, /jessicagessoli/i);
   assert.match(llms, /\(https:\/\/zethic\.net\/podecurtir\)/);
   assert.doesNotMatch(llms, /\bPME\b/);
