@@ -43,10 +43,11 @@ test("agenda de 30 minutos aparece nas duas versões", () => {
   for (const html of [pt, en]) assert.doesNotMatch(html, /href="\/agendar"/);
 });
 
-test("a Zethic aparece com a frase do hub nas duas versões", () => {
-  // 13/10/2026: a trajetória usa a mesma frase da página inicial da Zethic.
-  assert.match(pt, /<p>Fundadora\. Tecnologia, automação e IA para o Negócio\.<\/p>/);
-  assert.match(en, /<p>Founder\. Technology, automation and AI for businesses\.<\/p>/);
+test("a Zethic aparece na trajetória só como cargo, sem os serviços da Zethic", () => {
+  // 28/10/2026 (fronteiras entre as marcas): a página da Jéssica não comunica os serviços da Zethic.
+  assert.match(pt, /<p>Fundadora e diretora executiva\.<\/p>/);
+  assert.match(en, /<p>Founder and executive director\.<\/p>/);
+  for (const html of [pt, en]) assert.doesNotMatch(html, /Tecnologia, automação e IA para o Negócio|Technology, automation and AI for businesses/);
   assert.doesNotMatch(pt, /Risco digital e tecnologia/);
   assert.doesNotMatch(en, /Digital risk and technology/);
 });

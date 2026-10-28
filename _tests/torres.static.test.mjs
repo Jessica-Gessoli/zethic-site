@@ -2,13 +2,14 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync, existsSync } from "node:fs";
 
-// Zethic como hub (aprovado em 12/10/2026): barra das marcas nas páginas da Zethic, menu das cinco frentes nas páginas da Zethic,
+// Zethic como hub (aprovado em 12/10/2026): barra das marcas nas páginas da Zethic, menu das quatro frentes (28/10/2026) nas páginas da Zethic,
 // Desde 21/10/2026 (decisão da Jéssica): Pode Curtir e Jéssica Gessoli são páginas próprias, sem a barra do grupo.
 // página inicial com vitrine em movimento, cartões das frentes, porta da fundadora e atalhos.
 // Os blocos do topo são gerados por _ferramentas/cabecalhos.py.
 const ler = (p) => readFileSync(new URL("../" + p, import.meta.url), "utf8");
 const existe = (p) => existsSync(new URL("../" + p, import.meta.url));
-const ZETHIC = ["index.html", "quem-somos.html", "diagnostico.html", "proteger.html", "organizar.html", "crescer.html", "aconselhar.html", "teste-golpe.html", "privacidade.html"];
+// 28/10/2026: Diagnóstico e Teste de golpe passaram para a Jéssica Gessoli e saíram desta lista.
+const ZETHIC = ["index.html", "quem-somos.html", "proteger.html", "organizar.html", "crescer.html", "aconselhar.html", "privacidade.html"];
 const MARCAS = { "jessicagessoli.html": "g-j", "podecurtir.html": "g-p" };
 const bloco = (html, nome) => html.match(new RegExp(`<!-- ${nome}:inicio -->([\\s\\S]*?)<!-- ${nome}:fim -->`))?.[1] ?? "";
 
@@ -50,7 +51,7 @@ test("menu das marcas igual em todas as páginas da Zethic", () => {
   }
 });
 
-const FRENTES = { proteger: "p-seg", organizar: "p-tec", crescer: "p-tec", midia: "p-mid", capacitar: "p-tec" };
+const FRENTES = { proteger: "p-seg", organizar: "p-tec", crescer: "p-tec", capacitar: "p-tec" };
 
 test("cada frente do menu abre um painel acessível, na cor do seu pilar", () => {
   const c = bloco(ler("index.html"), "cabecalho");
@@ -83,18 +84,19 @@ test("Jéssica Gessoli não é frente: só a porta \"Quem fundou a Zethic\" e a 
   assert.doesNotMatch(main, /mentoria|palestra|recoloca|kit-palestrante/i);
 });
 
-test("home: quatro destaques, um título principal e uma chamada principal", () => {
+// 28/10/2026: sem o destaque de Mídia digital, a vitrine tem três destaques (Zethic, Proteger e Organizar).
+test("home: três destaques, um título principal e uma chamada principal", () => {
   const h = ler("index.html");
   const main = h.match(/<main[\s\S]*?<\/main>/)[0];
-  assert.equal((main.match(/class="slide /g) || []).length, 4);
-  assert.equal((main.match(/class="ponto p-[a-z]+(?: ativo)?"/g) || []).length, 4);
+  assert.equal((main.match(/class="slide /g) || []).length, 3);
+  assert.equal((main.match(/class="ponto p-[a-z]+(?: ativo)?"/g) || []).length, 3);
   // Escopo revisto em 28/10/2026: a Zethic é tecnologia, automação e IA.
   assert.match(main, /<h1>Tecnologia, automação e IA <span class="realce">para o Negócio\.<\/span><\/h1>/);
   assert.equal((h.match(/<h1[ >]/g) || []).length, 1);
   assert.equal((h.match(/class="btn btn-main"/g) || []).length, 1);
   assert.match(main, /<button type="button" class="pausa">Pausar<\/button>/);
   const cartoes = [...main.matchAll(/class="cartao (p-[a-z]+) revela"[\s\S]*?<h3>([^<]+)<\/h3>/g)].map((m) => [m[2], m[1]]);
-  assert.deepEqual(cartoes, [["Proteger", "p-seg"], ["Organizar", "p-tec"], ["Crescer", "p-tec"], ["Mídia digital", "p-mid"], ["Capacitar", "p-tec"]]);
+  assert.deepEqual(cartoes, [["Proteger", "p-seg"], ["Organizar", "p-tec"], ["Crescer", "p-tec"], ["Capacitar", "p-tec"]]);
   assert.doesNotMatch(h, /98331|0769/);
 });
 
