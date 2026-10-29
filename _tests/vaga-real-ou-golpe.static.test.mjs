@@ -41,3 +41,9 @@ test("sem PME e com Há 18 anos", () => {
   assert.ok(!/\bPME\b|pequena e média empresa/i.test(html));
   assert.match(html, /Há 18 anos/);
 });
+
+test("PDF do guia publicado para o link do direct", () => {
+  const pdf = readFileSync(new URL("../assets/docs/guia-vaga-real-ou-golpe.pdf", import.meta.url));
+  assert.equal(pdf.subarray(0, 5).toString(), "%PDF-");
+  assert.ok(pdf.length < 2_000_000, "PDF grande demais para o celular");
+});
