@@ -23,6 +23,7 @@ test("coautoria e perfis do Instagram aparecem", () => {
   assert.ok(html.includes("Bárbara Priori"));
   assert.ok(html.includes("https://www.instagram.com/barbara.priori.carreira/"));
   assert.ok(html.includes("https://www.instagram.com/jessicagessoli/"));
+  assert.ok(html.includes("https://priorize-diagnostico.lovable.app/"));
   assert.ok(!html.includes("[perfil da Bá]"));
 });
 
