@@ -15,8 +15,15 @@ test("página do e-book é da marca Jéssica Gessoli, sem script inline", () => 
 test("pedido do guia vai pelo WhatsApp com origem registrada", () => {
   const ctas = [...html.matchAll(/href="\/fale\?utm_source=([a-z-]+)"/g)].map((m) => m[1]);
   assert.ok(ctas.length >= 2);
-  assert.ok(ctas.every((o) => o === "jessicagessoli-vaga"));
+  assert.ok(ctas.filter((o) => o === "jessicagessoli-vaga").length >= 2);
+  assert.ok(ctas.every((o) => o === "jessicagessoli-vaga" || o === "jessicagessoli-vaga-rh"));
   assert.match(fale, /"jessicagessoli-vaga": "Olá, Jéssica! [^"]*guia grátis Vaga real ou golpe\."/);
+});
+
+test("lead de RH tem origem própria e pedido para encaminhar ao RH", () => {
+  assert.match(html, /href="\/fale\?utm_source=jessicagessoli-vaga-rh"/);
+  assert.match(fale, /"jessicagessoli-vaga-rh": "Olá, Jéssica! [^"]*recrutamento da minha empresa[^"]*"/);
+  assert.match(html, /Conhece alguém de RH\? Encaminhe esta página\./);
 });
 
 test("coautoria e perfis do Instagram aparecem", () => {
