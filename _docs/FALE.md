@@ -12,7 +12,7 @@
 | Canônico | `https://zethic.net/fale` |
 | Proprietário | Zethic |
 | Função | Entrada oficial para contato comercial |
-| Destino atual | WhatsApp Business da Zethic (`https://wa.me/5519981800221`) |
+| Destino atual | WhatsApp Jéssica Gessoli, comercial da marca e da Zethic (`https://wa.me/5519981800221`); origem `podecurtir` → WhatsApp Business da Pode Curtir (`https://wa.me/5519983310769`), desde 31/10/2026 |
 | Dependência externa | WhatsApp (`wa.me`) |
 | Camada controlada pela Zethic | `zethic.net/fale` (este repositório, GitHub Pages, domínio em `CNAME`) |
 | Princípio | O endereço público permanece estável mesmo que a infraestrutura de atendimento seja substituída |
@@ -43,7 +43,7 @@ zethic.net/fale  →  fale.html (GitHub Pages, repositório zethic-site)  →  w
 
 Arquivo único: `fale.html`.
 
-1. Bloco `CONFIG` dentro do `<script>`: `base` (número), `padrao` (mensagem padrão) e `origens` (mensagens por origem).
+1. Bloco `CONFIG` dentro do `<script>`: `base` (número padrão), `destinos` (número por origem, só por allowlist — hoje apenas `podecurtir`), `padrao` (mensagem padrão) e `origens` (mensagens por origem).
 2. A URL com a mensagem padrão também aparece, já codificada, em dois pontos de fallback sem JavaScript:
    - `<meta http-equiv="refresh" content="0; url=...">`;
    - `<a id="destino" href="...">`.
@@ -77,7 +77,7 @@ Para outro destino (CRM, omnichannel, página de triagem, agenda), troque a URL 
 2. Divulgue `https://zethic.net/fale?utm_source=youtube`.
 3. Recalcule o hash da CSP e rode os testes.
 
-Origens disponíveis hoje: `google`, `instagram`, `linkedin`, `patrimonio-digital`, `governanca-ia`, `grc`, `indicacao`, `diagnostico` (botão do resultado da autoavaliação em `/diagnostico`), `proteger`, `organizar`, `crescer` e `aconselhar` (botões das páginas de cada frente), `teste-golpe` (resultado do teste em `/teste-golpe`), `diagnostico-resultado` (com `nota` de 0 a 100 e `moeda` de 0 a 5: o botão "Receber meu resultado no WhatsApp" da autoavaliação monta a mensagem com a nota e o nome fixo da moeda), `teste-golpe-resultado` (com `acertos` de 0 a 10; mesmo botão no teste de golpe; valores fora do esperado usam a mensagem da isca sem o resultado), `podecurtir` (botões da página da Pode Curtir, em `/podecurtir`) e `jessicagessoli`, `jessicagessoli-mentoria`, `jessicagessoli-consultoria` e `jessicagessoli-palestras` (botões da página da marca pessoal, em `/jessicagessoli`; o atendimento das três marcas é centralizado neste mesmo número). Qualquer outro valor, inclusive ausente, usa a mensagem padrão. A comparação ignora maiúsculas e minúsculas.
+Origens disponíveis hoje: `google`, `instagram`, `linkedin`, `patrimonio-digital`, `governanca-ia`, `grc`, `indicacao`, `diagnostico` (botão do resultado da autoavaliação em `/diagnostico`), `proteger`, `organizar`, `crescer` e `aconselhar` (botões das páginas de cada frente), `teste-golpe` (resultado do teste em `/teste-golpe`), `diagnostico-resultado` (com `nota` de 0 a 100 e `moeda` de 0 a 5: o botão "Receber meu resultado no WhatsApp" da autoavaliação monta a mensagem com a nota e o nome fixo da moeda), `teste-golpe-resultado` (com `acertos` de 0 a 10; mesmo botão no teste de golpe; valores fora do esperado usam a mensagem da isca sem o resultado), `podecurtir` (botões da página da Pode Curtir, em `/podecurtir`) e `jessicagessoli`, `jessicagessoli-mentoria`, `jessicagessoli-consultoria` e `jessicagessoli-palestras` (botões da página da marca pessoal, em `/jessicagessoli`). Desde 31/10/2026, `podecurtir` vai para o número da Pode Curtir (98331-0769); todas as outras origens vão para o 98180-0221 (Jéssica Gessoli + Zethic). Qualquer outro valor, inclusive ausente, usa a mensagem padrão. A comparação ignora maiúsculas e minúsculas.
 
 ### Recalcular o hash da CSP
 

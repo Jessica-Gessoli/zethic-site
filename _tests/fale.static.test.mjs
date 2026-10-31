@@ -109,17 +109,30 @@ test("nomes das moedas no /fale seguem a ordem da autoavaliação", () => {
   assert.deepEqual(doFale, daAutoavaliacao);
 });
 
-// 14/10/2026 (decisão da Jéssica): o (19) 98180-0221 é o nível 1 de todas as marcas, inclusive a Jéssica Gessoli.
-// O (19) 98331-0769 é nível 2, passado caso a caso, e nunca aparece em página ou documento público.
-test("todas as origens do /fale vão para o 0221", () => {
-  for (const o of ["", "?utm_source=podecurtir", "?utm_source=site", "?utm_source=jessicagessoli", "?utm_source=jessicagessoli-palestras"]) {
+// 31/10/2026 (decisão da Jéssica): o (19) 98180-0221 é o WhatsApp Jéssica Gessoli, comercial da marca e da Zethic.
+// O (19) 98331-0769 é o WhatsApp Business exclusivo da Pode Curtir. Substitui a regra de 14/10 (0769 nunca público).
+const WA_PC = "https://wa.me/5519983310769";
+test("Jéssica Gessoli, Zethic e origens desconhecidas vão para o 0221", () => {
+  for (const o of ["", "?utm_source=site", "?utm_source=jessicagessoli", "?utm_source=jessicagessoli-palestras", "?utm_source=proteger", "?utm_source=diagnostico-resultado&nota=50&moeda=1"]) {
     assert.ok(runWith(o).startsWith(WA + "?text="), o || "padrão");
   }
 });
 
-test("o 0769 (nível 2) não aparece em nenhum material público", async () => {
+test("Pode Curtir vai para o 0769", () => {
+  for (const o of ["?utm_source=podecurtir", "?utm_source=PodeCurtir"]) {
+    assert.ok(runWith(o).startsWith(WA_PC + "?text="), o);
+  }
+});
+
+test("o destino nunca vem da URL", () => {
+  assert.ok(runWith("?utm_source=__proto__").startsWith(WA + "?text="));
+  assert.ok(runWith("?utm_source=destinos").startsWith(WA + "?text="));
+});
+
+test("o 0769 só aparece no /fale, como destino da Pode Curtir", async () => {
   const { readdirSync } = await import("node:fs");
   const raiz = new URL("../", import.meta.url);
-  const arquivos = [...readdirSync(raiz).filter((f) => /\.(html|txt|xml)$/.test(f)), ...readdirSync(new URL("en/", raiz)).map((f) => "en/" + f), ...readdirSync(new URL("_docs/", raiz)).filter((f) => f.endsWith(".html")).map((f) => "_docs/" + f)];
+  const arquivos = [...readdirSync(raiz).filter((f) => /\.(html|txt|xml)$/.test(f) && f !== "fale.html"), ...readdirSync(new URL("en/", raiz)).map((f) => "en/" + f), ...readdirSync(new URL("_docs/", raiz)).filter((f) => f.endsWith(".html")).map((f) => "_docs/" + f)];
   for (const p of arquivos) assert.doesNotMatch(readFileSync(new URL(p, raiz), "utf8"), /98331|0769|5519983310769/, p);
+  assert.equal((script.match(/5519983310769/g) || []).length, 1, "0769 aparece uma única vez no script");
 });
