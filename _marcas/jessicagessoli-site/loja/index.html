@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Loja Jéssica Gessoli | Consultoria, mentoria e aula de IA</title>
+<meta name="description" content="Compre online a consultoria por hora, a mentoria de posicionamento e a aula ao vivo de IA segura, com preço e resumo do contrato antes de pagar. Outros serviços por proposta.">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' https://connect.facebook.net; img-src 'self' https://www.facebook.com; font-src 'self'; style-src 'self'; connect-src 'self' https://jessicagessoli.app.n8n.cloud https://www.facebook.com; base-uri 'none'; form-action 'none'">
+<meta name="color-scheme" content="light">
+<link rel="canonical" href="https://jessicagessoli.zethic.net/loja/">
+<meta name="robots" content="index, follow">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Jéssica Gessoli">
+<meta property="og:title" content="Loja Jéssica Gessoli | Consultoria, mentoria e aula de IA">
+<meta property="og:description" content="Compre online a consultoria por hora, a mentoria de posicionamento e a aula ao vivo de IA segura, com preço e resumo do contrato antes de pagar. Outros serviços por proposta.">
+<meta property="og:url" content="https://jessicagessoli.zethic.net/loja/">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:image" content="https://jessicagessoli.zethic.net/assets/img/jessica-gessoli-og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/assets/img/jessicagessoli-icone.svg" type="image/svg+xml">
+<link rel="preload" href="/assets/fonts/ibm-plex-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/css/jessicagessoli.css">
+<link rel="stylesheet" href="/assets/css/jessicagessoli-loja.css">
+<script src="/assets/js/jessicagessoli-config.js" defer></script>
+<script src="/assets/js/jessicagessoli-comum.js" defer></script>
+<script src="/assets/js/jessicagessoli-loja.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#conteudo">Ir para o conteúdo</a>
+<header class="top">
+  <div class="wrap">
+    <a class="mark" href="/">Jéssica Gessoli</a>
+    <button class="carrinho-btn" id="ir-carrinho" type="button">Pedido <span class="contador num" id="contador">0</span></button>
+  </div>
+</header>
+
+<main id="conteudo">
+  <noscript><p class="sem-js"><span class="wrap">A loja precisa de JavaScript ligado. Se preferir, peça pelo WhatsApp (19) 98180-0221 ou pelo e-mail jessica.gessoli@zethic.net.</span></p></noscript>
+
+  <div id="vista-loja">
+    <div class="wrap loja-hero">
+      <span class="eyebrow">Loja · Cibersegurança e IA</span>
+      <h1>Escolha, pague e marque a data. O resto a gente conversa.</h1>
+      <p>Consultoria por hora, mentoria e aula ao vivo você compra aqui mesmo. Os projetos dependem do tamanho do Negócio e entram como pedido de proposta, no mesmo pedido.</p>
+      <ol class="passos-compra">
+        <li>Escolha</li>
+        <li>Pague no Pix ou no cartão</li>
+        <li>Combine a data</li>
+        <li>Converse por videochamada</li>
+      </ol>
+    </div>
+
+    <div class="wrap layout">
+      <div>
+        <section class="secao" aria-labelledby="t-itens">
+          <div class="secao-cab"><h2 id="t-itens">Com preço fechado</h2><p>Online, por videochamada, em todo o Brasil.</p></div>
+          <div class="grade" id="grade-itens"></div>
+        </section>
+        <section class="secao" aria-labelledby="t-propostas">
+          <div class="secao-cab"><h2 id="t-propostas">Pedir proposta</h2><p>Sem pagamento agora. A proposta chega por escrito depois de uma conversa de 30 minutos.</p></div>
+          <div class="lista-propostas" id="lista-propostas"></div>
+        </section>
+      </div>
+
+      <aside class="carrinho" id="carrinho" aria-labelledby="t-carrinho">
+        <h2 id="t-carrinho">Seu pedido</h2>
+        <ul class="linhas" id="linhas"></ul>
+        <p class="vazio" id="vazio">Nada escolhido ainda.</p>
+        <div class="totais" id="totais" hidden></div>
+        <button class="ir" id="continuar" type="button" disabled>Continuar</button>
+        <p class="dica">Você vê o resumo do contrato antes de pagar.</p>
+      </aside>
+    </div>
+  </div>
+
+  <div id="vista-checkout" hidden>
+    <div class="wrap checkout">
+      <div>
+        <button class="voltar" id="voltar" type="button">← Voltar à loja</button>
+        <form id="form-checkout" novalidate>
+          <fieldset>
+            <legend>1. Seus dados</legend>
+            <div class="dois">
+              <label class="campo" for="nome">Nome completo<input id="nome" name="nome" autocomplete="name" required></label>
+              <label class="campo" for="email">E-mail<input id="email" name="email" type="email" autocomplete="email" required></label>
+              <label class="campo" for="whats">WhatsApp, com DDD<input id="whats" name="whats" inputmode="tel" autocomplete="tel" required></label>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend>2. Resumo do contrato</legend>
+            <div class="resumo" id="resumo"></div>
+            <label class="marcar" for="aceite"><input type="checkbox" id="aceite" required><span>Li o resumo do contrato e os <a href="/termos/">termos e condições</a> e aceito.</span></label>
+            <label class="marcar" for="novidades"><input type="checkbox" id="novidades"><span>Quero receber novidades da Jéssica Gessoli por e-mail. Opcional; não muda o pedido.</span></label>
+          </fieldset>
+          <p class="dica">O pagamento é feito na página segura do Asaas, por Pix ou cartão. Os dados do cartão não passam por este site.</p>
+          <p class="erro" id="erro" role="alert" hidden></p>
+          <button class="ir" id="pagar" type="submit">Continuar</button>
+        </form>
+
+        <div class="resultado" id="resultado" aria-live="polite" hidden>
+          <h2 id="resultado-titulo">Envie o seu pedido</h2>
+          <p>Envie a mensagem abaixo pelo WhatsApp ou por e-mail. Se algum item ainda estiver com o pagamento em configuração, eu respondo com o link de pagamento.</p>
+          <ul id="resultado-links" hidden></ul>
+          <label class="campo" for="resultado-texto">Mensagem do pedido<textarea id="resultado-texto" readonly></textarea></label>
+          <div class="acoes">
+            <button class="btn-linha" type="button" data-copiar="resultado-texto">Copiar mensagem</button>
+            <a class="btn-jg" id="resultado-whats" href="https://wa.me/5519981800221" rel="noopener">Enviar pelo WhatsApp</a>
+          </div>
+          <p>E-mail: <span class="selecionavel">jessica.gessoli@zethic.net</span> · WhatsApp: <span class="selecionavel">(19) 98180-0221</span></p>
+        </div>
+      </div>
+
+      <aside class="carrinho" aria-labelledby="t-carrinho-2">
+        <h2 id="t-carrinho-2">Seu pedido</h2>
+        <ul class="linhas" id="linhas-2"></ul>
+        <div class="totais" id="totais-2"></div>
+      </aside>
+    </div>
+  </div>
+  <a id="link-obrigado" href="/loja/obrigado/" hidden>Confirmação do pedido</a>
+</main>
+
+<footer class="ident">
+  <div class="wrap">
+    <p><strong>Jéssica Gessoli</strong> · Cibersegurança e IA · R. Teófilo Braga, 489, Sala 05, Jardim Nossa Sra. Auxiliadora, Campinas/SP, CEP 13075-390 · <a href="mailto:jessica.gessoli@zethic.net">jessica.gessoli@zethic.net</a> · WhatsApp (19) 98180-0221</p>
+    <p data-cnpj hidden>CNPJ <span></span></p>
+    <p>Respondo por e-mail em até 5 dias. <a href="/termos/">Termos e condições</a> · <a href="/privacidade/" data-link-privacidade>Privacidade e cookies</a> · <a href="/desistencia/">Desistir de uma compra</a> <button class="linkbtn" type="button" data-preferencias-cookies hidden>Preferências de cookies</button></p>
+  </div>
+</footer>
+</body>
+</html>
