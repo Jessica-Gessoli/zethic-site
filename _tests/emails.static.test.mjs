@@ -21,6 +21,8 @@ test("marca pessoal mantém jessica.gessoli@ e não usa contato@", () => {
   }
 });
 
-test("Pode Curtir mostra o e-mail geral", () => {
-  assert.match(ler("podecurtir.html"), /mailto:contato@zethic\.net/);
+// 03/11/2026 (Ficha oficial): a Pode Curtir tem e-mail próprio, o mesmo da loja.
+test("Pode Curtir mostra o e-mail próprio", () => {
+  assert.match(ler("podecurtir.html"), /mailto:podecurtir@zethic\.net/);
+  assert.doesNotMatch(ler("podecurtir.html"), /contato@zethic\.net/);
 });
