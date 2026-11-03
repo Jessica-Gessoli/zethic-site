@@ -89,3 +89,14 @@ test("página da Pode Curtir leva à loja, sem preço", () => {
   assert.match(h, /href="\/podecurtir\/loja\/">Comprar online/);
   assert.doesNotMatch(h, /R\$ ?\d/);
 });
+
+test("loja: preço de fundador só nos itens a preço de fundador, aceite zerado quando o pedido muda e nada se perde sem registro", () => {
+  const js = ler("assets/js/podecurtir-loja.js");
+  assert.match(js, /fundador: PRECO_AJUSTE === 500/);
+  assert.match(js, /if \(t\.fundador && !\$\("fundador"\)\.checked\)/);
+  assert.match(js, /\$\("fundador-campo"\)\.hidden = !t\.fundador;/);
+  assert.doesNotMatch(js, /t\.pagos\.length && !\$\("fundador"\)/);
+  assert.match(js, /if \(resumo !== resumoAceito\) \{ \$\("aceite"\)\.checked = false;/);
+  assert.match(js, /if \(ok\) location\.href = url;\s*else manual\(/);
+  assert.doesNotMatch(js, /registrar\(pedido\); location\.href = url;/);
+});
