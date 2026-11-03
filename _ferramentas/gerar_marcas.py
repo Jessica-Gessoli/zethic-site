@@ -10,7 +10,7 @@ troca os endereços pelos novos e aponta para zethic.net o que é da Zethic.
 Uso:  python3 _ferramentas/gerar_marcas.py           (gera)
       python3 _ferramentas/gerar_marcas.py --check   (falha se _marcas estiver desatualizado)
 """
-import re, shutil, sys
+import re, shutil, sys, hashlib, base64
 from pathlib import Path
 import filecmp, tempfile
 SRC = Path(__file__).resolve().parent.parent
@@ -41,7 +41,25 @@ def zethic_links(html, own):
         if path.startswith("/assets/") or any(path == o or path.startswith(o + "#") or path.startswith(o + "?") for o in own):
             return m.group(0)
         return f'{attr}="{Z}{path}"'
-    return re.sub(r'(href|action)="(/[^"]*)"', fix, html)
+    html = re.sub(r'(href|action)="(/[^"]*)"', fix, html)
+    # links montados no JavaScript (ex.: botão do resultado do teste de golpe)
+    def fixjs(m):
+        path = m.group(1)
+        if any(path == o or path.startswith(o + "?") or path.startswith(o + "#") for o in own):
+            return m.group(0)
+        return f'href: "{Z}{path}'
+    return re.sub(r'href: "(/[^"]*)', fixjs, html)
+
+def csp_hashes(html):
+    # se um script embutido mudou (links trocados), recalcula os hashes da CSP
+    m = re.search(r"script-src([^;]*)", html)
+    if not m:
+        return html
+    inline = re.findall(r"<script>(.*?)</script>", html, re.S)
+    novos = " ".join("'sha256-" + base64.b64encode(hashlib.sha256(c.encode()).digest()).decode() + "'" for c in inline)
+    sem = re.sub(r"\s*'sha256-[^']+'", "", m.group(1))
+    src = f" 'self' {novos}" + sem[len(" 'self'"):] if sem.startswith(" 'self'") and novos else sem
+    return html[:m.start(1)] + src + html[m.end(1):]
 
 def build(name, host, pages, extra_files):
     dest = OUT / f"{name}-site"
@@ -61,6 +79,7 @@ def build(name, host, pages, extra_files):
         html = zethic_links(html, [o for o, _ in own_map])   # primeiro: o que não é da marca vai para zethic.net
         for old, new in own_map:              # depois: links relativos da marca
             html = re.sub(rf'(href|action)="{re.escape(old)}([#?"])', lambda m: f'{m.group(1)}="{new}{m.group(2)}', html)
+        html = csp_hashes(html)
         (dest / out).parent.mkdir(parents=True, exist_ok=True)
         (dest / out).write_text(html)
     css = [a for a in assets(*[p[0] for p in pages]) if a.endswith(".css")]
@@ -77,6 +96,8 @@ jg = [("/jessicagessoli", "/"), ("/en/jessicagessoli", "/en/")]
 build("jessicagessoli", "jessicagessoli.zethic.net", [
     ("jessicagessoli.html", "index.html", jg),
     ("en/jessicagessoli.html", "en/index.html", [jg[1], jg[0]]),
+    # 03/11/2026: o teste de golpe é da marca Jéssica Gessoli e passa a morar aqui
+    ("teste-golpe.html", "teste-golpe.html", [("/teste-golpe", "/teste-golpe"), jg[0]]),
 ], ["/assets/fonts/OFL-IBM-Plex-Sans.txt", "/assets/fonts/OFL-Spectral.txt"])
 build("podecurtir", "podecurtir.zethic.net", [
     ("podecurtir.html", "index.html", [("/podecurtir", "/")]),
