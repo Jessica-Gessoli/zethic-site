@@ -9,11 +9,11 @@
   var PRECO_AJUSTE = Number(C.PRECO_AJUSTE) || 500;
 
   var PROJ = [
-    { id: "ajuste", nome: "Ajuste de Perfil", preco: PRECO_AJUSTE, agora: 1, prazo: "5 dias úteis",
+    { id: "ajuste", nome: "Ajuste de Perfil", preco: PRECO_AJUSTE, agora: 1, prazo: "5 dias úteis", fundador: PRECO_AJUSTE === 500,
       desc: "Bio, nome, foto, link e botão de WhatsApp, destaques com capa, 3 posts fixados e checagem básica de segurança da conta." },
-    { id: "arrumado", nome: "Perfil Arrumado", preco: 2000, agora: 0.5, prazo: "15 dias úteis",
+    { id: "arrumado", nome: "Perfil Arrumado", preco: 2000, agora: 0.5, prazo: "15 dias úteis", fundador: true,
       desc: "Tudo do Ajuste de Perfil, mais análise de quem você segue, curadoria da grade, revisão das legendas e dos acessos e plano de 30 dias." },
-    { id: "marca", nome: "Marca Completa", preco: 7500, agora: 0.5, prazo: "30 dias úteis",
+    { id: "marca", nome: "Marca Completa", preco: 7500, agora: 0.5, prazo: "30 dias úteis", fundador: true,
       desc: "Tudo do Perfil Arrumado, mais paleta, tipografia, símbolo e assinatura, modelos de capa, post e story e manual curto de uso." }
   ];
   var PLANOS = [
@@ -39,6 +39,7 @@
   } catch (e) {}
   function salvar() { try { sessionStorage.setItem(CHAVE, JSON.stringify(cart)); } catch (e) {} }
   var aviso = "";
+  var resumoAceito = null;
 
   function tem(lista, id) { return lista.indexOf(id) >= 0; }
   function alterna(lista, id) { var i = lista.indexOf(id); if (i >= 0) lista.splice(i, 1); else lista.push(id); }
@@ -74,10 +75,12 @@
   }
 
   function totais() {
-    var hoje = 0, saldo = 0, plano = null, pagos = [];
-    PROJ.forEach(function (p) { if (tem(cart.proj, p.id)) { hoje += p.preco * p.agora; saldo += p.preco * (1 - p.agora); pagos.push({ id: p.id, nome: p.nome, valor: p.preco * p.agora }); } });
-    PLANOS.forEach(function (p) { if (cart.plano === p.id) { plano = p; hoje += p.mensal; pagos.push({ id: p.id, nome: p.nome, valor: p.mensal }); } });
-    return { hoje: hoje, saldo: saldo, plano: plano, pagos: pagos, props: cart.prop.length, total: cart.proj.length + (plano ? 1 : 0) + cart.prop.length };
+    var hoje = 0, saldo = 0, plano = null, pagos = [], fundador = false;
+    /* Preço de fundador (termos, item 2): só nos itens vendidos pelo preço dos 3 primeiros clientes.
+       No Ajuste de Perfil, só a R$ 500; a R$ 750 ou R$ 1.200 não se pede depoimento nem autorização. */
+    PROJ.forEach(function (p) { if (tem(cart.proj, p.id)) { hoje += p.preco * p.agora; saldo += p.preco * (1 - p.agora); pagos.push({ id: p.id, nome: p.nome, valor: p.preco * p.agora }); if (p.fundador) fundador = true; } });
+    PLANOS.forEach(function (p) { if (cart.plano === p.id) { plano = p; hoje += p.mensal; pagos.push({ id: p.id, nome: p.nome, valor: p.mensal }); fundador = true; } });
+    return { hoje: hoje, saldo: saldo, plano: plano, pagos: pagos, fundador: fundador, props: cart.prop.length, total: cart.proj.length + (plano ? 1 : 0) + cart.prop.length };
   }
 
   function linhas(comTirar) {
@@ -173,10 +176,13 @@
 
   $("continuar").addEventListener("click", function () {
     var t = totais();
-    $("resumo").innerHTML = resumoContrato(t);
+    var resumo = resumoContrato(t);
+    /* O aceite vale para o pedido que a pessoa leu: se o resumo mudou, os aceites voltam a ficar em branco. */
+    if (resumo !== resumoAceito) { $("aceite").checked = false; $("fundador").checked = false; resumoAceito = resumo; }
+    $("resumo").innerHTML = resumo;
     $("linhas-2").innerHTML = linhas(false);
     $("totais-2").innerHTML = blocoTotais(t);
-    $("fundador-campo").hidden = !t.pagos.length;
+    $("fundador-campo").hidden = !t.fundador;
     $("pagar").textContent = t.pagos.length ? "Ir para o pagamento de " + brl(t.hoje) : "Enviar pedido de proposta";
     $("erro").hidden = true; $("resultado").hidden = true; $("form-checkout").hidden = false;
     mostrar("checkout");
@@ -190,7 +196,7 @@
     PROPOSTAS.forEach(function (a) { if (tem(cart.prop, a.id)) l.push("- Proposta: " + a.nome + " (" + MARCA_NOME[a.marca] + ")"); });
     l.push("Nome: " + d.nome, "E-mail: " + d.email, "WhatsApp: " + d.whats);
     l.push("Li e aceito o resumo do contrato em " + window.podecurtirAgora() + ".");
-    if (t.pagos.length) l.push("Aceito o preço de fundador: depoimento com as minhas palavras e autorização para mostrar o trabalho.");
+    if (t.fundador) l.push("Aceito o preço de fundador: depoimento com as minhas palavras e autorização para mostrar o trabalho.");
     return l.join("\n");
   }
 
@@ -229,14 +235,14 @@
     if (!/^\S+@\S+\.\S+$/.test(d.email)) falta.push("e-mail válido");
     if (d.whats.replace(/\D/g, "").length < 10) falta.push("WhatsApp com DDD");
     if (!$("aceite").checked) falta.push("aceite do resumo do contrato");
-    if (t.pagos.length && !$("fundador").checked) falta.push("aceite do preço de fundador");
+    if (t.fundador && !$("fundador").checked) falta.push("aceite do preço de fundador");
     if (falta.length) { $("erro").textContent = "Falta preencher: " + falta.join(", ") + "."; $("erro").hidden = false; return; }
     $("erro").hidden = true;
     var texto = mensagem(t, d);
     var pedido = {
       tipo: t.pagos.length ? "compra" : "proposta", cliente: d, novidades: $("novidades").checked,
       itens: t.pagos, propostas: cart.prop.slice(), hoje: t.hoje, saldo: t.saldo,
-      aceite: { contrato: true, fundador: !!t.pagos.length, em: new Date().toISOString() }, pagina: location.pathname
+      aceite: { contrato: true, fundador: t.fundador, em: new Date().toISOString() }, pagina: location.pathname
     };
 
     if (!t.pagos.length) {
@@ -249,7 +255,15 @@
     }
     if (t.pagos.length === 1) {
       var url = LINKS[t.pagos[0].id];
-      if (url) { registrar(pedido); location.href = url; return; }
+      if (url) {
+        /* Sem registro (FORM_ENDPOINT vazio ou fora do ar), as propostas e o aceite iriam se perder no redirecionamento:
+           mostra a mensagem pronta junto com o link de pagamento. */
+        registrar(pedido).then(function (ok) {
+          if (ok) location.href = url;
+          else manual("Falta um passo: envie o pedido e pague pelo link", texto, t);
+        });
+        return;
+      }
       manual("Pagamento em configuração", texto, t);
       return;
     }
