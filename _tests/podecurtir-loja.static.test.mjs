@@ -57,12 +57,24 @@ test("regras das marcas nas páginas de compra", () => {
   }
 });
 
-test("desistência em 7 dias com devolução integral, e retenção de 25% só depois", () => {
+test("desistência antes de o trabalho começar, com retenção de 25% do valor total", () => {
   const t = ler("podecurtir/termos/index.html");
-  assert.match(t, /Em até 7 dias da compra:/);
-  assert.match(t, /devolução integral/);
-  assert.match(t, /Depois de 7 dias, antes de o trabalho começar:<\/strong> a entrada é devolvida com desconto de 25%/);
-  assert.match(ler("podecurtir/desistencia/index.html"), /id="form-desistencia"/);
+  assert.match(t, /Antes de o trabalho começar:<\/strong> você pode desistir/);
+  assert.match(t, /devolvido com desconto de 25% do valor total do serviço/);
+  assert.match(t, /Com o trabalho em andamento:<\/strong> o valor pago cobre o trabalho já feito/);
+  const d = ler("podecurtir/desistencia/index.html");
+  assert.match(d, /id="form-desistencia"/);
+  assert.match(d, /desconto de 25% do valor total do serviço/);
+  assert.match(ler("assets/js/podecurtir-loja.js"), /menos 25% do valor total do serviço/);
+  for (const p of ["podecurtir/termos/index.html", "podecurtir/desistencia/index.html", "podecurtir/loja/obrigado/index.html", "assets/js/podecurtir-loja.js"]) {
+    assert.doesNotMatch(ler(p), /devolução integral|7 dias da compra|7 dias depois da compra/, p);
+  }
+});
+
+test("CNPJ preenchido na configuração, sem o rótulo MEI", () => {
+  const c = ler("assets/js/podecurtir-config.js");
+  assert.match(c, /CNPJ: "\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}"/);
+  assert.doesNotMatch(c, /\bMEI\b/);
 });
 
 test("Pixel só depois do aceite e aviso de cookies só com Pixel configurado", () => {
