@@ -68,7 +68,9 @@ def build(name, host, pages, extra_files):
     copy(dest, sorted(allassets) + extra_files)
     (dest / "CNAME").write_text(host + "\n")
     (dest / ".nojekyll").write_text("")
-    urls = "".join(f"  <url><loc>{base}{new}</loc></url>\n" for _, _, m in pages for old, new in m[:1])
+    # páginas com noindex (confirmação de pedido) ficam fora do sitemap
+    urls = "".join(f"  <url><loc>{base}{new}</loc></url>\n" for src, _, m in pages for old, new in m[:1]
+                   if 'content="noindex' not in (SRC / src).read_text())
     (dest / "sitemap.xml").write_text(f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{urls}</urlset>\n')
     (dest / "robots.txt").write_text(f"User-agent: *\nAllow: /\n\nSitemap: {base}/sitemap.xml\n")
     return dest
@@ -78,8 +80,19 @@ build("jessicagessoli", "jessicagessoli.zethic.net", [
     ("jessicagessoli.html", "index.html", jg),
     ("en/jessicagessoli.html", "en/index.html", [jg[1], jg[0]]),
 ], ["/assets/fonts/OFL-IBM-Plex-Sans.txt", "/assets/fonts/OFL-Spectral.txt"])
+# 03/11/2026 (aprovado pela Jéssica): loja da Pode Curtir com carrinho, termos, privacidade e desistência.
+# Cada página leva o próprio endereço primeiro (vai para o sitemap) e depois os das outras páginas da marca.
+pc = [("/podecurtir", "/"), ("/podecurtir/loja/", "/loja/"), ("/podecurtir/loja/obrigado/", "/loja/obrigado/"),
+      ("/podecurtir/termos/", "/termos/"), ("/podecurtir/privacidade/", "/privacidade/"),
+      ("/podecurtir/desistencia/", "/desistencia/")]
+def pc_map(i): return [pc[i]] + pc[:i] + pc[i + 1:]
 build("podecurtir", "podecurtir.zethic.net", [
-    ("podecurtir.html", "index.html", [("/podecurtir", "/")]),
+    ("podecurtir.html", "index.html", pc_map(0)),
+    ("podecurtir/loja/index.html", "loja/index.html", pc_map(1)),
+    ("podecurtir/loja/obrigado/index.html", "loja/obrigado/index.html", pc_map(2)),
+    ("podecurtir/termos/index.html", "termos/index.html", pc_map(3)),
+    ("podecurtir/privacidade/index.html", "privacidade/index.html", pc_map(4)),
+    ("podecurtir/desistencia/index.html", "desistencia/index.html", pc_map(5)),
 ], ["/assets/fonts/OFL.txt"])
 
 if CHECK:
