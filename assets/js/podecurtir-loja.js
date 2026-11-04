@@ -2,6 +2,11 @@
    Decisões de 04/11/2026: no site o pagamento é integral (entrada e saldo só na venda presencial); o parcelamento
    fica só no cartão, com um link para Pix ou boleto à vista e outro para cartão; a Gestão Completa é vendida aqui,
    com assinatura. O WhatsApp fica para orçamento.
+   Decisão de 04/11/2026 (Ficha v1.17): "plus" no fechamento do pedido. Com um serviço pago no pedido, o cliente pode
+   marcar plus de escopo fechado: sessão de fotos de 1 hora (R$ 500), capa e diagramação do e-book (R$ 1.500),
+   proteção das contas e mentoria em IA de 1 hora com Jéssica Gessoli (R$ 400 cada) e Site Essencial da Zethic
+   (R$ 3.000, preço de fundador, até 3x no cartão). Os feitos em parceria aparecem em linha separada, com o nome de
+   quem faz; o contato continua sendo a Pode Curtir. Trabalhos maiores seguem como pedido de proposta.
    Pagamento pelo link do Asaas de cada item (ASAAS_LINKS em podecurtir-config.js). Com vários itens pagos,
    usa o CHECKOUT_ENDPOINT (n8n) se estiver preenchido; senão, mostra o link de cada item. */
 (function () {
@@ -25,20 +30,38 @@
     { id: "completa", nome: "Gestão Completa", mensal: 4500, desc: "3 redes, 20 posts e 8 Reels por mês." }
   ];
   var PROPOSTAS = [
-    { id: "gravacao", marca: "pc", nome: "Gravação de foto e vídeo", desc: "Diária ou sessão. O deslocamento entra na proposta." },
-    { id: "livro", marca: "pc", nome: "Livro pronto", desc: "Revisão, capa, diagramação, publicação e divulgação." },
-    { id: "protecao", marca: "jg", nome: "Proteção completa das contas", desc: "Feita por Jéssica Gessoli, em parceria. Sem senha." },
-    { id: "mentoria", marca: "jg", nome: "Mentoria e consultoria em IA", desc: "Você aprende a fazer com IA, no seu projeto. Com Jéssica Gessoli." },
-    { id: "tech", marca: "ze", nome: "Site, app, automação e bot de WhatsApp", desc: "Feitos pela Zethic, em parceria. Atendimento e dados das redes num lugar só." }
+    { id: "gravacao", marca: "pc", nome: "Gravação de foto e vídeo", plus: "plus_gravacao", desc: "Diária, evento ou sessão maior. O deslocamento entra na proposta." },
+    { id: "livro", marca: "pc", nome: "Livro pronto", plus: "plus_livro", desc: "Revisão, capa, diagramação, publicação e divulgação." },
+    { id: "protecao", marca: "jg", nome: "Proteção completa das contas", plus: "plus_protecao", desc: "Feita por Jéssica Gessoli, em parceria. Sem senha." },
+    { id: "mentoria", marca: "jg", nome: "Mentoria e consultoria em IA", plus: "plus_mentoria", desc: "Você aprende a fazer com IA, no seu projeto. Com Jéssica Gessoli." },
+    { id: "tech", marca: "ze", nome: "Site, app, automação e bot de WhatsApp", plus: "plus_site", desc: "Feitos pela Zethic, em parceria. Atendimento e dados das redes num lugar só." }
   ];
+  /* Plus do fechamento do pedido: escopo fechado e preço próprio. Só entram com um serviço pago no pedido. */
+  var PLUS = [
+    { id: "plus_gravacao", marca: "pc", nome: "Sessão de fotos de 1 hora", preco: 500, prazo: "Edição pronta em até 14 dias depois da sessão",
+      desc: "10 fotos editadas, em Campinas/SP. Fora de Campinas, o deslocamento é combinado antes e cobrado à parte." },
+    { id: "plus_livro", marca: "pc", nome: "Capa e diagramação do e-book", preco: 1500, prazo: "Prazo combinado por escrito depois do briefing",
+      desc: "Com o texto pronto, até 100 páginas: capa simples e diagramação do e-book. ISBN, ficha catalográfica e gráfica ficam com o autor." },
+    { id: "plus_protecao", marca: "jg", nome: "Proteção das contas", preco: 400, prazo: "Data combinada depois do pagamento",
+      desc: "1 hora a distância, até 3 contas do Negócio: verificação em duas etapas, e-mail e telefone de recuperação, revisão de acessos e acesso de parceiro, sem senha. Recuperar conta invadida fica fora e é cobrado por hora." },
+    { id: "plus_mentoria", marca: "jg", nome: "Mentoria em IA · 1 hora", preco: 400, prazo: "Data combinada depois do pagamento",
+      desc: "Por videochamada, nas ferramentas de IA que você já tem. Você aprende fazendo, no seu projeto." },
+    { id: "plus_site", marca: "ze", nome: "Site Essencial", preco: 3000, parcelas: 3, em: "no", fundador: true, prazo: "Prazo combinado por escrito depois do briefing",
+      desc: "Site de uma página com apresentação e serviços, botão de WhatsApp, formulário, mapa e cadastro no Google. Domínio e hospedagem ficam no nome do seu Negócio, à parte. Preço de fundador para os 3 primeiros clientes." }
+  ];
+  function plusDe(id) { return PLUS.filter(function (p) { return p.id === id; })[0]; }
   var MARCA = { pc: "PODE CURTIR", jg: "JÉSSICA GESSOLI", ze: "ZETHIC" };
   var MARCA_NOME = { pc: "Pode Curtir", jg: "Jéssica Gessoli", ze: "Zethic" };
+  var COM = { jg: "com Jéssica Gessoli", ze: "com a Zethic" };
 
   var CHAVE = "podecurtir-carrinho-v1";
-  var cart = { proj: [], plano: null, prop: [] };
+  var cart = { proj: [], plano: null, prop: [], plus: [] };
   try {
     var salvo = JSON.parse(sessionStorage.getItem(CHAVE) || "null");
-    if (salvo && Array.isArray(salvo.proj) && Array.isArray(salvo.prop)) cart = { proj: salvo.proj, plano: salvo.plano || null, prop: salvo.prop };
+    if (salvo && Array.isArray(salvo.proj) && Array.isArray(salvo.prop)) {
+      cart = { proj: salvo.proj, plano: salvo.plano || null, prop: salvo.prop,
+        plus: Array.isArray(salvo.plus) ? salvo.plus.filter(function (id) { return !!plusDe(id); }) : [] };
+    }
   } catch (e) {}
   function salvar() { try { sessionStorage.setItem(CHAVE, JSON.stringify(cart)); } catch (e) {} }
   var aviso = "";
@@ -77,7 +100,9 @@
     }).join("");
     $("lista-propostas").innerHTML = PROPOSTAS.map(function (a) {
       var on = tem(cart.prop, a.id);
-      return '<div class="proposta"><div><span class="selo ' + a.marca + '">' + MARCA[a.marca] + "</span><strong>" + a.nome + "</strong><p>" + a.desc + "</p></div>" +
+      var x = a.plus ? plusDe(a.plus) : null;
+      return '<div class="proposta"><div><span class="selo ' + a.marca + '">' + MARCA[a.marca] + "</span><strong>" + a.nome + "</strong><p>" + a.desc + "</p>" +
+        (x ? '<p class="plus-dica">Ou como plus, no fechamento de um pedido: ' + x.nome + " por " + brl(x.preco) + ".</p>" : "") + "</div>" +
         '<button class="pedir" type="button" data-prop="' + a.id + '" aria-pressed="' + on + '">' + (on ? "Pedido · tirar" : "Pedir proposta") + "</button></div>";
     }).join("");
   }
@@ -88,8 +113,17 @@
        No Ajuste de Perfil, só a R$ 500; a R$ 750 ou R$ 1.200 não se pede depoimento nem autorização. */
     PROJ.forEach(function (p) { if (tem(cart.proj, p.id)) { hoje += p.preco; pagos.push({ id: p.id, nome: p.nome, valor: p.preco, parcelas: p.parcelas || 0, em: p.em || "" }); if (p.fundador) fundador = true; } });
     PLANOS.forEach(function (p) { if (cart.plano === p.id) { plano = p; hoje += p.mensal; pagos.push({ id: p.id, nome: p.nome, valor: p.mensal }); fundador = true; } });
-    return { hoje: hoje, plano: plano, pagos: pagos, fundador: fundador, props: cart.prop.length, total: cart.proj.length + (plano ? 1 : 0) + cart.prop.length };
+    /* Plus só com um serviço pago no pedido. */
+    var plus = pagos.length ? PLUS.filter(function (p) { return tem(cart.plus, p.id); }) : [];
+    plus.forEach(function (p) {
+      hoje += p.preco;
+      pagos.push({ id: p.id, nome: p.nome, valor: p.preco, parcelas: p.parcelas || 0, em: p.em || "", marca: p.marca });
+      if (p.fundador) fundador = true;
+    });
+    return { hoje: hoje, plano: plano, pagos: pagos, plus: plus, fundador: fundador, props: cart.prop.length,
+      total: cart.proj.length + (plano ? 1 : 0) + plus.length + cart.prop.length };
   }
+  function temPrincipal() { return cart.proj.length > 0 || !!cart.plano; }
 
   function linhas(comTirar) {
     var out = [];
@@ -102,6 +136,11 @@
       if (cart.plano !== p.id) return;
       out.push("<li><span>" + p.nome + '</span><span class="num">' + brl(p.mensal) + "</span><small>1ª mensalidade · mínimo de 3 meses = " + brl(p.mensal * 3) + "</small>" +
         (comTirar ? '<button class="tirar" type="button" data-plano="' + p.id + '">Tirar</button>' : "") + "</li>");
+    });
+    if (temPrincipal()) PLUS.forEach(function (p) {
+      if (!tem(cart.plus, p.id)) return;
+      out.push('<li><span><span class="selo ' + p.marca + '">' + MARCA[p.marca] + "</span>" + p.nome + '</span><span class="num">' + brl(p.preco) + "</span><small>Plus · pagamento integral · " + formas(p) + "</small>" +
+        (comTirar ? '<button class="tirar" type="button" data-plus="' + p.id + '">Tirar</button>' : "") + "</li>");
     });
     PROPOSTAS.forEach(function (a) {
       if (!tem(cart.prop, a.id)) return;
@@ -134,9 +173,10 @@
   function tudo() { catalogo(); carrinho(); salvar(); }
 
   document.addEventListener("click", function (e) {
-    var b = e.target.closest && e.target.closest("[data-proj],[data-plano],[data-prop]");
+    var b = e.target.closest && e.target.closest("[data-proj],[data-plano],[data-prop],button[data-plus]");
     if (!b || $("vista-loja").hidden) return;
     aviso = "";
+    if (b.dataset.plus) alterna(cart.plus, b.dataset.plus);
     if (b.dataset.proj) alterna(cart.proj, b.dataset.proj);
     if (b.dataset.plano) {
       var id = b.dataset.plano;
@@ -161,6 +201,10 @@
     });
     if (t.plano) itens.push("<li><strong>" + t.plano.nome + "</strong>: " + t.plano.desc + " " + brl(t.plano.mensal) + " por mês, mínimo de 3 meses (" + brl(t.plano.mensal * 3) +
       "). Depois do mínimo, aviso de 30 dias para sair. Com 7 dias de atraso, as publicações param até o pagamento.</li>");
+    t.plus.forEach(function (p) {
+      itens.push("<li><strong>" + p.nome + "</strong>" + (p.marca === "pc" ? "" : " (" + COM[p.marca] + ", em parceria; o seu contato continua sendo a Pode Curtir)") +
+        ": " + p.desc + " " + p.prazo + ". Valor de " + brl(p.preco) + ", pago hoje por inteiro: " + formas(p) + ".</li>");
+    });
     PROPOSTAS.forEach(function (a) {
       if (tem(cart.prop, a.id)) itens.push("<li><strong>" + a.nome + "</strong> (" + MARCA_NOME[a.marca] + "): pedido de proposta, sem valor e sem compromisso. A proposta chega por escrito em até 3 dias úteis.</li>");
     });
@@ -180,7 +224,22 @@
     window.scrollTo(0, 0);
   }
 
-  $("continuar").addEventListener("click", function () {
+  /* Plus no fechamento: caixas para marcar, com escopo, preço e quem faz. */
+  function plusLista() {
+    var principal = temPrincipal();
+    $("plus-campo").hidden = !principal;
+    if (!principal) { $("plus-lista").innerHTML = ""; return; }
+    $("plus-lista").innerHTML = PLUS.map(function (p) {
+      var on = tem(cart.plus, p.id);
+      return '<label class="plus-item" for="' + p.id + '"><input type="checkbox" id="' + p.id + '" data-plus="' + p.id + '"' + (on ? " checked" : "") + ">" +
+        '<span class="plus-corpo"><span class="plus-topo"><span><span class="selo ' + p.marca + '">' + MARCA[p.marca] + "</span><strong>" + p.nome + "</strong></span>" +
+        '<span class="num plus-preco">+ ' + brl(p.preco) + "</span></span>" +
+        "<span>" + p.desc + "</span>" +
+        '<span class="plus-meta">' + (p.marca === "pc" ? "" : "Em parceria, " + COM[p.marca] + ". ") + p.prazo + ". Pagamento: " + formas(p) + ".</span></span></label>";
+    }).join("");
+  }
+
+  function montarCheckout() {
     var t = totais();
     var resumo = resumoContrato(t);
     /* O aceite vale para o pedido que a pessoa leu: se o resumo mudou, os aceites voltam a ficar em branco. */
@@ -193,15 +252,37 @@
     $("forma-campo").hidden = !parc.length;
     $("forma-cartao-txt").textContent = "Cartão de crédito, sem juros: " + parc.map(function (p) { return "até " + p.parcelas + "x " + p.em + " " + p.nome; }).join(" e ");
     $("pagar").textContent = t.pagos.length ? "Ir para o pagamento de " + brl(t.hoje) : "Enviar pedido de proposta";
+    plusLista();
+    return t;
+  }
+
+  $("continuar").addEventListener("click", function () {
+    var t = montarCheckout();
     $("erro").hidden = true; $("resultado").hidden = true; $("form-checkout").hidden = false;
     mostrar("checkout");
     if (window.podecurtirEvento) window.podecurtirEvento("InitiateCheckout", { value: t.hoje, currency: "BRL" });
+  });
+
+  /* Marcar ou tirar um plus refaz o total e o resumo; se o resumo mudou, o aceite volta a ficar em branco. */
+  $("plus-lista").addEventListener("change", function (e) {
+    var id = e.target && e.target.dataset && e.target.dataset.plus;
+    if (!id) return;
+    var i = cart.plus.indexOf(id);
+    if (e.target.checked && i < 0) cart.plus.push(id);
+    if (!e.target.checked && i >= 0) cart.plus.splice(i, 1);
+    salvar();
+    carrinho();
+    montarCheckout();
+    var alvo = $(id); if (alvo) alvo.focus();
   });
   $("voltar").addEventListener("click", function () { mostrar("loja"); });
 
   function mensagem(t, d) {
     var l = ["Olá! Quero contratar pela loja da Pode Curtir:"];
-    t.pagos.forEach(function (p) { l.push("- " + p.nome + " (" + brl(p.valor) + " hoje" + (p.parcelas ? ", " + comoPaga(p) : "") + ")"); });
+    t.pagos.forEach(function (p) {
+      l.push("- " + (p.marca ? "Plus: " : "") + p.nome + (p.marca && p.marca !== "pc" ? ", " + COM[p.marca] : "") +
+        " (" + brl(p.valor) + " hoje" + (p.parcelas ? ", " + comoPaga(p) : "") + ")");
+    });
     PROPOSTAS.forEach(function (a) { if (tem(cart.prop, a.id)) l.push("- Proposta: " + a.nome + " (" + MARCA_NOME[a.marca] + ")"); });
     l.push("Nome: " + d.nome, "E-mail: " + d.email, "WhatsApp: " + d.whats);
     l.push("Li e aceito o resumo do contrato em " + window.podecurtirAgora() + ".");
@@ -251,14 +332,14 @@
     var texto = mensagem(t, d);
     var pedido = {
       tipo: t.pagos.length ? "compra" : "proposta", cliente: d, novidades: $("novidades").checked,
-      itens: t.pagos, propostas: cart.prop.slice(), hoje: t.hoje, forma: forma() || null,
+      itens: t.pagos, plus: t.plus.map(function (p) { return p.id; }), propostas: cart.prop.slice(), hoje: t.hoje, forma: forma() || null,
       aceite: { contrato: true, fundador: t.fundador, em: new Date().toISOString() }, pagina: location.pathname
     };
 
     if (!t.pagos.length) {
       if (window.podecurtirEvento) window.podecurtirEvento("Lead");
       registrar(pedido).then(function (ok) {
-        if (ok) { cart = { proj: [], plano: null, prop: [] }; salvar(); obrigado("proposta"); }
+        if (ok) { cart = { proj: [], plano: null, prop: [], plus: [] }; salvar(); obrigado("proposta"); }
         else manual("Envie o seu pedido de proposta", texto, t);
       });
       return;

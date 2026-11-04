@@ -5,6 +5,9 @@
      Decisão de 04/11/2026: no site o pagamento é integral. Perfil Arrumado e Marca Completa têm dois links:
      _pix (Pix ou boleto, à vista) e _cartao (só cartão, em até 3x e 6x sem juros). O parcelamento fica só no cartão.
      O link do Ajuste de Perfil a R$ 500 aceita 3 vendas (as vagas de fundador); depois ele fecha sozinho.
+     Plus do fechamento do pedido (04/11/2026, Ficha v1.17): plus_gravacao (R$ 500), plus_livro (R$ 1.500),
+     plus_protecao e plus_mentoria (R$ 400 cada, Jéssica Gessoli) e o Site Essencial da Zethic (R$ 3.000), com dois links:
+     plus_site_pix e plus_site_cartao (até 3x). Os links do Site Essencial aceitam 3 vendas (vagas de fundador).
    PRECO_AJUSTE: preço atual do Ajuste de Perfil (500 do 1º ao 3º cliente, 750 do 4º ao 6º, 1200 a partir do 7º).
      Ao trocar o preço, troque também ASAAS_LINKS.ajuste pelo link do novo valor.
    VAGAS_500_RESTANTES: número de vagas que ainda restam a R$ 500 (0 a 3). null = não mostra contador.
@@ -22,7 +25,13 @@ window.PODECURTIR = {
     marca_cartao: "https://www.asaas.com/000/c/zi5jnhcqegikurxz",
     essencial: "https://www.asaas.com/000/c/w0wqpjqh5gh5op0m",
     padrao: "https://www.asaas.com/000/c/jcx1lg6s4dhb98m2",
-    completa: "https://www.asaas.com/000/c/ldnzy8vagtnkbe96"
+    completa: "https://www.asaas.com/000/c/ldnzy8vagtnkbe96",
+    plus_gravacao: "",
+    plus_livro: "",
+    plus_protecao: "",
+    plus_mentoria: "",
+    plus_site_pix: "",
+    plus_site_cartao: ""
   },
   PRECO_AJUSTE: 500,
   VAGAS_500_RESTANTES: null,
