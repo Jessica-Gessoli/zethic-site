@@ -44,7 +44,7 @@
       <p>Os serviços com preço fechado você compra aqui mesmo. O que depende do tamanho do trabalho entra como pedido de proposta, no mesmo pedido.</p>
       <ol class="passos-compra">
         <li>Escolha</li>
-        <li>Pague no Pix ou no cartão</li>
+        <li>Pague no Pix, no boleto ou no cartão</li>
         <li>Responda o briefing</li>
         <li>Aprove e receba</li>
       </ol>
@@ -98,7 +98,12 @@
             <label class="marcar" for="fundador" id="fundador-campo"><input type="checkbox" id="fundador"><span>Aceito o preço de fundador: dou um depoimento com as minhas palavras e autorizo a Pode Curtir a mostrar o trabalho.</span></label>
             <label class="marcar" for="novidades"><input type="checkbox" id="novidades"><span>Quero receber novidades da Pode Curtir por e-mail. Opcional; não muda o pedido.</span></label>
           </fieldset>
-          <p class="dica">O pagamento é feito na página segura do Asaas, por Pix ou cartão. Os dados do cartão não passam por este site.</p>
+          <fieldset id="forma-campo" hidden>
+            <legend>3. Como você quer pagar</legend>
+            <label class="marcar" for="forma-pix"><input type="radio" id="forma-pix" name="forma" value="pix"><span>Pix ou boleto, à vista</span></label>
+            <label class="marcar" for="forma-cartao"><input type="radio" id="forma-cartao" name="forma" value="cartao"><span id="forma-cartao-txt">Cartão de crédito, sem juros</span></label>
+          </fieldset>
+          <p class="dica">O pagamento é feito na página segura do Asaas, por Pix, boleto ou cartão. Os dados do cartão não passam por este site.</p>
           <p class="erro" id="erro" role="alert" hidden></p>
           <button class="ir" id="pagar" type="submit">Continuar</button>
         </form>

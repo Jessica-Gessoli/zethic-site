@@ -1,4 +1,7 @@
 /* Pode Curtir — loja com carrinho (/podecurtir/loja). Valores de 03/11/2026, aprovados pela Jéssica.
+   Decisões de 04/11/2026: no site o pagamento é integral (entrada e saldo só na venda presencial); o parcelamento
+   fica só no cartão, com um link para Pix ou boleto à vista e outro para cartão; a Gestão Completa é vendida aqui,
+   com assinatura. O WhatsApp fica para orçamento.
    Pagamento pelo link do Asaas de cada item (ASAAS_LINKS em podecurtir-config.js). Com vários itens pagos,
    usa o CHECKOUT_ENDPOINT (n8n) se estiver preenchido; senão, mostra o link de cada item. */
 (function () {
@@ -9,19 +12,19 @@
   var PRECO_AJUSTE = Number(C.PRECO_AJUSTE) || 500;
 
   var PROJ = [
-    { id: "ajuste", nome: "Ajuste de Perfil", preco: PRECO_AJUSTE, agora: 1, prazo: "5 dias úteis", fundador: PRECO_AJUSTE === 500,
+    { id: "ajuste", nome: "Ajuste de Perfil", preco: PRECO_AJUSTE, prazo: "5 dias úteis", fundador: PRECO_AJUSTE === 500,
       desc: "Bio, nome, foto, link e botão de WhatsApp, destaques com capa, 3 posts fixados e checagem básica de segurança da conta." },
-    { id: "arrumado", nome: "Perfil Arrumado", preco: 2000, agora: 0.5, prazo: "15 dias úteis", fundador: true,
+    { id: "arrumado", nome: "Perfil Arrumado", preco: 2000, parcelas: 3, em: "no", prazo: "15 dias úteis", fundador: true,
       desc: "Tudo do Ajuste de Perfil, mais análise de quem você segue, curadoria da grade, revisão das legendas e dos acessos e plano de 30 dias." },
-    { id: "marca", nome: "Marca Completa", preco: 7500, agora: 0.5, prazo: "30 dias úteis", fundador: true,
+    { id: "marca", nome: "Marca Completa", preco: 7500, parcelas: 6, em: "na", prazo: "30 dias úteis", fundador: true,
       desc: "Tudo do Perfil Arrumado, mais paleta, tipografia, símbolo e assinatura, modelos de capa, post e story e manual curto de uso." }
   ];
   var PLANOS = [
     { id: "essencial", nome: "Gestão Essencial", mensal: 1500, desc: "1 rede, 12 posts por mês e relatório mensal." },
-    { id: "padrao", nome: "Gestão Padrão", mensal: 2800, desc: "2 redes, 16 posts e 4 Reels por mês, com relatório." }
+    { id: "padrao", nome: "Gestão Padrão", mensal: 2800, desc: "2 redes, 16 posts e 4 Reels por mês, com relatório." },
+    { id: "completa", nome: "Gestão Completa", mensal: 4500, desc: "3 redes, 20 posts e 8 Reels por mês." }
   ];
   var PROPOSTAS = [
-    { id: "completa", marca: "pc", nome: "Gestão Completa", desc: "3 redes, 20 posts e 8 Reels por mês. R$ 4.500 por mês, com conversa antes." },
     { id: "gravacao", marca: "pc", nome: "Gravação de foto e vídeo", desc: "Diária ou sessão. O deslocamento entra na proposta." },
     { id: "livro", marca: "pc", nome: "Livro pronto", desc: "Revisão, capa, diagramação, publicação e divulgação." },
     { id: "protecao", marca: "jg", nome: "Proteção completa das contas", desc: "Feita por Jéssica Gessoli, em parceria. Sem senha." },
@@ -41,6 +44,12 @@
   var aviso = "";
   var resumoAceito = null;
 
+  /* Formas de pagamento de cada item. Parcelado só no cartão; Pix e boleto sempre à vista. */
+  function formas(p) { return p.parcelas ? "Pix ou boleto à vista, ou cartão em até " + p.parcelas + "x sem juros" : "Pix, boleto ou cartão, à vista"; }
+  function forma() { var r = document.querySelector('input[name="forma"]:checked'); return r ? r.value : ""; }
+  function linkDe(p) { return LINKS[p.parcelas ? p.id + "_" + forma() : p.id]; }
+  function comoPaga(p) { return p.parcelas ? (forma() === "cartao" ? "no cartão, em até " + p.parcelas + "x sem juros" : "no Pix ou boleto, à vista") : ""; }
+
   function tem(lista, id) { return lista.indexOf(id) >= 0; }
   function alterna(lista, id) { var i = lista.indexOf(id); if (i >= 0) lista.splice(i, 1); else lista.push(id); }
   function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
@@ -55,10 +64,9 @@
   function catalogo() {
     $("grade-perfil").innerHTML = PROJ.map(function (p) {
       var on = tem(cart.proj, p.id);
-      var pag = p.agora === 1 ? "Integral, hoje: " + brl(p.preco) : "Entrada hoje: " + brl(p.preco * p.agora) + "; saldo antes da entrega";
       return '<article class="item"><h3>' + p.nome + '</h3><p class="preco num">' + brl(p.preco) + "</p><p>" + p.desc + "</p>" +
         (p.id === "ajuste" ? '<p class="vagas">' + textoVagas() + "</p>" : "") +
-        '<dl class="meta"><div><dt>Prazo</dt><dd>' + p.prazo + ', a partir do briefing completo</dd></div><div><dt>Pagamento</dt><dd>' + pag + "</dd></div></dl>" +
+        '<dl class="meta"><div><dt>Prazo</dt><dd>' + p.prazo + ', a partir do briefing completo</dd></div><div><dt>Pagamento</dt><dd>Integral: ' + formas(p) + "</dd></div></dl>" +
         '<button class="por" type="button" data-proj="' + p.id + '" aria-pressed="' + on + '">' + (on ? "No pedido · tirar" : "Pôr no pedido") + "</button></article>";
     }).join("");
     $("grade-planos").innerHTML = PLANOS.map(function (p) {
@@ -75,20 +83,19 @@
   }
 
   function totais() {
-    var hoje = 0, saldo = 0, plano = null, pagos = [], fundador = false;
+    var hoje = 0, plano = null, pagos = [], fundador = false;
     /* Preço de fundador (termos, item 2): só nos itens vendidos pelo preço dos 3 primeiros clientes.
        No Ajuste de Perfil, só a R$ 500; a R$ 750 ou R$ 1.200 não se pede depoimento nem autorização. */
-    PROJ.forEach(function (p) { if (tem(cart.proj, p.id)) { hoje += p.preco * p.agora; saldo += p.preco * (1 - p.agora); pagos.push({ id: p.id, nome: p.nome, valor: p.preco * p.agora }); if (p.fundador) fundador = true; } });
+    PROJ.forEach(function (p) { if (tem(cart.proj, p.id)) { hoje += p.preco; pagos.push({ id: p.id, nome: p.nome, valor: p.preco, parcelas: p.parcelas || 0, em: p.em || "" }); if (p.fundador) fundador = true; } });
     PLANOS.forEach(function (p) { if (cart.plano === p.id) { plano = p; hoje += p.mensal; pagos.push({ id: p.id, nome: p.nome, valor: p.mensal }); fundador = true; } });
-    return { hoje: hoje, saldo: saldo, plano: plano, pagos: pagos, fundador: fundador, props: cart.prop.length, total: cart.proj.length + (plano ? 1 : 0) + cart.prop.length };
+    return { hoje: hoje, plano: plano, pagos: pagos, fundador: fundador, props: cart.prop.length, total: cart.proj.length + (plano ? 1 : 0) + cart.prop.length };
   }
 
   function linhas(comTirar) {
     var out = [];
     PROJ.forEach(function (p) {
       if (!tem(cart.proj, p.id)) return;
-      out.push("<li><span>" + p.nome + '</span><span class="num">' + brl(p.preco * p.agora) + "</span><small>" +
-        (p.agora === 1 ? "Pagamento integral" : "Entrada de 50% · saldo de " + brl(p.preco * (1 - p.agora)) + " antes da entrega") + "</small>" +
+      out.push("<li><span>" + p.nome + '</span><span class="num">' + brl(p.preco) + "</span><small>Pagamento integral · " + formas(p) + "</small>" +
         (comTirar ? '<button class="tirar" type="button" data-proj="' + p.id + '">Tirar</button>' : "") + "</li>");
     });
     PLANOS.forEach(function (p) {
@@ -107,7 +114,6 @@
   function blocoTotais(t) {
     var h = "";
     if (t.pagos.length) h += '<div class="hoje"><span>Paga hoje</span><span class="num">' + brl(t.hoje) + "</span></div>";
-    if (t.saldo) h += '<div><span>Saldo antes da entrega</span><span class="num">' + brl(t.saldo) + "</span></div>";
     if (t.plano) h += '<div><span>Próximas 2 mensalidades</span><span class="num">' + brl(t.plano.mensal * 2) + "</span></div>";
     if (t.props) h += '<div><span>Pedidos de proposta</span><span class="num">' + t.props + "</span></div>";
     return h;
@@ -151,7 +157,7 @@
     var itens = [];
     PROJ.forEach(function (p) {
       if (tem(cart.proj, p.id)) itens.push("<li><strong>" + p.nome + "</strong>: " + p.desc + " Prazo de " + p.prazo + ", contado a partir do briefing completo. Valor de " + brl(p.preco) +
-        (p.agora < 1 ? ", com entrada de " + brl(p.preco * p.agora) + " hoje e saldo antes da entrega." : ", pago hoje.") + "</li>");
+        ", pago hoje por inteiro: " + formas(p) + ".</li>");
     });
     if (t.plano) itens.push("<li><strong>" + t.plano.nome + "</strong>: " + t.plano.desc + " " + brl(t.plano.mensal) + " por mês, mínimo de 3 meses (" + brl(t.plano.mensal * 3) +
       "). Depois do mínimo, aviso de 30 dias para sair. Com 7 dias de atraso, as publicações param até o pagamento.</li>");
@@ -183,6 +189,9 @@
     $("linhas-2").innerHTML = linhas(false);
     $("totais-2").innerHTML = blocoTotais(t);
     $("fundador-campo").hidden = !t.fundador;
+    var parc = t.pagos.filter(function (p) { return p.parcelas; });
+    $("forma-campo").hidden = !parc.length;
+    $("forma-cartao-txt").textContent = "Cartão de crédito, sem juros: " + parc.map(function (p) { return "até " + p.parcelas + "x " + p.em + " " + p.nome; }).join(" e ");
     $("pagar").textContent = t.pagos.length ? "Ir para o pagamento de " + brl(t.hoje) : "Enviar pedido de proposta";
     $("erro").hidden = true; $("resultado").hidden = true; $("form-checkout").hidden = false;
     mostrar("checkout");
@@ -192,7 +201,7 @@
 
   function mensagem(t, d) {
     var l = ["Olá! Quero contratar pela loja da Pode Curtir:"];
-    t.pagos.forEach(function (p) { l.push("- " + p.nome + " (" + brl(p.valor) + " hoje)"); });
+    t.pagos.forEach(function (p) { l.push("- " + p.nome + " (" + brl(p.valor) + " hoje" + (p.parcelas ? ", " + comoPaga(p) : "") + ")"); });
     PROPOSTAS.forEach(function (a) { if (tem(cart.prop, a.id)) l.push("- Proposta: " + a.nome + " (" + MARCA_NOME[a.marca] + ")"); });
     l.push("Nome: " + d.nome, "E-mail: " + d.email, "WhatsApp: " + d.whats);
     l.push("Li e aceito o resumo do contrato em " + window.podecurtirAgora() + ".");
@@ -216,8 +225,8 @@
     $("resultado-texto").value = texto;
     $("resultado-whats").href = window.podecurtirWhats(texto);
     var links = t.pagos.map(function (p) {
-      var url = LINKS[p.id];
-      return url ? '<li><a class="pagar-item" href="' + esc(url) + '" rel="noopener">Pagar ' + esc(p.nome) + " · " + brl(p.valor) + "</a></li>"
+      var url = linkDe(p);
+      return url ? '<li><a class="pagar-item" href="' + esc(url) + '" rel="noopener">Pagar ' + esc(p.nome) + (p.parcelas ? " " + comoPaga(p) : "") + " · " + brl(p.valor) + "</a></li>"
         : "<li>" + esc(p.nome) + " · " + brl(p.valor) + ": pagamento em configuração</li>";
     });
     $("resultado-links").innerHTML = links.join("");
@@ -236,12 +245,13 @@
     if (d.whats.replace(/\D/g, "").length < 10) falta.push("WhatsApp com DDD");
     if (!$("aceite").checked) falta.push("aceite do resumo do contrato");
     if (t.fundador && !$("fundador").checked) falta.push("aceite do preço de fundador");
+    if (t.pagos.some(function (p) { return p.parcelas; }) && !forma()) falta.push("forma de pagamento");
     if (falta.length) { $("erro").textContent = "Falta preencher: " + falta.join(", ") + "."; $("erro").hidden = false; return; }
     $("erro").hidden = true;
     var texto = mensagem(t, d);
     var pedido = {
       tipo: t.pagos.length ? "compra" : "proposta", cliente: d, novidades: $("novidades").checked,
-      itens: t.pagos, propostas: cart.prop.slice(), hoje: t.hoje, saldo: t.saldo,
+      itens: t.pagos, propostas: cart.prop.slice(), hoje: t.hoje, forma: forma() || null,
       aceite: { contrato: true, fundador: t.fundador, em: new Date().toISOString() }, pagina: location.pathname
     };
 
@@ -254,7 +264,7 @@
       return;
     }
     if (t.pagos.length === 1) {
-      var url = LINKS[t.pagos[0].id];
+      var url = linkDe(t.pagos[0]);
       if (url) {
         /* Sem registro (FORM_ENDPOINT vazio ou fora do ar), as propostas e o aceite iriam se perder no redirecionamento:
            mostra a mensagem pronta junto com o link de pagamento. */
@@ -274,7 +284,7 @@
         .catch(function () { manual("Pague cada item pelo link", texto, t); });
       return;
     }
-    manual(t.pagos.every(function (p) { return LINKS[p.id]; }) ? "Pague cada item pelo link" : "Pagamento em configuração", texto, t);
+    manual(t.pagos.every(function (p) { return linkDe(p); }) ? "Pague cada item pelo link" : "Pagamento em configuração", texto, t);
   });
 
   tudo();
