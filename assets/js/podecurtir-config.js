@@ -1,7 +1,10 @@
 /* Pode Curtir — configuração da loja e das páginas de compra (/podecurtir/loja, termos, privacidade, desistência).
    Um só lugar para preencher antes de publicar. Campos vazios deixam a função desligada, sem erro.
 
-   ASAAS_LINKS: link de pagamento do Asaas de cada item (https://www.asaas.com/c/...). Vazio = "pagamento em configuração".
+   ASAAS_LINKS: link de pagamento do Asaas de cada item (https://www.asaas.com/...). Vazio = "pagamento em configuração".
+     Decisão de 04/11/2026: no site o pagamento é integral. Perfil Arrumado e Marca Completa têm dois links:
+     _pix (Pix ou boleto, à vista) e _cartao (só cartão, em até 3x e 6x sem juros). O parcelamento fica só no cartão.
+     O link do Ajuste de Perfil a R$ 500 aceita 3 vendas (as vagas de fundador); depois ele fecha sozinho.
    PRECO_AJUSTE: preço atual do Ajuste de Perfil (500 do 1º ao 3º cliente, 750 do 4º ao 6º, 1200 a partir do 7º).
      Ao trocar o preço, troque também ASAAS_LINKS.ajuste pelo link do novo valor.
    VAGAS_500_RESTANTES: número de vagas que ainda restam a R$ 500 (0 a 3). null = não mostra contador.
@@ -12,11 +15,14 @@
    CNPJ: aparece no rodapé das páginas de compra. Confirmado em 24/10/2026 que o cadastro público mostra o endereço comercial. */
 window.PODECURTIR = {
   ASAAS_LINKS: {
-    ajuste: "",
-    arrumado: "",
-    marca: "",
-    essencial: "",
-    padrao: ""
+    ajuste: "https://www.asaas.com/000/c/8y9i7j6tn0nciy6p",
+    arrumado_pix: "https://www.asaas.com/000/c/ri88rm53g1ho0r3s",
+    arrumado_cartao: "https://www.asaas.com/000/c/o7ozykq6zs6kffd5",
+    marca_pix: "https://www.asaas.com/000/c/qvtle9n6cvdb43u6",
+    marca_cartao: "https://www.asaas.com/000/c/zi5jnhcqegikurxz",
+    essencial: "https://www.asaas.com/000/c/w0wqpjqh5gh5op0m",
+    padrao: "https://www.asaas.com/000/c/jcx1lg6s4dhb98m2",
+    completa: "https://www.asaas.com/000/c/ldnzy8vagtnkbe96"
   },
   PRECO_AJUSTE: 500,
   VAGAS_500_RESTANTES: null,
