@@ -61,7 +61,7 @@
           <div class="grade" id="grade-planos"></div>
         </section>
         <section class="secao" aria-labelledby="t-propostas">
-          <div class="secao-cab"><h2 id="t-propostas">Pedir proposta</h2><p>Sem pagamento agora. Proposta por escrito em até 3 dias úteis.</p></div>
+          <div class="secao-cab"><h2 id="t-propostas">Pedir proposta</h2><p>Para trabalhos maiores ou sob medida. Sem pagamento agora; proposta por escrito em até 3 dias úteis.</p></div>
           <div class="lista-propostas" id="lista-propostas"></div>
         </section>
       </div>
@@ -91,11 +91,16 @@
               <label class="campo" for="whats">WhatsApp, com DDD<input id="whats" name="whats" inputmode="tel" autocomplete="tel" required></label>
             </div>
           </fieldset>
+          <fieldset id="plus-campo" hidden>
+            <legend>Quer um plus no seu pedido?</legend>
+            <p class="dica">Marque o que quiser somar. Cada plus tem escopo e preço fechados e entra no mesmo pedido.</p>
+            <div class="plus-lista" id="plus-lista"></div>
+          </fieldset>
           <fieldset>
             <legend>2. Resumo do contrato</legend>
             <div class="resumo" id="resumo"></div>
             <label class="marcar" for="aceite"><input type="checkbox" id="aceite" required><span>Li o resumo do contrato e os <a href="/podecurtir/termos/">termos e condições</a> e aceito.</span></label>
-            <label class="marcar" for="fundador" id="fundador-campo"><input type="checkbox" id="fundador"><span>Aceito o preço de fundador: dou um depoimento com as minhas palavras e autorizo a Pode Curtir a mostrar o trabalho.</span></label>
+            <label class="marcar" for="fundador" id="fundador-campo"><input type="checkbox" id="fundador"><span>Aceito o preço de fundador: dou um depoimento com as minhas palavras e autorizo que o trabalho seja mostrado como exemplo.</span></label>
             <label class="marcar" for="novidades"><input type="checkbox" id="novidades"><span>Quero receber novidades da Pode Curtir por e-mail. Opcional; não muda o pedido.</span></label>
           </fieldset>
           <fieldset id="forma-campo" hidden>
