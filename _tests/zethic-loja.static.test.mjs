@@ -1,0 +1,78 @@
+import { test } from "node:test";
+import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
+import vm from "node:vm";
+
+const ler = (p) => readFileSync(new URL("../" + p, import.meta.url), "utf8");
+const PAGINAS = ["loja.html", "loja-obrigado.html"];
+const JS = ["assets/js/zethic-loja-config.js", "assets/js/zethic-loja.js"];
+const semTags = (h) => h.replace(/<script[\s\S]*?<\/script>/g, "").replace(/<[^>]+>/g, " ");
+
+// 03/11/2026, 22h07 (decisão da Jéssica): a loja da Zethic é só de pedido de proposta. O site continua sem preço;
+// os valores vão no material "Zethic — planos e valores", enviado depois da conversa (aprovado às 21h49).
+test("loja sem preço: nenhum valor em reais nem percentual de cobrança nas páginas e no catálogo", () => {
+  for (const p of [...PAGINAS, ...JS, "assets/css/zethic-loja.css"]) {
+    const h = ler(p);
+    assert.doesNotMatch(h, /R\$|\bpreco\b|price/i, p + ": a loja da Zethic não mostra preço");
+    assert.doesNotMatch(h, /30% do valor recuperado|preço de fundador/i, p);
+  }
+});
+
+test("configuração: envio desligado até o webhook ser preenchido, com WhatsApp e e-mail da Zethic", () => {
+  const ctx = { window: {} };
+  vm.runInNewContext(ler("assets/js/zethic-loja-config.js"), ctx);
+  const c = ctx.window.ZETHIC_LOJA;
+  assert.equal(c.FORM_ENDPOINT, "");
+  assert.equal(c.WHATSAPP, "5519981800221");
+  assert.equal(c.EMAIL, "contato@zethic.net");
+});
+
+test("pedido não se perde: sem webhook ou com falha, a mensagem pronta vai para o WhatsApp e o e-mail", () => {
+  const js = ler("assets/js/zethic-loja.js");
+  assert.match(js, /if \(!C\.FORM_ENDPOINT \|\| !window\.fetch\) return Promise\.resolve\(false\);/);
+  assert.match(js, /if \(ok\) \{ pedido = \[\]; salvar\(\); location\.href = /);
+  assert.match(js, /else manual\(texto\);/);
+  assert.match(js, /"https:\/\/wa\.me\/"/);
+  assert.match(js, /"mailto:"/);
+});
+
+test("catálogo pela fronteira de 03/11 (Ficha v1.11 e v1.12): sem capacitação em IA e sem blindagem de contas", () => {
+  const js = ler("assets/js/zethic-loja.js");
+  const catalogo = js.split("var DEPTOS")[1].split("var SERVICOS")[0];
+  assert.doesNotMatch(catalogo, /Capacitação em IA|capacitacao|[Bb]lindagem/);
+  for (const d of ["Tecnologia", "Segurança da informação", "Financeiro", "Energia, redes e cidades"]) assert.match(catalogo, new RegExp('nome: "' + d + '"'));
+  for (const s of ["site", "bot", "projetos", "seguranca-gerenciada", "soc", "gestao-financeira", "auditoria", "reforma"]) assert.match(catalogo, new RegExp('id: "' + s + '"'));
+});
+
+test("páginas: CSP sem inline, cabeçalho da Zethic, privacidade e consentimento", () => {
+  for (const p of PAGINAS) {
+    const h = ler(p);
+    const csp = h.match(/http-equiv="Content-Security-Policy" content="([^"]+)"/);
+    assert.ok(csp, p + ": sem CSP");
+    assert.doesNotMatch(csp[1], /unsafe-inline|unsafe-eval/, p);
+    assert.doesNotMatch(h, /<script>|style="|onclick=/, p + ": script ou estilo inline");
+    assert.match(h, /<!-- cabecalho:inicio -->[\s\S]*href="\/loja"[\s\S]*<!-- cabecalho:fim -->/, p);
+    assert.match(h, /href="\/privacidade"/, p);
+    assert.match(h, /CNPJ 67\.678\.226\/0001-17/, p);
+  }
+  const loja = ler("loja.html");
+  assert.match(loja, /<input type="checkbox" id="consentimento" required>/);
+  assert.match(loja, /Sem pagamento e sem compromisso/);
+  assert.match(ler("loja-obrigado.html"), /<meta name="robots" content="noindex, nofollow">/);
+});
+
+test("regras da marca na loja", () => {
+  for (const p of [...PAGINAS, ...JS]) {
+    // Só o que a pessoa vê: sem comentários de código e sem a razão social, que o rodapé precisa mostrar.
+    const h = p.endsWith(".html") ? semTags(ler(p)).replace(/Razão social: Jessica Caroline da Silva Secco Gessoli\./, "") : ler(p).replace(/\/\*[\s\S]*?\*\//g, "");
+    assert.doesNotMatch(h, /\bPME\b|pequena e média empresa/i, p);
+    assert.doesNotMatch(h, /\bMEI\b/, p + ": sem o rótulo MEI");
+    assert.doesNotMatch(h, /Jéssica Gessoli|Jessica|Pode Curtir/i, p + ": a fundadora e as outras marcas não aparecem na Zethic");
+    assert.doesNotMatch(h, /Virgínia|Água na Boca|Lucinha|Excellent/i, p + ": sem nome de cliente");
+  }
+});
+
+test("pedido de proposta na política de privacidade", () => {
+  assert.match(ler("privacidade.html"), /<td>Você monta um pedido de proposta na loja<\/td>/);
+  assert.match(ler("sitemap.xml"), /<loc>https:\/\/zethic\.net\/loja<\/loc>/);
+});

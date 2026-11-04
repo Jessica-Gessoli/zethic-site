@@ -27,6 +27,9 @@ ZETHIC = [
     ("aconselhar.html", "site", None),
     ("conectar.html", "site", None),
     ("privacidade.html", "privacidade", None),
+    # Loja de pedido de proposta (decisão da Jéssica em 03/11/2026: sem preço no site).
+    ("loja.html", "loja", "loja"),
+    ("loja-obrigado.html", "loja", None),
 ]
 
 LOGO = ('<a class="logo" href="/" aria-label="Zethic, início">'
@@ -136,6 +139,7 @@ def painel(t):
 def cabecalho(origem, atual, home):
     contato = "#contato" if home else "/#contato"
     qs = ' aria-current="page"' if atual == "quem-somos" else ""
+    lj = ' aria-current="page"' if atual == "loja" else ""
     paineis = "\n".join(painel(t) for t in FRENTES)
     return f"""<!-- cabecalho:inicio -->
 <header>
@@ -144,6 +148,7 @@ def cabecalho(origem, atual, home):
     <nav id="menu-principal" class="menu" aria-label="Principal">
       <ul class="menu-lista" role="list">
 {paineis}
+        <li><a class="menu-link" href="/loja"{lj}>Loja</a></li>
         <li class="so-celular"><a class="menu-link" href="/quem-somos"{qs}>Quem somos</a></li>
         <li class="so-celular"><a class="menu-link" href="{contato}">Contato</a></li>
       </ul>
