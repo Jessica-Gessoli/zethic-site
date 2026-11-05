@@ -13,7 +13,9 @@ test("configuração única, com pagamento e Pixel desligados até serem preench
   const ctx = { window: {} };
   vm.runInNewContext(ler("assets/js/podecurtir-config.js"), ctx);
   const c = ctx.window.PODECURTIR;
-  assert.deepEqual(Object.keys(c.ASAAS_LINKS).sort(), ["ajuste", "arrumado", "essencial", "marca", "padrao"]);
+  assert.deepEqual(Object.keys(c.ASAAS_LINKS).sort(),
+    ["ajuste", "arrumado_cartao", "arrumado_pix", "completa", "essencial", "marca_cartao", "marca_pix", "padrao",
+      "plus_gravacao", "plus_livro", "plus_mentoria", "plus_protecao", "plus_site_cartao", "plus_site_pix"]);
   for (const v of Object.values(c.ASAAS_LINKS)) assert.ok(v === "" || /^https:\/\/(www\.)?asaas\.com\//.test(v), "link do Asaas inválido: " + v);
   assert.ok([500, 750, 1200].includes(c.PRECO_AJUSTE), "preço do Ajuste fora da escada aprovada");
   assert.ok(c.PIXEL_ID === "" || /^\d{10,20}$/.test(c.PIXEL_ID));
@@ -23,10 +25,11 @@ test("configuração única, com pagamento e Pixel desligados até serem preench
 
 test("preços aprovados em 03/11/2026", () => {
   const js = ler("assets/js/podecurtir-loja.js");
-  assert.match(js, /preco: 2000, agora: 0\.5/);
-  assert.match(js, /preco: 7500, agora: 0\.5/);
+  assert.match(js, /preco: 2000, parcelas: 3/);
+  assert.match(js, /preco: 7500, parcelas: 6/);
   assert.match(js, /mensal: 1500/);
   assert.match(js, /mensal: 2800/);
+  assert.match(js, /mensal: 4500/);
   assert.match(js, /R\$ 500 do 1º ao 3º cliente, R\$ 750 do 4º ao 6º e R\$ 1\.200 a partir do 7º/);
 });
 
@@ -99,4 +102,51 @@ test("loja: preço de fundador só nos itens a preço de fundador, aceite zerado
   assert.match(js, /if \(resumo !== resumoAceito\) \{ \$\("aceite"\)\.checked = false;/);
   assert.match(js, /if \(ok\) location\.href = url;\s*else manual\(/);
   assert.doesNotMatch(js, /registrar\(pedido\); location\.href = url;/);
+});
+
+// 04/11/2026 (decisões da Jéssica): no site, preço pronto e pagamento integral; parcelado só no cartão, com um link
+// para Pix ou boleto à vista e outro para cartão; a Gestão Completa é vendida no site, com assinatura; WhatsApp para orçamento.
+test("site: pagamento integral, parcelado só no cartão e Gestão Completa com assinatura", () => {
+  const js = ler("assets/js/podecurtir-loja.js");
+  assert.match(js, /function linkDe\(p\) \{ return LINKS\[p\.parcelas \? p\.id \+ "_" \+ forma\(\) : p\.id\]; \}/);
+  assert.match(js, /&& !forma\(\)\) falta\.push\("forma de pagamento"\)/);
+  assert.doesNotMatch(js, /p\.agora|t\.saldo|Entrada de 50%|saldo antes da entrega/);
+  const propostas = js.split("var PROPOSTAS")[1].split("];")[0];
+  assert.doesNotMatch(propostas, /Gestão Completa/);
+  const loja = ler("podecurtir/loja/index.html");
+  assert.match(loja, /<input type="radio" id="forma-pix" name="forma" value="pix">/);
+  assert.match(loja, /<input type="radio" id="forma-cartao" name="forma" value="cartao">/);
+  assert.match(loja, /por Pix, boleto ou cartão/);
+  const t = ler("podecurtir/termos/index.html");
+  assert.doesNotMatch(t, /entrada de 50%|gestão Completa\)/i);
+  assert.match(t, /Perfil Arrumado pode ser parcelado em até 3x e a Marca Completa em até 6x, sem juros/);
+  const ctx = { window: {} };
+  vm.runInNewContext(ler("assets/js/podecurtir-config.js"), ctx);
+  for (const [k, v] of Object.entries(ctx.window.PODECURTIR.ASAAS_LINKS)) {
+    if (k.startsWith("plus_") && v === "") continue; // plus: "pagamento em configuração" até o link existir
+    assert.match(v, /^https:\/\/www\.asaas\.com\/000\/c\/[a-z0-9]{16}$/, k);
+  }
+});
+
+// 04/11/2026 (decisão da Jéssica, Ficha v1.17): plus no fechamento do pedido, marcado pelo cliente, com escopo e preço
+// fechados; os feitos em parceria em linha separada, com o nome de quem faz; trabalhos maiores seguem por proposta.
+test("plus no fechamento: preços aprovados, só com serviço pago, parceria identificada e aceite renovado", () => {
+  const js = ler("assets/js/podecurtir-loja.js");
+  const plus = js.split("var PLUS = [")[1].split("];")[0];
+  assert.match(plus, /id: "plus_gravacao", marca: "pc", nome: "Sessão de fotos de 1 hora", preco: 500,/);
+  assert.match(plus, /id: "plus_livro", marca: "pc", nome: "Capa e diagramação do e-book", preco: 1500,/);
+  assert.match(plus, /id: "plus_protecao", marca: "jg", nome: "Proteção das contas", preco: 400,/);
+  assert.match(plus, /id: "plus_mentoria", marca: "jg", nome: "Mentoria em IA · 1 hora", preco: 400,/);
+  assert.match(plus, /id: "plus_site", marca: "ze", nome: "Site Essencial", preco: 3000, parcelas: 3, em: "no", fundador: true,/);
+  assert.match(js, /var plus = pagos\.length \? PLUS\.filter/);
+  assert.match(js, /" \(" \+ COM\[p\.marca\] \+ ", em parceria; o seu contato continua sendo a Pode Curtir\)"/);
+  assert.match(js, /var COM = \{ jg: "com Jéssica Gessoli", ze: "com a Zethic" \};/);
+  assert.match(js, /\$\("plus-lista"\)\.addEventListener\("change"/);
+  assert.match(js, /if \(resumo !== resumoAceito\) \{ \$\("aceite"\)\.checked = false;/);
+  const loja = ler("podecurtir/loja/index.html");
+  assert.match(loja, /<fieldset id="plus-campo" hidden>/);
+  assert.match(loja, /<div class="plus-lista" id="plus-lista"><\/div>/);
+  const t = ler("podecurtir/termos/index.html");
+  assert.match(t, /<strong>Plus no fechamento do pedido:<\/strong>/);
+  assert.match(t, /O Site Essencial pode ser parcelado em até 3x no cartão de crédito, sem juros/);
 });

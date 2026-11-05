@@ -2,14 +2,14 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync, existsSync } from "node:fs";
 
-// Zethic como hub (aprovado em 12/10/2026): barra das marcas nas páginas da Zethic, menu das quatro frentes (28/10/2026) nas páginas da Zethic,
+// Zethic como hub (aprovado em 12/10/2026): barra das marcas nas páginas da Zethic, menu das frentes (28/10/2026; cinco desde a Ficha v1.8, com Conectar) nas páginas da Zethic,
 // Desde 21/10/2026 (decisão da Jéssica): Pode Curtir e Jéssica Gessoli são páginas próprias, sem a barra do grupo.
 // página inicial com vitrine em movimento, cartões das frentes, porta da fundadora e atalhos.
 // Os blocos do topo são gerados por _ferramentas/cabecalhos.py.
 const ler = (p) => readFileSync(new URL("../" + p, import.meta.url), "utf8");
 const existe = (p) => existsSync(new URL("../" + p, import.meta.url));
 // 28/10/2026: Diagnóstico e Teste de golpe passaram para a Jéssica Gessoli e saíram desta lista.
-const ZETHIC = ["index.html", "quem-somos.html", "proteger.html", "organizar.html", "crescer.html", "aconselhar.html", "privacidade.html"];
+const ZETHIC = ["index.html", "quem-somos.html", "proteger.html", "organizar.html", "crescer.html", "aconselhar.html", "conectar.html", "privacidade.html"];
 const MARCAS = { "jessicagessoli.html": "g-j", "podecurtir.html": "g-p" };
 const bloco = (html, nome) => html.match(new RegExp(`<!-- ${nome}:inicio -->([\\s\\S]*?)<!-- ${nome}:fim -->`))?.[1] ?? "";
 
@@ -43,7 +43,7 @@ test("menu das marcas igual em todas as páginas da Zethic", () => {
   }
 });
 
-const FRENTES = { proteger: "p-seg", organizar: "p-tec", crescer: "p-tec", capacitar: "p-tec" };
+const FRENTES = { proteger: "p-seg", organizar: "p-tec", crescer: "p-tec", capacitar: "p-tec", conectar: "p-tec" };
 
 test("cada frente do menu abre um painel acessível, na cor do seu pilar", () => {
   const c = bloco(ler("index.html"), "cabecalho");
@@ -57,7 +57,7 @@ test("cada frente do menu abre um painel acessível, na cor do seu pilar", () =>
 
 test("todo link de serviço leva a uma página e a uma âncora que existem", () => {
   const html = ler("index.html");
-  const links = new Set([...html.matchAll(/href="(\/(?:proteger|organizar|crescer|aconselhar|diagnostico|teste-golpe|quem-somos|jessicagessoli|podecurtir)(?:#[a-z-]+)?)"/g)].map((m) => m[1]));
+  const links = new Set([...html.matchAll(/href="(\/(?:proteger|organizar|crescer|aconselhar|conectar|diagnostico|teste-golpe|quem-somos|jessicagessoli|podecurtir)(?:#[a-z-]+)?)"/g)].map((m) => m[1]));
   assert.ok(links.size >= 15, `só ${links.size} links`);
   for (const l of links) {
     const [caminho, ancora] = l.split("#");
@@ -83,12 +83,14 @@ test("home: três destaques, um título principal e uma chamada principal", () =
   assert.equal((main.match(/class="slide /g) || []).length, 3);
   assert.equal((main.match(/class="ponto p-[a-z]+(?: ativo)?"/g) || []).length, 3);
   // Escopo revisto em 28/10/2026: a Zethic é tecnologia, automação e IA.
-  assert.match(main, /<h1>Tecnologia, automação e IA <span class="realce">para o Negócio\.<\/span><\/h1>/);
+  // Ficha v1.8 (03/11/2026): título novo, com a frase anterior como linha de apoio. Depende da aprovação da Jéssica no PR.
+  assert.match(main, /<h1>Tecnologia, dados e segurança <span class="realce">para as cadeias estratégicas do Brasil\.<\/span><\/h1>/);
+  assert.match(main, /<p class="lead">Tecnologia para o Negócio: automação, IA aplicada, TI e IT\/OT\./);
   assert.equal((h.match(/<h1[ >]/g) || []).length, 1);
   assert.equal((h.match(/class="btn btn-main"/g) || []).length, 1);
   assert.match(main, /<button type="button" class="pausa">Pausar<\/button>/);
   const cartoes = [...main.matchAll(/class="cartao (p-[a-z]+) revela"[\s\S]*?<h3>([^<]+)<\/h3>/g)].map((m) => [m[2], m[1]]);
-  assert.deepEqual(cartoes, [["Proteger", "p-seg"], ["Organizar", "p-tec"], ["Crescer", "p-tec"], ["Capacitar", "p-tec"]]);
+  assert.deepEqual(cartoes, [["Proteger", "p-seg"], ["Organizar", "p-tec"], ["Crescer", "p-tec"], ["Capacitar", "p-tec"], ["Conectar", "p-tec"]]);
   assert.doesNotMatch(h, /98331|0769/);
 });
 
@@ -118,7 +120,7 @@ test("cores do sistema de design: pilares e tema claro", () => {
   for (const t of ["--pilar-seguranca:#00E5FF", "--pilar-tecnologia:#9B8CFF", "--pilar-midia:#FF5C9A", "--ciano-texto:#00E5FF"]) assert.ok(css.includes(t), t);
   const z = ler("assets/css/zethic.css");
   for (const t of ["--ciano-texto:#006E84", "--pilar-seguranca:#007A8F", "--pilar-tecnologia:#5B45E0", "--pilar-midia:#C2185B", "background:#F4F6FB"]) assert.ok(z.includes(t), t);
-  for (const [p, pilar] of [["proteger.html", "p-seg"], ["organizar.html", "p-tec"], ["crescer.html", "p-tec"], ["aconselhar.html", "p-tec"]]) {
+  for (const [p, pilar] of [["proteger.html", "p-seg"], ["organizar.html", "p-tec"], ["crescer.html", "p-tec"], ["aconselhar.html", "p-tec"], ["conectar.html", "p-tec"]]) {
     const h = ler(p);
     assert.match(h, new RegExp(`<body class="frente ${pilar}">`), p);
     assert.match(h, /<p class="rotulo-pilar">/, p);
