@@ -81,10 +81,11 @@ build("jessicagessoli", "jessicagessoli.zethic.net", [
     ("en/jessicagessoli.html", "en/index.html", [jg[1], jg[0]]),
 ], ["/assets/fonts/OFL-IBM-Plex-Sans.txt", "/assets/fonts/OFL-Spectral.txt"])
 # 03/11/2026 (aprovado pela Jéssica): loja da Pode Curtir com carrinho, termos, privacidade e desistência.
+# 04/11/2026: página Seja parceiro (rede curada, modelo C).
 # Cada página leva o próprio endereço primeiro (vai para o sitemap) e depois os das outras páginas da marca.
 pc = [("/podecurtir", "/"), ("/podecurtir/loja/", "/loja/"), ("/podecurtir/loja/obrigado/", "/loja/obrigado/"),
       ("/podecurtir/termos/", "/termos/"), ("/podecurtir/privacidade/", "/privacidade/"),
-      ("/podecurtir/desistencia/", "/desistencia/")]
+      ("/podecurtir/desistencia/", "/desistencia/"), ("/podecurtir/parceiros/", "/parceiros/")]
 def pc_map(i): return [pc[i]] + pc[:i] + pc[i + 1:]
 build("podecurtir", "podecurtir.zethic.net", [
     ("podecurtir.html", "index.html", pc_map(0)),
@@ -93,6 +94,7 @@ build("podecurtir", "podecurtir.zethic.net", [
     ("podecurtir/termos/index.html", "termos/index.html", pc_map(3)),
     ("podecurtir/privacidade/index.html", "privacidade/index.html", pc_map(4)),
     ("podecurtir/desistencia/index.html", "desistencia/index.html", pc_map(5)),
+    ("podecurtir/parceiros/index.html", "parceiros/index.html", pc_map(6)),
 ], ["/assets/fonts/OFL.txt"])
 
 if CHECK:
