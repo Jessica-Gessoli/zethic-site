@@ -75,7 +75,12 @@ test("desistência: devolução integral em 7 dias (CDC art. 49), menos o que j�
   assert.match(t, /recebe de volta o valor integral \(art\. 49 do Código de Defesa do Consumidor\)/);
   assert.match(t, /Sessão ou aula feita dentro dos 7 dias:<\/strong> o que já aconteceu é descontado\. No programa de mentoria, R\$ 400 por sessão feita/);
   assert.match(t, /Depois de 7 dias, antes da primeira sessão ou da aula:<\/strong> o valor pago é devolvido com desconto de 25% do valor total do serviço/);
-  assert.match(t, /Depois de 7 dias, com as sessões em andamento:<\/strong> o valor pago cobre as sessões já feitas/);
+  assert.match(t, /Depois de 7 dias, com o programa de mentoria em andamento:<\/strong> as sessões que faltam são devolvidas\. As sessões feitas são cobradas a R\$ 400 cada, o preço da sessão avulsa/);
+  assert.match(ler("jessicagessoli/desistencia/index.html"), /as sessões que faltam são devolvidas, e as feitas são cobradas a R\$ 400 cada/);
+  assert.match(ler("assets/js/jessicagessoli-loja.js"), /as sessões que faltam são devolvidas e as feitas são cobradas a R\$ 400 cada/);
+  for (const p of ["jessicagessoli/termos/index.html", "jessicagessoli/desistencia/index.html", "assets/js/jessicagessoli-loja.js"]) {
+    assert.doesNotMatch(ler(p), /o valor pago cobre as sessões já feitas/, p);
+  }
   const d = ler("jessicagessoli/desistencia/index.html");
   assert.match(d, /id="form-desistencia"/);
   assert.match(d, /em até 7 dias corridos da compra, sem dar motivo, e recebe o valor integral, menos as sessões ou a aula já feitas/);
