@@ -1,5 +1,9 @@
-/* Pode Curtir — partes comuns das páginas de compra: identificação no rodapé, aviso de cookies com Pixel da Meta
-   (só com aceite e só se PIXEL_ID estiver preenchido), botões de copiar, desistência e página de confirmação. */
+/* Pode Curtir — partes comuns da página inicial e das páginas de compra: identificação no rodapé, aviso de cookies
+   com medição pelo Google Analytics 4 e pelo Pixel da Meta (só com aceite e só se GA4_ID ou PIXEL_ID estiverem
+   preenchidos), eventos do caminho de compra, botões de copiar, desistência e página de confirmação.
+   04/11/2026: os 4 marcos do caminho de compra são a visita (page_view), o clique em comprar (data-evento nos botões),
+   o início do pagamento (InitiateCheckout, na loja) e a página de obrigado (page_view). Abrir qualquer página com
+   ?interno=1 desliga a medição neste navegador; ?interno=0 religa. */
 (function () {
   var C = window.PODECURTIR || {};
   var CHAVE = "podecurtir-consentimento-v1";
@@ -15,9 +19,18 @@
     }
   }
 
+  /* Acesso interno: as suas próprias visitas não entram na medição. */
+  var interno = false;
+  try {
+    var qi = new URLSearchParams(location.search).get("interno");
+    if (qi === "1") gravar("podecurtir-acesso-interno", "1");
+    if (qi === "0") localStorage.removeItem("podecurtir-acesso-interno");
+    interno = ler("podecurtir-acesso-interno") === "1";
+  } catch (e) {}
+
   /* Pixel da Meta: nada é carregado sem aceite. */
   var pixelAtivo = false;
-  function pixelValido() { return /^\d{10,20}$/.test(String(C.PIXEL_ID || "")); }
+  function pixelValido() { return !interno && /^\d{10,20}$/.test(String(C.PIXEL_ID || "")); }
   function carregarPixel() {
     if (pixelAtivo || !pixelValido()) return;
     pixelAtivo = true;
@@ -30,9 +43,36 @@
     window.fbq("init", C.PIXEL_ID);
     window.fbq("track", "PageView");
   }
+
+  /* Google Analytics 4: nada é carregado sem aceite; sem sinais de anúncio do Google. */
+  var gaAtivo = false;
+  function gaValido() { return !interno && /^G-[A-Z0-9]{4,20}$/.test(String(C.GA4_ID || "")); }
+  function carregarGA() {
+    if (gaAtivo || !gaValido()) return;
+    gaAtivo = true;
+    var s = document.createElement("script");
+    s.async = true; s.src = "https://www.googletagmanager.com/gtag/js?id=" + C.GA4_ID;
+    document.head.appendChild(s);
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () { window.dataLayer.push(arguments); };
+    window.gtag("consent", "default", { ad_storage: "denied", ad_user_data: "denied", ad_personalization: "denied", analytics_storage: "granted" });
+    window.gtag("js", new Date());
+    window.gtag("config", C.GA4_ID, { allow_google_signals: false, allow_ad_personalization_signals: false });
+  }
+  function medicaoValida() { return pixelValido() || gaValido(); }
+  function carregarMedicao() { carregarPixel(); carregarGA(); }
+
+  /* Eventos: nomes da Meta nos padrões dela; no GA4, os equivalentes recomendados ou o próprio nome. */
+  var META_PADRAO = { InitiateCheckout: 1, Lead: 1, Purchase: 1, ViewContent: 1, Contact: 1 };
+  var GA_NOMES = { InitiateCheckout: "begin_checkout", Lead: "generate_lead", Purchase: "purchase", ViewContent: "view_item", Contact: "contact" };
   window.podecurtirEvento = function (nome, params) {
-    if (pixelAtivo && typeof window.fbq === "function") window.fbq("track", nome, params || {});
+    if (pixelAtivo && typeof window.fbq === "function") window.fbq(META_PADRAO[nome] ? "track" : "trackCustom", nome, params || {});
+    if (gaAtivo && typeof window.gtag === "function") window.gtag("event", GA_NOMES[nome] || nome, params || {});
   };
+  document.addEventListener("click", function (e) {
+    var a = e.target.closest && e.target.closest("[data-evento]");
+    if (a) window.podecurtirEvento(a.getAttribute("data-evento"), { pagina: location.pathname });
+  });
 
   function linkPrivacidade() {
     var a = document.querySelector("[data-link-privacidade]");
@@ -46,13 +86,16 @@
     b.setAttribute("role", "region"); b.setAttribute("aria-label", "Cookies");
     var w = document.createElement("div"); w.className = "wrap";
     var p = document.createElement("p");
-    p.appendChild(document.createTextNode("Usamos cookies da Meta para medir os nossos anúncios só se você aceitar. Sem o seu aceite, nada é enviado. "));
+    var quem = [];
+    if (gaValido()) quem.push("do Google");
+    if (pixelValido()) quem.push("da Meta");
+    p.appendChild(document.createTextNode("Usamos cookies " + quem.join(" e ") + " para medir as visitas e os anúncios, só se você aceitar. Sem o seu aceite, nada é enviado. "));
     var a = document.createElement("a"); a.href = linkPrivacidade(); a.textContent = "Saiba mais";
     p.appendChild(a);
     var bt = document.createElement("div"); bt.className = "botoes";
     function botao(txt, cls, valor) {
       var x = document.createElement("button"); x.type = "button"; x.textContent = txt; x.className = cls;
-      x.addEventListener("click", function () { gravar(CHAVE, valor); if (valor === "aceito") carregarPixel(); b.remove(); });
+      x.addEventListener("click", function () { gravar(CHAVE, valor); if (valor === "aceito") carregarMedicao(); b.remove(); });
       return x;
     }
     bt.appendChild(botao("Rejeitar todos", "nao", "recusado"));
@@ -62,9 +105,9 @@
   }
 
   function consentimento() {
-    if (!pixelValido()) return;
+    if (!medicaoValida()) return;
     var v = ler(CHAVE);
-    if (v === "aceito") carregarPixel(); else if (v !== "recusado") banner();
+    if (v === "aceito") carregarMedicao(); else if (v !== "recusado") banner();
     var pref = document.querySelectorAll("[data-preferencias-cookies]");
     for (var i = 0; i < pref.length; i++) {
       pref[i].hidden = false;
