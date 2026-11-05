@@ -79,7 +79,8 @@ def build(name, host, pages, extra_files):
 # privacidade e desistência. Cada página leva o próprio endereço primeiro (vai para o sitemap) e depois os das outras.
 jg = [("/jessicagessoli", "/"), ("/en/jessicagessoli", "/en/"), ("/jessicagessoli/loja/", "/loja/"),
       ("/jessicagessoli/loja/obrigado/", "/loja/obrigado/"), ("/jessicagessoli/termos/", "/termos/"),
-      ("/jessicagessoli/privacidade/", "/privacidade/"), ("/jessicagessoli/desistencia/", "/desistencia/")]
+      ("/jessicagessoli/privacidade/", "/privacidade/"), ("/jessicagessoli/desistencia/", "/desistencia/"),
+      ("/jessicagessoli/cancelamento/", "/cancelamento/")]
 def jg_map(i): return [jg[i]] + jg[:i] + jg[i + 1:]
 build("jessicagessoli", "jessicagessoli.zethic.net", [
     ("jessicagessoli.html", "index.html", jg_map(0)),
@@ -89,6 +90,7 @@ build("jessicagessoli", "jessicagessoli.zethic.net", [
     ("jessicagessoli/termos/index.html", "termos/index.html", jg_map(4)),
     ("jessicagessoli/privacidade/index.html", "privacidade/index.html", jg_map(5)),
     ("jessicagessoli/desistencia/index.html", "desistencia/index.html", jg_map(6)),
+    ("jessicagessoli/cancelamento/index.html", "cancelamento/index.html", jg_map(7)),
 ], ["/assets/fonts/OFL-IBM-Plex-Sans.txt", "/assets/fonts/OFL-Spectral.txt"])
 # 03/11/2026 (aprovado pela Jéssica): loja da Pode Curtir com carrinho, termos, privacidade e desistência.
 # 04/11/2026: página Seja parceiro (rede curada, modelo C).
