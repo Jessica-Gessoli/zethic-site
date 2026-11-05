@@ -69,13 +69,22 @@ test("regras da marca nas páginas de compra", () => {
   }
 });
 
-test("desistência antes da primeira sessão ou da aula, com retenção de 25% do valor total", () => {
+test("desistência: devolução integral em 7 dias (CDC art. 49), menos o que já foi feito; depois, retenção de 25% antes do início", () => {
   const t = ler("jessicagessoli/termos/index.html");
-  assert.match(t, /Antes da primeira sessão ou da aula:<\/strong> você pode desistir/);
-  assert.match(t, /devolvido com desconto de 25% do valor total do serviço/);
-  assert.match(t, /Depois de começar:<\/strong> o valor pago cobre as sessões já feitas/);
-  assert.match(ler("jessicagessoli/desistencia/index.html"), /id="form-desistencia"/);
-  assert.match(ler("assets/js/jessicagessoli-loja.js"), /menos 25% do valor total do serviço/);
+  assert.match(t, /Em até 7 dias corridos da compra pela loja:<\/strong> você pode desistir/);
+  assert.match(t, /recebe de volta o valor integral \(art\. 49 do Código de Defesa do Consumidor\)/);
+  assert.match(t, /Sessão ou aula feita dentro dos 7 dias:<\/strong> o que já aconteceu é descontado\. No programa de mentoria, R\$ 400 por sessão feita/);
+  assert.match(t, /Depois de 7 dias, antes da primeira sessão ou da aula:<\/strong> o valor pago é devolvido com desconto de 25% do valor total do serviço/);
+  assert.match(t, /Depois de 7 dias, com as sessões em andamento:<\/strong> o valor pago cobre as sessões já feitas/);
+  const d = ler("jessicagessoli/desistencia/index.html");
+  assert.match(d, /id="form-desistencia"/);
+  assert.match(d, /em até 7 dias corridos da compra, sem dar motivo, e recebe o valor integral, menos as sessões ou a aula já feitas/);
+  assert.match(d, /desconto de 25% do valor total do serviço/);
+  assert.match(ler("jessicagessoli/loja/obrigado/index.html"), /Em até 7 dias corridos da compra/);
+  assert.match(ler("assets/js/jessicagessoli-loja.js"), /em até 7 dias corridos da compra, pela página Desistir de uma compra, com devolução integral/);
+  for (const p of ["jessicagessoli/termos/index.html", "jessicagessoli/desistencia/index.html", "jessicagessoli/loja/obrigado/index.html", "assets/js/jessicagessoli-loja.js"]) {
+    assert.doesNotMatch(ler(p), /Antes da primeira sessão ou da aula:<\/strong> você pode desistir|Você pode desistir antes da primeira sessão ou da aula|desistência: antes da primeira sessão ou da aula|<strong>Desistência:<\/strong> antes da primeira/, p);
+  }
 });
 
 test("aceite zerado quando o pedido muda e nada se perde sem registro", () => {
