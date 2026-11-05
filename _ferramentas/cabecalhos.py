@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
-"""Monta o cabeçalho com o menu das quatro frentes em todas as páginas da Zethic.
+"""Monta o cabeçalho com o menu das cinco frentes em todas as páginas da Zethic.
 
 Uso (na raiz do repositório):  python3 _ferramentas/cabecalhos.py
 Edite os modelos abaixo e rode de novo: as páginas são atualizadas entre os marcadores
 <!-- cabecalho:inicio --> ... <!-- cabecalho:fim -->.
 Desde 28/10/2026 (decisão da Jéssica) não há barra das marcas: Zethic, Jéssica Gessoli e Pode Curtir não se citam.
+Desde 03/11/2026 (Ficha oficial v1.5) a Zethic pode citar a Pode Curtir só como parceira nos serviços de tecnologia
+(site, app, automação e TI): a parte de mídia fica com a Pode Curtir, a de tecnologia com a Zethic.
 O teste _tests/torres.static.test.mjs confere que nenhuma página ficou diferente do modelo.
 Para só conferir, sem gravar:  python3 _ferramentas/cabecalhos.py --conferir
 (o teste _tests/cabecalhos-ferramenta.static.test.mjs roda essa conferência).
@@ -23,6 +25,7 @@ ZETHIC = [
     ("organizar.html", "site", None),
     ("crescer.html", "site", None),
     ("aconselhar.html", "site", None),
+    ("conectar.html", "site", None),
     ("privacidade.html", "privacidade", None),
 ]
 
@@ -33,7 +36,7 @@ LOGO = ('<a class="logo" href="/" aria-label="Zethic, início">'
         '<rect y="22.75" width="72" height="7" rx="1"/><rect y="45.5" width="72" height="7" rx="1"/></svg>'
         '<span aria-hidden="true">THIC</span></a>')
 
-# As quatro frentes da Zethic (hub aprovado em 12/10/2026; escopo revisto em 28/10/2026: a Zethic é só tecnologia,
+# As frentes da Zethic (cinco desde 03/11/2026, com Conectar: energia, conectividade e cidades inteligentes, Ficha oficial v1.7 e v1.8) (hub aprovado em 12/10/2026; escopo revisto em 28/10/2026: a Zethic é só tecnologia,
 # consultoria, governança, golpes e diagnóstico passaram para a Jéssica Gessoli; foto, vídeo e redes sociais ficam só no Pode Curtir,
 # que aparece na Zethic apenas como marca endossada, na barra das marcas e no rodapé), na ordem do menu, dos cartões da página inicial e do rodapé.
 # Cada frente pertence a um pilar da categoria: p-seg (segurança) ou p-tec (tecnologia).
@@ -48,8 +51,11 @@ FRENTES = [
         "servicos": [
             ("/proteger#seguranca-gerenciada", "Segurança gerenciada", "Ameaças monitoradas e backup testado"),
             ("/proteger#it-ot", "Segurança de IT/OT", "Redes da produção, do campo e do escritório separadas e monitoradas"),
-            ("/proteger#blindagem", "Blindagem técnica de contas", "Acessos configurados e verificação em duas etapas"),
+            ("/proteger#infraestrutura-conectada", "Infraestrutura conectada", "Inversores, carregadores, medidores e roteadores protegidos"),
+            ("/proteger#blindagem", "Blindagem técnica de contas", "E-mail, nuvem e sistemas com acessos configurados"),
             ("/proteger#continuidade", "Continuidade e recuperação", "Backup restaurado em teste e operação que volta rápido"),
+            ("/proteger#conscientizacao", "Conscientização com plataforma", "Plataforma de segurança, LGPD e IA implantada e operada"),
+            ("/proteger#lgpd", "Implantação da LGPD e de normas", "Controles, registros e evidências no dia a dia"),
         ],
     },
     {
@@ -73,8 +79,9 @@ FRENTES = [
         "pagina": "/crescer", "ir": "Conhecer Crescer",
         "img": ("/assets/img/crescer-800", 800, 450),
         "servicos": [
-            ("/crescer#site", "Site e presença no Google", "O cliente encontra a empresa e chega ao contato"),
-            ("/crescer#whatsapp", "WhatsApp e CRM comercial", "Atendimento e vendas com regras, dono e histórico"),
+            ("/crescer#site", "Site, app e presença no Google", "O cliente encontra a empresa e chega ao contato"),
+            ("/crescer#whatsapp", "Bot de WhatsApp e atendimento unificado", "Todas as redes num lugar só, com regras e histórico"),
+            ("/crescer#dados", "Dados e relatórios unificados", "Vendas, atendimento e redes num painel só"),
         ],
     },
     {
@@ -85,7 +92,19 @@ FRENTES = [
         "servicos": [
             ("/aconselhar#capacitacao", "Capacitação em IA", "Pessoas usando ferramentas de IA com produtividade"),
             ("/aconselhar#treinamento", "Treinamento técnico", "Equipe treinada nas ferramentas do dia a dia"),
-            ("/aconselhar#produto-digital", "Produto digital", "O seu conhecimento transformado em curso ou produto"),
+        ],
+    },
+    {
+        "id": "conectar", "pilar": "p-tec", "nome": "Conectar", "rotulo": "Tecnologia",
+        "frase": "Energia, redes e cidades com tecnologia confiável.",
+        "pagina": "/conectar", "ir": "Conhecer Conectar",
+        "img": ("/assets/img/zethic-800", 800, 450),
+        "servicos": [
+            ("/conectar#energia", "Tecnologia para energia", "Recarga de carro elétrico, solar, eólica e hídrica, com parceiros"),
+            ("/conectar#redes-privadas", "Redes privadas", "Wi-Fi, LoRaWAN e 5G privado para agro, mineração e portos"),
+            ("/conectar#cidades", "Cidades inteligentes", "Pilotos de sensores, iluminação e dados para municípios"),
+            ("/conectar#rastreabilidade", "Rastreabilidade para exportar", "Origem, carbono e conformidade em dados"),
+            ("/conectar#parceiros", "Parceira local de empresas de fora", "Implantação, homologação e suporte em português"),
         ],
     },
 ]

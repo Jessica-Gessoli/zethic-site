@@ -147,6 +147,7 @@ main>section.credenciais{background:var(--navy);border-top:1px solid #23273F;bor
 /* ---------- Frentes: cartões que mostram os serviços ao passar o mouse (componente CartaoFrente) ---------- */
 .cartoes{list-style:none;margin:2.4rem 0 0;padding:0;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:1.25rem}
 .cartoes>.cartao{grid-column:span 3}
+.cartoes>.cartao:nth-child(5){grid-column:1/-1}
 .cartao{position:relative;display:flex;flex-direction:column;justify-content:flex-end;min-height:31rem;border-radius:14px;overflow:hidden;border:1px solid var(--line);isolation:isolate;--c-cor:var(--pilar,var(--ciano));--c-fundo:2,4,26;background:var(--superficie)}
 .cartao-img{position:absolute;inset:0;z-index:-2}
 .cartao-img img{width:100%;height:100%;object-fit:cover;object-position:85% 50%;display:block;transition:transform .8s ease}
