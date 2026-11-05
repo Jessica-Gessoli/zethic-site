@@ -99,6 +99,67 @@ footer p{margin:.25rem 0}
   .hero{padding:1.5rem 0 2rem}
 }
 
+/* Rodapé de identificação (Decreto 7.962/2013, art. 2º) */
+footer.ident{background:var(--lilas)}
+footer.ident p{margin:.3rem 0}
+.linkbtn{border:0;background:none;padding:0;color:var(--rosa);font-weight:400;text-decoration:underline;text-underline-offset:.18em;cursor:pointer}
+
+/* Aviso de cookies (só aparece com o Pixel configurado) */
+.pc-cookies{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--tinta);color:var(--branco);padding-bottom:env(safe-area-inset-bottom,0px)}
+.pc-cookies .wrap{display:flex;flex-wrap:wrap;gap:.75rem;align-items:center;justify-content:space-between;padding-top:.9rem;padding-bottom:.9rem}
+.pc-cookies p{margin:0;font-size:.92rem;max-width:62ch}
+.pc-cookies a{color:var(--flash)}
+.pc-cookies .botoes{display:flex;flex-wrap:wrap;gap:.5rem}
+.pc-cookies button{border-radius:.6rem;padding:.55rem .9rem;font-weight:700;cursor:pointer;border:2px solid var(--branco);background:transparent;color:var(--branco)}
+.pc-cookies button.sim{background:var(--branco);color:var(--tinta)}
+
+/* Página inicial como loja (04/11/2026): preço na primeira dobra, garantias, dúvidas e barra de compra no celular */
+.top-nav{display:flex;flex-wrap:wrap;align-items:center;gap:.4rem 1.25rem}
+.top-nav a{color:var(--tinta);text-decoration:none;font-weight:600}
+.top-nav a:hover{color:var(--rosa)}
+.selos{display:flex;flex-wrap:wrap;gap:.5rem 1.5rem;margin:1.75rem 0 0;padding:0;list-style:none;font-weight:600;font-size:.98rem}
+.selos li{display:inline-flex;align-items:center;gap:.45rem}
+.selos li::before{content:"";flex:none;width:.6rem;height:.6rem;border-radius:50%;background:var(--flash)}
+.btn.rosa{background:var(--rosa);color:var(--branco)}
+.btn.rosa:hover{background:var(--tinta);color:var(--branco)}
+.actions.centro{justify-content:center;margin-top:2.25rem}
+
+.ofertas{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1.25rem}
+.oferta{display:flex;flex-direction:column;border:2px solid var(--linha);border-radius:1.1rem;padding:1.4rem 1.25rem}
+.oferta h3{font-weight:700;font-size:1.25rem;letter-spacing:-.015em;margin:0}
+.oferta .valor{font-weight:700;font-size:2rem;letter-spacing:-.03em;line-height:1.1;margin:.6rem 0 .15rem;font-variant-numeric:tabular-nums}
+.oferta .valor small{font-size:.95rem;font-weight:600;letter-spacing:0;color:var(--cinza)}
+.oferta .valor small.de{display:block;margin:.1rem 0}
+.caixa p.acoes{display:flex;flex-wrap:wrap;align-items:center;gap:.75rem 1.25rem}
+.oferta .cond{color:var(--cinza);font-size:.93rem;margin:0 0 .9rem}
+.oferta p{margin:0 0 1.2rem}
+.oferta .btn{margin-top:auto;text-align:center}
+.oferta:hover{border-color:var(--rosa)}
+
+.garantias{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.25rem 2.5rem;margin:1.5rem 0 0;padding:0;list-style:none}
+.garantias li{border-top:4px solid var(--rosa);padding-top:.9rem}
+.garantias strong{display:block;font-size:1.15rem;margin-bottom:.2rem}
+.garantias span{color:var(--cinza)}
+
+.faq{max-width:46rem;margin-top:1.25rem}
+.faq details{border-top:1px solid var(--linha);padding:.2rem 0}
+.faq details:last-child{border-bottom:1px solid var(--linha)}
+.faq summary{cursor:pointer;font-weight:700;font-size:1.1rem;padding:.8rem 0;list-style-position:outside}
+.faq summary:hover{color:var(--rosa)}
+.faq details p{margin:0 0 1rem;color:var(--cinza);max-width:60ch}
+
+.barra-compra{display:none}
+@media (max-width:60rem){
+  .ofertas{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:40rem){
+  .top-nav a:not(.top-cta){display:none}
+  .ofertas,.garantias{grid-template-columns:minmax(0,1fr)}
+  .pc-inicio .barra-compra{display:block;position:fixed;left:.75rem;right:.75rem;bottom:calc(.75rem + env(safe-area-inset-bottom,0px));z-index:15;
+    padding:.95rem 1rem;border-radius:999px;background:var(--rosa);color:var(--branco);font-weight:700;text-align:center;text-decoration:none;box-shadow:0 .4rem 1.2rem rgba(27,21,48,.25)}
+  .pc-inicio footer{padding-bottom:5.5rem}
+}
+
 /* Trabalhos (portfólio): cada capa abre o reel no Instagram */
 .galeria{display:grid;grid-template-columns:repeat(auto-fit,minmax(12rem,16rem));gap:1.5rem;margin-top:1.5rem}
 .reel{display:flex;flex-direction:column;gap:.15rem;color:var(--tinta);text-decoration:none;font-size:.95rem}

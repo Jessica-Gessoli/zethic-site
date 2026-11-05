@@ -127,5 +127,6 @@ test("o 0769 não aparece nas páginas da Zethic nem da Jéssica Gessoli", async
   const raiz = new URL("../", import.meta.url);
   const arquivos = [...readdirSync(raiz).filter((f) => /\.(html|txt|xml)$/.test(f)), ...readdirSync(new URL("en/", raiz)).map((f) => "en/" + f), ...readdirSync(new URL("_docs/", raiz)).filter((f) => f.endsWith(".html")).map((f) => "_docs/" + f)];
   // 03/11/2026: o /fale é a exceção, porque leva a origem podecurtir ao WhatsApp da Pode Curtir.
-  for (const p of arquivos.filter((f) => f !== "fale.html")) assert.doesNotMatch(readFileSync(new URL(p, raiz), "utf8"), /98331|0769|5519983310769/, p);
+  // 04/11/2026: a página inicial da Pode Curtir também mostra o número dela no rodapé, como as páginas de compra.
+  for (const p of arquivos.filter((f) => f !== "fale.html" && f !== "podecurtir.html")) assert.doesNotMatch(readFileSync(new URL(p, raiz), "utf8"), /98331|0769|5519983310769/, p);
 });

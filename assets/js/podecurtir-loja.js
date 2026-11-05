@@ -215,7 +215,7 @@
       "<li>Se uma resposta ou um material seu atrasar, o prazo para pelo mesmo tempo.</li>" +
       "<li>Nenhum serviço garante número de seguidores, alcance ou vendas.</li>" +
       "<li>Fotos e vídeos: você usa sem prazo nas redes, no site e nos impressos do seu Negócio. Anúncio pago tem licença à parte.</li></ul>" +
-      '<p class="limite"><strong>Desistência:</strong> antes de o trabalho começar, pela página Desistir de uma compra, com devolução do valor pago menos 25% do valor total do serviço. Com o trabalho em andamento, o valor pago cobre o trabalho já feito.</p>';
+      '<p class="limite"><strong>Desistência:</strong> em até 7 dias corridos da compra, pela página Desistir de uma compra, com devolução integral. Depois desse prazo e antes de o trabalho começar, devolução do valor pago menos 25% do valor total do serviço. Depois de 7 dias, com o trabalho em andamento, o valor pago cobre o trabalho já feito.</p>';
   }
 
   function mostrar(v) {

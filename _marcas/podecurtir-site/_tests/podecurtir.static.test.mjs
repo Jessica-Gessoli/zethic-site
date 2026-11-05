@@ -19,12 +19,14 @@ test("visor da Pode Curtir, sem endosso da Zethic", () => {
   assert.doesNotMatch(h, /zethic-marca\.svg/);
 });
 
-test("categoria clara, frente de redes sociais e nenhum preço", () => {
+test("categoria clara, frente de redes sociais e preço da loja", () => {
   // 25/10/2026: o mercado é o Brasil inteiro, sem "em Campinas" no título. 28/10/2026: sem segurança na Pode Curtir.
   assert.match(h, /<title>Pode Curtir \| Produtora de foto, vídeo e redes sociais<\/title>/);
   assert.match(h, /<li id="redes">[\s\S]*Perfil Pronto[\s\S]*Gestão mensal/);
   assert.doesNotMatch(h, /Conta protegida|[Ss]eguran[çc]a|senha/);
-  assert.doesNotMatch(h, /R\$ ?\d/);
+  // 04/11/2026: a página inicial mostra preço (site = preço pronto) e leva à loja do próprio endereço.
+  assert.match(h, /id="precos"/);
+  assert.match(h, /href="\/loja\/#t-perfil"/);
 });
 
 test("endereço próprio: canônico e domínio", () => {

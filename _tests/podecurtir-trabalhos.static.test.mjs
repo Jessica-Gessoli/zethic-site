@@ -49,7 +49,7 @@ test("Pode Curtir: categoria clara e frente de redes sociais", () => {
   const h = ler("podecurtir.html");
   assert.match(h, /<title>Pode Curtir \| Produtora de foto, vídeo e redes sociais<\/title>/);
   assert.match(h, /<li id="redes">[\s\S]*Perfil Pronto[\s\S]*Gestão mensal/);
-  assert.doesNotMatch(h, /R\$ ?\d/);
+  // 04/11/2026: a regra "sem preço" caiu (site = preço pronto); o preço da página inicial é conferido no teste da loja.
   assert.doesNotMatch(h, /A publicação nas redes e os anúncios ficam com você/);
   // 28/10/2026 (fronteiras): a Pode Curtir não comunica segurança; a blindagem técnica de contas é da Zethic.
   assert.doesNotMatch(h, /Conta protegida|protegida pela Zethic|[Ss]eguran[çc]a|senha/);
