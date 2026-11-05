@@ -6,7 +6,7 @@ const ler = (p) => readFileSync(new URL("../" + p, import.meta.url), "utf8");
 // Regra de 12/10/2026 (hub), escopo revisto em 28/10/2026: a Zethic é uma empresa de tecnologia, automação e IA com quatro frentes.
 // Pode Curtir é marca endossada, fora das frentes; Jéssica Gessoli não é frente, aparece só como "Quem fundou a Zethic".
 // O corpo das páginas das frentes continua falando só da Zethic. A Quem somos pode citar a fundadora e o Pode Curtir.
-const FRENTES = ["proteger.html", "organizar.html", "crescer.html", "aconselhar.html", "privacidade.html"];
+const FRENTES = ["proteger.html", "organizar.html", "crescer.html", "aconselhar.html", "conectar.html", "privacidade.html"];
 
 // O que pode citar as outras marcas: barra do grupo, menu, rodapé, razão social, controladora na política de privacidade e o e-mail atual.
 const semObrigatorios = (html) => html
@@ -15,7 +15,9 @@ const semObrigatorios = (html) => html
   .replace(/<footer[^>]*>[\s\S]*?<\/footer>/, "")
   .replace(/"legalName": "[^"]*"/g, "")
   .replace(/jessica\.gessoli@zethic\.net/g, "")
-  .replace(/<p>A controladora dos dados é[\s\S]*?<\/p>/, "");
+  .replace(/<p>A controladora dos dados é[\s\S]*?<\/p>/, "")
+  // Ficha v1.5 (03/11/2026): a Zethic pode citar a Pode Curtir só como parceira de mídia em serviços de tecnologia.
+  .replace(/<p class="parceria">[\s\S]*?<\/p>/g, "");
 
 test("corpo das páginas das frentes fala só da Zethic", () => {
   for (const p of FRENTES) {
@@ -41,7 +43,7 @@ test("perguntas frequentes migraram para o Diagnóstico, com dados estruturados"
 
 test("medição (Google Analytics) só nas páginas com ferramenta e na política de privacidade", () => {
   const com = ["diagnostico.html", "teste-golpe.html", "proteger.html", "privacidade.html"];
-  const sem = ["index.html", "quem-somos.html", "organizar.html", "crescer.html", "aconselhar.html"];
+  const sem = ["index.html", "quem-somos.html", "organizar.html", "crescer.html", "aconselhar.html", "conectar.html"];
   for (const p of com) assert.match(ler(p), /<script src="\/assets\/js\/medicao\.js" defer><\/script>/, p);
   for (const p of sem) {
     const h = ler(p);
@@ -67,10 +69,15 @@ test("Diagnóstico e Teste de golpe são páginas da Jéssica Gessoli", () => {
   }
 });
 
+// Ficha v1.8 (03/11/2026): a LGPD entra na Zethic só como implantação técnica (consultoria segue com a Jéssica Gessoli).
 test("páginas da Zethic não falam de golpes, governança, consultoria nem mídia", () => {
   const corpo = (p) => semObrigatorios(ler(p)).replace(/<script[\s\S]*?<\/script>/g, "").replace(/<head>[\s\S]*?<\/head>/, "");
-  for (const p of ["index.html", "proteger.html", "organizar.html", "crescer.html", "aconselhar.html"]) {
-    assert.doesNotMatch(corpo(p), /golpe|LGPD|governan[çc]a de IA|consultoria|[Mm]entoria|[Mm]ídia digital|[Ff]oto e vídeo/, p);
+  for (const p of ["index.html", "proteger.html", "organizar.html", "crescer.html", "aconselhar.html", "conectar.html"]) {
+    assert.doesNotMatch(corpo(p), /golpe|governan[çc]a de IA|consultoria|[Mm]entoria|[Mm]ídia digital|[Ff]oto e vídeo/, p);
+    for (const m of corpo(p).matchAll(/LGPD/g)) {
+      const trecho = corpo(p).slice(Math.max(0, m.index - 160), m.index + 160);
+      assert.match(trecho, /[Ii]mplant/, `${p}: LGPD só como implantação técnica`);
+    }
   }
   assert.doesNotMatch(corpo("quem-somos.html"), /golpe|LGPD|consultoria|[Mm]entoria|[Mm]ídia digital/);
 });
@@ -112,4 +119,27 @@ test("Caderno Copia e Cola sem serviços da Zethic", () => {
 test("tráfego pago fica na Pode Curtir, fora da Zethic", () => {
   for (const p of ["index.html", "crescer.html", "llms.txt", "_ferramentas/cabecalhos.py"]) assert.doesNotMatch(ler(p), /[Tt]ráfego pago|crescer#trafego/, p);
   assert.match(ler("podecurtir.html"), /<li id="trafego"><strong>Tráfego pago<\/strong>/);
+});
+
+// Ficha v1.5 (03/11/2026): a Pode Curtir aparece na Zethic só como parceira nos serviços de tecnologia,
+// num parágrafo próprio que separa a mídia (Pode Curtir) da tecnologia (Zethic), numa proposta só.
+test("Pode Curtir só como parceira de mídia nos serviços de tecnologia", () => {
+  for (const p of ["crescer.html", "aconselhar.html"]) {
+    const ps = ler(p).match(/<p class="parceria">[\s\S]*?<\/p>/g) || [];
+    assert.ok(ps.length >= 1, p);
+    for (const t of ps) {
+      assert.match(t, /mídia fica[m]? com a Pode Curtir|mídia e ficam com a Pode Curtir/, p);
+      assert.match(t, /tecnologia, com a Zethic/, p);
+      assert.match(t, /Uma proposta só, com linhas separadas\./, p);
+    }
+  }
+});
+
+// Ficha v1.8 (03/11/2026): Conectar deixa claro que a Zethic não vende energia nem acesso à internet.
+test("Conectar: energia com parceiros, sem venda de energia nem de internet", () => {
+  const h = ler("conectar.html");
+  assert.match(h, /A Zethic não vende energia: integra e opera a tecnologia, com parceiros\./);
+  assert.match(h, /A Zethic não vende acesso à internet\./);
+  assert.doesNotMatch(h, /[Ss]tarlink|R\$ ?\d/);
+  for (const id of ["energia", "redes-privadas", "cidades", "rastreabilidade", "parceiros"]) assert.match(h, new RegExp(`id="${id}"`), id);
 });
