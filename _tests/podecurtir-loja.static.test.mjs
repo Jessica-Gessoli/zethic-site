@@ -60,17 +60,20 @@ test("regras das marcas nas páginas de compra", () => {
   }
 });
 
-test("desistência antes de o trabalho começar, com retenção de 25% do valor total", () => {
+test("desistência: devolução integral em 7 dias (CDC art. 49); depois, retenção de 25% antes do início", () => {
   const t = ler("podecurtir/termos/index.html");
-  assert.match(t, /Antes de o trabalho começar:<\/strong> você pode desistir/);
-  assert.match(t, /devolvido com desconto de 25% do valor total do serviço/);
-  assert.match(t, /Com o trabalho em andamento:<\/strong> o valor pago cobre o trabalho já feito/);
+  assert.match(t, /Em até 7 dias corridos da compra pela loja:<\/strong> você pode desistir/);
+  assert.match(t, /recebe de volta o valor integral, como prevê o art\. 49 do Código de Defesa do Consumidor/);
+  assert.match(t, /Depois de 7 dias, antes de o trabalho começar:<\/strong> o valor pago é devolvido com desconto de 25% do valor total do serviço/);
+  assert.match(t, /Depois de 7 dias, com o trabalho em andamento:<\/strong> o valor pago cobre o trabalho já feito/);
   const d = ler("podecurtir/desistencia/index.html");
   assert.match(d, /id="form-desistencia"/);
+  assert.match(d, /em até 7 dias corridos da compra, sem dar motivo, e recebe o valor integral/);
   assert.match(d, /desconto de 25% do valor total do serviço/);
-  assert.match(ler("assets/js/podecurtir-loja.js"), /menos 25% do valor total do serviço/);
+  assert.match(ler("podecurtir/loja/obrigado/index.html"), /Em até 7 dias corridos da compra/);
+  assert.match(ler("assets/js/podecurtir-loja.js"), /em até 7 dias corridos da compra, pela página Desistir de uma compra, com devolução integral/);
   for (const p of ["podecurtir/termos/index.html", "podecurtir/desistencia/index.html", "podecurtir/loja/obrigado/index.html", "assets/js/podecurtir-loja.js"]) {
-    assert.doesNotMatch(ler(p), /devolução integral|7 dias da compra|7 dias depois da compra/, p);
+    assert.doesNotMatch(ler(p), /Antes de o trabalho começar, você pode desistir|desistir antes de o trabalho começar, sem dar motivo/, p);
   }
 });
 
