@@ -85,4 +85,6 @@ test("condições de desistência e cancelamento no pedido de proposta", () => {
   assert.match(h, /cancela com aviso de 30 dias, pelo mesmo canal em que contratou, e o mês já pago não é devolvido/);
   assert.match(h, /Antes do mínimo de 3 meses, a multa é de no máximo 1 mensalidade/);
   assert.match(h, /contas, dados e acessos são devolvidos no prazo escrito no contrato/);
+  assert.match(h, /As regras completas estão em <a href="\/privacidade#cancelamento">Cancelamento e devolução<\/a>/);
+  for (const p of PAGINAS) assert.match(ler(p), /<a href="\/privacidade#cancelamento">Cancelamento e devolução<\/a>\./, p + ": link no rodapé");
 });
