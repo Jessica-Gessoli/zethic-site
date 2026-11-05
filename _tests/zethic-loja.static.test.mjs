@@ -76,3 +76,13 @@ test("pedido de proposta na política de privacidade", () => {
   assert.match(ler("privacidade.html"), /<td>Você monta um pedido de proposta na loja<\/td>/);
   assert.match(ler("sitemap.xml"), /<loc>https:\/\/zethic\.net\/loja<\/loc>/);
 });
+
+// 04/11/2026, 22h51 (aprovado pela Jéssica): desistência e cancelamento nos contratos da Zethic, só com empresas.
+test("condições de desistência e cancelamento no pedido de proposta", () => {
+  const h = ler("loja.html");
+  assert.match(h, /em até 7 dias da assinatura, antes de o trabalho começar, recebe de volta o valor integral/);
+  assert.match(h, /as outras etapas só são cobradas quando entregues/);
+  assert.match(h, /cancela com aviso de 30 dias, pelo mesmo canal em que contratou, e o mês já pago não é devolvido/);
+  assert.match(h, /Antes do mínimo de 3 meses, a multa é de no máximo 1 mensalidade/);
+  assert.match(h, /contas, dados e acessos são devolvidos no prazo escrito no contrato/);
+});
