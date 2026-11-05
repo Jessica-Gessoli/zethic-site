@@ -37,7 +37,7 @@ test("Símbolos: monograma JG e visor da Pode Curtir, sem endosso da Zethic", ()
 
 // 14/10/2026 (aprovado pela Jéssica, orientação da Goreti): primeiro a conversa, depois o preço. Nenhum valor publicado no site.
 test("Zethic: nenhum preço publicado nas páginas", () => {
-  for (const p of ["index.html", "diagnostico.html", "proteger.html", "organizar.html", "crescer.html", "aconselhar.html", "llms.txt"]) {
+  for (const p of ["index.html", "diagnostico.html", "proteger.html", "organizar.html", "crescer.html", "aconselhar.html", "conectar.html", "llms.txt"]) {
     const h = ler(p).replace(/<label>[^<]*\(R\$\)/g, "");
     assert.doesNotMatch(h, /R\$ ?\d|[Pp]reço de fundador|minPrice/, p);
   }
@@ -57,9 +57,10 @@ test("Pode Curtir: categoria clara e frente de redes sociais", () => {
 
 // 28/10/2026 (decisão da Jéssica): Zethic e Pode Curtir não se citam. O WhatsApp é compartilhado, e a mensagem
 // da Pode Curtir cita redes sociais.
+// Ficha v1.5 (03/11/2026): exceção única, a Pode Curtir como parceira de mídia num parágrafo class="parceria".
 test("Pode Curtir: a Zethic não cita o Pode Curtir", () => {
-  for (const p of ["index.html", "quem-somos.html", "proteger.html", "organizar.html", "crescer.html", "aconselhar.html", "llms.txt"]) {
-    assert.doesNotMatch(ler(p), /pode ?curtir|podecurtir|Mídia digital|Orçamento de foto e vídeo/i, p);
+  for (const p of ["index.html", "quem-somos.html", "proteger.html", "organizar.html", "crescer.html", "aconselhar.html", "conectar.html", "llms.txt"]) {
+    assert.doesNotMatch(ler(p).replace(/<p class="parceria">[\s\S]*?<\/p>/g, ""), /pode ?curtir|podecurtir|Mídia digital|Orçamento de foto e vídeo/i, p);
   }
   assert.match(ler("fale.html"), /"podecurtir": "[^"]*redes sociais ou anúncios\."/);
   // 28/10/2026 (decisão da Jéssica): o rodapé da página dela não traz mais o título de fundadora da Zethic.
