@@ -148,7 +148,7 @@
       "<li>Para remarcar uma sessão, avise com pelo menos 24 horas de antecedência; sem aviso, a sessão conta como feita.</li>" +
       "<li>O que você contar fica em sigilo e não vira exemplo sem a sua autorização por escrito.</li>" +
       "<li>A consultoria e a mentoria orientam; as decisões e a execução continuam com você. Nenhum serviço garante contratação, vendas ou ausência de incidentes.</li></ul>" +
-      '<p class="limite"><strong>Desistência:</strong> em até 7 dias corridos da compra, pela página Desistir de uma compra, com devolução integral, menos as sessões ou a aula já feitas (R$ 400 por sessão do programa). Depois desse prazo e antes da primeira sessão ou da aula, devolução do valor pago menos 25% do valor total do serviço. Depois de 7 dias, com o programa em andamento, as sessões que faltam são devolvidas e as feitas são cobradas a R$ 400 cada.</p>';
+      '<p class="limite"><strong>Desistência:</strong> em até 7 dias corridos da compra, pela página Desistir de uma compra, com devolução integral, menos as sessões ou a aula já feitas (R$ 400 por sessão do programa). Depois desse prazo e antes da primeira sessão ou da aula, devolução do valor pago menos 25% do valor total do serviço. Depois de 7 dias, com o programa em andamento, as sessões que faltam são devolvidas; fica retido o maior valor entre 25% do total e as sessões feitas, a R$ 400 cada.</p>';
   }
 
   function mostrar(v) {

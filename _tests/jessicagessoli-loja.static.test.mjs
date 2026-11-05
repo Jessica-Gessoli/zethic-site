@@ -75,9 +75,13 @@ test("desistência: devolução integral em 7 dias (CDC art. 49), menos o que j�
   assert.match(t, /recebe de volta o valor integral \(art\. 49 do Código de Defesa do Consumidor\)/);
   assert.match(t, /Sessão ou aula feita dentro dos 7 dias:<\/strong> o que já aconteceu é descontado\. No programa de mentoria, R\$ 400 por sessão feita/);
   assert.match(t, /Depois de 7 dias, antes da primeira sessão ou da aula:<\/strong> o valor pago é devolvido com desconto de 25% do valor total do serviço/);
-  assert.match(t, /Depois de 7 dias, com o programa de mentoria em andamento:<\/strong> as sessões que faltam são devolvidas\. As sessões feitas são cobradas a R\$ 400 cada, o preço da sessão avulsa/);
-  assert.match(ler("jessicagessoli/desistencia/index.html"), /as sessões que faltam são devolvidas, e as feitas são cobradas a R\$ 400 cada/);
-  assert.match(ler("assets/js/jessicagessoli-loja.js"), /as sessões que faltam são devolvidas e as feitas são cobradas a R\$ 400 cada/);
+  assert.match(t, /Depois de 7 dias, com o programa de mentoria em andamento:<\/strong> as sessões que faltam são devolvidas\. Fica retido o maior valor entre 25% do valor total do programa e as sessões feitas, cobradas a R\$ 400 cada/);
+  assert.match(t, /com 1 ou 2 sessões feitas, ficam retidos R\$ 800; com 3, R\$ 1\.200/);
+  assert.match(t, /Se você marcar uma sessão para dentro dos 7 dias da compra, ela acontece a seu pedido/);
+  assert.match(t, /Serviços contratados por proposta:<\/strong> seguem o contrato/);
+  assert.match(t, /aviso de 30 dias, e o mês já pago não é devolvido/);
+  assert.match(ler("jessicagessoli/desistencia/index.html"), /fica retido o maior valor entre 25% do total e as sessões feitas, a R\$ 400 cada/);
+  assert.match(ler("assets/js/jessicagessoli-loja.js"), /fica retido o maior valor entre 25% do total e as sessões feitas, a R\$ 400 cada/);
   for (const p of ["jessicagessoli/termos/index.html", "jessicagessoli/desistencia/index.html", "assets/js/jessicagessoli-loja.js"]) {
     assert.doesNotMatch(ler(p), /o valor pago cobre as sessões já feitas/, p);
   }
