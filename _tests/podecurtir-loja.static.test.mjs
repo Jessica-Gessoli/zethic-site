@@ -5,7 +5,7 @@ import vm from "node:vm";
 
 const ler = (p) => readFileSync(new URL("../" + p, import.meta.url), "utf8");
 const PAGINAS = ["podecurtir/loja/index.html", "podecurtir/loja/obrigado/index.html", "podecurtir/termos/index.html",
-  "podecurtir/privacidade/index.html", "podecurtir/desistencia/index.html"];
+  "podecurtir/privacidade/index.html", "podecurtir/desistencia/index.html", "podecurtir/parceiros/index.html"];
 const JS = ["assets/js/podecurtir-config.js", "assets/js/podecurtir-comum.js", "assets/js/podecurtir-loja.js"];
 
 // 03/11/2026 (aprovado pela Jéssica): a Pode Curtir vende pelo site. Preço publicado só na Pode Curtir.
@@ -83,17 +83,62 @@ test("CNPJ preenchido na configuração, sem o rótulo MEI", () => {
   assert.doesNotMatch(c, /\bMEI\b/);
 });
 
-test("Pixel só depois do aceite e aviso de cookies só com Pixel configurado", () => {
+// 04/11/2026: GA4 e Pixel da Meta só depois do aceite; aviso de cookies só com um dos dois configurado.
+test("medição só depois do aceite e aviso de cookies só com GA4 ou Pixel configurado", () => {
   const js = ler("assets/js/podecurtir-comum.js");
-  assert.match(js, /if \(!pixelValido\(\)\) return;/);
-  assert.match(js, /if \(v === "aceito"\) carregarPixel\(\); else if \(v !== "recusado"\) banner\(\);/);
+  assert.match(js, /if \(!medicaoValida\(\)\) return;/);
+  assert.match(js, /if \(v === "aceito"\) carregarMedicao\(\); else if \(v !== "recusado"\) banner\(\);/);
+  assert.match(js, /function carregarMedicao\(\) \{ carregarPixel\(\); carregarGA\(\); \}/);
+  assert.match(js, /allow_google_signals: false/);
   assert.match(js, /"Rejeitar todos"/);
+  const ctx = { window: {} };
+  vm.runInNewContext(ler("assets/js/podecurtir-config.js"), ctx);
+  const ga = ctx.window.PODECURTIR.GA4_ID;
+  assert.ok(ga === "" || /^G-[A-Z0-9]{4,20}$/.test(ga), "GA4_ID inválido");
+  const priv = ler("podecurtir/privacidade/index.html");
+  assert.match(priv, /Google Analytics, só se você aceitar/);
 });
 
-test("página da Pode Curtir leva à loja, sem preço", () => {
+// 04/11/2026 (pedido da Jéssica: o site como máquina de vendas; decisão de 04/11 "site = preço pronto"): a página
+// inicial passa a mostrar preço. Substitui a regra de 21/10/2026 "nenhum preço na página inicial". O preço da página
+// inicial precisa ser o mesmo da loja: mudou na loja, muda aqui.
+test("página inicial: preço na primeira dobra igual ao da loja, comprar antes do WhatsApp", () => {
   const h = ler("podecurtir.html");
-  assert.match(h, /href="\/podecurtir\/loja\/">Comprar online/);
-  assert.doesNotMatch(h, /R\$ ?\d/);
+  const js = ler("assets/js/podecurtir-loja.js");
+  const ctx = { window: {} };
+  vm.runInNewContext(ler("assets/js/podecurtir-config.js"), ctx);
+  const reais = v => "R$ " + v.toLocaleString("pt-BR");
+  const ofertas = h.split('class="oferta"').slice(1);
+  const card = nome => ofertas.find(o => o.includes("<h3>" + nome + "</h3>"));
+  assert.ok(card("Ajuste de Perfil").includes(reais(ctx.window.PODECURTIR.PRECO_AJUSTE)), "Ajuste de Perfil fora do preço da configuração");
+  for (const [nome, re] of [["Perfil Arrumado", /nome: "Perfil Arrumado", preco: (\d+), parcelas: (\d+)[^}]*prazo: "([^"]+)"/],
+                             ["Marca Completa", /nome: "Marca Completa", preco: (\d+), parcelas: (\d+)[^}]*prazo: "([^"]+)"/]]) {
+    const [, preco, parcelas, prazo] = js.match(re);
+    const c = card(nome);
+    assert.ok(c.includes(reais(Number(preco))), nome + ": preço diferente da loja");
+    assert.ok(c.includes("Até " + parcelas + "x sem juros"), nome + ": parcelas diferentes da loja");
+    assert.ok(c.includes(prazo), nome + ": prazo diferente da loja");
+  }
+  const menor = Math.min(...[...js.matchAll(/mensal: (\d+)/g)].map(m => Number(m[1])));
+  assert.ok(card("Gestão mensal").includes(reais(menor)), "Gestão mensal: 'a partir de' diferente do menor plano");
+  const hero = h.split('<div class="hero">')[1].split("</div>\n  </div>")[0];
+  assert.match(hero, /<a class="btn cheio" href="#precos"[^>]*>Ver preços e comprar<\/a>\s*<a class="btn contorno" href="\/fale\?utm_source=podecurtir"/);
+  assert.match(h, /id="precos"/);
+  assert.match(h, /href="\/podecurtir\/loja\/"[^>]*>Comprar online/);
+  assert.match(h, /3 vagas por serviço, em troca de um depoimento com as suas palavras/);
+  // identificação também na página inicial (Decreto 7.962/2013, art. 2º)
+  assert.match(h, /R\. Teófilo Braga, 489, Sala 05/);
+  assert.match(h, /CNPJ 67\.678\.226\/0001-17/);
+  assert.match(h, /href="\/podecurtir\/parceiros\/">Seja parceiro/);
+});
+
+// 04/11/2026: página de parceiros sem promessa de renda, sem cara de emprego e com a regra de publicidade do CONAR.
+test("seja parceiro: sem promessa de renda, sem vínculo e com marcação de publicidade", () => {
+  const h = ler("podecurtir/parceiros/index.html");
+  assert.match(h, /Sem vínculo de emprego, sem horário e sem exclusividade/);
+  assert.match(h, /Não há promessa de volume de pedidos nem de renda/);
+  assert.match(h, /#publi/);
+  assert.doesNotMatch(h, /R\$ ?\d|ganhe até|renda extra garantida/i);
 });
 
 test("loja: preço de fundador só nos itens a preço de fundador, aceite zerado quando o pedido muda e nada se perde sem registro", () => {

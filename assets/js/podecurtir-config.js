@@ -14,7 +14,9 @@
    CHECKOUT_ENDPOINT: webhook do n8n que cria o checkout do Asaas com vários itens e devolve {"url": "..."}.
    FORM_ENDPOINT: webhook do n8n que recebe pedidos de proposta, registros de aceite e pedidos de desistência.
      Os dois endereços precisam estar em connect-src da Content-Security-Policy de cada página.
-   PIXEL_ID: ID do Pixel da Meta (só números). Vazio = sem Pixel e sem aviso de cookies.
+   PIXEL_ID: ID do Pixel da Meta (só números). Vazio = sem Pixel.
+   GA4_ID: ID do Google Analytics 4 (G-XXXXXXXXXX), de uma propriedade só da Pode Curtir. Vazio = sem GA4.
+     Com os dois vazios, não há aviso de cookies e nada é medido. Os dois só carregam depois do aceite.
    CNPJ: aparece no rodapé das páginas de compra. Confirmado em 24/10/2026 que o cadastro público mostra o endereço comercial. */
 window.PODECURTIR = {
   ASAAS_LINKS: {
@@ -38,6 +40,7 @@ window.PODECURTIR = {
   CHECKOUT_ENDPOINT: "",
   FORM_ENDPOINT: "",
   PIXEL_ID: "",
+  GA4_ID: "",
   CNPJ: "67.678.226/0001-17",
   WHATSAPP: "5519983310769",
   WHATSAPP_TEXTO: "(19) 98331-0769",
