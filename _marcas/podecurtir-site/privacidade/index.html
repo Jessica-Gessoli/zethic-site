@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Privacidade e cookies | Pode Curtir</title>
 <meta name="description" content="Como a Pode Curtir trata os dados de quem compra na loja ou pede proposta, e como funcionam os cookies.">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' https://connect.facebook.net; img-src 'self' https://www.facebook.com; font-src 'self'; style-src 'self'; connect-src 'self' https://jessicagessoli.app.n8n.cloud https://www.facebook.com; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' https://connect.facebook.net https://www.googletagmanager.com; img-src 'self' https://www.facebook.com https://*.google-analytics.com https://*.googletagmanager.com; font-src 'self'; style-src 'self'; connect-src 'self' https://jessicagessoli.app.n8n.cloud https://www.facebook.com https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com; base-uri 'none'; form-action 'none'">
 <meta name="color-scheme" content="light dark">
 <link rel="canonical" href="https://podecurtir.zethic.net/privacidade/">
 <meta name="robots" content="index, follow">
@@ -29,10 +29,10 @@
   <div class="wrap">
     <span class="eyebrow">LOJA PODE CURTIR</span>
     <h1>Privacidade e cookies</h1>
-    <p class="versao">Versão de 03/11/2026</p>
+    <p class="versao">Versão de 04/11/2026</p>
 
     <div class="caixa">
-      <p><strong>Em resumo.</strong> A Pode Curtir pede só os dados necessários para fazer o serviço e cumprir a lei. Os dados do cartão ficam com o Asaas e não passam por este site. Cookies de medição de anúncios só com o seu aceite.</p>
+      <p><strong>Em resumo.</strong> A Pode Curtir pede só os dados necessários para fazer o serviço e cumprir a lei. Os dados do cartão ficam com o Asaas e não passam por este site. Cookies de medição de visitas e de anúncios só com o seu aceite.</p>
     </div>
 
     <h2 id="quem">1. Quem cuida dos seus dados</h2>
@@ -48,7 +48,7 @@
           <tr><td>Briefing e execução</td><td>Informações do seu Negócio, links e acesso de parceiro às contas, fotos e vídeos</td><td>Fazer o serviço contratado</td><td>Execução de contrato (art. 7º, V)</td></tr>
           <tr><td>Desistência</td><td>Nome, e-mail, número ou data do pedido e motivo, se você quiser contar</td><td>Registrar a desistência e devolver o valor</td><td>Obrigação legal (art. 7º, II)</td></tr>
           <tr><td>Novidades por e-mail</td><td>E-mail</td><td>Enviar novidades da Pode Curtir</td><td>Consentimento (art. 7º, I), que você retira quando quiser</td></tr>
-          <tr><td>Medição de anúncios</td><td>Páginas vistas e ações na loja, ligadas a um identificador do navegador</td><td>Medir e melhorar os anúncios da Pode Curtir</td><td>Consentimento (art. 7º, I), só se você aceitar os cookies</td></tr>
+          <tr><td>Medição de visitas e de anúncios</td><td>Páginas vistas e cliques no caminho de compra, ligados a um identificador do navegador</td><td>Saber em que passo as pessoas desistem da compra e medir os anúncios da Pode Curtir</td><td>Consentimento (art. 7º, I), só se você aceitar os cookies</td></tr>
         </tbody>
       </table>
     </div>
@@ -59,7 +59,8 @@
       <li><strong>Asaas:</strong> processa os pagamentos e emite as cobranças.</li>
       <li><strong>Google Workspace e Trello:</strong> e-mail e organização interna dos pedidos.</li>
       <li><strong>Ferramenta de automação (n8n):</strong> quando ativada, registra os pedidos e os avisos de pagamento.</li>
-      <li><strong>Meta:</strong> só se você aceitar os cookies de medição de anúncios.</li>
+      <li><strong>Google (Google Analytics):</strong> só se você aceitar os cookies de medição, sem sinais de anúncio do Google.</li>
+      <li><strong>Meta:</strong> só se você aceitar os cookies de medição.</li>
       <li><strong>Parceiros:</strong> quando você pede proposta de um serviço feito em parceria por Jéssica Gessoli ou pela Zethic, o pedido é passado a eles para preparar a parte deles.</li>
     </ul>
     <p>Os dados não são vendidos nem usados para outros fins.</p>
@@ -74,6 +75,7 @@
     <ul>
       <li><strong>Carrinho:</strong> o pedido em montagem fica guardado só nesta aba do navegador e some quando ela é fechada. É necessário para a loja funcionar.</li>
       <li><strong>Sua escolha sobre cookies:</strong> fica guardada no seu navegador para o aviso não voltar a cada página.</li>
+      <li><strong>Google Analytics, só se você aceitar:</strong> grava cookies como o <code>_ga</code> para contar visitas e cliques no caminho de compra. Se você recusar, nada é carregado e nada é enviado ao Google.</li>
       <li><strong>Pixel da Meta, só se você aceitar:</strong> grava cookies como o <code>_fbp</code> para medir os anúncios. Se você recusar, nada é carregado e nada é enviado à Meta.</li>
     </ul>
     <p>Você pode mudar a sua escolha pelo botão Preferências de cookies, no rodapé, quando a medição estiver ativa.</p>
