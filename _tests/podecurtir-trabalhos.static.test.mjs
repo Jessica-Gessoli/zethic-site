@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { readFileSync, existsSync } from "node:fs";
+import { readFileSync, existsSync, readdirSync } from "node:fs";
 
 const ler = (p) => readFileSync(new URL("../" + p, import.meta.url), "utf8");
 
@@ -71,4 +71,21 @@ test('Pode Curtir: prévia de link com imagem grande', () => {
   assert.match(h, /<meta property="og:image" content="https:\/\/zethic\.net\/assets\/img\/og-podecurtir\.jpg">/);
   assert.match(h, /<meta name="twitter:card" content="summary_large_image">/);
   assert.ok(existsSync(new URL('../assets/img/og-podecurtir.jpg', import.meta.url)));
+});
+
+// 04/11/2026 (decisão da Jéssica): nome de cliente não aparece misturado com as marcas. As fotos da antiga seção de
+// vídeos (pizzaria e dança) estavam sem uso desde 14/10/2026, mas continuavam no ar; saíram do site.
+test("site: sem arquivo público com nome de cliente e sem as fotos da antiga seção de vídeos", () => {
+  const nomes = [];
+  const andar = (dir) => {
+    for (const e of readdirSync(new URL("../" + dir, import.meta.url), { withFileTypes: true })) {
+      if (e.isDirectory()) andar(dir + e.name + "/"); else nomes.push(dir + e.name);
+    }
+  };
+  andar("assets/");
+  for (const n of nomes) {
+    assert.doesNotMatch(n, /torre-de-prata|torre_de_prata|agua-?na-?boca|aguanaboca|excellent|lucinha|pizzaria/i, n);
+  }
+  assert.ok(!existsSync(new URL("../assets/video/pode-curtir-torre-de-prata.jpg", import.meta.url)));
+  assert.ok(!existsSync(new URL("../assets/video/pode-curtir-danca.jpg", import.meta.url)));
 });
