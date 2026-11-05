@@ -56,6 +56,16 @@ button{font:inherit;color:inherit}
 .proposta{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:.4rem 1rem;align-items:center;padding:.85rem 0;border-bottom:1px solid var(--linha)}
 .proposta p{margin:.1rem 0 0;font-size:.9rem;color:var(--cinza)}
 @media (max-width:30rem){.proposta{grid-template-columns:minmax(0,1fr)}.proposta .pedir{justify-self:start}}
+.proposta .plus-dica{margin:.25rem 0 0;font-size:.85rem;font-weight:700;color:var(--rosa-escuro)}
+/* Plus do fechamento do pedido */
+.plus-lista{display:flex;flex-direction:column;gap:.6rem}
+.plus-item{display:flex;gap:.75rem;align-items:flex-start;border:2px solid var(--linha);border-radius:.8rem;padding:.85rem 1rem;cursor:pointer;background:var(--branco)}
+.plus-item:has(input:checked){border-color:var(--rosa);background:var(--rosa-claro)}
+.plus-item input{width:1.25rem;height:1.25rem;margin-top:.15rem;flex:none;accent-color:var(--rosa)}
+.plus-corpo{display:flex;flex-direction:column;gap:.3rem;min-width:0;font-size:.92rem}
+.plus-topo{display:flex;flex-wrap:wrap;justify-content:space-between;gap:.25rem .75rem;font-size:1rem}
+.plus-preco{font-weight:700;white-space:nowrap}
+.plus-meta{color:var(--cinza);font-size:.84rem}
 .selo{display:inline-block;font-size:.68rem;font-weight:700;letter-spacing:.08em;border-radius:999px;padding:.15rem .55rem;margin-right:.4rem;vertical-align:.1rem}
 .selo.pc{background:var(--rosa-claro);color:var(--rosa-escuro)}
 .selo.jg{background:var(--jg-fundo);color:var(--jg-texto)}
