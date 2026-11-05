@@ -2,7 +2,9 @@
    consultoria R$ 400 por hora, mentoria de posicionamento (sessão avulsa R$ 400; programa de 3 meses com 8 sessões
    R$ 3.200) e aula ao vivo "IA segura para o seu Negócio" (R$ 97). Os outros serviços entram como pedido de proposta.
    Pagamento pelo link do Asaas de cada item (ASAAS_LINKS em jessicagessoli-config.js). Com vários itens pagos,
-   usa o CHECKOUT_ENDPOINT (n8n) se estiver preenchido; senão, mostra o link de cada item. */
+   usa o CHECKOUT_ENDPOINT (n8n) se estiver preenchido; senão, mostra o link de cada item.
+   04/11/2026 (decisão da Jéssica, como na loja da Pode Curtir): no site o pagamento é integral. O programa de
+   3 meses tem dois links: _pix (Pix ou boleto, à vista) e _cartao (cartão em até 3x sem juros). */
 (function () {
   var C = window.JESSICAGESSOLI || {};
   var LINKS = C.ASAAS_LINKS || {};
@@ -15,7 +17,7 @@
       desc: "Uma hora por videochamada para levar uma decisão de cibersegurança ou de IA, com orientação clara do que fazer." },
     { id: "sessao", nome: "Mentoria de posicionamento · sessão avulsa", preco: 400, agora: 1, quando: "Data combinada por e-mail ou WhatsApp depois do pagamento",
       desc: "Uma sessão individual de 1 hora, por videochamada, para destravar uma decisão de carreira ou do seu Negócio." },
-    { id: "programa", nome: "Mentoria de posicionamento · programa de 3 meses", preco: 3200, agora: 0.5, saldo: "antes da 5ª sessão", quando: "8 sessões individuais em 3 meses, com datas combinadas por e-mail ou WhatsApp",
+    { id: "programa", nome: "Mentoria de posicionamento · programa de 3 meses", preco: 3200, agora: 1, parcelas: 3, em: "no", quando: "8 sessões individuais em 3 meses, com datas combinadas por e-mail ou WhatsApp",
       desc: "Para definir com clareza onde você ou o seu Negócio quer chegar e como se posicionar para chegar lá." },
     { id: "aula", nome: "Aula ao vivo · IA segura para o seu Negócio", preco: 97, agora: 1, aula: true, quando: AULA_DATA ? AULA_DATA + ", online" : "",
       desc: "Como usar IA no dia a dia do Negócio sem expor dados de clientes. Online e ao vivo." }
@@ -46,7 +48,12 @@
   function alterna(lista, id) { var i = lista.indexOf(id); if (i >= 0) lista.splice(i, 1); else lista.push(id); }
   function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
   function vendivel(p) { return !p.aula || !!AULA_DATA; }
-  function pagamento(p) { return p.agora === 1 ? "Integral, hoje: " + brl(p.preco) : "Entrada hoje: " + brl(p.preco * p.agora) + "; saldo " + p.saldo; }
+  /* Formas de pagamento de cada item. Parcelado só no cartão; Pix e boleto sempre à vista. */
+  function formas(p) { return p.parcelas ? "Pix ou boleto à vista, ou cartão em até " + p.parcelas + "x sem juros" : "Pix, boleto ou cartão, à vista"; }
+  function forma() { var r = document.querySelector('input[name="forma"]:checked'); return r ? r.value : ""; }
+  function linkDe(p) { return LINKS[p.parcelas ? p.id + "_" + forma() : p.id]; }
+  function comoPaga(p) { return p.parcelas ? (forma() === "cartao" ? "no cartão, em até " + p.parcelas + "x sem juros" : "no Pix ou boleto, à vista") : ""; }
+  function pagamento(p) { return "Integral, " + brl(p.preco) + ": " + formas(p); }
 
   function catalogo() {
     $("grade-itens").innerHTML = ITENS.map(function (p) {
@@ -66,20 +73,19 @@
   }
 
   function totais() {
-    var hoje = 0, saldo = 0, pagos = [];
+    var hoje = 0, pagos = [];
     ITENS.forEach(function (p) {
-      if (tem(cart.itens, p.id) && vendivel(p)) { hoje += p.preco * p.agora; saldo += p.preco * (1 - p.agora); pagos.push({ id: p.id, nome: p.nome, valor: p.preco * p.agora }); }
+      if (tem(cart.itens, p.id) && vendivel(p)) { hoje += p.preco; pagos.push({ id: p.id, nome: p.nome, valor: p.preco, parcelas: p.parcelas || 0, em: p.em || "" }); }
     });
     var props = cart.prop.filter(function (id) { return PROPOSTAS.some(function (a) { return a.id === id; }); }).length;
-    return { hoje: hoje, saldo: saldo, pagos: pagos, props: props, total: pagos.length + props };
+    return { hoje: hoje, pagos: pagos, props: props, total: pagos.length + props };
   }
 
   function linhas(comTirar) {
     var out = [];
     ITENS.forEach(function (p) {
       if (!tem(cart.itens, p.id) || !vendivel(p)) return;
-      out.push("<li><span>" + p.nome + '</span><span class="num">' + brl(p.preco * p.agora) + "</span><small>" +
-        (p.agora === 1 ? "Pagamento integral" : "Entrada de 50% · saldo de " + brl(p.preco * (1 - p.agora)) + " " + p.saldo) + "</small>" +
+      out.push("<li><span>" + p.nome + '</span><span class="num">' + brl(p.preco) + "</span><small>Pagamento integral · " + formas(p) + "</small>" +
         (comTirar ? '<button class="tirar" type="button" data-item="' + p.id + '">Tirar</button>' : "") + "</li>");
     });
     PROPOSTAS.forEach(function (a) {
@@ -93,7 +99,6 @@
   function blocoTotais(t) {
     var h = "";
     if (t.pagos.length) h += '<div class="hoje"><span>Paga hoje</span><span class="num">' + brl(t.hoje) + "</span></div>";
-    if (t.saldo) h += '<div><span>Saldo antes da 5ª sessão</span><span class="num">' + brl(t.saldo) + "</span></div>";
     if (t.props) h += '<div><span>Pedidos sem pagamento</span><span class="num">' + t.props + "</span></div>";
     return h;
   }
@@ -130,7 +135,7 @@
     ITENS.forEach(function (p) {
       if (!tem(cart.itens, p.id) || !vendivel(p)) return;
       itens.push("<li><strong>" + p.nome + "</strong>: " + p.desc + " " + esc(p.quando) + ". Valor de " + brl(p.preco) +
-        (p.agora < 1 ? ", com entrada de " + brl(p.preco * p.agora) + " hoje e saldo " + p.saldo + "." : ", pago hoje.") + "</li>");
+        ", pago hoje por inteiro: " + formas(p) + ".</li>");
     });
     PROPOSTAS.forEach(function (a) {
       if (!tem(cart.prop, a.id)) return;
@@ -161,6 +166,9 @@
     $("linhas-2").innerHTML = linhas(false);
     $("totais-2").innerHTML = blocoTotais(t);
     $("pagar").textContent = t.pagos.length ? "Ir para o pagamento de " + brl(t.hoje) : "Enviar pedido";
+    var parc = t.pagos.filter(function (p) { return p.parcelas; });
+    $("forma-campo").hidden = !parc.length;
+    $("forma-cartao-txt").textContent = "Cartão de crédito, sem juros: " + parc.map(function (p) { return "até " + p.parcelas + "x " + p.em + " " + p.nome; }).join(" e ");
     $("erro").hidden = true; $("resultado").hidden = true; $("form-checkout").hidden = false;
     mostrar("checkout");
     if (window.jgEvento) window.jgEvento("InitiateCheckout", { value: t.hoje, currency: "BRL" });
@@ -169,7 +177,7 @@
 
   function mensagem(t, d) {
     var l = ["Olá! Quero contratar pela loja da Jéssica Gessoli:"];
-    t.pagos.forEach(function (p) { l.push("- " + p.nome + " (" + brl(p.valor) + " hoje)"); });
+    t.pagos.forEach(function (p) { l.push("- " + p.nome + " (" + brl(p.valor) + " hoje" + (p.parcelas ? ", " + comoPaga(p) : "") + ")"); });
     PROPOSTAS.forEach(function (a) { if (tem(cart.prop, a.id)) l.push("- " + (a.aviso ? "Aviso: " : "Proposta: ") + a.nome); });
     l.push("Nome: " + d.nome, "E-mail: " + d.email, "WhatsApp: " + d.whats);
     l.push("Li e aceito o resumo do contrato em " + window.jgAgora() + ".");
@@ -192,8 +200,8 @@
     $("resultado-texto").value = texto;
     $("resultado-whats").href = window.jgWhats(texto);
     var links = t.pagos.map(function (p) {
-      var url = LINKS[p.id];
-      return url ? '<li><a class="pagar-item" href="' + esc(url) + '" rel="noopener">Pagar ' + esc(p.nome) + " · " + brl(p.valor) + "</a></li>"
+      var url = linkDe(p);
+      return url ? '<li><a class="pagar-item" href="' + esc(url) + '" rel="noopener">Pagar ' + esc(p.nome) + (p.parcelas ? " " + comoPaga(p) : "") + " · " + brl(p.valor) + "</a></li>"
         : "<li>" + esc(p.nome) + " · " + brl(p.valor) + ": pagamento em configuração</li>";
     });
     $("resultado-links").innerHTML = links.join("");
@@ -211,12 +219,13 @@
     if (!/^\S+@\S+\.\S+$/.test(d.email)) falta.push("e-mail válido");
     if (d.whats.replace(/\D/g, "").length < 10) falta.push("WhatsApp com DDD");
     if (!$("aceite").checked) falta.push("aceite do resumo do contrato");
+    if (t.pagos.some(function (p) { return p.parcelas; }) && !forma()) falta.push("forma de pagamento");
     if (falta.length) { $("erro").textContent = "Falta preencher: " + falta.join(", ") + "."; $("erro").hidden = false; return; }
     $("erro").hidden = true;
     var texto = mensagem(t, d);
     var pedido = {
       marca: "jessicagessoli", tipo: t.pagos.length ? "compra" : "proposta", cliente: d, novidades: $("novidades").checked,
-      itens: t.pagos, propostas: cart.prop.slice(), hoje: t.hoje, saldo: t.saldo,
+      itens: t.pagos, propostas: cart.prop.slice(), hoje: t.hoje, forma: forma() || null,
       aceite: { contrato: true, em: new Date().toISOString() }, pagina: location.pathname
     };
 
@@ -229,7 +238,7 @@
       return;
     }
     if (t.pagos.length === 1) {
-      var url = LINKS[t.pagos[0].id];
+      var url = linkDe(t.pagos[0]);
       if (url) {
         /* Sem registro (FORM_ENDPOINT vazio ou fora do ar), as propostas e o aceite iriam se perder no redirecionamento:
            mostra a mensagem pronta junto com o link de pagamento. */
@@ -249,7 +258,7 @@
         .catch(function () { manual("Pague cada item pelo link", texto, t); });
       return;
     }
-    manual(t.pagos.every(function (p) { return LINKS[p.id]; }) ? "Pague cada item pelo link" : "Pagamento em configuração", texto, t);
+    manual(t.pagos.every(function (p) { return linkDe(p); }) ? "Pague cada item pelo link" : "Pagamento em configuração", texto, t);
   });
 
   tudo();

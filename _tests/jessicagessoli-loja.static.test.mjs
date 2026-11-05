@@ -14,7 +14,7 @@ test("configuração única, com pagamento, aula e Pixel desligados até serem p
   const ctx = { window: {} };
   vm.runInNewContext(ler("assets/js/jessicagessoli-config.js"), ctx);
   const c = ctx.window.JESSICAGESSOLI;
-  assert.deepEqual(Object.keys(c.ASAAS_LINKS).sort(), ["aula", "consultoria", "programa", "sessao"]);
+  assert.deepEqual(Object.keys(c.ASAAS_LINKS).sort(), ["aula", "consultoria", "programa_cartao", "programa_pix", "sessao"]);
   for (const v of Object.values(c.ASAAS_LINKS)) assert.ok(v === "" || /^https:\/\/(www\.)?asaas\.com\//.test(v), "link do Asaas inválido: " + v);
   assert.equal(typeof c.AULA_DATA, "string");
   assert.ok(c.PIXEL_ID === "" || /^\d{10,20}$/.test(c.PIXEL_ID));
@@ -27,7 +27,7 @@ test("preços aprovados em 03/11/2026 e mais nenhum", () => {
   const js = ler("assets/js/jessicagessoli-loja.js");
   assert.match(js, /id: "consultoria", nome: "Consultoria · 1 hora", preco: 400, agora: 1/);
   assert.match(js, /id: "sessao", nome: "Mentoria de posicionamento · sessão avulsa", preco: 400, agora: 1/);
-  assert.match(js, /id: "programa", nome: "Mentoria de posicionamento · programa de 3 meses", preco: 3200, agora: 0\.5/);
+  assert.match(js, /id: "programa", nome: "Mentoria de posicionamento · programa de 3 meses", preco: 3200, agora: 1, parcelas: 3, em: "no"/);
   assert.match(js, /id: "aula", nome: "Aula ao vivo · IA segura para o seu Negócio", preco: 97, agora: 1/);
   assert.equal((js.match(/preco: \d+/g) || []).length, 4, "item com preço fora dos aprovados");
   const propostas = js.split("var PROPOSTAS")[1].split("];")[0];
@@ -97,4 +97,20 @@ test("página da Jéssica Gessoli leva à loja, sem preço", () => {
   assert.match(h, /<a href="\/jessicagessoli\/loja\/">Loja<\/a>/);
   assert.match(h, /href="\/jessicagessoli\/loja\/">loja online<\/a>/);
   assert.doesNotMatch(h, /R\$ ?\d/);
+});
+
+// 04/11/2026 (decisão da Jéssica, como na loja da Pode Curtir): no site, pagamento integral; parcelado só no cartão,
+// com um link para Pix ou boleto à vista e outro para cartão.
+test("pagamento integral no site, parcelado só no cartão", () => {
+  const js = ler("assets/js/jessicagessoli-loja.js");
+  assert.doesNotMatch(js, /agora: 0\.|saldo|Entrada de 50%|5ª sessão/);
+  assert.match(js, /function linkDe\(p\) \{ return LINKS\[p\.parcelas \? p\.id \+ "_" \+ forma\(\) : p\.id\]; \}/);
+  assert.match(js, /&& !forma\(\)\) falta\.push\("forma de pagamento"\)/);
+  const loja = ler("jessicagessoli/loja/index.html");
+  assert.match(loja, /<input type="radio" id="forma-pix" name="forma" value="pix">/);
+  assert.match(loja, /<input type="radio" id="forma-cartao" name="forma" value="cartao">/);
+  const t = ler("jessicagessoli/termos/index.html");
+  assert.doesNotMatch(t, /50% na compra|5ª sessão/);
+  assert.match(t, /programa de mentoria de 3 meses pode ser parcelado em até 3x, sem juros/);
+  for (const p of ["jessicagessoli/loja/index.html", "jessicagessoli/termos/index.html"]) assert.match(ler(p), /por Pix, boleto ou cartão/, p);
 });
