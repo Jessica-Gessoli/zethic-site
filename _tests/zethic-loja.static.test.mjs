@@ -88,3 +88,12 @@ test("condições de desistência e cancelamento no pedido de proposta", () => {
   assert.match(h, /As regras completas estão em <a href="\/privacidade#cancelamento">Cancelamento e devolução<\/a>/);
   for (const p of PAGINAS) assert.match(ler(p), /<a href="\/privacidade#cancelamento">Cancelamento e devolução<\/a>\./, p + ": link no rodapé");
 });
+
+// 06/11/2026, 06h33 (aprovado pela Jéssica): site estático, site em movimento e loja virtual com níveis, sem preço na loja.
+test("site em movimento e loja virtual com níveis, sem preço", () => {
+  const js = ler("assets/js/zethic-loja.js");
+  assert.match(js, /id: "site-movimento", nome: "Site em movimento"[^\n]*niveis: NIVEIS_MOVIMENTO/);
+  assert.match(js, /id: "loja-virtual", nome: "Loja virtual"[^\n]*niveis: NIVEIS_LOJA/);
+  for (const n of ["Loja de serviços", "Até 30 produtos cadastrados", "Até 100 produtos cadastrados", "Até 5 páginas animadas"]) assert.ok(js.includes(n), n);
+  assert.doesNotMatch(js, /R\$ ?\d/);
+});

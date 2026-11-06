@@ -14,6 +14,15 @@
     { id: "completo", nome: "Completo", itens: ["Até 5 páginas", "Perfil da empresa no Google", "Política de privacidade e aviso de cookies", "Medição de visitas"] },
     { id: "avancado", nome: "Avançado", itens: ["Até 10 páginas", "Página de captação para campanha", "Ligação com o WhatsApp ou o CRM"] }
   ];
+  var NIVEIS_MOVIMENTO = [
+    { id: "essencial", nome: "Essencial", itens: ["O site Essencial, de uma página", "Abertura animada e seções que se movem na rolagem", "Respeita quem prefere menos movimento"] },
+    { id: "completo", nome: "Completo", itens: ["Até 5 páginas animadas", "Transições entre as páginas", "Menu com painéis e vídeo de fundo"] }
+  ];
+  var NIVEIS_LOJA = [
+    { id: "servicos", nome: "Loja de serviços", itens: ["Catálogo com preço fechado", "Carrinho e links de pagamento (Pix e cartão)", "Termos, privacidade e desistência"] },
+    { id: "essencial", nome: "Essencial", itens: ["Loja em plataforma pronta", "Até 30 produtos cadastrados", "Pagamento, frete e domínio"] },
+    { id: "completa", nome: "Completa", itens: ["Até 100 produtos cadastrados", "Pagamento, frete e atendimento", "Ligação com o WhatsApp ou o sistema de gestão"] }
+  ];
   var NIVEIS_BOT = [
     { id: "essencial", nome: "Essencial", itens: ["1 número de WhatsApp", "Até 3 fluxos: boas-vindas, perguntas frequentes e passagem para um atendente"] },
     { id: "completo", nome: "Completo", itens: ["Até 6 fluxos", "Agendamento ou pedido de orçamento", "CRM: a lista dos seus clientes e de cada conversa, até a compra"] },
@@ -41,6 +50,10 @@
     { id: "tecnologia", nome: "Tecnologia", pilar: "p-tec", frase: "O que o seu Negócio usa para vender, atender e trabalhar.", servicos: [
       { id: "site", nome: "Site e presença no Google", tipo: "Projeto", link: "/crescer#site", niveis: NIVEIS_SITE,
         desc: "O seu Negócio encontrado no Google, com o WhatsApp a um toque.", fora: "Domínio e hospedagem ficam no nome da sua empresa." },
+      { id: "site-movimento", nome: "Site em movimento", tipo: "Projeto", link: "/crescer#site", niveis: NIVEIS_MOVIMENTO,
+        desc: "A sua empresa apresentada com movimento, sem perder velocidade.", fora: "Domínio, hospedagem e vídeos ficam com a sua empresa." },
+      { id: "loja-virtual", nome: "Loja virtual", tipo: "Projeto", link: "/crescer#site", niveis: NIVEIS_LOJA,
+        desc: "Venda pelo seu próprio site, com pagamento e pedido organizados.", fora: "O plano da plataforma e o domínio ficam no nome da sua empresa." },
       { id: "app", nome: "App: descoberta e protótipo", tipo: "Projeto", link: "/crescer#site",
         desc: "A ideia do app testada num protótipo antes do desenvolvimento. O desenvolvimento sai na proposta." },
       { id: "bot", nome: "Bot de WhatsApp e CRM", tipo: "Projeto e mensalidade", link: "/crescer#whatsapp", niveis: NIVEIS_BOT,
