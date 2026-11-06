@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Monta o cabeçalho com o menu das quatro frentes em todas as páginas da Zethic.
+"""Monta o cabeçalho com o menu dos quatro pilares em todas as páginas da Zethic.
 
 Uso (na raiz do repositório):  python3 _ferramentas/cabecalhos.py
 Edite os modelos abaixo e rode de novo: as páginas são atualizadas entre os marcadores
@@ -16,15 +16,15 @@ from pathlib import Path
 
 RAIZ = Path(__file__).resolve().parent.parent
 
-# Páginas da Zethic: recebem a barra das marcas e o cabeçalho com o menu das frentes.
+# Páginas da Zethic: recebem o cabeçalho com o menu dos pilares.
 # (arquivo, origem usada no botão do WhatsApp, item do menu marcado como página atual)
 ZETHIC = [
     ("index.html", "site", None),
     ("quem-somos.html", "quem-somos", "quem-somos"),
-    ("proteger.html", "site", None),
-    ("organizar.html", "site", None),
-    ("crescer.html", "site", None),
-    ("conectar.html", "site", None),
+    ("seguranca.html", "site", None),
+    ("tecnologia.html", "site", None),
+    ("financeiro.html", "site", None),
+    ("atendimento.html", "site", None),
     ("privacidade.html", "privacidade", None),
 ]
 
@@ -35,66 +35,65 @@ LOGO = ('<a class="logo" href="/" aria-label="Zethic, início">'
         '<rect y="22.75" width="72" height="7" rx="1"/><rect y="45.5" width="72" height="7" rx="1"/></svg>'
         '<span aria-hidden="true">THIC</span></a>')
 
-# As frentes da Zethic (cinco desde 03/11/2026, com Conectar: energia, conectividade e cidades inteligentes, Ficha oficial v1.7 e v1.8) (hub aprovado em 12/10/2026; escopo revisto em 28/10/2026: a Zethic é só tecnologia,
-# consultoria, governança, golpes e diagnóstico passaram para a Jéssica Gessoli; foto, vídeo e redes sociais ficam só no Pode Curtir,
-# que aparece na Zethic apenas como marca endossada, na barra das marcas e no rodapé), na ordem do menu, dos cartões da página inicial e do rodapé.
-# Cada frente pertence a um pilar da categoria: p-seg (segurança) ou p-tec (tecnologia).
-# Jéssica Gessoli não é frente nem aparece no site da Zethic: desde 28/10/2026 (decisão da Jéssica) fica só a frase
-# institucional na Quem somos e a razão social no rodapé. O Pode Curtir também não aparece na Zethic.
+# Os pilares da Zethic (decisão da Jéssica em 06/11/2026, depois do benchmark de estrutura): o site deixa as frentes
+# Organizar, Proteger, Crescer e Conectar e passa a ter 4 pilares, com o nome do departamento que a Zethic assume e opera
+# fora da empresa do cliente (decisão de marca de 03/11/2026): Segurança, Tecnologia, Atendimento e Financeiro.
+# Os verbos das frentes ficam como frase de abertura de cada página; os endereços antigos redirecionam para o pilar novo.
+# Segurança usa a cor p-seg; os outros três, a cor p-tec. Ordem do menu, dos cartões da página inicial e do rodapé.
+# Jéssica Gessoli não é pilar nem aparece no site da Zethic (só a frase institucional na Quem somos e a razão social no rodapé).
+# A Blindagem de contas é da Jéssica Gessoli (03/11/2026) e não entra aqui.
 FRENTES = [
     {
-        "id": "proteger", "pilar": "p-seg", "nome": "Proteger", "rotulo": "Segurança técnica",
-        "frase": "Operação monitorada, protegida e recuperável.",
-        "pagina": "/proteger", "ir": "Conhecer Proteger",
+        "id": "seguranca", "pilar": "p-seg", "nome": "Segurança", "rotulo": "Segurança",
+        "frase": "Proteger a operação, todos os dias.",
+        "pagina": "/seguranca", "ir": "Conhecer Segurança",
         "img": ("/assets/img/proteger-800", 800, 450),
         "servicos": [
-            ("/proteger#seguranca-gerenciada", "Segurança gerenciada", "Ameaças monitoradas e backup testado"),
-            ("/proteger#it-ot", "Segurança de IT/OT", "Redes da produção, do campo e do escritório separadas e monitoradas"),
-            ("/proteger#infraestrutura-conectada", "Infraestrutura conectada", "Inversores, carregadores, medidores e roteadores protegidos"),
-            ("/proteger#blindagem", "Blindagem técnica de contas", "E-mail, nuvem e sistemas com acessos configurados"),
-            ("/proteger#continuidade", "Continuidade e recuperação", "Backup restaurado em teste e operação que volta rápido"),
-            ("/proteger#conscientizacao", "Conscientização com plataforma", "Plataforma de segurança, LGPD e IA implantada e operada"),
-            ("/proteger#lgpd", "Implantação da LGPD e de normas", "Controles, registros e evidências no dia a dia"),
+            ("/seguranca#soc", "Centro de operações de segurança (SOC)", "O departamento de segurança do Negócio, terceirizado"),
+            ("/seguranca#seguranca-gerenciada", "Segurança gerenciada", "Ameaças monitoradas e backup testado"),
+            ("/seguranca#it-ot", "Segurança de IT/OT", "Redes da produção, do campo e do escritório separadas e monitoradas"),
+            ("/seguranca#infraestrutura-conectada", "Infraestrutura conectada", "Inversores, carregadores, medidores e roteadores protegidos"),
+            ("/seguranca#continuidade", "Continuidade e recuperação", "Backup restaurado em teste e operação que volta rápido"),
+            ("/seguranca#conscientizacao", "Conscientização e simulação de golpe", "Plataforma implantada e operada, com simulações"),
+            ("/seguranca#lgpd", "Implantação da LGPD e de normas", "Controles, registros e evidências no dia a dia"),
         ],
     },
     {
-        "id": "organizar", "pilar": "p-tec", "nome": "Organizar", "rotulo": "Tecnologia",
-        "frase": "Uma operação que não depende de uma pessoa só.",
-        "pagina": "/organizar", "ir": "Conhecer Organizar",
+        "id": "tecnologia", "pilar": "p-tec", "nome": "Tecnologia", "rotulo": "Tecnologia",
+        "frase": "Organizar e conectar a operação.",
+        "pagina": "/tecnologia", "ir": "Conhecer Tecnologia",
         "img": ("/assets/img/organizar-800", 800, 450),
         "servicos": [
-            ("/organizar#processos", "Processos e rotina operacional", "Menos erro e retrabalho no dia a dia"),
-            ("/organizar#automacao", "Automação e agentes de IA", "Trabalho repetitivo automatizado, com controle de acesso"),
-            ("/organizar#financas", "Finanças e recuperação de valores", "Valores a recuperar identificados e financeiro sob controle"),
-            ("/organizar#projetos", "Governança de projetos e serviços", "Escopo, responsáveis e indicadores"),
-            ("/organizar#infraestrutura", "Infraestrutura, redes e conectividade", "Infraestrutura que aguenta a operação"),
-            ("/organizar#nuvem", "Nuvem e identidade digital", "Custo e acesso sob controle"),
-            ("/organizar#reforma-tributaria", "Adaptação à Reforma Tributária", "Sistemas e processos prontos, junto com o seu contador"),
+            ("/tecnologia#automacao", "Automação de processos e IA aplicada", "Agentes de IA e integrações, com controle de acesso"),
+            ("/tecnologia#processos", "Processos e rotina operacional", "Menos erro e retrabalho no dia a dia"),
+            ("/tecnologia#infraestrutura", "Infraestrutura, redes e conectividade", "Infraestrutura que aguenta a operação"),
+            ("/tecnologia#nuvem", "Nuvem e identidade digital", "E-mail, contas, custo e acesso sob controle"),
+            ("/tecnologia#projetos", "Governança de projetos e serviços de TI", "Escopo, responsáveis e indicadores"),
+            ("/tecnologia#industria-agro", "TI e TO para indústria e agro", "Redes privadas, máquinas conectadas e rastreabilidade"),
+            ("/tecnologia#futuro", "No futuro: energia e cidades", "Energia, conectividade e cidades inteligentes, com parceiros"),
         ],
     },
     {
-        "id": "crescer", "pilar": "p-tec", "nome": "Crescer", "rotulo": "Tecnologia",
-        "frase": "Mais clientes chegando, com rotina e medição.",
-        "pagina": "/crescer", "ir": "Conhecer Crescer",
+        "id": "atendimento", "pilar": "p-tec", "nome": "Atendimento", "rotulo": "Atendimento",
+        "frase": "Crescer pelo WhatsApp, pelo site e pelos dados.",
+        "pagina": "/atendimento", "ir": "Conhecer Atendimento",
         "img": ("/assets/img/crescer-800", 800, 450),
         "servicos": [
-            ("/crescer#site", "Site, app e presença no Google", "O cliente encontra a empresa e chega ao contato"),
-            ("/crescer#whatsapp", "Bot de WhatsApp e atendimento unificado", "Todas as redes num lugar só, com regras e histórico"),
-            ("/crescer#dados", "Dados e relatórios unificados", "Vendas, atendimento e redes num painel só"),
-            ("/crescer#produto-digital", "Plataforma para curso e produto digital", "Plataforma, página de vendas e entrega automática"),
+            ("/atendimento#whatsapp", "Bots de WhatsApp e de comunicação", "Bot com passagem para a equipe e CRM leve"),
+            ("/atendimento#dados", "Unificação de redes sociais e de dados", "Vendas, atendimento e redes num painel só"),
+            ("/atendimento#site", "Site, app e presença no Google", "O cliente encontra a empresa e chega ao contato"),
+            ("/atendimento#produto-digital", "Plataforma para curso e produto digital", "Plataforma, página de vendas e entrega automática"),
         ],
     },
     {
-        "id": "conectar", "pilar": "p-tec", "nome": "Conectar", "rotulo": "Tecnologia",
-        "frase": "Energia, redes e cidades com tecnologia confiável.",
-        "pagina": "/conectar", "ir": "Conhecer Conectar",
+        "id": "financeiro", "pilar": "p-tec", "nome": "Financeiro", "rotulo": "Financeiro",
+        "frase": "O financeiro do Negócio sob controle.",
+        "pagina": "/financeiro", "ir": "Conhecer Financeiro",
         "img": ("/assets/img/zethic-800", 800, 450),
         "servicos": [
-            ("/conectar#energia", "Tecnologia para energia", "Recarga de carro elétrico, solar, eólica e hídrica, com parceiros"),
-            ("/conectar#redes-privadas", "Redes privadas", "Wi-Fi, LoRaWAN e 5G privado para agro, mineração e portos"),
-            ("/conectar#cidades", "Cidades inteligentes", "Pilotos de sensores, iluminação e dados para municípios"),
-            ("/conectar#rastreabilidade", "Rastreabilidade para exportar", "Origem, carbono e conformidade em dados"),
-            ("/conectar#parceiros", "Parceira local de empresas de fora", "Implantação, homologação e suporte em português"),
+            ("/financeiro#gestao-financeira", "Gestão financeira terceirizada", "Caixa, contas e cobrança operados, com painel"),
+            ("/financeiro#auditoria", "Auditoria de contas e contratos", "Valores a recuperar identificados"),
+            ("/financeiro#reforma-tributaria", "Adaptação à Reforma Tributária", "Sistemas e processos prontos, junto com o seu contador"),
         ],
     },
 ]

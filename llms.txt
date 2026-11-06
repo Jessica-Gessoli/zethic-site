@@ -1,14 +1,14 @@
 # Zethic
 
-> Tecnologia para o Negócio, em linguagem de dono: automação, IA aplicada, TI e IT/OT. Quatro frentes em um só lugar: Organizar, Proteger, Crescer e Conectar. A Zethic atende empresas (B2B). Atendimento presencial ou a distância, conforme o serviço.
+> Tecnologia para o Negócio, em linguagem de dono: a Zethic assume e opera, fora da empresa do cliente, a segurança, a tecnologia, o atendimento digital e o financeiro. Quatro pilares em um só lugar: Segurança, Tecnologia, Atendimento e Financeiro. A Zethic atende empresas (B2B). Atendimento presencial ou a distância, conforme o serviço.
 
-## Frentes da Zethic
+## Pilares da Zethic
 
-- [Início](https://zethic.net/): a Zethic como hub, com as quatro frentes e as portas de entrada.
-- [Organizar](https://zethic.net/organizar): processos, automação e agentes de IA, IA privada ou local, finanças, infraestrutura, nuvem e adaptação à Reforma Tributária (pilar tecnologia).
-- [Proteger](https://zethic.net/proteger): segurança gerenciada, segurança de IT/OT, infraestrutura conectada (inversores, carregadores, medidores e roteadores), blindagem técnica de contas, continuidade, conscientização com plataforma implantada e implantação técnica da LGPD e de normas (pilar segurança técnica).
-- [Crescer](https://zethic.net/crescer): site, app e presença no Google, bot de WhatsApp e atendimento unificado, dados e relatórios unificados, plataforma para curso e produto digital (pilar tecnologia).
-- [Conectar](https://zethic.net/conectar): tecnologia para energia com parceiros (a Zethic não vende energia: integra e opera a tecnologia), redes privadas (Wi-Fi, LoRaWAN e 5G privado, sem venda de acesso à internet), cidades inteligentes, rastreabilidade para exportar e parceria local de empresas de tecnologia de fora (pilar tecnologia).
+- [Início](https://zethic.net/): a Zethic como hub, com os quatro pilares e as portas de entrada.
+- [Segurança](https://zethic.net/seguranca): centro de operações de segurança (SOC), o departamento de segurança terceirizado do cliente; segurança gerenciada (ameaças monitoradas) e operação técnica de segurança de IT/OT; infraestrutura conectada (inversores, carregadores, medidores e roteadores); continuidade e recuperação; implantação e operação da plataforma de conscientização e de simulação de golpe; implantação técnica da LGPD e de outras normas.
+- [Tecnologia](https://zethic.net/tecnologia): automação de processos e IA aplicada (agentes e integrações, IA privada ou local, planilhas e modelos); processos e documentação; serviços de TI (infraestrutura, redes, nuvem e identidade digital); governança de projetos e serviços de TI; TI e TO para indústria e agro, com conectividade (Wi-Fi, LoRaWAN e 5G privado, sem venda de acesso à internet, e rastreabilidade para exportar). No futuro: energia com parceiros (a Zethic não vende energia: integra e opera a tecnologia), conectividade e cidades inteligentes, e parceria local de empresas de tecnologia de fora.
+- [Atendimento](https://zethic.net/atendimento): bots de WhatsApp e de comunicação, com CRM leve; unificação de redes sociais e de dados, com relatórios; site, app e presença no Google (a parte de mídia fica com um parceiro); plataforma para curso e produto digital.
+- [Financeiro](https://zethic.net/financeiro): gestão financeira terceirizada (caixa, contas a pagar e a receber, painel, lançamento automático, cobrança pelo WhatsApp e envio ao contador); auditoria de contas e contratos; adaptação à Reforma Tributária, junto com o contador do Negócio.
 
 ## Institucional
 
