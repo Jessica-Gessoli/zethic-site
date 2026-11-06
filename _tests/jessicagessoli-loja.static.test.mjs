@@ -14,7 +14,7 @@ test("configuração única, com pagamento, aula e Pixel desligados até serem p
   const ctx = { window: {} };
   vm.runInNewContext(ler("assets/js/jessicagessoli-config.js"), ctx);
   const c = ctx.window.JESSICAGESSOLI;
-  assert.deepEqual(Object.keys(c.ASAAS_LINKS).sort(), ["aula", "consultoria", "programa_cartao", "programa_pix", "sessao"]);
+  assert.deepEqual(Object.keys(c.ASAAS_LINKS).sort(), ["aula", "checkup", "consultoria", "programa_cartao", "programa_pix", "sessao"]);
   for (const v of Object.values(c.ASAAS_LINKS)) assert.ok(v === "" || /^https:\/\/(www\.)?asaas\.com\//.test(v), "link do Asaas inválido: " + v);
   assert.equal(typeof c.AULA_DATA, "string");
   assert.ok(c.PIXEL_ID === "" || /^\d{10,20}$/.test(c.PIXEL_ID));
@@ -23,13 +23,16 @@ test("configuração única, com pagamento, aula e Pixel desligados até serem p
   assert.match(String(c.CNPJ), /^\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}$/);
 });
 
-test("preços aprovados em 03/11/2026 e mais nenhum", () => {
+// 06/11/2026 (aprovado pela Jéssica): Checkup Black Friday Segura a R$ 297, à vista, 8 vagas, agendamento até 25/11/2026.
+test("preços aprovados em 03/11/2026 e 06/11/2026, e mais nenhum", () => {
   const js = ler("assets/js/jessicagessoli-loja.js");
   assert.match(js, /id: "consultoria", nome: "Consultoria · 1 hora", preco: 400, agora: 1/);
   assert.match(js, /id: "sessao", nome: "Mentoria de posicionamento · sessão avulsa", preco: 400, agora: 1/);
   assert.match(js, /id: "programa", nome: "Mentoria de posicionamento · programa de 3 meses", preco: 3200, agora: 1, parcelas: 3, em: "no"/);
   assert.match(js, /id: "aula", nome: "Aula ao vivo · IA segura para o seu Negócio", preco: 97, agora: 1/);
-  assert.equal((js.match(/preco: \d+/g) || []).length, 4, "item com preço fora dos aprovados");
+  assert.match(js, /id: "checkup", nome: "Checkup Black Friday Segura", preco: 297, agora: 1, quando: "Agendamento até 25\/11\/2026, depois do pagamento · 8 vagas"/);
+  assert.match(js, /CHECKUP_FIM = new Date\("2026-11-26T03:00:00Z"\)/, "checkup sai da loja depois de 25/11");
+  assert.equal((js.match(/preco: \d+/g) || []).length, 5, "item com preço fora dos aprovados");
   const propostas = js.split("var PROPOSTAS")[1].split("];")[0];
   assert.doesNotMatch(propostas, /R\$ ?\d|preco/, "proposta com preço publicado");
 });

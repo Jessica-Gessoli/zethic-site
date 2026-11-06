@@ -4,7 +4,8 @@
    Pagamento pelo link do Asaas de cada item (ASAAS_LINKS em jessicagessoli-config.js). Com vários itens pagos,
    usa o CHECKOUT_ENDPOINT (n8n) se estiver preenchido; senão, mostra o link de cada item.
    04/11/2026 (decisão da Jéssica, como na loja da Pode Curtir): no site o pagamento é integral. O programa de
-   3 meses tem dois links: _pix (Pix ou boleto, à vista) e _cartao (cartão em até 3x sem juros). */
+   3 meses tem dois links: _pix (Pix ou boleto, à vista) e _cartao (cartão em até 3x sem juros).
+   06/11/2026: entra o Checkup Black Friday Segura (R$ 297), à vista, até 25/11/2026. */
 (function () {
   var C = window.JESSICAGESSOLI || {};
   var LINKS = C.ASAAS_LINKS || {};
@@ -20,8 +21,14 @@
     { id: "programa", nome: "Mentoria de posicionamento · programa de 3 meses", preco: 3200, agora: 1, parcelas: 3, em: "no", quando: "8 sessões individuais em 3 meses, com datas combinadas por e-mail ou WhatsApp",
       desc: "Para definir com clareza onde você ou o seu Negócio quer chegar e como se posicionar para chegar lá." },
     { id: "aula", nome: "Aula ao vivo · IA segura para o seu Negócio", preco: 97, agora: 1, aula: true, quando: AULA_DATA ? AULA_DATA + ", online" : "",
-      desc: "Como usar IA no dia a dia do Negócio sem expor dados de clientes. Online e ao vivo." }
+      desc: "Como usar IA no dia a dia do Negócio sem expor dados de clientes. Online e ao vivo." },
+    { id: "checkup", nome: "Checkup Black Friday Segura", preco: 297, agora: 1, quando: "Agendamento até 25/11/2026, depois do pagamento · 8 vagas",
+      desc: "Checkup do seu Negócio antes da Black Friday, com o que corrigir primeiro para não perder dinheiro com golpe." }
   ];
+  /* 06/11/2026 (aprovado pela Jéssica): Checkup Black Friday Segura a R$ 297, pago antes de agendar, 8 vagas
+     (o link do Asaas aceita 8 vendas) e agendamento até 25/11/2026. Depois do fim do dia 25/11 (Brasília), sai da loja. */
+  var CHECKUP_FIM = new Date("2026-11-26T03:00:00Z");
+  if (new Date() >= CHECKUP_FIM) ITENS = ITENS.filter(function (p) { return p.id !== "checkup"; });
   var PROPOSTAS = [
     { id: "diagnostico", nome: "Diagnóstico de Cibersegurança e IA", desc: "Onde o seu Negócio pode perder dinheiro com golpe, vazamento de dados ou IA sem regra, e o que resolver primeiro." },
     { id: "antigolpe", nome: "Programa Antigolpe", desc: "Equipe que reconhece golpes, regras que impedem pagamento indevido e cultura em que reportar não gera culpa." },

@@ -5,6 +5,7 @@
      consultoria: 1 hora de consultoria (R$ 400) · sessao: mentoria de posicionamento, sessão avulsa (R$ 400)
      programa_pix e programa_cartao: programa de mentoria de 3 meses (R$ 3.200, pagamento integral; 04/11/2026):
        _pix para Pix ou boleto, à vista; _cartao só cartão, em até 3x sem juros · aula: aula ao vivo (R$ 97)
+     checkup: Checkup Black Friday Segura (R$ 297, à vista; configure o link para aceitar 8 vendas, as 8 vagas)
    AULA_DATA: data e horário da próxima turma da aula ao vivo, como deve aparecer na loja (ex.: "26/11/2026, às 19h").
      Vazio = a aula aparece com "data em breve" e o botão vira "Avise-me quando abrir".
    CHECKOUT_ENDPOINT: webhook do n8n que cria o checkout do Asaas com vários itens e devolve {"url": "..."}.
@@ -18,7 +19,8 @@ window.JESSICAGESSOLI = {
     sessao: "",
     programa_pix: "",
     programa_cartao: "",
-    aula: ""
+    aula: "",
+    checkup: ""
   },
   AULA_DATA: "",
   CHECKOUT_ENDPOINT: "",
