@@ -25,12 +25,14 @@
   var PROPOSTAS = [
     { id: "diagnostico", nome: "Diagnóstico de Cibersegurança e IA", desc: "Onde o seu Negócio pode perder dinheiro com golpe, vazamento de dados ou IA sem regra, e o que resolver primeiro." },
     { id: "antigolpe", nome: "Programa Antigolpe", desc: "Equipe que reconhece golpes, regras que impedem pagamento indevido e cultura em que reportar não gera culpa." },
-    { id: "governanca", nome: "Governança de IA, privacidade e LGPD", desc: "IA usada com regras e controles, e dados pessoais tratados com responsabilidade e documentação." },
+    { id: "governanca", nome: "Governança de IA, de segurança, privacidade e LGPD", desc: "IA usada com regras e controles, dados pessoais tratados com responsabilidade e respostas aos questionários de segurança dos clientes." },
     { id: "contas", nome: "Segurança das contas e dos perfis", desc: "Proteção das contas do dono e da equipe, sem passar senha." },
     { id: "ia", nome: "Mentoria e consultoria em IA", desc: "Você aprende a fazer com IA, no seu próprio projeto." },
     { id: "conselheira", nome: "Conselheira de Risco", desc: "Acompanhamento mensal da diretoria nas decisões de risco cibernético e de IA." },
     { id: "projetos", nome: "Projetos para grandes organizações", desc: "Tecnologia operacional, infraestrutura crítica e programas de governança em operações reguladas." },
-    { id: "palestra", nome: "Palestras e eventos", desc: "Palestra, painel, mediação ou apresentação de palco." }
+    { id: "capacitacao", nome: "Capacitação em IA para empresas", desc: "Treinamento da equipe para usar IA com regras claras e sem expor dados da empresa." },
+    { id: "treinamento", nome: "Treinamento técnico", desc: "Cibersegurança e IA para equipes técnicas, adaptado à operação da empresa." },
+    { id: "palestra", nome: "Palestras, painéis e eventos", desc: "Palestra, painel, mediação ou apresentação de palco." }
   ];
   /* Sem data marcada, a aula não é vendida: vira um pedido de aviso da próxima turma. */
   if (!AULA_DATA) PROPOSTAS.push({ id: "aula-aviso", nome: "Aviso da próxima turma da aula ao vivo", aviso: true, desc: "Sem pagamento. Você recebe a data por e-mail quando as inscrições abrirem." });
