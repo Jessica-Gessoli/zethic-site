@@ -40,7 +40,12 @@ test("catálogo pela fronteira de 03/11 (Ficha v1.11 e v1.12): sem capacitação
   const js = ler("assets/js/zethic-loja.js");
   const catalogo = js.split("var DEPTOS")[1].split("var SERVICOS")[0];
   assert.doesNotMatch(catalogo, /Capacitação em IA|capacitacao|[Bb]lindagem|[Tt]reinamento/);
-  for (const d of ["Tecnologia", "Segurança da informação", "Financeiro", "Energia, redes e cidades"]) assert.match(catalogo, new RegExp('nome: "' + d + '"'));
+  // 06/11/2026 (decisão da Jéssica): os departamentos seguem os 4 pilares do site, na ordem do menu.
+  const deptos = [...catalogo.matchAll(/\n    \{ id: "([a-z-]+)", nome: "([^"]+)"/g)].map((m) => m[2]);
+  assert.deepEqual(deptos, ["Segurança", "Tecnologia", "Atendimento", "Financeiro"]);
+  assert.match(catalogo, /[Ss]imulaç(?:ão|ões) de golpe/);
+  assert.match(catalogo, /CRM leve/);
+  assert.doesNotMatch(catalogo, /link: "\/(proteger|organizar|crescer|conectar)/);
   for (const s of ["site", "bot", "projetos", "seguranca-gerenciada", "soc", "gestao-financeira", "auditoria", "reforma"]) assert.match(catalogo, new RegExp('id: "' + s + '"'));
 });
 
