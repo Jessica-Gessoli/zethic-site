@@ -1,0 +1,105 @@
+/* Zethic — loja de pedido de proposta (/loja) e confirmação (/loja-obrigado). Carrega depois de zethic.css e torres.css.
+   Identidade do sistema de design "Zethic": azul-noite e ciano, Public Sans; topo escuro e catálogo no tema claro (papel).
+   Sem preço: a loja só monta o pedido de proposta (decisão da Jéssica em 03/11/2026). */
+[hidden]{display:none!important}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* Topo */
+.loja-hero{padding:clamp(3rem,7vw,5rem) 0 clamp(2.5rem,5vw,3.5rem)}
+.loja-hero h1{max-width:20ch}
+.rotulo-loja{margin:0 0 1rem;font-size:.8rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--cyan)}
+.destaque{color:var(--cyan)}
+.passos-pedido{display:flex;flex-wrap:wrap;gap:.6rem 1.4rem;margin:0 0 1.6rem;padding:0;list-style:none;counter-reset:passo;font-weight:500}
+.passos-pedido li{display:flex;align-items:center;gap:.55rem;counter-increment:passo}
+.passos-pedido li::before{content:counter(passo);width:1.6rem;height:1.6rem;border-radius:999px;border:1px solid var(--cyan);color:var(--cyan);display:inline-flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:700}
+.atalhos-depto{display:flex;flex-wrap:wrap;gap:.5rem}
+.atalhos-depto a{display:inline-flex;align-items:center;min-height:2.75rem;box-sizing:border-box;border:1px solid var(--line-strong);border-radius:999px;padding:.5rem 1rem;color:var(--white);text-decoration:none;font-size:.92rem}
+.atalhos-depto a:hover{border-color:var(--cyan)}
+.atalhos-depto a:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
+
+/* Catálogo */
+.loja-corpo{padding:clamp(2rem,5vw,3.5rem) 0}
+.loja-layout{display:grid;grid-template-columns:minmax(0,1fr) 20rem;gap:2rem;align-items:start}
+@media (max-width:60rem){.loja-layout{grid-template-columns:minmax(0,1fr)}}
+.loja-depto{padding:0;margin:0 0 2.75rem;scroll-margin-top:6rem}
+.loja-depto .rotulo-pilar{margin:0 0 .6rem}
+.loja-depto-cab h2{margin:0 0 .5rem}
+.loja-depto-cab p{margin:0 0 1.2rem;color:var(--ice);max-width:60ch}
+.loja-grade{display:grid;grid-template-columns:repeat(auto-fill,minmax(17rem,1fr));gap:1rem}
+.loja-item{background:#FFFFFF;border:1px solid var(--line);border-top:3px solid var(--pilar);border-radius:8px;padding:1.2rem 1.25rem;display:flex;flex-direction:column;gap:.7rem;min-width:0}
+.loja-item-cab{display:flex;flex-direction:column;gap:.35rem}
+.loja-item h3{margin:0;font-size:1.12rem;line-height:1.25;font-weight:700}
+.loja-tipo{font-size:.75rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ciano-texto)}
+.loja-item p{margin:0;color:var(--ice);font-size:.95rem}
+.loja-item .loja-fora{font-size:.85rem}
+.niveis{border:0;margin:0;padding:.75rem 0 0;border-top:1px solid var(--line);min-width:0}
+.niveis legend{float:left;width:100%;padding:0;margin:0 0 .5rem;font-size:.75rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ice)}
+.niveis-opcoes{clear:both;display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:.7rem}
+.niveis-opcoes input{position:absolute;opacity:0;width:1px;height:1px;margin:0}
+.niveis-opcoes label{display:inline-flex;align-items:center;min-height:2.75rem;box-sizing:border-box;border:1px solid var(--line-strong);border-radius:999px;padding:.4rem .85rem;font-size:.88rem;cursor:pointer}
+.niveis-opcoes input:checked+label{background:var(--navy);border-color:var(--navy);color:#FFFFFF}
+.niveis-opcoes input:focus-visible+label{outline:2px solid var(--foco);outline-offset:2px}
+.inclui{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:.35rem;font-size:.9rem}
+.inclui li{display:flex;gap:.55rem;align-items:baseline}
+.inclui li::before{content:"";width:.7rem;height:3px;flex:none;border-radius:1px;background:var(--ciano-texto);transform:translateY(-.25rem)}
+.loja-acoes{margin-top:auto;display:flex;flex-wrap:wrap;gap:.6rem 1rem;align-items:center;padding-top:.3rem}
+.por{border:0;border-radius:6px;padding:.7rem 1rem;min-height:2.75rem;font:inherit;font-weight:700;cursor:pointer;background:var(--navy);color:#FFFFFF}
+.por:hover{background:#1B2140}
+.por[aria-pressed="true"]{background:transparent;color:var(--navy);box-shadow:inset 0 0 0 2px var(--navy)}
+.detalhe{color:var(--ciano-texto);font-weight:600;font-size:.92rem}
+.por:focus-visible,.detalhe:focus-visible,.tirar:focus-visible,.ir:focus-visible,.voltar:focus-visible,.ver-pedido:focus-visible{outline:2px solid var(--foco);outline-offset:2px}
+
+/* Resumo do pedido */
+.loja-resumo{position:sticky;top:6rem;background:#FFFFFF;border:1px solid var(--line);border-top:3px solid var(--navy);border-radius:8px;padding:1.25rem;display:flex;flex-direction:column;gap:.85rem}
+@media (max-width:60rem){.loja-resumo{position:static}}
+.loja-resumo h2{margin:0;font-size:1.35rem;max-width:none}
+.loja-resumo h2::after{display:none}
+.linhas{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:.6rem}
+.linhas li{display:flex;flex-direction:column;gap:.1rem;border-bottom:1px solid var(--line);padding-bottom:.55rem;font-size:.95rem;font-weight:600}
+.linhas small{font-weight:400;color:var(--ice);font-size:.82rem}
+.tirar{align-self:flex-start;border:0;background:none;padding:.2rem 0;font:inherit;font-size:.85rem;font-weight:600;color:var(--ciano-texto);text-decoration:underline;cursor:pointer}
+.vazio{margin:0;color:var(--ice)}
+.ir{border:0;border-radius:6px;padding:.9rem 1.2rem;min-height:2.75rem;font:inherit;font-weight:700;cursor:pointer;background:var(--cyan);color:var(--navy)}
+.ir:hover{background:var(--navy);color:#FFFFFF}
+.ir:disabled{opacity:.5;cursor:not-allowed}
+.ir:disabled:hover{background:var(--cyan);color:var(--navy)}
+.dica{margin:0;font-size:.85rem;color:var(--ice)}
+.ver-pedido{display:none}
+@media (max-width:60rem){
+  .ver-pedido{display:inline-flex;position:fixed;right:1rem;bottom:1rem;z-index:15;align-items:center;gap:.5rem;min-height:2.75rem;border:2px solid var(--cyan);border-radius:999px;padding:.7rem 1.1rem;font:inherit;font-weight:700;background:var(--navy);color:#FFFFFF;cursor:pointer}
+}
+.contador{min-width:1.4rem;height:1.4rem;border-radius:999px;background:var(--cyan);color:var(--navy);display:inline-flex;align-items:center;justify-content:center;font-size:.8rem;font-variant-numeric:tabular-nums}
+
+/* Pedido de proposta. O site é escuro (color-scheme dark); no papel, os controles nativos usam o tema claro. */
+.loja-corpo,#vista-pedido{color-scheme:light}
+.loja-form{padding-top:clamp(2rem,5vw,3rem);padding-bottom:3rem}
+.voltar{border:0;background:none;padding:.3rem 0;font:inherit;font-weight:600;color:var(--ciano-texto);cursor:pointer}
+.titulo-pedido{font-size:clamp(1.9rem,4.5vw,2.6rem);line-height:1.1;margin:.5rem 0 1.4rem;max-width:none}
+#form-pedido fieldset{border:0;padding:0;margin:0 0 1.8rem;display:flex;flex-direction:column;gap:.8rem;min-width:0}
+#form-pedido legend{padding:0;margin-bottom:.8rem;font-size:1.25rem;font-weight:700}
+.dois{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.9rem}
+@media (max-width:36rem){.dois{grid-template-columns:minmax(0,1fr)}}
+.campo{display:flex;flex-direction:column;gap:.35rem;font-size:.92rem;font-weight:600}
+.campo input,.campo select,.campo textarea{font:inherit;font-weight:400;color:#02041A;background:#FFFFFF;border:1px solid var(--line-strong);border-radius:6px;padding:.65rem .8rem;min-height:2.75rem;box-sizing:border-box}
+.campo input:focus,.campo select:focus,.campo textarea:focus{border-color:var(--navy);outline:2px solid var(--foco);outline-offset:1px}
+.opcional{font-weight:400;color:var(--ice)}
+.como{margin:0;padding-left:1.1rem;display:flex;flex-direction:column;gap:.45rem}
+.marcar{display:flex;gap:.6rem;align-items:flex-start;font-size:.95rem}
+.marcar input{width:1.25rem;height:1.25rem;margin-top:.15rem;flex:none;accent-color:var(--navy)}
+.erro{margin:0 0 1rem;color:#B3261E;font-weight:700}
+.resultado{background:#FFFFFF;border:1px solid var(--line);border-top:3px solid var(--ciano-texto);border-radius:8px;padding:1.4rem;display:flex;flex-direction:column;gap:.9rem}
+.resultado h2{margin:0;font-size:1.5rem;max-width:none}
+.resultado h2::after{display:none}
+.resultado p{margin:0}
+.resultado textarea{min-height:10rem;background:#F4F6FB;border:0}
+.acoes{display:flex;flex-wrap:wrap;gap:.6rem}
+.resultado .acoes .btn{margin:0;display:inline-flex;align-items:center;justify-content:center;min-height:2.75rem;box-sizing:border-box;padding:.75rem 1.1rem;font-size:.95rem;line-height:1.2}
+button.btn{font:inherit;font-weight:700;cursor:pointer;background:transparent}
+.sem-js{background:#FEF4E2;color:#02041A;padding:1rem 0;margin:0}
+
+/* Confirmação */
+.proximos{list-style:none;padding:0;margin:1.2rem 0 1.5rem;display:grid;grid-template-columns:repeat(auto-fill,minmax(14rem,1fr));gap:1rem}
+.proximos li{background:#FFFFFF;border:1px solid var(--line);border-top:3px solid var(--ciano-texto);border-radius:8px;padding:1.1rem 1.2rem}
+.proximos strong{display:block;margin-bottom:.3rem}
+.proximos p{margin:0;color:var(--ice)}
+@media (prefers-reduced-motion:no-preference){.por,.ir{transition:background .15s,color .15s}}
