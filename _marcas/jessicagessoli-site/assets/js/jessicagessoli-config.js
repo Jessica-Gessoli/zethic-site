@@ -6,6 +6,9 @@
      programa_pix e programa_cartao: programa de mentoria de 3 meses (R$ 3.200, pagamento integral; 04/11/2026):
        _pix para Pix ou boleto, à vista; _cartao só cartão, em até 3x sem juros · aula: aula ao vivo (R$ 97)
      checkup: Checkup Black Friday Segura (R$ 297, à vista; configure o link para aceitar 8 vendas, as 8 vagas)
+     06/11/2026: escopo (conversa de escopo, R$ 400) · protecao (proteção das contas, R$ 400) ·
+       antigolpe_essencial_pix e _cartao (R$ 2.500; cartão em até 3x) · diagnostico_essencial_pix e _cartao (R$ 7.500;
+       cartão em até 6x) · palestra_online (R$ 5.000, à vista)
    AULA_DATA: data e horário da próxima turma da aula ao vivo, como deve aparecer na loja (ex.: "26/11/2026, às 19h").
      Vazio = a aula aparece com "data em breve" e o botão vira "Avise-me quando abrir".
    CHECKOUT_ENDPOINT: webhook do n8n que cria o checkout do Asaas com vários itens e devolve {"url": "..."}.
@@ -20,7 +23,14 @@ window.JESSICAGESSOLI = {
     programa_pix: "",
     programa_cartao: "",
     aula: "",
-    checkup: ""
+    checkup: "",
+    escopo: "",
+    protecao: "",
+    antigolpe_essencial_pix: "",
+    antigolpe_essencial_cartao: "",
+    diagnostico_essencial_pix: "",
+    diagnostico_essencial_cartao: "",
+    palestra_online: ""
   },
   AULA_DATA: "",
   CHECKOUT_ENDPOINT: "",
