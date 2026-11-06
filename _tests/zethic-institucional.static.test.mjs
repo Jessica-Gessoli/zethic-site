@@ -187,3 +187,20 @@ test("4 pilares: endereços antigos redirecionam e as 14 linhas da Zethic estão
   for (const s of ["seguranca", "tecnologia", "atendimento", "financeiro"]) assert.match(sitemap, new RegExp(`zethic\\.net/${s}<`), s);
   assert.doesNotMatch(sitemap, /zethic\.net\/(proteger|organizar|crescer|conectar)</);
 });
+
+// 06/11/2026: cadeias estratégicas. Portos e mineração na segurança de TI e TO, rastreio EUDR e rede privada
+// no campo, Chegada ao Brasil como oferta atual, minerais críticos em "No futuro"; sem revenda de equipamento
+// nem compra e venda de minério.
+test("Cadeias estratégicas: portos, EUDR, Chegada ao Brasil e minerais críticos", () => {
+  const seg = ler("seguranca.html");
+  assert.match(seg, /portos e terminais, mineração, indústria e agro/);
+  const tec = ler("tecnologia.html");
+  assert.match(tec, /regra EUDR/);
+  assert.match(tec, /provedor regional parceiro/);
+  assert.match(tec, /não revende equipamentos: o Negócio compra direto do fornecedor indicado/);
+  assert.match(tec, /<h3>Chegada ao Brasil<\/h3>/);
+  const futuro = tec.slice(tec.indexOf('id="futuro"'));
+  assert.doesNotMatch(futuro, /id="parceiros"/, "Chegada ao Brasil é oferta atual, não 'No futuro'");
+  assert.match(futuro, /id="minerais"/);
+  assert.match(tec, /não compra nem vende minério/);
+});
