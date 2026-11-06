@@ -36,10 +36,10 @@ test("pedido não se perde: sem webhook ou com falha, a mensagem pronta vai para
   assert.match(js, /"mailto:"/);
 });
 
-test("catálogo pela fronteira de 03/11 (Ficha v1.11 e v1.12): sem capacitação em IA e sem blindagem de contas", () => {
+test("catálogo pela fronteira de 03/11 (Ficha v1.11 e v1.12): sem capacitação em IA, sem treinamento técnico (06/11) e sem blindagem de contas", () => {
   const js = ler("assets/js/zethic-loja.js");
   const catalogo = js.split("var DEPTOS")[1].split("var SERVICOS")[0];
-  assert.doesNotMatch(catalogo, /Capacitação em IA|capacitacao|[Bb]lindagem/);
+  assert.doesNotMatch(catalogo, /Capacitação em IA|capacitacao|[Bb]lindagem|[Tt]reinamento/);
   for (const d of ["Tecnologia", "Segurança da informação", "Financeiro", "Energia, redes e cidades"]) assert.match(catalogo, new RegExp('nome: "' + d + '"'));
   for (const s of ["site", "bot", "projetos", "seguranca-gerenciada", "soc", "gestao-financeira", "auditoria", "reforma"]) assert.match(catalogo, new RegExp('id: "' + s + '"'));
 });

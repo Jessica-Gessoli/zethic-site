@@ -3,7 +3,7 @@
    e envia o pedido. Com FORM_ENDPOINT preenchido em zethic-loja-config.js, o pedido é registrado e a pessoa vai para
    /loja-obrigado; sem ele, ou se o envio falhar, a loja mostra a mensagem pronta para o WhatsApp e o e-mail.
    Catálogo e níveis: material "Zethic — planos e valores" e Ficha oficial v1.12 (03/11/2026). A capacitação em IA
-   para empresas e a blindagem de contas são da Jéssica Gessoli e não entram aqui. */
+   para empresas, o treinamento técnico (06/11/2026) e a blindagem de contas são da Jéssica Gessoli e não entram aqui. */
 (function () {
   var C = window.ZETHIC_LOJA || {};
   var $ = function (id) { return document.getElementById(id); };
@@ -58,9 +58,7 @@
       { id: "infraestrutura", nome: "Infraestrutura, redes e conectividade", tipo: "Projeto", link: "/organizar#infraestrutura",
         desc: "Teste de estresse, desempenho da rede e enlace via rádio." },
       { id: "nuvem", nome: "Nuvem e identidade digital", tipo: "Projeto", link: "/organizar#nuvem",
-        desc: "E-mail e contas da equipe na nuvem, com custo e acesso sob controle." },
-      { id: "treinamento", nome: "Treinamento técnico", tipo: "Por turma", link: "/aconselhar#treinamento",
-        desc: "Equipe treinada nas ferramentas do dia a dia." }
+        desc: "E-mail e contas da equipe na nuvem, com custo e acesso sob controle." }
     ] },
     { id: "seguranca", nome: "Segurança da informação", pilar: "p-seg", frase: "Os computadores, os sistemas e os dados protegidos por quem cuida disso todo dia.", servicos: [
       { id: "seguranca-gerenciada", nome: "Segurança Gerenciada", tipo: "Mensalidade", link: "/proteger#seguranca-gerenciada", niveis: NIVEIS_SEG,
