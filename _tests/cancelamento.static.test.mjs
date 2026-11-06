@@ -41,7 +41,7 @@ test("Zethic: seção de cancelamento e devolução na página de privacidade e 
   assert.match(secao, /contas, dados e acessos são devolvidos à sua empresa no prazo escrito no contrato/);
   assert.doesNotMatch(secao, /R\$|\bMEI\b|Jéssica Gessoli|Pode Curtir/, "sem preço, sem rótulo MEI e sem citar as outras marcas");
   assert.match(h, /<h2>10\. Mudanças nesta página<\/h2>/);
-  for (const p of ["index.html", "quem-somos.html", "proteger.html", "organizar.html", "crescer.html", "aconselhar.html", "conectar.html"]) {
+  for (const p of ["index.html", "quem-somos.html", "proteger.html", "organizar.html", "crescer.html", "conectar.html"]) {
     assert.match(ler(p), /<a href="\/privacidade#cancelamento">Cancelamento e devolução<\/a>/, p + ": link no rodapé");
   }
 });

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Monta o cabeçalho com o menu das cinco frentes em todas as páginas da Zethic.
+"""Monta o cabeçalho com o menu das quatro frentes em todas as páginas da Zethic.
 
 Uso (na raiz do repositório):  python3 _ferramentas/cabecalhos.py
 Edite os modelos abaixo e rode de novo: as páginas são atualizadas entre os marcadores
@@ -24,7 +24,6 @@ ZETHIC = [
     ("proteger.html", "site", None),
     ("organizar.html", "site", None),
     ("crescer.html", "site", None),
-    ("aconselhar.html", "site", None),
     ("conectar.html", "site", None),
     ("privacidade.html", "privacidade", None),
 ]
@@ -82,16 +81,7 @@ FRENTES = [
             ("/crescer#site", "Site, app e presença no Google", "O cliente encontra a empresa e chega ao contato"),
             ("/crescer#whatsapp", "Bot de WhatsApp e atendimento unificado", "Todas as redes num lugar só, com regras e histórico"),
             ("/crescer#dados", "Dados e relatórios unificados", "Vendas, atendimento e redes num painel só"),
-        ],
-    },
-    {
-        "id": "capacitar", "pilar": "p-tec", "nome": "Capacitar", "rotulo": "Tecnologia",
-        "frase": "Equipe usando tecnologia e IA no dia a dia.",
-        "pagina": "/aconselhar", "ir": "Conhecer Capacitar",
-        "img": ("/assets/img/aconselhar-800", 800, 450),
-        "servicos": [
-            ("/aconselhar#capacitacao", "Capacitação em IA", "Pessoas usando ferramentas de IA com produtividade"),
-            ("/aconselhar#treinamento", "Treinamento técnico", "Equipe treinada nas ferramentas do dia a dia"),
+            ("/crescer#produto-digital", "Plataforma para curso e produto digital", "Plataforma, página de vendas e entrega automática"),
         ],
     },
     {

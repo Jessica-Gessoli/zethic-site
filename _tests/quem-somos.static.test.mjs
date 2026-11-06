@@ -48,7 +48,7 @@ test("quem-somos: uma chamada principal e nenhum telefone pessoal", () => {
 
 test("rodapé das páginas da Zethic leva à Quem somos", () => {
   for (const p of ["index.html", "quem-somos.html", "proteger.html", "organizar.html",
-    "crescer.html", "aconselhar.html", "privacidade.html"]) {
+    "crescer.html", "privacidade.html"]) {
     const rodape = ler(p).match(/<footer[^>]*>[\s\S]*?<\/footer>/)[0];
     assert.match(rodape, /<a href="\/quem-somos"[^>]*>Quem somos<\/a>/, p);
   }

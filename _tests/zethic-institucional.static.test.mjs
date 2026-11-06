@@ -6,7 +6,7 @@ const ler = (p) => readFileSync(new URL("../" + p, import.meta.url), "utf8");
 // Regra de 12/10/2026 (hub), escopo revisto em 28/10/2026: a Zethic é uma empresa de tecnologia, automação e IA com quatro frentes.
 // Pode Curtir é marca endossada, fora das frentes; Jéssica Gessoli não é frente, aparece só como "Quem fundou a Zethic".
 // O corpo das páginas das frentes continua falando só da Zethic. A Quem somos pode citar a fundadora e o Pode Curtir.
-const FRENTES = ["proteger.html", "organizar.html", "crescer.html", "aconselhar.html", "conectar.html", "privacidade.html"];
+const FRENTES = ["proteger.html", "organizar.html", "crescer.html", "conectar.html", "privacidade.html"];
 
 // O que pode citar as outras marcas: barra do grupo, menu, rodapé, razão social, controladora na política de privacidade e o e-mail atual.
 const semObrigatorios = (html) => html
@@ -43,7 +43,7 @@ test("perguntas frequentes migraram para o Diagnóstico, com dados estruturados"
 
 test("medição (Google Analytics) só nas páginas com ferramenta e na política de privacidade", () => {
   const com = ["diagnostico.html", "teste-golpe.html", "proteger.html", "privacidade.html"];
-  const sem = ["index.html", "quem-somos.html", "organizar.html", "crescer.html", "aconselhar.html", "conectar.html"];
+  const sem = ["index.html", "quem-somos.html", "organizar.html", "crescer.html", "conectar.html"];
   for (const p of com) assert.match(ler(p), /<script src="\/assets\/js\/medicao\.js" defer><\/script>/, p);
   for (const p of sem) {
     const h = ler(p);
@@ -72,7 +72,7 @@ test("Diagnóstico e Teste de golpe são páginas da Jéssica Gessoli", () => {
 // Ficha v1.8 (03/11/2026): a LGPD entra na Zethic só como implantação técnica (consultoria segue com a Jéssica Gessoli).
 test("páginas da Zethic não falam de golpes, governança, consultoria nem mídia", () => {
   const corpo = (p) => semObrigatorios(ler(p)).replace(/<script[\s\S]*?<\/script>/g, "").replace(/<head>[\s\S]*?<\/head>/, "");
-  for (const p of ["index.html", "proteger.html", "organizar.html", "crescer.html", "aconselhar.html", "conectar.html"]) {
+  for (const p of ["index.html", "proteger.html", "organizar.html", "crescer.html", "conectar.html"]) {
     assert.doesNotMatch(corpo(p), /golpe|governan[çc]a de IA|consultoria|[Mm]entoria|[Mm]ídia digital|[Ff]oto e vídeo/, p);
     for (const m of corpo(p).matchAll(/LGPD/g)) {
       const trecho = corpo(p).slice(Math.max(0, m.index - 160), m.index + 160);
@@ -124,7 +124,7 @@ test("tráfego pago fica na Pode Curtir, fora da Zethic", () => {
 // Ficha v1.5 (03/11/2026): a Pode Curtir aparece na Zethic só como parceira nos serviços de tecnologia,
 // num parágrafo próprio que separa a mídia (Pode Curtir) da tecnologia (Zethic), numa proposta só.
 test("Pode Curtir só como parceira de mídia nos serviços de tecnologia", () => {
-  for (const p of ["crescer.html", "aconselhar.html"]) {
+  for (const p of ["crescer.html"]) {
     const ps = ler(p).match(/<p class="parceria">[\s\S]*?<\/p>/g) || [];
     assert.ok(ps.length >= 1, p);
     for (const t of ps) {
@@ -142,4 +142,18 @@ test("Conectar: energia com parceiros, sem venda de energia nem de internet", ()
   assert.match(h, /A Zethic não vende acesso à internet\./);
   assert.doesNotMatch(h, /[Ss]tarlink|R\$ ?\d/);
   for (const id of ["energia", "redes-privadas", "cidades", "rastreabilidade", "parceiros"]) assert.match(h, new RegExp(`id="${id}"`), id);
+});
+
+// Decisão da Jéssica em 06/11/2026: a Zethic fica só com tecnologia. Capacitação em IA e treinamento técnico são da
+// Jéssica Gessoli. A frente Capacitar sai; a plataforma para curso e produto digital vai para Crescer, e /aconselhar
+// só leva os links antigos para lá.
+test("Zethic só tecnologia: sem frente Capacitar, sem treinamento e sem capacitação em IA", () => {
+  for (const p of ["index.html", "quem-somos.html", "proteger.html", "organizar.html", "crescer.html", "conectar.html", "privacidade.html", "llms.txt", "sitemap.xml", "_ferramentas/cabecalhos.py"]) {
+    const h = ler(p);
+    assert.doesNotMatch(h, /Treinamento técnico|Capacitação em IA|>Capacitar<|"Capacitar"|zethic\.net\/aconselhar|href="\/aconselhar/, p);
+  }
+  assert.match(ler("crescer.html"), /<article class="svc" id="produto-digital">/);
+  const r = ler("aconselhar.html");
+  assert.match(r, /<meta http-equiv="refresh" content="0; url=\/crescer#produto-digital">/);
+  assert.match(r, /<meta name="robots" content="noindex, follow">/);
 });

@@ -1,14 +1,13 @@
 # Zethic
 
-> Tecnologia para o Negócio, em linguagem de dono: automação, IA aplicada, TI e IT/OT. Cinco frentes em um só lugar: Organizar, Proteger, Crescer, Capacitar e Conectar. A Zethic atende empresas (B2B). Atendimento presencial ou a distância, conforme o serviço.
+> Tecnologia para o Negócio, em linguagem de dono: automação, IA aplicada, TI e IT/OT. Quatro frentes em um só lugar: Organizar, Proteger, Crescer e Conectar. A Zethic atende empresas (B2B). Atendimento presencial ou a distância, conforme o serviço.
 
 ## Frentes da Zethic
 
-- [Início](https://zethic.net/): a Zethic como hub, com as cinco frentes e as portas de entrada.
+- [Início](https://zethic.net/): a Zethic como hub, com as quatro frentes e as portas de entrada.
 - [Organizar](https://zethic.net/organizar): processos, automação e agentes de IA, IA privada ou local, finanças, infraestrutura, nuvem e adaptação à Reforma Tributária (pilar tecnologia).
 - [Proteger](https://zethic.net/proteger): segurança gerenciada, segurança de IT/OT, infraestrutura conectada (inversores, carregadores, medidores e roteadores), blindagem técnica de contas, continuidade, conscientização com plataforma implantada e implantação técnica da LGPD e de normas (pilar segurança técnica).
-- [Crescer](https://zethic.net/crescer): site, app e presença no Google, bot de WhatsApp e atendimento unificado, dados e relatórios unificados (pilar tecnologia).
-- [Capacitar](https://zethic.net/aconselhar): capacitação em IA e treinamento técnico (pilar tecnologia).
+- [Crescer](https://zethic.net/crescer): site, app e presença no Google, bot de WhatsApp e atendimento unificado, dados e relatórios unificados, plataforma para curso e produto digital (pilar tecnologia).
 - [Conectar](https://zethic.net/conectar): tecnologia para energia com parceiros (a Zethic não vende energia: integra e opera a tecnologia), redes privadas (Wi-Fi, LoRaWAN e 5G privado, sem venda de acesso à internet), cidades inteligentes, rastreabilidade para exportar e parceria local de empresas de tecnologia de fora (pilar tecnologia).
 
 ## Institucional
