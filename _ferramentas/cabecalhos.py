@@ -72,7 +72,7 @@ FRENTES = [
             ("/tecnologia#infraestrutura", "Infraestrutura, redes e conectividade", "Infraestrutura que aguenta a operação"),
             ("/tecnologia#nuvem", "Nuvem e identidade digital", "E-mail, contas, custo e acesso sob controle"),
             ("/tecnologia#projetos", "Governança de projetos e serviços de TI", "Escopo, responsáveis e indicadores"),
-            ("/tecnologia#industria-agro", "TI e TO para indústria e agro", "Redes privadas, máquinas conectadas e rastreabilidade"),
+            ("/tecnologia#industria-agro", "TI e TO para indústria e agro", "Redes privadas, máquinas conectadas e rastreio de origem para exportar"),
             ("/tecnologia#futuro", "No futuro: energia e cidades", "Energia, conectividade e cidades inteligentes, com parceiros"),
         ],
     },
