@@ -102,3 +102,12 @@ test("site em movimento e loja virtual com níveis, sem preço", () => {
   for (const n of ["Loja de serviços", "Até 30 produtos cadastrados", "Até 100 produtos cadastrados", "Até 5 páginas animadas"]) assert.ok(js.includes(n), n);
   assert.doesNotMatch(js, /R\$ ?\d/);
 });
+
+// 06/11/2026: Chegada ao Brasil é oferta atual; minerais críticos entram em "No futuro".
+test("loja: Chegada ao Brasil sob proposta e minerais críticos no futuro", () => {
+  const js = readFileSync(new URL("../assets/js/zethic-loja.js", import.meta.url), "utf8");
+  assert.match(js, /nome: "Chegada ao Brasil", tipo: "Sob proposta"/);
+  assert.match(js, /id: "minerais"[^}]*tipo: "No futuro/);
+  assert.doesNotMatch(js, /Parceira local de empresas de fora/);
+  assert.match(js, /regra EUDR/);
+});

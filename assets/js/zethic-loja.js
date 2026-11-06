@@ -54,7 +54,7 @@
       { id: "seguranca-gerenciada", nome: "Segurança Gerenciada", tipo: "Mensalidade", link: "/seguranca#seguranca-gerenciada", niveis: NIVEIS_SEG,
         desc: "Os seus dados com cópia testada. O sequestro dos dados não para o caixa.", fora: "As licenças das ferramentas ficam no nome da sua empresa." },
       { id: "it-ot", nome: "Segurança de redes industriais (TI e TO)", tipo: "Projeto", link: "/seguranca#it-ot",
-        desc: "Redes da produção, do campo e do escritório separadas e monitoradas, com visita técnica." },
+        desc: "Redes da produção, do campo, do porto e do escritório separadas e monitoradas, com visita técnica. Para portos e terminais, mineração, indústria e agro." },
       { id: "infraestrutura-conectada", nome: "Infraestrutura conectada", tipo: "Projeto", link: "/seguranca#infraestrutura-conectada",
         desc: "Inversores, carregadores, medidores e roteadores protegidos." },
       { id: "continuidade", nome: "Continuidade e recuperação", tipo: "Projeto", link: "/seguranca#continuidade",
@@ -80,13 +80,15 @@
       { id: "redes-privadas", nome: "TI e TO para indústria e agro: redes privadas", tipo: "Projeto", link: "/tecnologia#industria-agro",
         desc: "Wi-Fi, LoRaWAN e 5G privado para agro, mineração e portos. A Zethic não vende acesso à internet." },
       { id: "rastreabilidade", nome: "TI e TO para indústria e agro: rastreabilidade", tipo: "Projeto", link: "/tecnologia#industria-agro",
-        desc: "Origem, carbono e conformidade registrados em dados." },
+        desc: "Rastreio de origem para exportar à Europa (regra EUDR), com o mapa da área e os documentos guardados." },
+      { id: "parceiros", nome: "Chegada ao Brasil", tipo: "Sob proposta", link: "/tecnologia#parceiros",
+        desc: "Para empresas de outros países que vão operar aqui: TI, implantação técnica da LGPD, gestão financeira e Reforma Tributária com uma só parceira." },
       { id: "energia", nome: "Tecnologia para energia", tipo: "No futuro, sob proposta", link: "/tecnologia#energia",
         desc: "Rede, monitoramento e dados para recarga de carro elétrico, solar, eólica e hídrica. A Zethic não vende energia." },
       { id: "cidades", nome: "Cidades inteligentes", tipo: "No futuro, projeto piloto", link: "/tecnologia#cidades",
         desc: "Pilotos de sensores, iluminação e dados para o município testar antes de contratar em grande escala." },
-      { id: "parceiros", nome: "Parceira local de empresas de fora", tipo: "No futuro, sob proposta", link: "/tecnologia#parceiros",
-        desc: "Implantação, homologação e suporte em português para empresas de tecnologia de outros países." }
+      { id: "minerais", nome: "Dados para cadeias de minerais críticos", tipo: "No futuro, sob proposta", link: "/tecnologia#minerais",
+        desc: "Rastreio, controle e relatórios para a Lei 15.506/2026. A Zethic não compra nem vende minério." }
     ] },
     { id: "atendimento", nome: "Atendimento", pilar: "p-tec", frase: "O cliente respondido na hora e os dados num lugar só.", servicos: [
       { id: "bot", nome: "Bots de WhatsApp e de comunicação, com CRM leve", tipo: "Projeto e mensalidade", link: "/atendimento#whatsapp", niveis: NIVEIS_BOT,
