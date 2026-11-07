@@ -290,3 +290,7 @@ header{background:rgba(2,4,26,.97);-webkit-backdrop-filter:saturate(140%) blur(1
 .campanha-lista{margin:1.4rem 0}
 .campanha-preco{margin:0 0 1.6rem;max-width:60ch}
 .campanha-preco b{color:var(--cyan)}
+.campanha-prazo{margin:-.8rem 0 1.6rem;max-width:60ch;color:var(--ice)}
+.campanha-prazo b{color:var(--white,#fff)}
+.parceria{margin-top:1.4rem;max-width:62ch}
+.parceria a{color:var(--cyan)}

@@ -41,16 +41,20 @@ test("perguntas frequentes migraram para o Diagnóstico, com dados estruturados"
   assert.doesNotMatch(ler("index.html"), /FAQPage|id="perguntas"/);
 });
 
-test("medição (Google Analytics) só nas páginas com ferramenta e na política de privacidade", () => {
-  const com = ["diagnostico.html", "teste-golpe.html", "seguranca.html", "privacidade.html"];
-  const sem = ["index.html", "quem-somos.html", "tecnologia.html", "atendimento.html", "financeiro.html"];
-  for (const p of com) assert.match(ler(p), /<script src="\/assets\/js\/medicao\.js" defer><\/script>/, p);
-  for (const p of sem) {
+// 07/11/2026 (aprovado pela Jéssica, "solucione tudo"): medição com consentimento em todas as páginas da Zethic,
+// para saber qual página e qual campanha vendem. Antes, só nas páginas com ferramenta.
+test("medição (Google Analytics) com consentimento em todas as páginas da Zethic e nas campanhas", () => {
+  const com = ["diagnostico.html", "teste-golpe.html", "seguranca.html", "privacidade.html", "index.html", "quem-somos.html",
+    "tecnologia.html", "atendimento.html", "financeiro.html", "comprar.html", "loja.html", "loja-obrigado.html", "para-o-seu-negocio.html",
+    "ti-do-consultorio.html", "ti-da-contabilidade.html", "ti-da-advocacia.html", "ti-da-engenharia.html", "ti-do-rh.html", "ti-da-agencia.html", "ti-do-seu-negocio.html"];
+  for (const p of com) {
     const h = ler(p);
-    assert.doesNotMatch(h, /medicao\.js|data-preferencias-cookies/, p);
-    assert.match(h, /Esta página não usa cookies\./, p);
+    assert.match(h, /<script src="\/assets\/js\/medicao\.js" defer><\/script>/, p);
+    assert.match(h, /data-preferencias-cookies/, p);
+    assert.match(h, /script-src 'self'[^;]*https:\/\/www\.googletagmanager\.com/, p);
+    assert.doesNotMatch(h, /Esta página não usa cookies\./, p);
   }
-  assert.match(ler("privacidade.html"), /Diagnóstico de Cibersegurança e IA, teste de golpe, Segurança e esta política/);
+  assert.match(ler("privacidade.html"), /A medição de visitas \(Google Analytics\) existe nas páginas da Zethic e só funciona se você aceitar/);
 });
 
 test("contato da home volta a uma coluna no celular", () => {

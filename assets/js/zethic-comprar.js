@@ -164,6 +164,11 @@
     if (c.mensal) l.push("Implantação: " + reais(c.implantacao) + ", com a primeira mensalidade");
     l.push("A pagar agora: " + reais(c.hoje));
     l.push("Preço de fundador: " + (estado.fundador ? "sim, com depoimento" : "não"));
+    // Venda casada (07/11/2026): o valor de um checkup feito nos últimos 30 dias abate a implantação. A loja da Zethic
+    // não cita a fundadora nem as outras marcas (regra de 28/10); quem explica o crédito é a página do checkup.
+    if (c.sup && $("credito-checkup") && $("credito-checkup").checked) l.push("Crédito de checkup (últimos 30 dias): abater da implantação");
+    var origem = window.zethicOrigem ? window.zethicOrigem() : "";
+    if (origem) l.push("Origem: " + origem);
     l.push("Forma: " + dados.forma, "");
     l.push("Empresa: " + dados.empresa, "Documento: " + dados.documento, "Nome: " + dados.nome, "E-mail: " + dados.email, "WhatsApp: " + dados.whats, "Cidade: " + dados.cidade);
     l.push("", "Li e aceitei o resumo do contrato e a política de cancelamento e devolução.");
@@ -195,6 +200,7 @@
       $("resultado-links").innerHTML = prontos.map(function (id) { return '<li><a href="' + esc(LINKS[id]) + '" rel="noopener">Pagar: ' + esc(id === SITE.id ? SITE.nome : suporteAtual().nome) + "</a></li>"; }).join("");
       $("resultado-links").hidden = false;
     }
+    if (window.zethicEvento) window.zethicEvento("pedido_enviado", { loja: "comprar", valor: c.hoje, currency: "BRL", origem: window.zethicOrigem ? window.zethicOrigem() : "" });
     $("form-compra").hidden = true;
     $("resultado").hidden = false;
     $("resultado").scrollIntoView({ block: "start" });
