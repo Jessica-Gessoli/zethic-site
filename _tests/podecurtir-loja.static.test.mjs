@@ -246,7 +246,12 @@ test("tipos de Negócio, segurança das contas avulsa e preço depois das vagas 
   assert.match(plus, /id: "plus_protecao", marca: "jg", nome: "Proteção das contas", preco: 400, avulso: true,/);
   assert.match(plus, /id: "plus_recuperacao", marca: "jg", nome: "Recuperação de conta", preco: 400, avulso: true,/);
   assert.match(plus, /não há garantia de recuperação/);
-  assert.doesNotMatch(plus, /id: "plus_(gravacao|livro|mentoria|site)"[^}]*avulso: true/);
+  // 07/11/2026 (pedido da Jéssica): e-book e mentoria em IA também se compram sozinhos, na seção "Livro e IA".
+  assert.doesNotMatch(plus, /id: "plus_(gravacao|site)"[^}]*avulso: true/);
+  assert.match(plus, /id: "plus_livro"[^}]*avulso: true, secao: "conteudo"/);
+  assert.match(plus, /id: "plus_mentoria"[^}]*avulso: true, secao: "conteudo"/);
+  assert.match(ler("podecurtir.html"), /<div class="grade" id="grade-conteudo"><\/div>/);
+  assert.match(js, /id: "produto_digital", marca: "pc", nome: "Produto digital e curso online"/);
   assert.match(js, /Depois, R\$ 3\.200\./);
   assert.match(js, /Depois, R\$ 12\.000\./);
   assert.match(js, /A partir do 4º cliente, R\$ 2\.400 por mês\./);

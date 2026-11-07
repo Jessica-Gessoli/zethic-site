@@ -38,22 +38,24 @@
   var PROPOSTAS = [
     { id: "gravacao", marca: "pc", nome: "Sessão de fotos, ensaio e gravação de vídeo", plus: "plus_gravacao", desc: "Produto, ambiente ou retrato profissional; diária, evento ou sessão maior. O deslocamento entra na proposta." },
     { id: "livro", marca: "pc", nome: "Livro pronto", plus: "plus_livro", desc: "Revisão, capa, diagramação, publicação e divulgação." },
+    { id: "produto_digital", marca: "pc", nome: "Produto digital e curso online", desc: "Roteiro, gravação e edição das aulas, capa e materiais do curso ou do produto. A plataforma (Hotmart ou outra) e as vendas ficam no nome do autor." },
     { id: "protecao", marca: "jg", nome: "Proteção das contas da equipe inteira", plus: "plus_protecao", desc: "Mais de 3 contas ou a equipe toda. Feita por Jéssica Gessoli, em parceria. Sem senha." },
     { id: "mentoria", marca: "jg", nome: "Mentoria e consultoria em IA", plus: "plus_mentoria", desc: "Você aprende a fazer com IA, no seu projeto. Com Jéssica Gessoli." },
     { id: "tech", marca: "ze", nome: "Site, app, automação e bot de WhatsApp", plus: "plus_site", desc: "Feitos pela Zethic, em parceria. Atendimento e dados das redes num lugar só." }
   ];
   /* Plus do fechamento do pedido: escopo fechado e preço próprio. Só entram com um serviço pago no pedido,
-     menos os marcados "avulso" (proteção e recuperação de conta, 06/11/2026), que também se compram sozinhos. */
+     menos os marcados "avulso", que também se compram sozinhos: proteção e recuperação de conta (06/11/2026, seção "contas")
+     e, desde 07/11/2026, capa e diagramação do e-book e mentoria em IA de 1 hora (seção "conteudo"). */
   var PLUS = [
     { id: "plus_gravacao", marca: "pc", nome: "Sessão de fotos de 1 hora", preco: 500, prazo: "Edição pronta em até 14 dias depois da sessão",
       desc: "10 fotos editadas, em Campinas/SP. Fora de Campinas, o deslocamento é combinado antes e cobrado à parte." },
-    { id: "plus_livro", marca: "pc", nome: "Capa e diagramação do e-book", preco: 1500, prazo: "Prazo combinado por escrito depois do briefing",
+    { id: "plus_livro", marca: "pc", nome: "Capa e diagramação do e-book", preco: 1500, avulso: true, secao: "conteudo", prazo: "Prazo combinado por escrito depois do briefing",
       desc: "Com o texto pronto, até 100 páginas: capa simples e diagramação do e-book. ISBN, ficha catalográfica e gráfica ficam com o autor." },
-    { id: "plus_protecao", marca: "jg", nome: "Proteção das contas", preco: 400, avulso: true, prazo: "Data combinada depois do pagamento",
+    { id: "plus_protecao", marca: "jg", nome: "Proteção das contas", preco: 400, avulso: true, secao: "contas", prazo: "Data combinada depois do pagamento",
       desc: "1 hora a distância, até 3 contas do Negócio: verificação em duas etapas, e-mail e telefone de recuperação, revisão de acessos e acesso de parceiro, sem senha. Conta já invadida ou bloqueada: Recuperação de conta." },
-    { id: "plus_recuperacao", marca: "jg", nome: "Recuperação de conta", preco: 400, avulso: true, prazo: "Data combinada depois do pagamento",
+    { id: "plus_recuperacao", marca: "jg", nome: "Recuperação de conta", preco: 400, avulso: true, secao: "contas", prazo: "Data combinada depois do pagamento",
       desc: "1 hora a distância, para conta invadida ou bloqueada, pelos canais oficiais da plataforma. A decisão de devolver a conta é da plataforma; por isso, não há garantia de recuperação." },
-    { id: "plus_mentoria", marca: "jg", nome: "Mentoria em IA · 1 hora", preco: 400, prazo: "Data combinada depois do pagamento",
+    { id: "plus_mentoria", marca: "jg", nome: "Mentoria em IA · 1 hora", preco: 400, avulso: true, secao: "conteudo", prazo: "Data combinada depois do pagamento",
       desc: "Por videochamada, nas ferramentas de IA que você já tem. Você aprende fazendo, no seu projeto." },
     { id: "plus_site", marca: "ze", nome: "Site Essencial", preco: 3000, parcelas: 3, em: "no", fundador: true, prazo: "Prazo combinado por escrito depois do briefing",
       desc: "Site de uma página com apresentação e serviços, botão de WhatsApp, formulário, mapa e cadastro no Google. Domínio e hospedagem ficam no nome do seu Negócio, à parte. Preço de fundador para os 3 primeiros clientes." }
@@ -139,12 +141,16 @@
         '<dl class="meta"><div><dt>Prazo</dt><dd>' + p.prazo + ', a partir do briefing completo</dd></div><div><dt>Pagamento</dt><dd>Integral: ' + formas(p) + "</dd></div></dl>" +
         '<button class="por" type="button" data-proj="' + p.id + '" aria-pressed="' + on + '">' + (on ? "No pedido · tirar" : "Pôr no pedido") + "</button></article>";
     }).join("");
-    $("grade-contas").innerHTML = PLUS.filter(function (p) { return p.avulso; }).map(function (p) {
-      var on = tem(cart.plus, p.id);
-      return '<article class="item"><h3>' + p.nome + '</h3><p class="preco num">' + brl(p.preco) + "</p><p>" + p.desc + "</p>" +
-        '<dl class="meta"><div><dt>Quando</dt><dd>' + p.prazo + '</dd></div><div><dt>Pagamento</dt><dd>Integral: ' + formas(p) + "</dd></div></dl>" +
-        '<button class="por" type="button" data-plus="' + p.id + '" aria-pressed="' + on + '">' + (on ? "No pedido · tirar" : "Pôr no pedido") + "</button></article>";
-    }).join("");
+    function avulsos(secao) {
+      return PLUS.filter(function (p) { return p.avulso && p.secao === secao; }).map(function (p) {
+        var on = tem(cart.plus, p.id);
+        return '<article class="item"><h3>' + (secao === "conteudo" && p.marca !== "pc" ? '<span class="selo ' + p.marca + '">' + MARCA[p.marca] + "</span>" : "") + p.nome + '</h3><p class="preco num">' + brl(p.preco) + "</p><p>" + p.desc + "</p>" +
+          '<dl class="meta"><div><dt>Quando</dt><dd>' + p.prazo + '</dd></div><div><dt>Pagamento</dt><dd>Integral: ' + formas(p) + "</dd></div></dl>" +
+          '<button class="por" type="button" data-plus="' + p.id + '" aria-pressed="' + on + '">' + (on ? "No pedido · tirar" : "Pôr no pedido") + "</button></article>";
+      }).join("");
+    }
+    $("grade-contas").innerHTML = avulsos("contas");
+    $("grade-conteudo").innerHTML = avulsos("conteudo");
     $("grade-planos").innerHTML = PLANOS.map(function (p) {
       var on = cart.plano === p.id, sug = sugerido("plano", p.id);
       return '<article class="item' + (sug ? " sugerido" : "") + '">' + (sug ? marcaSug : "") + "<h3>" + p.nome + '</h3><p class="preco num">' + brl(p.mensal) + ' <small>por mês</small></p><p>' + p.desc + "</p>" +
@@ -167,7 +173,7 @@
        No Ajuste de Perfil, só a R$ 500; a R$ 750 ou R$ 1.200 não se pede depoimento nem autorização. */
     PROJ.forEach(function (p) { if (tem(cart.proj, p.id)) { hoje += p.preco; pagos.push({ id: p.id, nome: p.nome, valor: p.preco, parcelas: p.parcelas || 0, em: p.em || "" }); if (p.fundador) fundador = true; } });
     PLANOS.forEach(function (p) { if (cart.plano === p.id) { plano = p; hoje += p.mensal; pagos.push({ id: p.id, nome: p.nome, valor: p.mensal }); fundador = true; } });
-    /* Plus só com um serviço pago no pedido; os "avulso" (segurança das contas) também sozinhos. */
+    /* Plus só com um serviço pago no pedido; os "avulso" (contas, e-book e mentoria em IA) também sozinhos. */
     var principal = pagos.length > 0;
     var plus = PLUS.filter(function (p) { return tem(cart.plus, p.id) && (principal || p.avulso); });
     plus.forEach(function (p) {
@@ -194,7 +200,7 @@
     });
     PLUS.forEach(function (p) {
       if (!tem(cart.plus, p.id) || !(temPrincipal() || p.avulso)) return;
-      out.push('<li><span><span class="selo ' + p.marca + '">' + MARCA[p.marca] + "</span>" + p.nome + '</span><span class="num">' + brl(p.preco) + "</span><small>" + (p.avulso && !temPrincipal() ? "Proteção e recuperação de conta" : "Plus") + " · pagamento integral · " + formas(p) + "</small>" +
+      out.push('<li><span><span class="selo ' + p.marca + '">' + MARCA[p.marca] + "</span>" + p.nome + '</span><span class="num">' + brl(p.preco) + "</span><small>" + (p.avulso && !temPrincipal() ? (p.secao === "contas" ? "Proteção e recuperação de conta" : "Livro e IA") : "Plus") + " · pagamento integral · " + formas(p) + "</small>" +
         (comTirar ? '<button class="tirar" type="button" data-plus="' + p.id + '">Tirar</button>' : "") + "</li>");
     });
     PROPOSTAS.forEach(function (a) {
