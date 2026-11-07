@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Loja Pode Curtir | Perfil Pronto e gestão mensal</title>
 <meta name="description" content="Compre online o Perfil Pronto e a gestão mensal das redes da Pode Curtir, com preço, prazo e resumo do contrato antes de pagar. Outros serviços por proposta.">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' https://connect.facebook.net; img-src 'self' https://www.facebook.com; font-src 'self'; style-src 'self'; connect-src 'self' https://jessicagessoli.app.n8n.cloud https://www.facebook.com; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' https://connect.facebook.net https://www.googletagmanager.com; img-src 'self' https://www.facebook.com https://*.google-analytics.com https://*.googletagmanager.com; font-src 'self'; style-src 'self'; connect-src 'self' https://jessicagessoli.app.n8n.cloud https://www.facebook.com https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com; base-uri 'none'; form-action 'none'">
 <meta name="color-scheme" content="light dark">
 <link rel="canonical" href="https://podecurtir.zethic.net/loja/">
 <meta name="robots" content="index, follow">
@@ -57,7 +57,7 @@
           <div class="grade" id="grade-perfil"></div>
         </section>
         <section class="secao" aria-labelledby="t-planos">
-          <div class="secao-cab"><h2 id="t-planos">Gestão mensal</h2><p>Mínimo de 3 meses; depois, aviso de 30 dias para sair.</p></div>
+          <div class="secao-cab"><h2 id="t-planos">Gestão mensal</h2><p>Mínimo de 3 meses; depois, aviso de 30 dias para sair. Preço de fundador nos 3 primeiros clientes de cada plano; depois, R$ 2.400, R$ 4.480 e R$ 7.200 por mês.</p></div>
           <div class="grade" id="grade-planos"></div>
         </section>
         <section class="secao" aria-labelledby="t-propostas">
@@ -101,6 +101,7 @@
             <div class="resumo" id="resumo"></div>
             <label class="marcar" for="aceite"><input type="checkbox" id="aceite" required><span>Li o resumo do contrato e os <a href="/termos/">termos e condições</a> e aceito.</span></label>
             <label class="marcar" for="fundador" id="fundador-campo"><input type="checkbox" id="fundador"><span>Aceito o preço de fundador: dou um depoimento com as minhas palavras e autorizo que o trabalho seja mostrado como exemplo.</span></label>
+            <label class="marcar" for="avisos"><input type="checkbox" id="avisos"><span>Pode me avisar sobre este pedido por e-mail e WhatsApp até o pagamento ser concluído. Opcional; são no máximo 3 avisos, e é só responder PARAR para não receber mais.</span></label>
             <label class="marcar" for="novidades"><input type="checkbox" id="novidades"><span>Quero receber novidades da Pode Curtir por e-mail. Opcional; não muda o pedido.</span></label>
           </fieldset>
           <fieldset id="forma-campo" hidden>
@@ -115,7 +116,7 @@
 
         <div class="resultado" id="resultado" aria-live="polite" hidden>
           <h2 id="resultado-titulo">Envie o seu pedido</h2>
-          <p>Envie a mensagem abaixo pelo WhatsApp ou por e-mail. Se algum item ainda estiver com o pagamento em configuração, a gente responde com o link de pagamento.</p>
+          <p id="resultado-instrucao">Envie a mensagem abaixo pelo WhatsApp ou por e-mail. Se algum item ainda estiver com o pagamento em configuração, a gente responde com o link de pagamento.</p>
           <ul id="resultado-links" hidden></ul>
           <label class="campo" for="resultado-texto">Mensagem do pedido<textarea id="resultado-texto" readonly></textarea></label>
           <div class="acoes">

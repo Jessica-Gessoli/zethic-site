@@ -40,7 +40,7 @@
   a{color:var(--cyan);text-underline-offset:.18em}
   a:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
   .wrap{max-width:46rem;margin:0 auto;padding:0 1.25rem}
-  /* Topo com o menu das frentes (mesmo das demais páginas da Zethic): largura e botão iguais aos das outras páginas. */
+  /* Topo com o menu dos pilares (mesmo das demais páginas da Zethic): largura e botão iguais aos das outras páginas. */
   header{position:sticky;top:0;z-index:10;background:rgba(2,4,26,.94);border-bottom:1px solid var(--rule)}
   html{scroll-padding-top:5rem}
   .bar{display:flex;align-items:center;gap:1rem;height:4.25rem}
@@ -93,109 +93,91 @@
     <nav id="menu-principal" class="menu" aria-label="Principal">
       <ul class="menu-lista" role="list">
         <li class="torre p-seg">
-          <button type="button" class="torre-btn" aria-expanded="false" aria-controls="painel-proteger">Proteger</button>
-          <div class="painel" id="painel-proteger">
+          <button type="button" class="torre-btn" aria-expanded="false" aria-controls="painel-seguranca">Segurança</button>
+          <div class="painel" id="painel-seguranca">
             <div class="wrap painel-in">
-              <a class="painel-capa" href="/proteger">
+              <a class="painel-capa" href="/seguranca">
                 <picture><source type="image/webp" srcset="/assets/img/proteger-800.webp"><img src="/assets/img/proteger-800.jpg" alt="" width="800" height="450" loading="lazy"></picture>
-                <span class="painel-rotulo">Segurança técnica</span>
-                <span class="painel-marca">Proteger</span>
-                <span class="painel-frase">Operação monitorada, protegida e recuperável.</span>
-                <span class="painel-ir">Conhecer Proteger</span>
+                <span class="painel-rotulo">Segurança</span>
+                <span class="painel-marca">Segurança</span>
+                <span class="painel-frase">Proteger a operação, todos os dias.</span>
+                <span class="painel-ir">Conhecer Segurança</span>
               </a>
               <ul class="painel-lista" role="list">
-              <li><a href="/proteger#seguranca-gerenciada"><strong>Segurança gerenciada</strong><span>Ameaças monitoradas e backup testado</span></a></li>
-              <li><a href="/proteger#it-ot"><strong>Segurança de IT/OT</strong><span>Redes da produção, do campo e do escritório separadas e monitoradas</span></a></li>
-              <li><a href="/proteger#infraestrutura-conectada"><strong>Infraestrutura conectada</strong><span>Inversores, carregadores, medidores e roteadores protegidos</span></a></li>
-              <li><a href="/proteger#blindagem"><strong>Blindagem técnica de contas</strong><span>E-mail, nuvem e sistemas com acessos configurados</span></a></li>
-              <li><a href="/proteger#continuidade"><strong>Continuidade e recuperação</strong><span>Backup restaurado em teste e operação que volta rápido</span></a></li>
-              <li><a href="/proteger#conscientizacao"><strong>Conscientização com plataforma</strong><span>Plataforma de segurança, LGPD e IA implantada e operada</span></a></li>
-              <li><a href="/proteger#lgpd"><strong>Implantação da LGPD e de normas</strong><span>Controles, registros e evidências no dia a dia</span></a></li>
+              <li><a href="/seguranca#soc"><strong>Centro de operações de segurança (SOC)</strong><span>O departamento de segurança do Negócio, terceirizado</span></a></li>
+              <li><a href="/seguranca#seguranca-gerenciada"><strong>Segurança gerenciada</strong><span>Ameaças monitoradas e backup testado</span></a></li>
+              <li><a href="/seguranca#it-ot"><strong>Segurança de IT/OT</strong><span>Redes da produção, do campo e do escritório separadas e monitoradas</span></a></li>
+              <li><a href="/seguranca#infraestrutura-conectada"><strong>Infraestrutura conectada</strong><span>Inversores, carregadores, medidores e roteadores protegidos</span></a></li>
+              <li><a href="/seguranca#continuidade"><strong>Continuidade e recuperação</strong><span>Backup restaurado em teste e operação que volta rápido</span></a></li>
+              <li><a href="/seguranca#conscientizacao"><strong>Conscientização e simulação de golpe</strong><span>Plataforma implantada e operada, com simulações</span></a></li>
+              <li><a href="/seguranca#lgpd"><strong>Implantação da LGPD e de normas</strong><span>Controles, registros e evidências no dia a dia</span></a></li>
               </ul>
             </div>
           </div>
         </li>
         <li class="torre p-tec">
-          <button type="button" class="torre-btn" aria-expanded="false" aria-controls="painel-organizar">Organizar</button>
-          <div class="painel" id="painel-organizar">
+          <button type="button" class="torre-btn" aria-expanded="false" aria-controls="painel-tecnologia">Tecnologia</button>
+          <div class="painel" id="painel-tecnologia">
             <div class="wrap painel-in">
-              <a class="painel-capa" href="/organizar">
+              <a class="painel-capa" href="/tecnologia">
                 <picture><source type="image/webp" srcset="/assets/img/organizar-800.webp"><img src="/assets/img/organizar-800.jpg" alt="" width="800" height="450" loading="lazy"></picture>
                 <span class="painel-rotulo">Tecnologia</span>
-                <span class="painel-marca">Organizar</span>
-                <span class="painel-frase">Uma operação que não depende de uma pessoa só.</span>
-                <span class="painel-ir">Conhecer Organizar</span>
+                <span class="painel-marca">Tecnologia</span>
+                <span class="painel-frase">Organizar e conectar a operação.</span>
+                <span class="painel-ir">Conhecer Tecnologia</span>
               </a>
               <ul class="painel-lista" role="list">
-              <li><a href="/organizar#processos"><strong>Processos e rotina operacional</strong><span>Menos erro e retrabalho no dia a dia</span></a></li>
-              <li><a href="/organizar#automacao"><strong>Automação e agentes de IA</strong><span>Trabalho repetitivo automatizado, com controle de acesso</span></a></li>
-              <li><a href="/organizar#financas"><strong>Finanças e recuperação de valores</strong><span>Valores a recuperar identificados e financeiro sob controle</span></a></li>
-              <li><a href="/organizar#projetos"><strong>Governança de projetos e serviços</strong><span>Escopo, responsáveis e indicadores</span></a></li>
-              <li><a href="/organizar#infraestrutura"><strong>Infraestrutura, redes e conectividade</strong><span>Infraestrutura que aguenta a operação</span></a></li>
-              <li><a href="/organizar#nuvem"><strong>Nuvem e identidade digital</strong><span>Custo e acesso sob controle</span></a></li>
-              <li><a href="/organizar#reforma-tributaria"><strong>Adaptação à Reforma Tributária</strong><span>Sistemas e processos prontos, junto com o seu contador</span></a></li>
+              <li><a href="/tecnologia#automacao"><strong>Automação de processos e IA aplicada</strong><span>Agentes de IA e integrações, com controle de acesso</span></a></li>
+              <li><a href="/tecnologia#processos"><strong>Processos e rotina operacional</strong><span>Menos erro e retrabalho no dia a dia</span></a></li>
+              <li><a href="/tecnologia#infraestrutura"><strong>Infraestrutura, redes e conectividade</strong><span>Infraestrutura que aguenta a operação</span></a></li>
+              <li><a href="/tecnologia#nuvem"><strong>Nuvem e identidade digital</strong><span>E-mail, contas, custo e acesso sob controle</span></a></li>
+              <li><a href="/tecnologia#projetos"><strong>Governança de projetos e serviços de TI</strong><span>Escopo, responsáveis e indicadores</span></a></li>
+              <li><a href="/tecnologia#industria-agro"><strong>TI e TO para indústria e agro</strong><span>Redes privadas, máquinas conectadas e rastreio de origem para exportar</span></a></li>
+              <li><a href="/tecnologia#futuro"><strong>No futuro: energia e cidades</strong><span>Energia, conectividade e cidades inteligentes, com parceiros</span></a></li>
               </ul>
             </div>
           </div>
         </li>
         <li class="torre p-tec">
-          <button type="button" class="torre-btn" aria-expanded="false" aria-controls="painel-crescer">Crescer</button>
-          <div class="painel" id="painel-crescer">
+          <button type="button" class="torre-btn" aria-expanded="false" aria-controls="painel-atendimento">Atendimento</button>
+          <div class="painel" id="painel-atendimento">
             <div class="wrap painel-in">
-              <a class="painel-capa" href="/crescer">
+              <a class="painel-capa" href="/atendimento">
                 <picture><source type="image/webp" srcset="/assets/img/crescer-800.webp"><img src="/assets/img/crescer-800.jpg" alt="" width="800" height="450" loading="lazy"></picture>
-                <span class="painel-rotulo">Tecnologia</span>
-                <span class="painel-marca">Crescer</span>
-                <span class="painel-frase">Mais clientes chegando, com rotina e medição.</span>
-                <span class="painel-ir">Conhecer Crescer</span>
+                <span class="painel-rotulo">Atendimento</span>
+                <span class="painel-marca">Atendimento</span>
+                <span class="painel-frase">Crescer pelo WhatsApp, pelo site e pelos dados.</span>
+                <span class="painel-ir">Conhecer Atendimento</span>
               </a>
               <ul class="painel-lista" role="list">
-              <li><a href="/crescer#site"><strong>Site, app e presença no Google</strong><span>O cliente encontra a empresa e chega ao contato</span></a></li>
-              <li><a href="/crescer#whatsapp"><strong>Bot de WhatsApp e atendimento unificado</strong><span>Todas as redes num lugar só, com regras e histórico</span></a></li>
-              <li><a href="/crescer#dados"><strong>Dados e relatórios unificados</strong><span>Vendas, atendimento e redes num painel só</span></a></li>
+              <li><a href="/atendimento#whatsapp"><strong>Bots de WhatsApp e de comunicação</strong><span>Bot com passagem para a equipe e CRM leve</span></a></li>
+              <li><a href="/atendimento#dados"><strong>Unificação de redes sociais e de dados</strong><span>Vendas, atendimento e redes num painel só</span></a></li>
+              <li><a href="/atendimento#site"><strong>Site, app e presença no Google</strong><span>O cliente encontra a empresa e chega ao contato</span></a></li>
+              <li><a href="/atendimento#produto-digital"><strong>Plataforma para curso e produto digital</strong><span>Plataforma, página de vendas e entrega automática</span></a></li>
               </ul>
             </div>
           </div>
         </li>
         <li class="torre p-tec">
-          <button type="button" class="torre-btn" aria-expanded="false" aria-controls="painel-capacitar">Capacitar</button>
-          <div class="painel" id="painel-capacitar">
+          <button type="button" class="torre-btn" aria-expanded="false" aria-controls="painel-financeiro">Financeiro</button>
+          <div class="painel" id="painel-financeiro">
             <div class="wrap painel-in">
-              <a class="painel-capa" href="/aconselhar">
-                <picture><source type="image/webp" srcset="/assets/img/aconselhar-800.webp"><img src="/assets/img/aconselhar-800.jpg" alt="" width="800" height="450" loading="lazy"></picture>
-                <span class="painel-rotulo">Tecnologia</span>
-                <span class="painel-marca">Capacitar</span>
-                <span class="painel-frase">Equipe usando tecnologia e IA no dia a dia.</span>
-                <span class="painel-ir">Conhecer Capacitar</span>
-              </a>
-              <ul class="painel-lista" role="list">
-              <li><a href="/aconselhar#capacitacao"><strong>Capacitação em IA</strong><span>Pessoas usando ferramentas de IA com produtividade</span></a></li>
-              <li><a href="/aconselhar#treinamento"><strong>Treinamento técnico</strong><span>Equipe treinada nas ferramentas do dia a dia</span></a></li>
-              </ul>
-            </div>
-          </div>
-        </li>
-        <li class="torre p-tec">
-          <button type="button" class="torre-btn" aria-expanded="false" aria-controls="painel-conectar">Conectar</button>
-          <div class="painel" id="painel-conectar">
-            <div class="wrap painel-in">
-              <a class="painel-capa" href="/conectar">
+              <a class="painel-capa" href="/financeiro">
                 <picture><source type="image/webp" srcset="/assets/img/zethic-800.webp"><img src="/assets/img/zethic-800.jpg" alt="" width="800" height="450" loading="lazy"></picture>
-                <span class="painel-rotulo">Tecnologia</span>
-                <span class="painel-marca">Conectar</span>
-                <span class="painel-frase">Energia, redes e cidades com tecnologia confiável.</span>
-                <span class="painel-ir">Conhecer Conectar</span>
+                <span class="painel-rotulo">Financeiro</span>
+                <span class="painel-marca">Financeiro</span>
+                <span class="painel-frase">O financeiro do Negócio sob controle.</span>
+                <span class="painel-ir">Conhecer Financeiro</span>
               </a>
               <ul class="painel-lista" role="list">
-              <li><a href="/conectar#energia"><strong>Tecnologia para energia</strong><span>Recarga de carro elétrico, solar, eólica e hídrica, com parceiros</span></a></li>
-              <li><a href="/conectar#redes-privadas"><strong>Redes privadas</strong><span>Wi-Fi, LoRaWAN e 5G privado para agro, mineração e portos</span></a></li>
-              <li><a href="/conectar#cidades"><strong>Cidades inteligentes</strong><span>Pilotos de sensores, iluminação e dados para municípios</span></a></li>
-              <li><a href="/conectar#rastreabilidade"><strong>Rastreabilidade para exportar</strong><span>Origem, carbono e conformidade em dados</span></a></li>
-              <li><a href="/conectar#parceiros"><strong>Parceira local de empresas de fora</strong><span>Implantação, homologação e suporte em português</span></a></li>
+              <li><a href="/financeiro#gestao-financeira"><strong>Gestão financeira terceirizada</strong><span>Caixa, contas e cobrança operados, com painel</span></a></li>
+              <li><a href="/financeiro#auditoria"><strong>Auditoria de contas e contratos</strong><span>Valores a recuperar identificados</span></a></li>
+              <li><a href="/financeiro#reforma-tributaria"><strong>Adaptação à Reforma Tributária</strong><span>Sistemas e processos prontos, junto com o seu contador</span></a></li>
               </ul>
             </div>
           </div>
         </li>
+        <li><a class="menu-link" href="/loja">Loja</a></li>
         <li class="so-celular"><a class="menu-link" href="/quem-somos">Quem somos</a></li>
         <li class="so-celular"><a class="menu-link" href="/#contato">Contato</a></li>
       </ul>
@@ -209,10 +191,10 @@
 <main id="conteudo" class="papel-leitura">
 <div class="wrap">
   <h1>Privacidade e termos de uso</h1>
-  <p class="meta">Versão 1.12, atualizada em 21/10/2026.</p>
+  <p class="meta">Versão 1.13, atualizada em 04/11/2026.</p>
 
   <div class="box">
-    <p><strong>Resumo.</strong> O único formulário é o do canal Conte o seu golpe, que fica no Jotform, não pede o seu nome e não registra o seu e-mail. Como a maioria dos serviços na internet, o Jotform registra o endereço IP de quem envia; ele não é usado para identificar ninguém. A medição de visitas (Google Analytics) existe só nas páginas do Diagnóstico de Cibersegurança e IA, do teste de golpe, de Proteger e nesta política, e só funciona se você aceitar; se recusar, nenhum cookie é gravado. As demais páginas não usam cookies. Seus dados só chegam à Zethic se você entrar em contato pelo WhatsApp, por e-mail ou marcar uma conversa pela agenda, e são usados apenas para responder e, se for o caso, preparar uma proposta.</p>
+    <p><strong>Resumo.</strong> O único formulário é o do canal Conte o seu golpe, que fica no Jotform, não pede o seu nome e não registra o seu e-mail. Como a maioria dos serviços na internet, o Jotform registra o endereço IP de quem envia; ele não é usado para identificar ninguém. A medição de visitas (Google Analytics) existe só nas páginas do Diagnóstico de Cibersegurança e IA, do teste de golpe, de Segurança e nesta política, e só funciona se você aceitar; se recusar, nenhum cookie é gravado. As demais páginas não usam cookies. Seus dados só chegam à Zethic se você entrar em contato pelo WhatsApp, por e-mail ou marcar uma conversa pela agenda, e são usados apenas para responder e, se for o caso, preparar uma proposta.</p>
   </div>
 
   <h2>1. Quem é responsável pelos seus dados</h2>
@@ -232,6 +214,7 @@
       <tr><td>Você chama no WhatsApp</td><td>Nome e número do WhatsApp, e o que você escrever na conversa</td><td>Responder, entender a necessidade da sua empresa e enviar proposta</td><td>Procedimentos preliminares a contrato, a seu pedido (art. 7º, V)</td></tr>
       <tr><td>Você marca uma conversa pela agenda (a da Zethic, no Google, ou a de 30 minutos da página da fundadora, no Calendly)</td><td>Na agenda da Zethic: nome, sobrenome, e-mail, WhatsApp, empresa, cargo e o que você quer resolver. No Calendly: nome, e-mail e o que você responder no formulário de agendamento. Nas duas, também o dia e o horário escolhidos, com o fuso horário</td><td>Marcar e preparar a conversa, enviar o convite com o link da reunião e, se for o caso, a proposta</td><td>Procedimentos preliminares a contrato, a seu pedido (art. 7º, V)</td></tr>
       <tr><td>Você envia e-mail</td><td>Nome, e-mail e o que você escrever</td><td>As mesmas do WhatsApp</td><td>Procedimentos preliminares a contrato, a seu pedido (art. 7º, V)</td></tr>
+      <tr><td>Você monta um pedido de proposta na loja</td><td>Empresa, nome, cargo, e-mail, WhatsApp, cidade, número de pessoas na empresa, os serviços escolhidos e o que você escrever. Enquanto você monta o pedido, ele fica só nesta aba do seu navegador; nada é enviado à Zethic até você mandar a mensagem pronta pelo WhatsApp ou por e-mail</td><td>Preparar a conversa e a proposta</td><td>Procedimentos preliminares a contrato, a seu pedido (art. 7º, V)</td></tr>
     </tbody>
   </table>
   </div>
@@ -251,7 +234,7 @@
   <p>O site é estático, servido por HTTPS, sem banco de dados e sem área de login. Os relatos do canal Conte o seu golpe ficam na conta Jotform da responsável, com acesso restrito a ela, e não ficam no site. O acesso às contas de atendimento da Zethic é restrito à responsável.</p>
 
   <h2 id="cookies">7. Cookies</h2>
-  <p>A medição existe só em quatro páginas: Diagnóstico de Cibersegurança e IA, teste de golpe, Proteger e esta política. Na primeira visita a uma delas, o site pergunta se você aceita. Nada é carregado antes da sua resposta.</p>
+  <p>A medição existe só em quatro páginas: Diagnóstico de Cibersegurança e IA, teste de golpe, Segurança e esta política. Na primeira visita a uma delas, o site pergunta se você aceita. Nada é carregado antes da sua resposta.</p>
   <ul>
     <li><strong>Se você aceitar:</strong> o Google Analytics grava os cookies <code>_ga</code> e <code>_ga_HKERDF3283</code>, que guardam um identificador aleatório da sua visita por até 2 anos. Os recursos de publicidade e de sinais do Google ficam desligados.</li>
     <li><strong>Se você recusar:</strong> nenhum cookie é gravado e a visita não é medida.</li>
@@ -262,7 +245,19 @@
   <h2>8. Termos de uso do site</h2>
   <p>O conteúdo deste site é informativo e não substitui uma análise da sua empresa. Exemplos marcados como fictícios não são resultados de clientes. Textos, método 6 Moedas de Negócio e marca Zethic pertencem à Zethic; a reprodução precisa de autorização. A Zethic não responde por sites de terceiros acessados a partir de links daqui.</p>
 
-  <h2>9. Mudanças nesta página</h2>
+  <h2 id="cancelamento">9. Cancelamento e devolução</h2>
+  <p>A Zethic contrata só com empresas, por proposta e contrato escritos. Estas regras valem para todos os contratos; o contrato de cada cliente traz os prazos e os valores.</p>
+  <ul>
+    <li><strong>Projetos:</strong> são pagos em 3 etapas: 40% na assinatura, 30% na aprovação da versão de teste e 30% quando entram em uso.</li>
+    <li><strong>Desistência em até 7 dias:</strong> em até 7 dias corridos da assinatura, enquanto o trabalho não começou, a sua empresa pode desistir sem dar motivo e recebe de volta o valor integral.</li>
+    <li><strong>Depois de 7 dias ou com o trabalho começado:</strong> a parte paga na assinatura cobre o planejamento, a agenda reservada e o trabalho até a versão de teste. As outras etapas só são cobradas quando entregues.</li>
+    <li><strong>Mensalidades:</strong> são pagas antes do mês, com mínimo de 3 meses. A sua empresa cancela com aviso de 30 dias, pelo mesmo canal em que contratou, e o mês já pago não é devolvido. Antes do mínimo de 3 meses, a multa é de no máximo 1 mensalidade.</li>
+    <li><strong>Custos de terceiros:</strong> domínio, hospedagem, licenças e plataformas ficam no nome da sua empresa. O que já foi pago a esses fornecedores não volta pela Zethic.</li>
+    <li><strong>Fim do contrato:</strong> contas, dados e acessos são devolvidos à sua empresa no prazo escrito no contrato.</li>
+    <li><strong>Como pedir:</strong> por e-mail para <a href="mailto:contato@zethic.net">contato@zethic.net</a> ou pelo WhatsApp (19) 98180-0221. A Zethic confirma o recebimento pelo mesmo canal, e a devolução é feita pelo mesmo meio de pagamento.</li>
+  </ul>
+
+  <h2>10. Mudanças nesta página</h2>
   <p>Quando esta página mudar, a versão e a data no topo serão atualizadas.</p>
 
   <p style="margin-top:2.5rem"><a href="/">Voltar ao início</a></p>

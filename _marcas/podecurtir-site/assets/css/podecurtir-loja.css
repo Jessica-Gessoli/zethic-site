@@ -138,18 +138,6 @@ legend{font-size:1.25rem;font-weight:700;padding:0;margin-bottom:.75rem}
 .proximos strong{display:block;margin-bottom:.25rem}
 .proximos p{margin:0;color:var(--cinza);font-size:.92rem}
 
-/* Rodapé de identificação (Decreto 7.962/2013, art. 2º) */
-footer.ident{background:var(--lilas)}
-footer.ident p{margin:.3rem 0}
-.linkbtn{border:0;background:none;padding:0;color:var(--rosa);font-weight:400;text-decoration:underline;text-underline-offset:.18em;cursor:pointer}
 .sem-js{background:var(--aviso);padding:1rem 0;margin:0}
 
-/* Aviso de cookies (só aparece com o Pixel configurado) */
-.pc-cookies{position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--tinta);color:var(--branco);padding-bottom:env(safe-area-inset-bottom,0px)}
-.pc-cookies .wrap{display:flex;flex-wrap:wrap;gap:.75rem;align-items:center;justify-content:space-between;padding-top:.9rem;padding-bottom:.9rem}
-.pc-cookies p{margin:0;font-size:.92rem;max-width:62ch}
-.pc-cookies a{color:var(--flash)}
-.pc-cookies .botoes{display:flex;flex-wrap:wrap;gap:.5rem}
-.pc-cookies button{border-radius:.6rem;padding:.55rem .9rem;font-weight:700;cursor:pointer;border:2px solid var(--branco);background:transparent;color:var(--branco)}
-.pc-cookies button.sim{background:var(--branco);color:var(--tinta)}
 @media (prefers-reduced-motion:no-preference){.por,.pedir,.ir,.btn-pc{transition:background .15s,color .15s}}

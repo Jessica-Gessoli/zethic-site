@@ -37,7 +37,7 @@ test("Símbolos: monograma JG e visor da Pode Curtir, sem endosso da Zethic", ()
 
 // 14/10/2026 (aprovado pela Jéssica, orientação da Goreti): primeiro a conversa, depois o preço. Nenhum valor publicado no site.
 test("Zethic: nenhum preço publicado nas páginas", () => {
-  for (const p of ["index.html", "diagnostico.html", "proteger.html", "organizar.html", "crescer.html", "aconselhar.html", "conectar.html", "llms.txt"]) {
+  for (const p of ["index.html", "diagnostico.html", "seguranca.html", "tecnologia.html", "atendimento.html", "financeiro.html", "llms.txt"]) {
     const h = ler(p).replace(/<label>[^<]*\(R\$\)/g, "");
     assert.doesNotMatch(h, /R\$ ?\d|[Pp]reço de fundador|minPrice/, p);
   }
@@ -49,7 +49,7 @@ test("Pode Curtir: categoria clara e frente de redes sociais", () => {
   const h = ler("podecurtir.html");
   assert.match(h, /<title>Pode Curtir \| Produtora de foto, vídeo e redes sociais<\/title>/);
   assert.match(h, /<li id="redes">[\s\S]*Perfil Pronto[\s\S]*Gestão mensal/);
-  assert.doesNotMatch(h, /R\$ ?\d/);
+  // 04/11/2026: a regra "sem preço" caiu (site = preço pronto); o preço da página inicial é conferido no teste da loja.
   assert.doesNotMatch(h, /A publicação nas redes e os anúncios ficam com você/);
   // 28/10/2026 (fronteiras): a Pode Curtir não comunica segurança; a blindagem técnica de contas é da Zethic.
   assert.doesNotMatch(h, /Conta protegida|protegida pela Zethic|[Ss]eguran[çc]a|senha/);
@@ -59,7 +59,7 @@ test("Pode Curtir: categoria clara e frente de redes sociais", () => {
 // da Pode Curtir cita redes sociais.
 // Ficha v1.5 (03/11/2026): exceção única, a Pode Curtir como parceira de mídia num parágrafo class="parceria".
 test("Pode Curtir: a Zethic não cita o Pode Curtir", () => {
-  for (const p of ["index.html", "quem-somos.html", "proteger.html", "organizar.html", "crescer.html", "aconselhar.html", "conectar.html", "llms.txt"]) {
+  for (const p of ["index.html", "quem-somos.html", "seguranca.html", "tecnologia.html", "atendimento.html", "financeiro.html", "llms.txt"]) {
     assert.doesNotMatch(ler(p).replace(/<p class="parceria">[\s\S]*?<\/p>/g, ""), /pode ?curtir|podecurtir|Mídia digital|Orçamento de foto e vídeo/i, p);
   }
   assert.match(ler("fale.html"), /"podecurtir": "[^"]*redes sociais ou anúncios\."/);
