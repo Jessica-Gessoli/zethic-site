@@ -14,7 +14,7 @@ test("configuração única, com pagamento, aula e Pixel desligados até serem p
   const ctx = { window: {} };
   vm.runInNewContext(ler("assets/js/jessicagessoli-config.js"), ctx);
   const c = ctx.window.JESSICAGESSOLI;
-  assert.deepEqual(Object.keys(c.ASAAS_LINKS).sort(), ["aula", "consultoria", "programa_cartao", "programa_pix", "sessao"]);
+  assert.deepEqual(Object.keys(c.ASAAS_LINKS).sort(), ["aula", "checkup", "consultoria", "programa_cartao", "programa_pix", "sessao"]);
   for (const v of Object.values(c.ASAAS_LINKS)) assert.ok(v === "" || /^https:\/\/(www\.)?asaas\.com\//.test(v), "link do Asaas inválido: " + v);
   assert.equal(typeof c.AULA_DATA, "string");
   assert.ok(c.PIXEL_ID === "" || /^\d{10,20}$/.test(c.PIXEL_ID));
@@ -29,15 +29,28 @@ test("preços aprovados em 03/11/2026 e mais nenhum", () => {
   assert.match(js, /id: "sessao", nome: "Mentoria de posicionamento · sessão avulsa", preco: 400, agora: 1/);
   assert.match(js, /id: "programa", nome: "Mentoria de posicionamento · programa de 3 meses", preco: 3200, agora: 1, parcelas: 3, em: "no"/);
   assert.match(js, /id: "aula", nome: "Aula ao vivo · IA segura para o seu Negócio", preco: 97, agora: 1/);
-  assert.equal((js.match(/preco: \d+/g) || []).length, 4, "item com preço fora dos aprovados");
+  // 06/11/2026 (aprovado pela Jéssica): Checkup Black Friday Segura, R$ 297, vendido de 13/11 a 25/11/2026.
+  assert.match(js, /id: "checkup", nome: "Checkup Black Friday Segura", preco: 297, agora: 1, checkup: true/);
+  assert.equal((js.match(/preco: \d+/g) || []).length, 5, "item com preço fora dos aprovados");
   const propostas = js.split("var PROPOSTAS")[1].split("];")[0];
   assert.doesNotMatch(propostas, /R\$ ?\d|preco/, "proposta com preço publicado");
 });
 
 test("aula sem data não é vendida: vira aviso da próxima turma", () => {
   const js = ler("assets/js/jessicagessoli-loja.js");
-  assert.match(js, /function vendivel\(p\) \{ return !p\.aula \|\| !!AULA_DATA; \}/);
+  assert.match(js, /function vendivel\(p\) \{ return \(!p\.aula \|\| !!AULA_DATA\)/);
   assert.match(js, /if \(!AULA_DATA\) PROPOSTAS\.push\(\{ id: "aula-aviso"/);
+});
+
+test("Checkup só é vendido entre as datas da configuração e sai da loja depois", () => {
+  const ctx = { window: {} };
+  vm.runInNewContext(ler("assets/js/jessicagessoli-config.js"), ctx);
+  const c = ctx.window.JESSICAGESSOLI;
+  assert.equal(c.CHECKUP_VENDAS_DE, "2026-11-13");
+  assert.equal(c.CHECKUP_VENDAS_ATE, "2026-11-25");
+  const js = ler("assets/js/jessicagessoli-loja.js");
+  assert.match(js, /function vendivel\(p\) \{ return \(!p\.aula \|\| !!AULA_DATA\) && \(!p\.checkup \|\| ckAberto\); \}/);
+  assert.match(js, /if \(ckEncerrado\) ITENS = ITENS\.filter/);
 });
 
 test("páginas de compra: CSP sem inline, identificação e links de termos, privacidade e desistência", () => {
