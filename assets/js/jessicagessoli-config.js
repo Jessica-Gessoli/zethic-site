@@ -13,6 +13,8 @@
      Antes da abertura o item aparece com "vendas a partir de"; depois do último dia ele sai da loja.
    AULA_DATA: data e horário da próxima turma da aula ao vivo, como deve aparecer na loja (ex.: "26/11/2026, às 19h").
      Vazio = a aula aparece com "data em breve" e o botão vira "Avise-me quando abrir".
+   AULA_VENDAS_DE e AULA_VENDAS_ATE (07/11/2026): primeiro e último dia de venda da turma (AAAA-MM-DD, Brasília).
+     Antes da abertura, a loja mostra a data e o botão "Avise-me quando abrir"; depois do último dia, volta a "data em breve".
    CHECKOUT_ENDPOINT: webhook do n8n que cria o checkout do Asaas com vários itens e devolve {"url": "..."}.
    FORM_ENDPOINT: webhook do n8n que recebe pedidos de proposta, registros de aceite e pedidos de desistência.
      Os dois endereços precisam estar em connect-src da Content-Security-Policy de cada página.
@@ -36,7 +38,9 @@ window.JESSICAGESSOLI = {
   },
   CHECKUP_VENDAS_DE: "2026-11-13",
   CHECKUP_VENDAS_ATE: "2026-11-25",
-  AULA_DATA: "",
+  AULA_DATA: "09/12/2026, às 20h",
+  AULA_VENDAS_DE: "2026-11-26",
+  AULA_VENDAS_ATE: "2026-12-09",
   CHECKOUT_ENDPOINT: "",
   FORM_ENDPOINT: "",
   PIXEL_ID: "",

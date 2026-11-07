@@ -46,8 +46,9 @@ test("preços aprovados em 03/11/2026 e 06/11/2026, e mais nenhum", () => {
 
 test("aula sem data não é vendida: vira aviso da próxima turma", () => {
   const js = ler("assets/js/jessicagessoli-loja.js");
-  assert.match(js, /function vendivel\(p\) \{ return \(!p\.aula \|\| !!AULA_DATA\)/);
-  assert.match(js, /if \(!AULA_DATA\) PROPOSTAS\.push\(\{ id: "aula-aviso"/);
+  assert.match(js, /function vendivel\(p\) \{ return \(!p\.aula \|\| aulaAberta\(\)\)/);
+  assert.match(js, /var aulaAberta = function \(\) \{ var h = hoje\(\); return !!AULA_DATA &&/);
+  assert.match(js, /if \(!aulaAberta\(\)\) PROPOSTAS\.push\(\{ id: "aula-aviso"/);
 });
 
 test("Checkup só é vendido entre as datas da configuração e sai da loja depois", () => {
@@ -57,7 +58,7 @@ test("Checkup só é vendido entre as datas da configuração e sai da loja depo
   assert.equal(c.CHECKUP_VENDAS_DE, "2026-11-13");
   assert.equal(c.CHECKUP_VENDAS_ATE, "2026-11-25");
   const js = ler("assets/js/jessicagessoli-loja.js");
-  assert.match(js, /function vendivel\(p\) \{ return \(!p\.aula \|\| !!AULA_DATA\) && \(!p\.checkup \|\| ckAberto\(\)\); \}/);
+  assert.match(js, /function vendivel\(p\) \{ return \(!p\.aula \|\| aulaAberta\(\)\) && \(!p\.checkup \|\| ckAberto\(\)\); \}/);
   assert.match(js, /var ckAberto = function \(\) \{ var h = hoje\(\);/, "Checkup confere a data a cada cálculo do pedido");
   assert.match(js, /if \(ckEncerrado\) ITENS = ITENS\.filter/);
 });
