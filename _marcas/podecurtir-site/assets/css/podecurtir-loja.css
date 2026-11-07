@@ -1,15 +1,8 @@
 /* Pode Curtir — loja, confirmação, termos, privacidade e desistência. Carrega depois de podecurtir.css.
-   Mesma identidade: rosa, amarelo e tinta, Public Sans, visor de câmera. Claro e escuro pelo sistema. */
+   Mesma identidade: rosa, amarelo e tinta, Public Sans, visor de câmera. Sempre clara, nas cores da marca, mesmo com o celular no modo escuro (07/11/2026). */
 :root{
   --sobre-rosa:#FFFFFF; --aviso:#FFF6D6; --rosa-claro:#FFE3EB; --ok:#1F7A45; --ok-claro:#E3F3E9;
   --jg-fundo:#12352B; --jg-texto:#F3F5F2; --ze-fundo:#02041A; --ze-texto:#00E5FF;
-}
-@media (prefers-color-scheme:dark){
-  :root{
-    --branco:#15101E; --tinta:#F4F1F8; --lilas:#211A2C; --cinza:#BDB5CC; --linha:rgba(244,241,248,.16);
-    --rosa:#F0386B; --rosa-escuro:#FF8DAD; --rosa-claro:#3A1527; --aviso:#3A3114; --ok:#6FD39A; --ok-claro:#173826;
-    --jg-fundo:#24563F; --ze-fundo:#0B1030; --ze-texto:#5CEFFF;
-  }
 }
 [hidden]{display:none!important}
 .num{font-variant-numeric:tabular-nums}
@@ -162,11 +155,3 @@ legend{font-size:1.25rem;font-weight:700;padding:0;margin-bottom:.75rem}
 .mapa{line-height:1.9}
 /* Página inicial no celular: o carrinho fica na mesma linha da marca; "Ver preços" vai para a barra fixa de baixo. */
 @media (max-width:40rem){.pc-inicio .top .wrap{flex-wrap:nowrap}.pc-inicio .top-nav{display:none}}
-/* Tema escuro na página inicial (07/11/2026, review do PR #106): a faixa final "Escolha o seu serviço" continua
-   escura, porque podecurtir.css fixa a cor do texto dela; com a paleta escura da loja, ela ficaria clara e ilegível. */
-@media (prefers-color-scheme:dark){
-  .pc-inicio .fim{background:#1B1530;color:#F4F1F8}
-  .pc-inicio .fim .btn.cheio{color:#FFFFFF}
-  .pc-inicio .fim .btn.cheio:hover{color:#1B1530}
-  .pc-inicio .fim .btn.contorno{color:#F4F1F8;border-color:#F4F1F8}
-}

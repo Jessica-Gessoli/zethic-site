@@ -133,7 +133,16 @@ test("página única: loja na página inicial, comprar antes do WhatsApp e ender
   const js = ler("assets/js/podecurtir-loja.js");
   assert.match(js, /if \(!alvo \|\| !\$\("vista-loja"\)\.contains\(alvo\) \|\| !\$\("vista-loja"\)\.hidden\) return false;/);
   assert.match(js, /window\.addEventListener\("hashchange", function \(\) \{ irPara\(location\.hash\); \}\);/);
-  assert.match(ler("assets/css/podecurtir-loja.css"), /@media \(prefers-color-scheme:dark\)\{\n  \.pc-inicio \.fim\{background:#1B1530;color:#F4F1F8\}/);
+});
+
+// 07/11/2026 (pedido da Jéssica: as cores não mudam no celular em modo escuro): toda a Pode Curtir é sempre clara.
+test("Pode Curtir sempre clara, sem modo escuro", () => {
+  assert.doesNotMatch(ler("assets/css/podecurtir-loja.css"), /prefers-color-scheme/);
+  assert.doesNotMatch(ler("assets/css/podecurtir.css"), /prefers-color-scheme/);
+  for (const f of ["podecurtir.html", "podecurtir/termos/index.html", "podecurtir/privacidade/index.html",
+    "podecurtir/desistencia/index.html", "podecurtir/parceiros/index.html", "podecurtir/loja/obrigado/index.html"]) {
+    assert.match(ler(f), /<meta name="color-scheme" content="light">/, f);
+  }
 });
 
 // 07/11/2026 (pedido da Jéssica: as páginas se ligam de frente para trás e de trás para frente): o mesmo mapa no
