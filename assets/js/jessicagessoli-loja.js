@@ -84,6 +84,26 @@
   function comoPaga(p) { return p.parcelas ? (forma() === "cartao" ? "no cartão, em até " + p.parcelas + "x sem juros" : "no Pix ou boleto, à vista") : ""; }
   function pagamento(p) { return "Integral, " + brl(p.preco) + ": " + formas(p); }
 
+  /* Volta para o serviço na página principal. O endereço vem do link do cabeçalho, que muda no site próprio da marca. */
+  var SOBRE = { consultoria: "ia", checkup: "checkup", sessao: "mentoria", programa: "mentoria", aula: "checkup", escopo: "consultoria",
+    protecao: "contas", antigolpe_essencial: "antigolpe", diagnostico_essencial: "diagnostico", palestra_online: "palestras",
+    diagnostico: "diagnostico", antigolpe: "antigolpe", governanca: "governanca", contas: "contas", ia: "ia", conselheira: "comecar",
+    projetos: "consultoria", capacitacao: "capacitacao", treinamento: "treinamento", palestra: "palestras" };
+  function saiba(id) {
+    var marca = document.querySelector(".top .mark");
+    return SOBRE[id] && marca ? '<a class="saiba" href="' + marca.getAttribute("href") + "#" + SOBRE[id] + '">Saiba mais sobre o serviço</a>' : "";
+  }
+  /* Quem chega por um link de serviço (#item-checkup, #proposta-ia) vê o item destacado. */
+  function destacar(suave) {
+    var h = (location.hash || "").slice(1);
+    if (!/^(item|proposta)-[\w-]+$/.test(h)) return;
+    var el = document.getElementById(h);
+    if (!el) return;
+    el.classList.add("destaque");
+    var reduz = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+    el.scrollIntoView({ behavior: suave && !reduz ? "smooth" : "auto", block: "center" });
+  }
+
   function catalogo() {
     $("grade-itens").innerHTML = ITENS.map(function (p) {
       var on = tem(cart.itens, p.id);
@@ -92,13 +112,13 @@
         : vendivel(p)
         ? '<button class="por" type="button" data-item="' + p.id + '" aria-pressed="' + on + '">' + (on ? "No pedido · tirar" : "Pôr no pedido") + "</button>"
         : '<button class="por por-aviso" type="button" data-prop="aula-aviso" aria-pressed="' + tem(cart.prop, "aula-aviso") + '">' + (tem(cart.prop, "aula-aviso") ? "Aviso pedido · tirar" : "Avise-me quando abrir") + "</button>";
-      return '<article class="item"><h3>' + p.nome + '</h3><p class="preco num">' + brl(p.preco) + "</p><p>" + p.desc + "</p>" +
+      return '<article class="item" id="item-' + p.id + '"><h3>' + p.nome + '</h3><p class="preco num">' + brl(p.preco) + "</p><p>" + p.desc + "</p>" +
         '<dl class="meta"><div><dt>' + (p.aula ? "Data" : "Quando") + "</dt><dd>" + (vendivel(p) || p.checkup ? esc(p.quando) : "Data em breve") + "</dd></div>" +
-        '<div><dt>Pagamento</dt><dd>' + pagamento(p) + "</dd></div></dl>" + botao + "</article>";
+        '<div><dt>Pagamento</dt><dd>' + pagamento(p) + "</dd></div></dl>" + saiba(p.id) + botao + "</article>";
     }).join("");
     $("lista-propostas").innerHTML = PROPOSTAS.filter(function (a) { return !a.aviso; }).map(function (a) {
       var on = tem(cart.prop, a.id);
-      return '<div class="proposta"><div><strong>' + a.nome + "</strong><p>" + a.desc + "</p></div>" +
+      return '<div class="proposta" id="proposta-' + a.id + '"><div><strong>' + a.nome + "</strong><p>" + a.desc + "</p>" + saiba(a.id) + "</div>" +
         '<button class="pedir" type="button" data-prop="' + a.id + '" aria-pressed="' + on + '">' + (on ? "Pedido · tirar" : "Pedir proposta") + "</button></div>";
     }).join("");
   }
@@ -293,4 +313,6 @@
   });
 
   tudo();
+  destacar();
+  window.addEventListener("hashchange", function () { mostrar("loja"); destacar(true); });
 })();

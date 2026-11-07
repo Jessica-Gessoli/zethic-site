@@ -158,6 +158,6 @@ test("pagamento integral no site, parcelado só no cartão", () => {
 // 05/11/2026: com a loja no ar, a política de cancelamento (PR #87) aponta para a página de desistência
 // e entra no site jessicagessoli.zethic.net.
 test("política de cancelamento aponta para Desistir de uma compra", () => {
-  assert.match(ler("jessicagessoli/cancelamento/index.html"), /Comprou pela loja\? Use a página <a href="\/jessicagessoli\/desistencia\/">Desistir de uma compra<\/a>/);
+  assert.match(ler("jessicagessoli/termos/index.html"), /Comprou pela loja\? Use a página <a href="\/jessicagessoli\/desistencia\/">Desistir de uma compra<\/a>/);
   assert.match(ler("_ferramentas/gerar_marcas.py"), /\("\/jessicagessoli\/cancelamento\/", "\/cancelamento\/"\)/);
 });
