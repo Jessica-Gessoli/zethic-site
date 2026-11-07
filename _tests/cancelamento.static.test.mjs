@@ -34,7 +34,8 @@ test("Jéssica Gessoli: o endereço antigo leva à cláusula 8 e sai do Google",
 test("Zethic: seção de cancelamento e devolução na página de privacidade e termos", () => {
   const h = ler("privacidade.html");
   const secao = semTags(h.split('<h2 id="cancelamento">')[1].split("<h2>")[0]);
-  assert.match(h, /<p class="meta">Versão 1\.13, atualizada em 04\/11\/2026\.<\/p>/);
+  // 06/11/2026: versão 1.14, com a compra dos pacotes de entrada na loja.
+  assert.match(h, /<p class="meta">Versão 1\.14, atualizada em 06\/11\/2026: compra dos pacotes de entrada na loja\.<\/p>/);
   assert.match(secao, /A Zethic contrata só com empresas, por proposta e contrato escritos/);
   assert.match(secao, /40% na assinatura, 30% na aprovação da versão de teste e 30% quando entram em uso/);
   assert.match(secao, /em até 7 dias corridos da assinatura, enquanto o trabalho não começou, a sua empresa pode desistir sem dar motivo e recebe de volta o valor integral/);

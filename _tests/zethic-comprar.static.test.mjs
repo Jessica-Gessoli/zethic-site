@@ -6,12 +6,17 @@ import vm from "node:vm";
 const ler = (p) => readFileSync(new URL("../" + p, import.meta.url), "utf8");
 
 // 06/11/2026 (decisão da Jéssica): a Zethic vende online só os pacotes de entrada, com preço.
-// O resto continua por pedido de proposta em /loja, sem preço. Protótipo fora do menu e dos buscadores.
-test("compra online: protótipo fora dos buscadores, do sitemap e do llms.txt", () => {
-  const h = ler("comprar.html");
-  assert.match(h, /<meta name="robots" content="noindex, nofollow">/);
-  assert.doesNotMatch(ler("sitemap.xml"), /comprar/);
-  assert.doesNotMatch(ler("llms.txt"), /zethic\.net\/comprar/);
+// O resto continua por pedido de proposta em /loja, sem preço. Às 23h22 a Jéssica aprovou juntar /comprar e /loja
+// numa loja com duas abas: /comprar sai do protótipo e entra no Google, no sitemap e no llms.txt.
+test("Comprar agora é a primeira aba da loja, pública e com as duas abas", () => {
+  const h = ler("comprar.html"), l = ler("loja.html");
+  assert.match(h, /<meta name="robots" content="index, follow">/);
+  assert.match(h, /<link rel="canonical" href="https:\/\/zethic\.net\/comprar">/);
+  assert.doesNotMatch(h, /Protótipo de 06\/11\/2026/);
+  assert.match(ler("sitemap.xml"), /<loc>https:\/\/zethic\.net\/comprar<\/loc>/);
+  assert.match(ler("llms.txt"), /zethic\.net\/comprar/);
+  assert.match(h, /<nav class="abas-loja" aria-label="Loja"><a href="\/comprar" aria-current="page">Comprar agora<\/a><a href="\/loja">Pedir proposta<\/a><\/nav>/);
+  assert.match(l, /<nav class="abas-loja" aria-label="Loja"><a href="\/comprar">Comprar agora<\/a><a href="\/loja" aria-current="page">Pedir proposta<\/a><\/nav>/);
   assert.match(h, /style-src 'self'/);
 });
 

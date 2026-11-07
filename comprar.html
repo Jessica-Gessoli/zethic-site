@@ -7,7 +7,19 @@
 <meta name="description" content="Pacotes de entrada da Zethic com preço e compra online: suporte de TI e manutenção, proteção por pessoa e site estático. O resto dos serviços segue por proposta.">
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; img-src 'self'; font-src 'self'; style-src 'self'; base-uri 'none'; form-action 'none'">
 <meta name="color-scheme" content="dark">
-<meta name="robots" content="noindex, nofollow">
+<link rel="canonical" href="https://zethic.net/comprar">
+<meta name="robots" content="index, follow">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Zethic">
+<meta property="og:title" content="Comprar online | Zethic">
+<meta property="og:description" content="Suporte de TI, proteção por pessoa e site estático com preço, para comprar sem esperar proposta.">
+<meta property="og:url" content="https://zethic.net/comprar">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:image" content="https://zethic.net/assets/img/og-zethic.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Zethic: tecnologia, automação e IA para o Negócio.">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preload" href="/assets/fonts/public-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/fonts/public-sans-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="icon" href="/assets/img/zethic-marca.svg" type="image/svg+xml">
@@ -67,6 +79,7 @@
                 <span class="painel-ir">Conhecer Tecnologia</span>
               </a>
               <ul class="painel-lista" role="list">
+              <li><a href="/tecnologia#suporte"><strong>Suporte de TI e manutenção</strong><span>Computadores, celulares e equipe atendidos todo mês</span></a></li>
               <li><a href="/tecnologia#automacao"><strong>Automação de processos e IA aplicada</strong><span>Agentes de IA e integrações, com controle de acesso</span></a></li>
               <li><a href="/tecnologia#processos"><strong>Processos e rotina operacional</strong><span>Menos erro e retrabalho no dia a dia</span></a></li>
               <li><a href="/tecnologia#infraestrutura"><strong>Infraestrutura, redes e conectividade</strong><span>Infraestrutura que aguenta a operação</span></a></li>
@@ -117,6 +130,25 @@
             </div>
           </div>
         </li>
+        <li class="torre p-tec">
+          <button type="button" class="torre-btn" aria-expanded="false" aria-controls="painel-para-quem">Para quem</button>
+          <div class="painel" id="painel-para-quem">
+            <div class="wrap painel-in">
+              <a class="painel-capa" href="/#para-quem">
+                <picture><source type="image/webp" srcset="/assets/img/zethic-800.webp"><img src="/assets/img/zethic-800.jpg" alt="" width="800" height="450" loading="lazy"></picture>
+                <span class="painel-rotulo">Para quem</span>
+                <span class="painel-marca">Para quem</span>
+                <span class="painel-frase">Escolha o seu Negócio e veja o que serve.</span>
+                <span class="painel-ir">Ver os tipos de cliente</span>
+              </a>
+              <ul class="painel-lista" role="list">
+              <li><a href="/consultorio"><strong>Consultório e clínica</strong><span>De 1 a 3 pessoas: suporte de TI, proteção e implantação da LGPD</span></a></li>
+              <li><a href="/contabilidade"><strong>Escritório de contabilidade</strong><span>Certificado digital, sigilo fiscal e semana de entrega</span></a></li>
+              <li><a href="/advocacia"><strong>Escritório de advocacia</strong><span>Sigilo do cliente, e-mail do escritório e certificado</span></a></li>
+              </ul>
+            </div>
+          </div>
+        </li>
         <li><a class="menu-link" href="/loja" aria-current="page">Loja</a></li>
         <li class="so-celular"><a class="menu-link" href="/quem-somos">Quem somos</a></li>
         <li class="so-celular"><a class="menu-link" href="/#contato">Contato</a></li>
@@ -129,15 +161,19 @@
 <!-- cabecalho:fim -->
 
 <main id="conteudo">
-  <p class="prototipo"><span class="wrap">Protótipo de 06/11/2026: fora do menu e dos buscadores, com os links de pagamento ainda em configuração.</span></p>
+<!-- trilha:inicio -->
+<nav class="trilha" aria-label="Você está em"><div class="wrap"><ol><li><a href="/">Início</a></li><li><a href="/comprar">Loja</a></li><li aria-current="page">Comprar agora</li></ol></div></nav>
+<!-- trilha:fim -->
   <noscript><p class="sem-js"><span class="wrap">A compra precisa de JavaScript ligado. Se preferir, fale pelo WhatsApp (19) 98180-0221 ou pelo e-mail contato@zethic.net.</span></p></noscript>
 
   <div id="vista-loja">
     <section class="hero loja-hero">
       <div class="wrap">
-        <p class="rotulo-loja">Loja · Comprar online</p>
+        <nav class="abas-loja" aria-label="Loja"><a href="/comprar" aria-current="page">Comprar agora</a><a href="/loja">Pedir proposta</a></nav>
+        <p class="rotulo-loja">Loja · Comprar agora</p>
         <h1>Pacotes de entrada com preço. <span class="destaque">Compre sem esperar proposta.</span></h1>
         <p class="lead">Suporte de TI, proteção por pessoa e site estático para o consultório, o escritório e o profissional autônomo. Os 3 primeiros clientes de cada pacote pagam o preço de fundador. Os outros serviços da Zethic seguem por <a href="/loja">pedido de proposta</a>.</p>
+        <p class="para-quem-loja">Para quem: <a href="/consultorio">consultório</a> · <a href="/contabilidade">contabilidade</a> · <a href="/advocacia">advocacia</a></p>
         <ol class="passos-pedido">
           <li>Escolha o pacote</li>
           <li>Preencha os dados da empresa</li>

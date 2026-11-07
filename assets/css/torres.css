@@ -260,3 +260,32 @@ header{background:rgba(2,4,26,.97);-webkit-backdrop-filter:saturate(140%) blur(1
 /* O botão do topo fica junto do menu no computador e à direita no celular, em todas as páginas. */
 .bar .btn-topo{margin-left:.8rem}
 @media (max-width:70rem){.bar .btn-topo{margin-left:auto}}
+
+/* Jornada do usuário (aprovada em 06/11/2026, 23h22): trilha no topo, "Próximo passo" no fim, Para quem na home
+   e abas da loja. Os blocos vêm de _ferramentas/jornada.py, gravados por _ferramentas/cabecalhos.py. */
+.trilha{display:block;margin-left:0;padding:1rem 0 0;font-size:.88rem}
+.trilha ol{justify-content:flex-start;text-align:left;display:flex;flex-wrap:wrap;gap:.35rem;margin:0;padding:0;list-style:none;color:var(--ice)}
+.trilha li+li::before{content:"›";margin-right:.35rem;color:var(--ice)}
+.trilha a{color:var(--ice);text-decoration-color:var(--line-strong)}
+.trilha a:hover{color:var(--cyan)}
+.trilha [aria-current]{color:var(--white)}
+.proximo{padding:clamp(2.5rem,6vw,4rem) 0;border-top:1px solid var(--line)}
+.proximo h2{margin:0 0 1rem}
+.proximo-ctas{display:flex;flex-wrap:wrap;gap:.8rem 1.4rem;align-items:center;margin:0 0 2rem}
+.proximo-rotulo{margin:0 0 .8rem;font-size:.78rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ice)}
+.proximo-lista,.perfis{display:grid;grid-template-columns:repeat(auto-fill,minmax(15rem,1fr));gap:1rem;margin:0;padding:0;list-style:none}
+.proximo-lista a,.perfil a{display:flex;flex-direction:column;gap:.35rem;height:100%;box-sizing:border-box;padding:1.1rem 1.2rem;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--white);text-decoration:none}
+.proximo-lista a:hover,.perfil a:hover{border-color:var(--cyan)}
+.proximo-lista a:focus-visible,.perfil a:focus-visible,.abas-loja a:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
+.proximo-lista span,.perfil span{color:var(--ice);font-size:.92rem}
+.para-quem{padding:clamp(3rem,7vw,5rem) 0}
+.perfis{margin-top:1.6rem}
+.steps-nota{margin:1.6rem 0 0;color:var(--ice);font-size:.92rem}
+.abas-loja{margin-left:0;display:inline-flex;gap:.25rem;margin:0 0 1.4rem;padding:.25rem;border:1px solid var(--line-strong);border-radius:999px}
+.abas-loja a{display:inline-flex;align-items:center;min-height:2.75rem;box-sizing:border-box;padding:.45rem 1.1rem;border-radius:999px;color:var(--white);text-decoration:none;font-weight:600;font-size:.95rem}
+.abas-loja a[aria-current]{background:var(--cyan);color:var(--navy)}
+.para-quem-loja{margin:0 0 1.2rem;color:var(--ice);font-size:.95rem}
+.para-quem-loja a{color:var(--cyan)}
+.campanha-lista{margin:1.4rem 0}
+.campanha-preco{margin:0 0 1.6rem;max-width:60ch}
+.campanha-preco b{color:var(--cyan)}

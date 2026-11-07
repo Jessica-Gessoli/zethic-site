@@ -11,5 +11,6 @@ test("home publica o princípio 'Seus dados, suas contas, seus acessos'", () => 
   assert.match(h, /<h2 class="revela">Seus dados, suas contas, seus acessos<\/h2>/);
   assert.match(h, /fica registrado no nome do cliente/);
   assert.match(h, /sem pedir senha/);
-  assert.ok(h.indexOf('id="principio"') < h.indexOf('class="atalhos"'));
+  // 06/11/2026, 23h22: a seção de atalhos saiu (repetia o contato); o princípio vem antes de Como contratar.
+  assert.ok(h.indexOf('id="principio"') < h.indexOf('id="como-contratar"'));
 });

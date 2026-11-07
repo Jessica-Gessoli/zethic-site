@@ -12,9 +12,12 @@ Para só conferir, sem gravar:  python3 _ferramentas/cabecalhos.py --conferir
 (o teste _tests/cabecalhos-ferramenta.static.test.mjs roda essa conferência).
 """
 import re
+import sys
 from pathlib import Path
 
 RAIZ = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import jornada  # noqa: E402  (trilha e "Próximo passo": aprovado em 06/11/2026, 23h22)
 
 # Páginas da Zethic: recebem o cabeçalho com o menu dos pilares.
 # (arquivo, origem usada no botão do WhatsApp, item do menu marcado como página atual)
@@ -31,6 +34,10 @@ ZETHIC = [
     ("loja-obrigado.html", "loja", None),
     # Compra online dos pacotes de entrada (decisão da Jéssica em 06/11/2026): preço só nesses pacotes. Protótipo.
     ("comprar.html", "comprar", "loja"),
+    # Páginas por tipo de cliente (aprovado pela Jéssica em 06/11/2026, 23h22).
+    ("consultorio.html", "consultorio", None),
+    ("contabilidade.html", "contabilidade", None),
+    ("advocacia.html", "advocacia", None),
 ]
 
 LOGO = ('<a class="logo" href="/" aria-label="Zethic, início">'
@@ -69,6 +76,7 @@ FRENTES = [
         "pagina": "/tecnologia", "ir": "Conhecer Tecnologia",
         "img": ("/assets/img/organizar-800", 800, 450),
         "servicos": [
+            ("/tecnologia#suporte", "Suporte de TI e manutenção", "Computadores, celulares e equipe atendidos todo mês"),
             ("/tecnologia#automacao", "Automação de processos e IA aplicada", "Agentes de IA e integrações, com controle de acesso"),
             ("/tecnologia#processos", "Processos e rotina operacional", "Menos erro e retrabalho no dia a dia"),
             ("/tecnologia#infraestrutura", "Infraestrutura, redes e conectividade", "Infraestrutura que aguenta a operação"),
@@ -104,6 +112,20 @@ FRENTES = [
 ]
 
 
+# Tipos de cliente (aprovado em 06/11/2026, 23h22): o 5º painel do menu leva às páginas por tipo de cliente.
+PARA_QUEM = {
+    "id": "para-quem", "pilar": "p-tec", "nome": "Para quem", "rotulo": "Para quem",
+    "frase": "Escolha o seu Negócio e veja o que serve.",
+    "pagina": "/#para-quem", "ir": "Ver os tipos de cliente",
+    "img": ("/assets/img/zethic-800", 800, 450),
+    "servicos": [
+        ("/consultorio", "Consultório e clínica", "De 1 a 3 pessoas: suporte de TI, proteção e implantação da LGPD"),
+        ("/contabilidade", "Escritório de contabilidade", "Certificado digital, sigilo fiscal e semana de entrega"),
+        ("/advocacia", "Escritório de advocacia", "Sigilo do cliente, e-mail do escritório e certificado"),
+    ],
+}
+
+
 def painel(t):
     img, w, h = t["img"]
     servicos = "\n".join(
@@ -131,7 +153,7 @@ def cabecalho(origem, atual, home):
     contato = "#contato" if home else "/#contato"
     qs = ' aria-current="page"' if atual == "quem-somos" else ""
     lj = ' aria-current="page"' if atual == "loja" else ""
-    paineis = "\n".join(painel(t) for t in FRENTES)
+    paineis = "\n".join(painel(t) for t in FRENTES + [PARA_QUEM])
     return f"""<!-- cabecalho:inicio -->
 <header>
   <div class="wrap bar">
@@ -170,6 +192,27 @@ def garantir_no_head(texto, linha):
     return texto.replace("</head>", linha + "\n</head>", 1)
 
 
+def aplicar_jornada(arq, t):
+    """Trilha logo depois de <main id="conteudo"> e "Próximo passo" logo antes de </main> (ver jornada.py)."""
+    tr = jornada.trilha(arq)
+    if tr:
+        t = re.sub(r'\n?\s*<p class="crumb">.*?</p>', "", t, count=1, flags=re.S)
+        if "<!-- trilha:inicio -->" in t:
+            t = trocar_bloco(t, "trilha", tr)
+        else:
+            m = re.search(r'<main id="conteudo"[^>]*>', t)
+            assert m, f"{arq}: sem <main id=\"conteudo\">"
+            t = t[:m.end()] + "\n" + tr + t[m.end():]
+    jn = jornada.jornada(arq)
+    if jn:
+        if "<!-- jornada:inicio -->" in t:
+            t = trocar_bloco(t, "jornada", jn)
+        else:
+            i = t.rindex("</main>")
+            t = t[:i].rstrip() + "\n\n" + jn + "\n" + t[i:]
+    return t
+
+
 def main(conferir=False):
     """Atualiza as páginas. Com --conferir, não grava nada: só aponta as páginas que mudariam."""
     diferentes = []
@@ -193,6 +236,7 @@ def main(conferir=False):
         t = t.replace('<link rel="stylesheet" href="/assets/css/grupo.css">\n', "")
         t = garantir_no_head(t, '<link rel="stylesheet" href="/assets/css/torres.css">')
         t = garantir_no_head(t, '<script src="/assets/js/torres.js"></script>')
+        t = aplicar_jornada(arq, t)
         gravar(p, original, t)
     if conferir and diferentes:
         print("Páginas diferentes do modelo:", ", ".join(diferentes))
