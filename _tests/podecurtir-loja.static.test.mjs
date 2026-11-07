@@ -286,3 +286,32 @@ test("medição de compra e link por persona", () => {
   assert.match(comum, /window\.podecurtirEvento\("Purchase", \{ value: p\.valor, currency: "BRL" \}\)/);
   assert.match(comum, /Date\.now\(\) - p\.em < 48 \* 3600 \* 1000/);
 });
+
+// 07/11/2026 (pedido da Jéssica): campanhas automáticas até o Carnaval, trocadas pela data de São Paulo.
+test("campanhas mudam sozinhas pela data e somem depois de 25/01/2027", () => {
+  const js = ler("assets/js/podecurtir-comum.js");
+  const arr = js.split("var CAMPANHAS = ")[1].split("];")[0] + "]";
+  const fn = js.match(/function campanhaPara\(dia\) \{[\s\S]*?return null;\n  \}/)[0];
+  const ctx = {};
+  vm.runInNewContext("var CAMPANHAS = " + arr + ";\n" + fn + "\nthis.f = campanhaPara;", ctx);
+  const id = (d) => { const c = ctx.f(d); return c ? c.id : null; };
+  assert.equal(id("2026-11-08"), null);
+  assert.equal(id("2026-11-09"), "onda1");
+  assert.equal(id("2026-11-20"), "onda1");
+  assert.equal(id("2026-11-21"), null);
+  assert.equal(id("2026-11-27"), "onda2");
+  assert.equal(id("2026-12-23"), "onda3");
+  assert.equal(id("2026-12-31"), "pausa");
+  assert.equal(id("2027-01-15"), "onda4");
+  assert.equal(id("2027-01-25"), "onda4b");
+  assert.equal(id("2027-01-26"), null);
+  assert.equal(id("2027-02-09"), null);
+  // sem número de vagas nem preço que dependa de vaga nos textos
+  assert.doesNotMatch(arr, /R\$ (500|750|1\.200)|vagas? restam/);
+  assert.match(js, /timeZone: "America\/Sao_Paulo"/);
+  assert.match(js, /function iniciar\(\) \{ aplicarCampanha\(\);/);
+  const loja = ler("assets/js/podecurtir-loja.js");
+  assert.match(loja, /c\.bonus && \(tem\(cart\.proj, "arrumado"\) \|\| tem\(cart\.proj, "marca"\) \|\| !!cart\.plano\)/);
+  assert.match(loja, /Bônus Black Friday: Proteção das contas incluída, sem custo \(campanha até 30\/11\)\./);
+  assert.match(ler("assets/css/podecurtir-loja.css"), /\.campanha\{background:var\(--flash\)/);
+});

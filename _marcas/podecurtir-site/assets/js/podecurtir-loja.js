@@ -186,6 +186,12 @@
   }
   function temPrincipal() { return cart.proj.length > 0 || !!cart.plano; }
 
+  /* Campanha de Black Friday (23 a 30/11/2026, em podecurtir-comum.js): Perfil Arrumado, Marca Completa ou qualquer
+     Gestão mensal no pedido ganham a Proteção das contas. Aparece no pedido e na mensagem, para o bônus ser cumprido. */
+  function bonusValido() {
+    var c = window.podecurtirCampanha && window.podecurtirCampanha();
+    return !!(c && c.bonus && (tem(cart.proj, "arrumado") || tem(cart.proj, "marca") || !!cart.plano));
+  }
   function linhas(comTirar) {
     var out = [];
     PROJ.forEach(function (p) {
@@ -208,6 +214,7 @@
       out.push('<li><span><span class="selo ' + a.marca + '">' + MARCA[a.marca] + "</span>" + a.nome + "</span><span>proposta</span><small>Sem valor agora</small>" +
         (comTirar ? '<button class="tirar" type="button" data-prop="' + a.id + '">Tirar</button>' : "") + "</li>");
     });
+    if (bonusValido()) out.push('<li class="bonus"><span>Bônus Black Friday: Proteção das contas</span><span class="num">' + brl(0) + "</span><small>Incluída até 30/11 · feita por Jéssica Gessoli · data combinada depois do pagamento</small></li>");
     return out.join("");
   }
 
@@ -385,6 +392,7 @@
     l.push("Nome: " + d.nome, "E-mail: " + d.email, "WhatsApp: " + d.whats);
     l.push("Li e aceito o resumo do contrato em " + window.podecurtirAgora() + ".");
     if (t.fundador) l.push("Aceito o preço de fundador: depoimento com as minhas palavras e autorização para mostrar o trabalho.");
+    if (bonusValido()) l.push("Bônus Black Friday: Proteção das contas incluída, sem custo (campanha até 30/11).");
     return l.join("\n");
   }
 
