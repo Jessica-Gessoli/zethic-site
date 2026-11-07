@@ -16,3 +16,7 @@
 #form-compra legend{padding:0;margin-bottom:.8rem;font-size:1.25rem;font-weight:700}
 .campo select:disabled{opacity:.55}
 #resultado-links{margin:0;padding-left:1.1rem}
+
+/* Black Week (23 a 30/11/2026). */
+.bw-caixa{border:1px solid #00E5FF;border-radius:6px;padding:.8rem .9rem;margin:0 0 1rem;font-size:.92rem}
+.bw-caixa p{margin:0}

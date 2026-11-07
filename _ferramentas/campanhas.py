@@ -24,7 +24,11 @@ PRAZO = ("<b>Vagas de implantação de janeiro:</b> compre até 18/12/2026 e a i
 CSP = ("default-src 'none'; script-src 'self' https://www.googletagmanager.com; img-src 'self' https://*.google-analytics.com "
        "https://*.googletagmanager.com; font-src 'self'; style-src 'self'; base-uri 'none'; form-action 'none'; "
        "connect-src https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com")
-SCRIPTS = ('<script src="/assets/js/zethic-origem.js" defer></script>\n'
+# Black Week (aprovada em 07/11/2026): aparece sozinha de 23 a 30/11/2026 (assets/js/zethic-black-week.js).
+BLACK_WEEK = ("<b>Black Week, até 30/11:</b> pague agora só a implantação; a primeira mensalidade vence em janeiro, "
+              "e você ganha 1 hora extra de suporte no primeiro mês. O preço não muda.")
+SCRIPTS = ('<script src="/assets/js/zethic-black-week.js" defer></script>\n'
+           '<script src="/assets/js/zethic-origem.js" defer></script>\n'
            '<script src="/assets/js/medicao.js" defer></script>\n')
 PRECO = ("<b>R$ 282 por mês</b> para 3 pessoas, no preço de fundador (3 vagas), marcado no pedido em troca de um "
          "depoimento; depois, R$ 365. Implantação no valor de 1 mensalidade, paga com a primeira. Mínimo de 3 meses.")
@@ -203,6 +207,7 @@ def campanha(slug, n):
       </ul>
       <p class="campanha-preco">{PRECO}</p>
       <p class="campanha-prazo">{PRAZO}</p>
+      <p class="campanha-bw" data-black-week hidden>{BLACK_WEEK}</p>
       <div class="hero-ctas">
         <a class="btn btn-main" href="{comprar}">Comprar o suporte de TI</a>
         <a class="link-sec" href="/loja?itens={n['proposta']}">Equipe de 4 pessoas ou mais? Pedir proposta</a>
