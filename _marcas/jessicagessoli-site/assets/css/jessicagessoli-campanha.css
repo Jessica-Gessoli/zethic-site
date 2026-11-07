@@ -1,0 +1,13 @@
+/* Faixa da campanha do momento (jessicagessoli-campanha.js). Cores da marca Jéssica Gessoli: verde-garrafa e latão. */
+.jg-campanha{background:#1f3d33;color:#fff;border-bottom:3px solid #a88a4a}
+.jg-campanha-wrap{max-width:72rem;margin:0 auto;padding:.85rem 1.25rem;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.75rem 1.5rem}
+.jg-campanha-texto{flex:1 1 28rem;min-width:0}
+.jg-campanha-nome{display:block;font-size:.72rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:#d9c391}
+.jg-campanha p{margin:.15rem 0 0;font-size:.95rem;line-height:1.45;color:#fff}
+.jg-campanha-acoes{display:flex;flex-wrap:wrap;gap:.5rem 1rem;align-items:center}
+.jg-campanha-cta{display:inline-block;background:#a88a4a;color:#1d1d1b;font-weight:600;text-decoration:none;padding:.55rem 1rem;border-radius:2px;white-space:nowrap}
+.jg-campanha-cta:hover,.jg-campanha-cta:focus-visible{background:#d9c391;color:#1d1d1b}
+.jg-campanha-sec{color:#fff;text-decoration:underline;text-underline-offset:3px;font-size:.9rem}
+.jg-campanha-sec:hover,.jg-campanha-sec:focus-visible{color:#d9c391}
+.jg-campanha a:focus-visible{outline:2px solid #d9c391;outline-offset:3px}
+@media (max-width:36rem){.jg-campanha-cta{display:block;text-align:center;white-space:normal}.jg-campanha-acoes{flex:1 1 100%}}

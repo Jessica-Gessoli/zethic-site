@@ -25,6 +25,10 @@
   var dataBR = function (d) { return d.split("-").reverse().slice(0, 2).join("/"); };
   var ckAberto = function () { var h = hoje(); return (!CK_DE || h >= CK_DE) && (!CK_ATE || h <= CK_ATE); };
   var ckEncerrado = !!CK_ATE && HOJE > CK_ATE;
+  /* Aula (07/11/2026): abre e fecha sozinha pelas datas da configuração, como o Checkup. */
+  var AU_DE = String(C.AULA_VENDAS_DE || "").trim(), AU_ATE = String(C.AULA_VENDAS_ATE || "").trim();
+  var aulaAberta = function () { var h = hoje(); return !!AULA_DATA && (!AU_DE || h >= AU_DE) && (!AU_ATE || h <= AU_ATE); };
+  var aulaPassou = !!AU_ATE && HOJE > AU_ATE;
 
   var ITENS = [
     { id: "consultoria", nome: "Consultoria · 1 hora", preco: 400, agora: 1, quando: "Data combinada por e-mail ou WhatsApp depois do pagamento",
@@ -35,7 +39,7 @@
       desc: "Uma sessão individual de 1 hora, por videochamada, para destravar uma decisão de carreira ou do seu Negócio." },
     { id: "programa", nome: "Mentoria de posicionamento · programa de 3 meses", preco: 3200, agora: 1, parcelas: 3, em: "no", quando: "8 sessões individuais em 3 meses, com datas combinadas por e-mail ou WhatsApp",
       desc: "Para definir com clareza onde você ou o seu Negócio quer chegar e como se posicionar para chegar lá." },
-    { id: "aula", nome: "Aula ao vivo · IA segura para o seu Negócio", preco: 97, agora: 1, aula: true, rapido: true, quando: AULA_DATA ? AULA_DATA + ", online" : "",
+    { id: "aula", nome: "Aula ao vivo · IA segura para o seu Negócio", preco: 97, agora: 1, aula: true, rapido: true, quando: AULA_DATA && !aulaPassou ? AULA_DATA + ", online" : "",
       desc: "Como usar IA no dia a dia do Negócio sem expor dados de clientes. Online e ao vivo." },
     /* 06/11/2026 (decisão da Jéssica: o máximo possível em compra online): pacotes de escopo fechado e a conversa de escopo paga.
        O que passa do limite de cada pacote continua como pedido de proposta. */
@@ -65,7 +69,7 @@
   /* Sem data marcada, a aula não é vendida: vira um pedido de aviso da próxima turma. */
   /* Depois do último dia de venda, o Checkup sai da loja. */
   if (ckEncerrado) ITENS = ITENS.filter(function (p) { return !p.checkup; });
-  if (!AULA_DATA) PROPOSTAS.push({ id: "aula-aviso", nome: "Aviso da próxima turma da aula ao vivo", aviso: true, desc: "Sem pagamento. Você recebe a data por e-mail quando as inscrições abrirem." });
+  if (!aulaAberta()) PROPOSTAS.push({ id: "aula-aviso", nome: "Aviso da próxima turma da aula ao vivo", aviso: true, desc: "Sem pagamento. Você recebe a data por e-mail quando as inscrições abrirem." });
 
   var CHAVE = "jessicagessoli-carrinho-v1";
   var cart = { itens: [], prop: [] };
@@ -79,7 +83,7 @@
   function tem(lista, id) { return lista.indexOf(id) >= 0; }
   function alterna(lista, id) { var i = lista.indexOf(id); if (i >= 0) lista.splice(i, 1); else lista.push(id); }
   function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
-  function vendivel(p) { return (!p.aula || !!AULA_DATA) && (!p.checkup || ckAberto()); }
+  function vendivel(p) { return (!p.aula || aulaAberta()) && (!p.checkup || ckAberto()); }
   /* Formas de pagamento de cada item. Parcelado só no cartão; Pix e boleto sempre à vista. */
   function formas(p) { return p.parcelas ? "Pix ou boleto à vista, ou cartão em até " + p.parcelas + "x sem juros" : "Pix, boleto ou cartão, à vista"; }
   function forma() { var r = document.querySelector('input[name="forma"]:checked'); return r ? r.value : ""; }
@@ -117,7 +121,7 @@
           '<button class="por' + (p.rapido ? " por-linha" : "") + '" type="button" data-item="' + p.id + '" aria-pressed="' + on + '">' + (on ? "No pedido · tirar" : "Pôr no pedido") + "</button>"
         : '<button class="por por-aviso" type="button" data-prop="aula-aviso" aria-pressed="' + tem(cart.prop, "aula-aviso") + '">' + (tem(cart.prop, "aula-aviso") ? "Aviso pedido · tirar" : "Avise-me quando abrir") + "</button>";
       return '<article class="item" id="item-' + p.id + '"><h3>' + p.nome + '</h3><p class="preco num">' + brl(p.preco) + "</p><p>" + p.desc + "</p>" +
-        '<dl class="meta"><div><dt>' + (p.aula ? "Data" : "Quando") + "</dt><dd>" + (vendivel(p) || p.checkup ? esc(p.quando) : "Data em breve") + "</dd></div>" +
+        '<dl class="meta"><div><dt>' + (p.aula ? "Data" : "Quando") + "</dt><dd>" + (vendivel(p) || p.checkup || (p.aula && AULA_DATA && !aulaPassou) ? esc(p.quando) + (p.aula && !vendivel(p) && AU_DE ? " · vendas a partir de " + dataBR(AU_DE) : "") : "Data em breve") + "</dd></div>" +
         '<div><dt>Pagamento</dt><dd>' + pagamento(p) + "</dd></div></dl>" + saiba(p.id) + botao + "</article>";
     }).join("");
     $("lista-propostas").innerHTML = PROPOSTAS.filter(function (a) { return !a.aviso; }).map(function (a) {
