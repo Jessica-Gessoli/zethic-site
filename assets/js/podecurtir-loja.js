@@ -343,7 +343,7 @@
     var id = e.target && e.target.dataset && e.target.dataset.plus;
     if (!id) return;
     var i = cart.plus.indexOf(id);
-    if (e.target.checked && i < 0) cart.plus.push(id);
+    if (e.target.checked && i < 0) { cart.plus.push(id); medir("AddToCart", { content_name: id }); }
     if (!e.target.checked && i >= 0) cart.plus.splice(i, 1);
     salvar();
     catalogo();
@@ -399,7 +399,7 @@
     $("resultado-whats").href = window.podecurtirWhats(texto);
     var links = t.pagos.map(function (p) {
       var url = linkDe(p);
-      return url ? '<li><a class="pagar-item" href="' + esc(url) + '" rel="noopener">Pagar ' + esc(p.nome) + (p.parcelas ? " " + comoPaga(p) : "") + " · " + brl(p.valor) + "</a></li>"
+      return url ? '<li><a class="pagar-item" href="' + esc(url) + '" data-valor="' + p.valor + '" rel="noopener">Pagar ' + esc(p.nome) + (p.parcelas ? " " + comoPaga(p) : "") + " · " + brl(p.valor) + "</a></li>"
         : "<li>" + esc(p.nome) + " · " + brl(p.valor) + ": pagamento em configuração</li>";
     });
     var todosComLink = t.pagos.length > 0 && t.pagos.every(function (p) { return !!linkDe(p); });
@@ -459,7 +459,7 @@
     if (C.CHECKOUT_ENDPOINT) {
       fetch(C.CHECKOUT_ENDPOINT, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(pedido) })
         .then(function (r) { if (!r.ok) throw new Error("status " + r.status); return r.json(); })
-        .then(function (j) { if (j && /^https:\/\//.test(j.url)) location.href = j.url; else throw new Error("sem url"); })
+        .then(function (j) { if (j && /^https:\/\//.test(j.url)) { marcarPagamento(t.hoje); location.href = j.url; } else throw new Error("sem url"); })
         .catch(function () { manual("Pague cada item pelo link", texto, t); });
       return;
     }
@@ -477,7 +477,9 @@
   }
 
   document.addEventListener("click", function (e) {
-    if (e.target.closest && e.target.closest("a.pagar-item")) marcarPagamento(totais().hoje);
+    /* Cada link do Asaas paga um item só: guarda o valor daquele item (review do PR #111). */
+    var a = e.target.closest && e.target.closest("a.pagar-item");
+    if (a) marcarPagamento(Number(a.getAttribute("data-valor")) || 0);
   });
 
   tudo();

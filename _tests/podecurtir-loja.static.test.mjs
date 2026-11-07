@@ -272,7 +272,11 @@ test("medição de compra e link por persona", () => {
   assert.match(loja, /medir\("EscolheuTipo"/);
   assert.match(loja, /medir\("AddToCart"/);
   assert.match(loja, /if \(ok\) \{ marcarPagamento\(t\.hoje\); location\.href = url; \}/);
-  assert.match(loja, /closest\("a\.pagar-item"\)\) marcarPagamento\(totais\(\)\.hoje\)/);
+  // review do PR #111: valor do item clicado, marca também no checkout único e mede o plus do fechamento
+  assert.match(loja, /if \(a\) marcarPagamento\(Number\(a\.getAttribute\("data-valor"\)\) \|\| 0\);/);
+  assert.match(loja, /data-valor="' \+ p\.valor \+ '"/);
+  assert.match(loja, /\{ marcarPagamento\(t\.hoje\); location\.href = j\.url; \}/);
+  assert.match(loja, /cart\.plus\.push\(id\); medir\("AddToCart", \{ content_name: id \}\);/);
   assert.match(comum, /AddToCart: "add_to_cart", EscolheuTipo: "escolheu_tipo"/);
   assert.match(comum, /window\.podecurtirEvento\("Purchase", \{ value: p\.valor, currency: "BRL" \}\)/);
   assert.match(comum, /Date\.now\(\) - p\.em < 48 \* 3600 \* 1000/);
