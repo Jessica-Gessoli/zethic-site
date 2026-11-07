@@ -22,7 +22,7 @@ const pares = [
 // Exceção conhecida: "Materiais grátis" aponta para ferramentas só em português
 // (/copia-e-cola e /teste-ia), feitas para o dono do Negócio no Brasil.
 // 06/11/2026: "Por onde começar" leva à loja e aos serviços para o Negócio no Brasil, só em português.
-const soPortugues = ["t-comecar", "t-materiais"];
+const soPortugues = ["t-comecar", "t-reguladores", "t-materiais"];
 
 const titulos = html => [...html.matchAll(/<h2 id="([^"]+)"/g)].map(m => m[1]);
 
