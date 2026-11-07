@@ -43,6 +43,9 @@ button{font:inherit;color:inherit}
 .lista-propostas{border-top:1px solid var(--linha)}
 .proposta{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:.4rem 1rem;align-items:center;padding:.85rem 0;border-bottom:1px solid var(--linha)}
 .proposta p{margin:.1rem 0 0;font-size:.9rem;color:var(--neblina)}
+.item .saiba,.proposta .saiba{font-size:.9rem;font-weight:500}
+.item.destaque,.proposta.destaque{outline:3px solid var(--latao);outline-offset:4px}
+.perfis-loja{margin:.75rem 0 0;font-size:.95rem}
 @media (max-width:30rem){.proposta{grid-template-columns:minmax(0,1fr)}.proposta .pedir{justify-self:start}}
 .pedir{border:1px solid var(--garrafa);background:transparent;border-radius:2px;padding:.55rem .8rem;font-weight:500;color:var(--garrafa);cursor:pointer;white-space:nowrap}
 .pedir[aria-pressed="true"]{background:var(--garrafa);color:var(--branco)}

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-pWfC90vOc0Qq23XnxgUez0WUlJaS25SLmKNzDFWRhTE=' https://www.googletagmanager.com; img-src 'self' https://*.google-analytics.com https://*.googletagmanager.com; font-src 'self'; style-src 'self' 'unsafe-inline'; base-uri 'none'; form-action 'none'; connect-src https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-FWcJVtKd7yqGLiQw/eSgsJRElKSgwTXu0RoEIaR7APw=' https://www.googletagmanager.com; img-src 'self' https://*.google-analytics.com https://*.googletagmanager.com; font-src 'self'; style-src 'self' 'unsafe-inline'; base-uri 'none'; form-action 'none'; connect-src https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com">
 <title>Diagnóstico de Cibersegurança e IA | Jéssica Gessoli</title>
 <meta name="description" content="Descubra onde golpe, sistema parado, vazamento de dados e uso de IA podem custar caro para a sua empresa. Faça a autoavaliação grátis e agende o Diagnóstico de Cibersegurança e IA.">
 <link rel="canonical" href="https://zethic.net/diagnostico">
@@ -397,6 +397,7 @@
     out.appendChild(el("p", {}, "Serviço relacionado: " + pior.servico + "."));
     var ctas = el("div", { "class": "hero-ctas" });
     ctas.appendChild(el("a", { "class": "btn btn-main", href: "/fale?utm_source=diagnostico-resultado&nota=" + total + "&moeda=" + ordem[0] }, "Receber meu resultado no WhatsApp"));
+    ctas.appendChild(el("a", { "class": "btn btn-line", href: "/jessicagessoli/loja/#item-diagnostico_essencial" }, "Ver o Diagnóstico na loja"));
     ctas.appendChild(el("a", { "class": "btn btn-line", href: "https://calendly.com/jessica-gessoli-zethic/conversa-de-30-minutos-com-a-jessica-gessoli", rel: "noopener" }, "Agendar a conversa de 30 minutos"));
     out.appendChild(ctas);
     out.appendChild(el("p", { "class": "note" }, "O WhatsApp abre com a sua nota e a moeda mais exposta já escritas. A mensagem só chega à Jéssica se você apertar enviar."));
