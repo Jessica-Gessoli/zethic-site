@@ -130,3 +130,11 @@ footer.ident p{margin:.3rem 0}
 .jg-cookies button{border-radius:2px;padding:.55rem .9rem;font-weight:500;cursor:pointer;border:1px solid var(--branco);background:transparent;color:var(--branco)}
 .jg-cookies button.sim{background:var(--latao-claro);border-color:var(--latao-claro);color:var(--garrafa)}
 @media (prefers-reduced-motion:no-preference){.por,.pedir,.ir,.btn-jg{transition:background .15s,color .15s}}
+/* 07/11/2026: compra rápida (Checkup e aula) */
+.por-agora+.por{margin-top:.5rem}
+.por-linha{background:transparent;color:var(--garrafa);box-shadow:inset 0 0 0 1px var(--garrafa)}
+.por-linha:hover{background:var(--pedra)}
+.checkup-oferta{max-width:34rem;margin-top:1.5rem}
+.checkup-oferta .preco{font-family:var(--serif);color:var(--garrafa);font-size:2.2rem;line-height:1.1}
+.checkup-cta{display:block;text-align:center;margin-top:1rem}
+.checkup-espera{opacity:.7;cursor:default}
