@@ -9,6 +9,12 @@
   var $ = function (id) { return document.getElementById(id); };
   function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
 
+  /* 06/11/2026, 23h22 (aprovado pela Jéssica): os planos maiores do suporte de TI seguem por proposta; os de entrada
+     (Essencial e Padrão) são comprados na aba Comprar agora (/comprar). */
+  var NIVEIS_SUPORTE = [
+    { id: "completo", nome: "Completo", itens: ["Até 8 computadores e 8 celulares", "3 horas de suporte por mês", "Visita preventiva no mês"] },
+    { id: "equipe", nome: "Equipe", itens: ["Até 12 computadores e 12 celulares", "5 horas de suporte por mês", "Relatório mensal"] }
+  ];
   var NIVEIS_SITE = [
     { id: "essencial", nome: "Essencial", itens: ["Site de uma página: apresentação e serviços", "Botão de WhatsApp, formulário e mapa", "Cadastro no Google"] },
     { id: "completo", nome: "Completo", itens: ["Até 5 páginas", "Perfil da empresa no Google", "Política de privacidade e aviso de cookies", "Medição de visitas"] },
@@ -65,6 +71,8 @@
         desc: "Controles, registros e evidências no dia a dia." }
     ] },
     { id: "tecnologia", nome: "Tecnologia", pilar: "p-tec", frase: "A operação organizada, automatizada e conectada.", servicos: [
+      { id: "suporte", nome: "Suporte de TI e manutenção", tipo: "Mensalidade", link: "/tecnologia#suporte", niveis: NIVEIS_SUPORTE,
+        desc: "Computadores, celulares e equipe atendidos todo mês. Os planos Essencial e Padrão estão na aba Comprar agora." },
       { id: "automacao", nome: "Automação de processos e integrações", tipo: "Projeto", link: "/tecnologia#automacao",
         desc: "O sistema faz sozinho o que hoje é feito à mão." },
       { id: "ia", nome: "Agentes de IA e IA privada", tipo: "Projeto", link: "/tecnologia#automacao",
@@ -125,6 +133,21 @@
     if (Array.isArray(salvo)) pedido = salvo.filter(function (p) { return p && SERVICOS[p.id]; });
   } catch (e) {}
   function salvar() { try { sessionStorage.setItem(CHAVE, JSON.stringify(pedido)); } catch (e) {} }
+
+  /* Jornada (06/11/2026, 23h22): as páginas de cada tipo de cliente abrem a loja com os itens já no pedido,
+     em /loja?itens=suporte:completo,lgpd. Cada item é id ou id:nível; o que não existe é ignorado. */
+  (function () {
+    var q = /[?&]itens=([^&#]*)/.exec(location.search);
+    if (!q) return;
+    decodeURIComponent(q[1]).split(",").forEach(function (par) {
+      var a = par.split(":"), s = SERVICOS[a[0]];
+      if (!s || pedido.some(function (p) { return p.id === a[0]; })) return;
+      var nivel = null;
+      if (s.niveis) { nivel = s.niveis[0].id; s.niveis.forEach(function (n) { if (n.id === a[1]) nivel = n.id; }); }
+      pedido.push({ id: a[0], nivel: nivel });
+    });
+    salvar();
+  })();
 
   var escolha = {}; /* nível marcado em cada cartão, mesmo antes de entrar no pedido */
   function noPedido(id) { for (var i = 0; i < pedido.length; i++) if (pedido[i].id === id) return pedido[i]; return null; }

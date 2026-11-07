@@ -9,7 +9,7 @@ import { readFileSync, existsSync } from "node:fs";
 const ler = (p) => readFileSync(new URL("../" + p, import.meta.url), "utf8");
 const existe = (p) => existsSync(new URL("../" + p, import.meta.url));
 // 28/10/2026: Diagnóstico e Teste de golpe passaram para a Jéssica Gessoli e saíram desta lista.
-const ZETHIC = ["index.html", "quem-somos.html", "seguranca.html", "tecnologia.html", "atendimento.html", "financeiro.html", "privacidade.html", "loja.html", "loja-obrigado.html", "comprar.html"];
+const ZETHIC = ["index.html", "quem-somos.html", "seguranca.html", "tecnologia.html", "atendimento.html", "financeiro.html", "privacidade.html", "loja.html", "loja-obrigado.html", "comprar.html", "consultorio.html", "contabilidade.html", "advocacia.html"];
 const MARCAS = { "jessicagessoli.html": "g-j", "podecurtir.html": "g-p" };
 const bloco = (html, nome) => html.match(new RegExp(`<!-- ${nome}:inicio -->([\\s\\S]*?)<!-- ${nome}:fim -->`))?.[1] ?? "";
 

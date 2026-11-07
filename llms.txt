@@ -10,6 +10,17 @@
 - [Atendimento](https://zethic.net/atendimento): bots de WhatsApp e de comunicação, com CRM leve; unificação de redes sociais e de dados, com relatórios; site, app e presença no Google (a parte de mídia fica com um parceiro); plataforma para curso e produto digital.
 - [Financeiro](https://zethic.net/financeiro): gestão financeira terceirizada (caixa, contas a pagar e a receber, painel, lançamento automático, cobrança pelo WhatsApp e envio ao contador); auditoria de contas e contratos; adaptação à Reforma Tributária, junto com o contador do Negócio.
 
+## Para quem
+
+- [Consultório e clínica](https://zethic.net/consultorio): para consultórios e clínicas de 1 a 3 pessoas: suporte de TI, proteção por pessoa, LGPD para dados de saúde e WhatsApp organizado, com compra direta na loja.
+- [Escritório de contabilidade](https://zethic.net/contabilidade): suporte de TI com certificados digitais A1 e A3 e sistemas do setor, proteção por pessoa, continuidade, LGPD e Reforma Tributária nos sistemas.
+- [Escritório de advocacia](https://zethic.net/advocacia): suporte de TI, e-mail do escritório protegido, conscientização e simulação de golpe, continuidade e LGPD.
+
+## Loja
+
+- [Comprar agora](https://zethic.net/comprar): pacotes de entrada com preço (suporte de TI Essencial e Padrão, proteção por pessoa e site estático Essencial), pagos por Pix ou boleto.
+- [Pedir proposta](https://zethic.net/loja): os outros serviços, sem preço no site; a proposta vem por escrito depois da conversa.
+
 ## Institucional
 
 - [Quem somos](https://zethic.net/quem-somos): o que a Zethic faz, para quem, como trabalha, onde atende, prazos de atendimento, princípios, quem conduz o trabalho e dados da empresa.

@@ -30,6 +30,22 @@
   try { var s = JSON.parse(sessionStorage.getItem(CHAVE) || "null"); if (s) estado = s; } catch (e) {}
   function salvar() { try { sessionStorage.setItem(CHAVE, JSON.stringify(estado)); } catch (e) {} }
 
+  /* Jornada (06/11/2026, 23h22): /comprar?pacote=consultorio chega da página Consultório e da campanha
+     TI do consultório com o Suporte Padrão e a proteção de 3 pessoas já escolhidos. */
+  var PACOTES = {
+    consultorio: { suporte: "suporte_padrao", pessoas: 3, site: false },
+    suporte_essencial: { suporte: "suporte_essencial", pessoas: 0, site: false },
+    suporte_padrao: { suporte: "suporte_padrao", pessoas: 0, site: false },
+    site: { suporte: "", pessoas: 0, site: true }
+  };
+  (function () {
+    var q = /[?&]pacote=([a-z_]+)/.exec(location.search), p = q && PACOTES[q[1]];
+    if (!p) return;
+    estado.suporte = p.suporte || estado.suporte;
+    estado.pessoas = p.suporte ? p.pessoas : estado.pessoas;
+    estado.site = estado.site || p.site;
+  })();
+
   function preco(item) { return estado.fundador && FUND[item.id] ? item.fundador : item.depois; }
   function suporteAtual() { for (var i = 0; i < SUPORTE.length; i++) if (SUPORTE[i].id === estado.suporte) return SUPORTE[i]; return null; }
 
@@ -52,18 +68,19 @@
     $("grade-suporte").innerHTML = SUPORTE.map(function (p) {
       return '<article class="loja-item p-tec"><div class="loja-item-cab"><span class="loja-tipo">Mensal</span><h3>' + esc(p.nome) + "</h3></div>" +
         cartaoPreco(p, " por mês") + lista(p.itens) + '<p><b>Para quem:</b> ' + esc(p.para) + ".</p>" +
+        (p.id === "suporte_padrao" ? '<p class="loja-fora"><a href="/consultorio">Como fica no consultório</a> · <a href="/tecnologia#suporte">Ver o suporte em detalhe</a></p>' : '<p class="loja-fora"><a href="/tecnologia#suporte">Ver o suporte em detalhe</a></p>') +
         '<div class="loja-acoes"><button class="por" type="button" data-suporte="' + p.id + '" aria-pressed="false">Escolher este plano</button></div></article>';
     }).join("");
     $("grade-protecao").innerHTML = '<article class="loja-item p-seg"><div class="loja-item-cab"><span class="loja-tipo">Mensal, por pessoa</span><h3>' + PROTECAO.nome + "</h3></div>" +
       cartaoPreco(PROTECAO, " por pessoa, por mês") + lista(PROTECAO.itens) +
       '<label class="campo" for="pessoas">Quantas pessoas<select id="pessoas"></select></label>' +
-      '<p class="dica" id="protecao-dica">Escolha antes um plano de suporte.</p></article>';
+      '<p class="dica" id="protecao-dica">Escolha antes um plano de suporte.</p><p class="loja-fora"><a href="/seguranca#protecao">Ver a proteção em detalhe</a></p></article>';
     var opts = '<option value="0">Nenhuma</option>';
     for (var n = 1; n <= PROTECAO.max; n++) opts += '<option value="' + n + '">' + n + (n === 1 ? " pessoa" : " pessoas") + "</option>";
     $("pessoas").innerHTML = opts;
     $("grade-site").innerHTML = '<article class="loja-item p-tec"><div class="loja-item-cab"><span class="loja-tipo">Projeto</span><h3>' + SITE.nome + "</h3></div>" +
       cartaoPreco(SITE, "") + lista(SITE.itens) + '<p><b>Para quem:</b> ' + esc(SITE.para) + ".</p>" +
-      '<p class="loja-fora">Fica de fora: domínio e hospedagem, no nome da sua empresa; textos e fotos, que você envia.</p>' +
+      '<p class="loja-fora">Fica de fora: domínio e hospedagem, no nome da sua empresa; textos e fotos, que você envia. <a href="/atendimento#site">Ver o site em detalhe</a></p>' +
       '<div class="loja-acoes"><button class="por" type="button" id="btn-site" aria-pressed="false">Pôr no pedido</button></div></article>';
 
     Array.prototype.forEach.call(document.querySelectorAll("[data-suporte]"), function (b) {
