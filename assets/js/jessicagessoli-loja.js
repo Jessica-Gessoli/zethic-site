@@ -13,11 +13,14 @@
   var brl = function (v) { return v.toLocaleString("pt-BR", { style: "currency", currency: "BRL", minimumFractionDigits: 0, maximumFractionDigits: 2 }); };
   var $ = function (id) { return document.getElementById(id); };
   var AULA_DATA = String(C.AULA_DATA || "").trim();
-  /* Datas de venda do Checkup, comparadas no horário de Brasília (AAAA-MM-DD). */
-  var HOJE = new Date(Date.now() - 3 * 3600 * 1000).toISOString().slice(0, 10);
+  /* Datas de venda do Checkup, comparadas no horário de Brasília (AAAA-MM-DD).
+     A data é conferida de novo a cada cálculo do pedido: com a página aberta de um dia para o outro, o Checkup
+     sai do total e do pagamento quando a venda fecha. */
+  var hoje = function () { return new Date(Date.now() - 3 * 3600 * 1000).toISOString().slice(0, 10); };
+  var HOJE = hoje();
   var CK_DE = String(C.CHECKUP_VENDAS_DE || "").trim(), CK_ATE = String(C.CHECKUP_VENDAS_ATE || "").trim();
   var dataBR = function (d) { return d.split("-").reverse().slice(0, 2).join("/"); };
-  var ckAberto = (!CK_DE || HOJE >= CK_DE) && (!CK_ATE || HOJE <= CK_ATE);
+  var ckAberto = function () { var h = hoje(); return (!CK_DE || h >= CK_DE) && (!CK_ATE || h <= CK_ATE); };
   var ckEncerrado = !!CK_ATE && HOJE > CK_ATE;
 
   var ITENS = [
@@ -73,7 +76,7 @@
   function tem(lista, id) { return lista.indexOf(id) >= 0; }
   function alterna(lista, id) { var i = lista.indexOf(id); if (i >= 0) lista.splice(i, 1); else lista.push(id); }
   function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
-  function vendivel(p) { return (!p.aula || !!AULA_DATA) && (!p.checkup || ckAberto); }
+  function vendivel(p) { return (!p.aula || !!AULA_DATA) && (!p.checkup || ckAberto()); }
   /* Formas de pagamento de cada item. Parcelado só no cartão; Pix e boleto sempre à vista. */
   function formas(p) { return p.parcelas ? "Pix ou boleto à vista, ou cartão em até " + p.parcelas + "x sem juros" : "Pix, boleto ou cartão, à vista"; }
   function forma() { var r = document.querySelector('input[name="forma"]:checked'); return r ? r.value : ""; }

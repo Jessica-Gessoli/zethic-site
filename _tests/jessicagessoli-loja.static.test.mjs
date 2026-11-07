@@ -57,7 +57,8 @@ test("Checkup só é vendido entre as datas da configuração e sai da loja depo
   assert.equal(c.CHECKUP_VENDAS_DE, "2026-11-13");
   assert.equal(c.CHECKUP_VENDAS_ATE, "2026-11-25");
   const js = ler("assets/js/jessicagessoli-loja.js");
-  assert.match(js, /function vendivel\(p\) \{ return \(!p\.aula \|\| !!AULA_DATA\) && \(!p\.checkup \|\| ckAberto\); \}/);
+  assert.match(js, /function vendivel\(p\) \{ return \(!p\.aula \|\| !!AULA_DATA\) && \(!p\.checkup \|\| ckAberto\(\)\); \}/);
+  assert.match(js, /var ckAberto = function \(\) \{ var h = hoje\(\);/, "Checkup confere a data a cada cálculo do pedido");
   assert.match(js, /if \(ckEncerrado\) ITENS = ITENS\.filter/);
 });
 
