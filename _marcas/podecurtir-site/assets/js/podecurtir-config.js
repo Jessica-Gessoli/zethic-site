@@ -8,6 +8,7 @@
      Plus do fechamento do pedido (04/11/2026, Ficha v1.17): plus_gravacao (R$ 500), plus_livro (R$ 1.500),
      plus_protecao e plus_mentoria (R$ 400 cada, Jéssica Gessoli) e o Site Essencial da Zethic (R$ 3.000), com dois links:
      plus_site_pix e plus_site_cartao (até 3x). Os links do Site Essencial aceitam 3 vendas (vagas de fundador).
+     plus_recuperacao (06/11/2026): Recuperação de conta, R$ 400, Jéssica Gessoli. Vazio até o link do Asaas existir.
    PRECO_AJUSTE: preço atual do Ajuste de Perfil (500 do 1º ao 3º cliente, 750 do 4º ao 6º, 1200 a partir do 7º).
      Ao trocar o preço, troque também ASAAS_LINKS.ajuste pelo link do novo valor.
    VAGAS_500_RESTANTES: número de vagas que ainda restam a R$ 500 (0 a 3). null = não mostra contador.
@@ -32,6 +33,7 @@ window.PODECURTIR = {
     plus_livro: "https://www.asaas.com/000/c/llkzmhqmezcnople",
     plus_protecao: "https://www.asaas.com/000/c/gwimu5et7i82l2pr",
     plus_mentoria: "https://www.asaas.com/000/c/bleaqfjo9hhlmm9y",
+    plus_recuperacao: "",
     plus_site_pix: "https://www.asaas.com/000/c/bzy6eqhwdy5pq3pn",
     plus_site_cartao: "https://www.asaas.com/000/c/bl6t7cfoy5huw01o"
   },
