@@ -63,8 +63,9 @@
   function carregarMedicao() { carregarPixel(); carregarGA(); }
 
   /* Eventos: nomes da Meta nos padrões dela; no GA4, os equivalentes recomendados ou o próprio nome. */
-  var META_PADRAO = { InitiateCheckout: 1, Lead: 1, Purchase: 1, ViewContent: 1, Contact: 1 };
-  var GA_NOMES = { InitiateCheckout: "begin_checkout", Lead: "generate_lead", Purchase: "purchase", ViewContent: "view_item", Contact: "contact" };
+  var META_PADRAO = { InitiateCheckout: 1, Lead: 1, Purchase: 1, ViewContent: 1, Contact: 1, AddToCart: 1 };
+  var GA_NOMES = { InitiateCheckout: "begin_checkout", Lead: "generate_lead", Purchase: "purchase", ViewContent: "view_item", Contact: "contact",
+    AddToCart: "add_to_cart", EscolheuTipo: "escolheu_tipo" };
   window.podecurtirEvento = function (nome, params) {
     if (pixelAtivo && typeof window.fbq === "function") window.fbq(META_PADRAO[nome] ? "track" : "trackCustom", nome, params || {});
     if (gaAtivo && typeof window.gtag === "function") window.gtag("event", GA_NOMES[nome] || nome, params || {});
@@ -191,6 +192,12 @@
     var tipo = new URLSearchParams(location.search).get("tipo");
     var blocos = document.querySelectorAll("[data-tipo]");
     for (var i = 0; i < blocos.length; i++) blocos[i].hidden = blocos[i].getAttribute("data-tipo") !== (tipo === "proposta" ? "proposta" : "compra");
+    /* Compra (07/11/2026): só conta se a loja marcou a ida ao Asaas nas últimas 48 horas; conta uma vez e apaga. */
+    if (tipo === "proposta") return;
+    var p = null;
+    try { p = JSON.parse(ler("podecurtir-pagamento-v1") || "null"); localStorage.removeItem("podecurtir-pagamento-v1"); } catch (e) {}
+    if (p && typeof p.valor === "number" && p.valor > 0 && Date.now() - p.em < 48 * 3600 * 1000)
+      window.podecurtirEvento("Purchase", { value: p.valor, currency: "BRL" });
   }
 
   function iniciar() { identificacao(); consentimento(); desistencia(); obrigado(); }

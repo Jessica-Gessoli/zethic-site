@@ -9,7 +9,8 @@ const ler = (p) => readFileSync(new URL("../" + p, import.meta.url), "utf8");
 test("Pode Curtir: sem vídeos de demonstração e com título direto", () => {
   const h = ler("podecurtir.html");
   assert.doesNotMatch(h, /class="reel"|class="trabalhos"|<video/);
-  assert.match(h, /<h1>Produtora de foto, vídeo e redes sociais\.<\/h1>/);
+  // 07/11/2026 (benchmark de publicidade, aprovado pela Jéssica): o título diz o resultado e o preço fechado.
+  assert.match(h, /<h1>Seu perfil pronto para vender, com preço fechado\.<\/h1>/);
   assert.doesNotMatch(h + ler("index.html"), /Você curte, a gente registra/);
 });
 

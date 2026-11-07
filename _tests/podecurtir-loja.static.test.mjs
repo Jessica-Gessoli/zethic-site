@@ -185,7 +185,7 @@ test("loja: preço de fundador só nos itens a preço de fundador, aceite zerado
   assert.match(js, /\$\("fundador-campo"\)\.hidden = !t\.fundador;/);
   assert.doesNotMatch(js, /t\.pagos\.length && !\$\("fundador"\)/);
   assert.match(js, /if \(resumo !== resumoAceito\) \{ \$\("aceite"\)\.checked = false;/);
-  assert.match(js, /if \(ok\) location\.href = url;\s*else manual\(/);
+  assert.match(js, /if \(ok\) \{ marcarPagamento\(t\.hoje\); location\.href = url; \}\s*else manual\(/);
   assert.doesNotMatch(js, /registrar\(pedido\); location\.href = url;/);
 });
 
@@ -261,4 +261,19 @@ test("tipos de Negócio, segurança das contas avulsa e preço depois das vagas 
   assert.ok("plus_recuperacao" in ctx.window.PODECURTIR.ASAAS_LINKS);
   const t = ler("podecurtir/termos/index.html");
   assert.match(t, /também podem ser compradas sozinhas, na seção Proteção e recuperação de conta/);
+});
+
+// 07/11/2026 (benchmark de publicidade, aprovado pela Jéssica): compra medida na confirmação, tipo e item medidos na
+// loja, e link por persona (?negocio=) que abre a loja com a sugestão pronta.
+test("medição de compra e link por persona", () => {
+  const loja = ler("assets/js/podecurtir-loja.js");
+  const comum = ler("assets/js/podecurtir-comum.js");
+  assert.match(loja, /new URLSearchParams\(location\.search\)\.get\("negocio"\)/);
+  assert.match(loja, /medir\("EscolheuTipo"/);
+  assert.match(loja, /medir\("AddToCart"/);
+  assert.match(loja, /if \(ok\) \{ marcarPagamento\(t\.hoje\); location\.href = url; \}/);
+  assert.match(loja, /closest\("a\.pagar-item"\)\) marcarPagamento\(totais\(\)\.hoje\)/);
+  assert.match(comum, /AddToCart: "add_to_cart", EscolheuTipo: "escolheu_tipo"/);
+  assert.match(comum, /window\.podecurtirEvento\("Purchase", \{ value: p\.valor, currency: "BRL" \}\)/);
+  assert.match(comum, /Date\.now\(\) - p\.em < 48 \* 3600 \* 1000/);
 });
