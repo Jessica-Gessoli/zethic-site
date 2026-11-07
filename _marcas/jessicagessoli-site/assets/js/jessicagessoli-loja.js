@@ -6,7 +6,10 @@
    usa o CHECKOUT_ENDPOINT (n8n) se estiver preenchido; senão, mostra o link de cada item.
    04/11/2026 (decisão da Jéssica, como na loja da Pode Curtir): no site o pagamento é integral. O programa de
    3 meses tem dois links: _pix (Pix ou boleto, à vista) e _cartao (cartão em até 3x sem juros).
-   06/11/2026: entram a conversa de escopo, a proteção das contas, os pacotes Essenciais e a palestra online. */
+   06/11/2026: entram a conversa de escopo, a proteção das contas, os pacotes Essenciais e a palestra online.
+   07/11/2026 (aprovado pela Jéssica): compra rápida do Checkup e da aula. O botão "Comprar agora" e o endereço
+   ?comprar=<id> (usado nos anúncios e na página do Checkup) vão direto ao resumo do contrato, sem passar pelo pedido.
+   Num pedido só com itens rápidos, o WhatsApp é opcional: o Asaas já pede o telefone no pagamento. */
 (function () {
   var C = window.JESSICAGESSOLI || {};
   var LINKS = C.ASAAS_LINKS || {};
@@ -26,13 +29,13 @@
   var ITENS = [
     { id: "consultoria", nome: "Consultoria · 1 hora", preco: 400, agora: 1, quando: "Data combinada por e-mail ou WhatsApp depois do pagamento",
       desc: "Uma hora por videochamada para levar uma decisão de cibersegurança ou de IA, com orientação clara do que fazer." },
-    { id: "checkup", nome: "Checkup Black Friday Segura", preco: 297, agora: 1, checkup: true, quando: "8 vagas, com agendamento até 25/11/2026, por videochamada",
+    { id: "checkup", nome: "Checkup Black Friday Segura", preco: 297, agora: 1, checkup: true, rapido: true, quando: "8 vagas, com agendamento até 25/11/2026, por videochamada",
       desc: "Revisão, antes da Black Friday, dos pontos por onde o golpe entra: contas e perfis da loja, pagamentos e comprovantes, e a equipe que atende. Você sai sabendo o que corrigir primeiro." },
     { id: "sessao", nome: "Mentoria de posicionamento · sessão avulsa", preco: 400, agora: 1, quando: "Data combinada por e-mail ou WhatsApp depois do pagamento",
       desc: "Uma sessão individual de 1 hora, por videochamada, para destravar uma decisão de carreira ou do seu Negócio." },
     { id: "programa", nome: "Mentoria de posicionamento · programa de 3 meses", preco: 3200, agora: 1, parcelas: 3, em: "no", quando: "8 sessões individuais em 3 meses, com datas combinadas por e-mail ou WhatsApp",
       desc: "Para definir com clareza onde você ou o seu Negócio quer chegar e como se posicionar para chegar lá." },
-    { id: "aula", nome: "Aula ao vivo · IA segura para o seu Negócio", preco: 97, agora: 1, aula: true, quando: AULA_DATA ? AULA_DATA + ", online" : "",
+    { id: "aula", nome: "Aula ao vivo · IA segura para o seu Negócio", preco: 97, agora: 1, aula: true, rapido: true, quando: AULA_DATA ? AULA_DATA + ", online" : "",
       desc: "Como usar IA no dia a dia do Negócio sem expor dados de clientes. Online e ao vivo." },
     /* 06/11/2026 (decisão da Jéssica: o máximo possível em compra online): pacotes de escopo fechado e a conversa de escopo paga.
        O que passa do limite de cada pacote continua como pedido de proposta. */
@@ -110,7 +113,8 @@
       var botao = p.checkup && !vendivel(p)
         ? '<button class="por por-aviso" type="button" disabled>Vendas a partir de ' + dataBR(CK_DE) + "</button>"
         : vendivel(p)
-        ? '<button class="por" type="button" data-item="' + p.id + '" aria-pressed="' + on + '">' + (on ? "No pedido · tirar" : "Pôr no pedido") + "</button>"
+        ? (p.rapido ? '<button class="por por-agora" type="button" data-comprar="' + p.id + '">Comprar agora</button>' : "") +
+          '<button class="por' + (p.rapido ? " por-linha" : "") + '" type="button" data-item="' + p.id + '" aria-pressed="' + on + '">' + (on ? "No pedido · tirar" : "Pôr no pedido") + "</button>"
         : '<button class="por por-aviso" type="button" data-prop="aula-aviso" aria-pressed="' + tem(cart.prop, "aula-aviso") + '">' + (tem(cart.prop, "aula-aviso") ? "Aviso pedido · tirar" : "Avise-me quando abrir") + "</button>";
       return '<article class="item" id="item-' + p.id + '"><h3>' + p.nome + '</h3><p class="preco num">' + brl(p.preco) + "</p><p>" + p.desc + "</p>" +
         '<dl class="meta"><div><dt>' + (p.aula ? "Data" : "Quando") + "</dt><dd>" + (vendivel(p) || p.checkup ? esc(p.quando) : "Data em breve") + "</dd></div>" +
@@ -168,6 +172,8 @@
   function tudo() { catalogo(); carrinho(); salvar(); }
 
   document.addEventListener("click", function (e) {
+    var r = e.target.closest && e.target.closest("[data-comprar]");
+    if (r && !$("vista-loja").hidden) { comprarAgora(r.dataset.comprar); return; }
     var b = e.target.closest && e.target.closest("[data-item],[data-prop]");
     if (!b || $("vista-loja").hidden) return;
     if (b.dataset.item) alterna(cart.itens, b.dataset.item);
@@ -208,7 +214,17 @@
     window.scrollTo(0, 0);
   }
 
-  $("continuar").addEventListener("click", function () {
+  /* Compra rápida: põe o item no pedido (sem tirar o que já estava) e abre o resumo do contrato. */
+  function comprarAgora(id) {
+    var p = ITENS.filter(function (x) { return x.id === id && x.rapido && vendivel(x); })[0];
+    if (!p) return false;
+    if (!tem(cart.itens, id)) cart.itens.push(id);
+    tudo(); abrirCheckout();
+    return true;
+  }
+  function soRapidos(t) { return t.pagos.length > 0 && !t.props && t.pagos.every(function (x) { return ITENS.some(function (p) { return p.id === x.id && p.rapido; }); }); }
+
+  function abrirCheckout() {
     var t = totais();
     var resumo = resumoContrato(t);
     /* O aceite vale para o pedido que a pessoa leu: se o resumo mudou, o aceite volta a ficar em branco. */
@@ -221,16 +237,20 @@
     $("forma-campo").hidden = !parc.length;
     $("forma-cartao-txt").textContent = "Cartão de crédito, sem juros: " + parc.map(function (p) { return "até " + p.parcelas + "x " + p.em + " " + p.nome; }).join(" e ");
     $("erro").hidden = true; $("resultado").hidden = true; $("form-checkout").hidden = false;
+    var opc = soRapidos(t);
+    $("whats-rotulo").textContent = opc ? "WhatsApp, com DDD (opcional)" : "WhatsApp, com DDD";
+    $("whats").required = !opc;
     mostrar("checkout");
     if (window.jgEvento) window.jgEvento("InitiateCheckout", { value: t.hoje, currency: "BRL" });
-  });
+  }
+  $("continuar").addEventListener("click", abrirCheckout);
   $("voltar").addEventListener("click", function () { mostrar("loja"); });
 
   function mensagem(t, d) {
     var l = ["Olá! Quero contratar pela loja da Jéssica Gessoli:"];
     t.pagos.forEach(function (p) { l.push("- " + p.nome + " (" + brl(p.valor) + " hoje" + (p.parcelas ? ", " + comoPaga(p) : "") + ")"); });
     PROPOSTAS.forEach(function (a) { if (tem(cart.prop, a.id)) l.push("- " + (a.aviso ? "Aviso: " : "Proposta: ") + a.nome); });
-    l.push("Nome: " + d.nome, "E-mail: " + d.email, "WhatsApp: " + d.whats);
+    l.push("Nome: " + d.nome, "E-mail: " + d.email, "WhatsApp: " + (d.whats || "não informado"));
     l.push("Li e aceito o resumo do contrato em " + window.jgAgora() + ".");
     return l.join("\n");
   }
@@ -268,7 +288,8 @@
     var falta = [];
     if (!d.nome) falta.push("nome");
     if (!/^\S+@\S+\.\S+$/.test(d.email)) falta.push("e-mail válido");
-    if (d.whats.replace(/\D/g, "").length < 10) falta.push("WhatsApp com DDD");
+    var digitos = d.whats.replace(/\D/g, "").length;
+    if (soRapidos(t) ? digitos > 0 && digitos < 10 : digitos < 10) falta.push("WhatsApp com DDD");
     if (!$("aceite").checked) falta.push("aceite do resumo do contrato");
     if (t.pagos.some(function (p) { return p.parcelas; }) && !forma()) falta.push("forma de pagamento");
     if (falta.length) { $("erro").textContent = "Falta preencher: " + falta.join(", ") + "."; $("erro").hidden = false; return; }
@@ -313,6 +334,7 @@
   });
 
   tudo();
-  destacar();
+  var pedidoUrl = new URLSearchParams(location.search).get("comprar");
+  if (!(pedidoUrl && comprarAgora(pedidoUrl))) destacar();
   window.addEventListener("hashchange", function () { mostrar("loja"); destacar(true); });
 })();

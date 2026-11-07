@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-XVuNFa4PvakMGe+d93aSy+fVE2QS99/pArrI40108EA=' https://www.googletagmanager.com; img-src 'self' https://*.google-analytics.com https://*.googletagmanager.com; font-src 'self'; style-src 'self' 'unsafe-inline'; base-uri 'none'; form-action 'none'; connect-src https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-j8Gqyf4KbCU2L8VCvtudU6jBC2NmE32PsGME0uHSUyk=' https://www.googletagmanager.com; img-src 'self' https://*.google-analytics.com https://*.googletagmanager.com; font-src 'self'; style-src 'self' 'unsafe-inline'; base-uri 'none'; form-action 'none'; connect-src https://jessicagessoli.app.n8n.cloud https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com">
 <title>Teste de golpe grátis para empresas | Jéssica Gessoli</title>
 <meta name="description" content="Teste grátis de 10 situações reais de golpe: boleto falso, Pix pedido por mensagem, falso suporte. Veja quantas a sua equipe acerta.">
 <link rel="canonical" href="https://zethic.net/teste-golpe">
@@ -116,6 +116,14 @@
   .rows b{text-align:right;font-variant-numeric:tabular-nums}
   @media (max-width:36rem){.rows li{grid-template-columns:1fr 3rem}.rows .track{grid-column:1/-1;order:3}}
   .result .note{color:var(--muted);font-size:.9rem;margin-top:1rem}
+  .contato{margin-top:1.6rem;padding-top:1.4rem;border-top:1px solid var(--rule)}
+  .contato h4{font-size:1.15rem;margin-bottom:.4rem}
+  .contato .campos{display:grid;gap:.8rem;margin:1rem 0}
+  .contato .campos label{display:grid;gap:.3rem;font-weight:600}
+  .contato input[type=text]{font:inherit;padding:.75rem .8rem;border:1px solid var(--rule);border-radius:6px;background:var(--bg,#fff);color:inherit;width:100%}
+  .contato .aceite{display:flex;gap:.6rem;align-items:flex-start;font-weight:400;margin-bottom:1rem}
+  .contato .aceite input{margin-top:.3rem;flex:none}
+  .contato .err{color:var(--red)}
 
 
   /* Mobile: nenhuma coluna pode ficar mais larga que a tela, mesmo com fonte do celular aumentada */
@@ -178,7 +186,7 @@
       <div class="facts">
         <div><b>Tempo</b><span>Cerca de 3 minutos.</span></div>
         <div><b>Para quem</b><span>Donos, financeiro e quem atende cliente e fornecedor.</span></div>
-        <div><b>Privacidade</b><span>Nenhum dado pessoal é pedido. Com a sua permissão de cookies, contamos de forma anônima os acertos e as situações erradas.</span></div>
+        <div><b>Privacidade</b><span>Para ver o resultado, nenhum dado pessoal é pedido. Se quiser recebê-lo por escrito, você deixa nome e contato. Com a sua permissão de cookies, contamos de forma anônima os acertos e as situações erradas.</span></div>
         <div><b>Dica</b><span>Faça com a equipe. O golpe costuma cair em quem paga, não em quem decide.</span></div>
       </div>
     </div>
@@ -205,6 +213,7 @@
   </div>
 </footer>
 
+<script src="/assets/js/jessicagessoli-config.js"></script>
 <script>
 (function () {
   var Q = [
@@ -272,6 +281,59 @@
   foot.appendChild(msg);
   form.appendChild(foot);
 
+  /* 07/11/2026 (aprovado pela Jéssica): quem quiser deixa nome e contato para receber o resultado por escrito.
+     O resultado continua aparecendo sem pedir dado nenhum. Com FORM_ENDPOINT (jessicagessoli-config.js) o contato
+     vai para o n8n; sem ele, abre o WhatsApp com a mensagem pronta e só chega se a pessoa apertar enviar. */
+  var C = window.JESSICAGESSOLI || {};
+  function ckAberto() {
+    var h = new Date(Date.now() - 3 * 3600 * 1000).toISOString().slice(0, 10);
+    var de = String(C.CHECKUP_VENDAS_DE || ""), ate = String(C.CHECKUP_VENDAS_ATE || "");
+    return !!de && h >= de && (!ate || h <= ate);
+  }
+  function contato(acertos, nivel, erros) {
+    var box = el("form", { "class": "contato", novalidate: "" });
+    box.appendChild(el("h4", {}, "Quer receber o resultado por escrito?"));
+    box.appendChild(el("p", {}, "A Jéssica manda o seu resultado e o que fazer em cada situação errada. Sem custo e sem compromisso."));
+    var campos = el("div", { "class": "campos" });
+    var l1 = el("label", {}, "Seu nome"); var nome = el("input", { type: "text", name: "nome", autocomplete: "name" }); l1.appendChild(nome);
+    var l2 = el("label", {}, "WhatsApp com DDD ou e-mail"); var cont = el("input", { type: "text", name: "contato", autocomplete: "email" }); l2.appendChild(cont);
+    campos.appendChild(l1); campos.appendChild(l2); box.appendChild(campos);
+    var lb = el("label", { "class": "aceite" }); var ok = el("input", { type: "checkbox", name: "aceite" }); lb.appendChild(ok);
+    var tx = el("span", {}, "Aceito receber da Jéssica Gessoli o resultado e mensagens sobre golpes e o Checkup. Posso pedir para sair quando quiser. ");
+    tx.appendChild(el("a", { href: "/jessicagessoli/privacidade/" }, "Privacidade"));
+    lb.appendChild(tx); box.appendChild(lb);
+    box.appendChild(el("button", { type: "submit", "class": "btn btn-main" }, "Receber meu resultado"));
+    var aviso = el("p", { "class": "note", "aria-live": "polite" }); box.appendChild(aviso);
+    box.addEventListener("submit", function (ev) {
+      ev.preventDefault();
+      var n = nome.value.trim(), c = cont.value.trim();
+      var email = /^\S+@\S+\.\S+$/.test(c), fone = c.replace(/\D/g, "").length >= 10 && !/@/.test(c);
+      var falta = [];
+      if (!n) falta.push("nome");
+      if (!email && !fone) falta.push("WhatsApp com DDD ou e-mail válido");
+      if (!ok.checked) falta.push("aceite");
+      if (falta.length) { aviso.textContent = "Falta preencher: " + falta.join(", ") + "."; aviso.className = "note err"; return; }
+      aviso.className = "note";
+      var texto = "Olá, Jéssica! Fiz o Teste de golpe e quero receber o resultado por escrito.\nNome: " + n + "\nContato: " + c +
+        "\nResultado: " + acertos + " de 10 (" + nivel + ")" + (erros.length ? "\nSituações erradas: " + erros.map(function (i) { return i + 1; }).join(", ") : "") +
+        "\nAceito receber mensagens sobre golpes e o Checkup.";
+      var whats = "https://wa.me/" + (C.WHATSAPP || "5519981800221") + "?text=" + encodeURIComponent(texto);
+      function pronto(msgTxt) { box.textContent = ""; box.appendChild(el("h4", {}, "Pronto")); box.appendChild(el("p", {}, msgTxt)); }
+      function manual() {
+        pronto("Falta um passo: envie a mensagem pelo WhatsApp. Ela só chega à Jéssica se você apertar enviar.");
+        box.appendChild(el("a", { "class": "btn btn-main", href: whats, rel: "noopener" }, "Enviar pelo WhatsApp"));
+      }
+      if (window.zethicEvento) window.zethicEvento("teste_golpe_contato", { canal: email ? "email" : "whatsapp" });
+      if (!C.FORM_ENDPOINT) { manual(); return; }
+      fetch(C.FORM_ENDPOINT, { method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ tipo: "lead_teste_golpe", marca: "jessicagessoli", nome: n, contato: c, canal: email ? "email" : "whatsapp",
+          acertos: acertos, nivel: nivel, erros: erros.map(function (i) { return Q[i].id; }), aceite: { em: new Date().toISOString() }, pagina: location.pathname }) })
+        .then(function (r) { if (!r.ok) throw new Error("status " + r.status); pronto("Recebido. A Jéssica manda o seu resultado em até 5 dias."); })
+        .catch(manual);
+    });
+    return box;
+  }
+
   form.addEventListener("submit", function (ev) {
     ev.preventDefault();
     var acertos = 0, faltam = 0, erros = [];
@@ -302,11 +364,11 @@
     }
     out.appendChild(el("p", {}, "O Programa Antigolpe da Jéssica Gessoli treina a equipe e deixa por escrito as regras que impedem pagamento indevido."));
     var ctas = el("div", { "class": "hero-ctas" });
-    ctas.appendChild(el("a", { "class": "btn btn-main", href: "/fale?utm_source=teste-golpe-resultado&acertos=" + acertos }, "Receber meu resultado no WhatsApp"));
-    ctas.appendChild(el("a", { "class": "btn btn-line", href: "/jessicagessoli/loja/#item-antigolpe_essencial" }, "Ver o Programa Antigolpe na loja"));
+    if (ckAberto()) ctas.appendChild(el("a", { "class": "btn btn-main", href: "/jessicagessoli/checkup/?utm_source=teste-golpe-resultado" }, "Ver o Checkup Black Friday Segura · R$ 297"));
+    ctas.appendChild(el("a", { "class": "btn " + (ckAberto() ? "btn-line" : "btn-main"), href: "/jessicagessoli/loja/#item-antigolpe_essencial" }, "Ver o Programa Antigolpe na loja"));
     ctas.appendChild(el("a", { "class": "btn btn-line", href: "https://calendly.com/jessica-gessoli-zethic/conversa-de-30-minutos-com-a-jessica-gessoli", rel: "noopener" }, "Agendar uma conversa"));
     out.appendChild(ctas);
-    out.appendChild(el("p", { "class": "note" }, "O WhatsApp abre com o seu número de acertos já escrito. A mensagem só chega à Jéssica se você apertar enviar."));
+    out.appendChild(contato(acertos, nv[0], erros));
     out.appendChild(el("p", { "class": "note" }, "Teste indicativo, com situações comuns. Não substitui um treinamento com simulação real."));
     out.hidden = false; out.focus();
     // Medição anônima, só com consentimento (ver /privacidade). Conta apenas a primeira conclusão de cada visita.
