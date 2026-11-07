@@ -30,8 +30,8 @@ test("preços aprovados em 03/11/2026 e 06/11/2026, e mais nenhum", () => {
   assert.match(js, /id: "sessao", nome: "Mentoria de posicionamento · sessão avulsa", preco: 400, agora: 1/);
   assert.match(js, /id: "programa", nome: "Mentoria de posicionamento · programa de 3 meses", preco: 3200, agora: 1, parcelas: 3, em: "no"/);
   assert.match(js, /id: "aula", nome: "Aula ao vivo · IA segura para o seu Negócio", preco: 97, agora: 1/);
-  assert.match(js, /id: "checkup", nome: "Checkup Black Friday Segura", preco: 297, agora: 1, quando: "Agendamento até 25\/11\/2026, depois do pagamento · 8 vagas"/);
-  assert.match(js, /CHECKUP_FIM = new Date\("2026-11-26T03:00:00Z"\)/, "checkup sai da loja depois de 25/11");
+  // 06/11/2026 (aprovado pela Jéssica): Checkup Black Friday Segura, R$ 297, vendido de 13/11 a 25/11/2026.
+  assert.match(js, /id: "checkup", nome: "Checkup Black Friday Segura", preco: 297, agora: 1, checkup: true/);
   // 06/11/2026 (decisão da Jéssica: o máximo possível em compra online): pacotes fechados e conversa de escopo paga.
   assert.match(js, /id: "escopo", nome: "Conversa de escopo · 1 hora", preco: 400, agora: 1/);
   assert.match(js, /se você fechar o projeto em até 30 dias, os R\$ 400 são abatidos/i);
@@ -46,8 +46,19 @@ test("preços aprovados em 03/11/2026 e 06/11/2026, e mais nenhum", () => {
 
 test("aula sem data não é vendida: vira aviso da próxima turma", () => {
   const js = ler("assets/js/jessicagessoli-loja.js");
-  assert.match(js, /function vendivel\(p\) \{ return !p\.aula \|\| !!AULA_DATA; \}/);
+  assert.match(js, /function vendivel\(p\) \{ return \(!p\.aula \|\| !!AULA_DATA\)/);
   assert.match(js, /if \(!AULA_DATA\) PROPOSTAS\.push\(\{ id: "aula-aviso"/);
+});
+
+test("Checkup só é vendido entre as datas da configuração e sai da loja depois", () => {
+  const ctx = { window: {} };
+  vm.runInNewContext(ler("assets/js/jessicagessoli-config.js"), ctx);
+  const c = ctx.window.JESSICAGESSOLI;
+  assert.equal(c.CHECKUP_VENDAS_DE, "2026-11-13");
+  assert.equal(c.CHECKUP_VENDAS_ATE, "2026-11-25");
+  const js = ler("assets/js/jessicagessoli-loja.js");
+  assert.match(js, /function vendivel\(p\) \{ return \(!p\.aula \|\| !!AULA_DATA\) && \(!p\.checkup \|\| ckAberto\); \}/);
+  assert.match(js, /if \(ckEncerrado\) ITENS = ITENS\.filter/);
 });
 
 test("páginas de compra: CSP sem inline, identificação e links de termos, privacidade e desistência", () => {

@@ -213,6 +213,9 @@ main>section.credenciais{background:var(--navy);border-top:1px solid #23273F;bor
 @media (max-width:52rem){.destaque-grid{grid-template-columns:minmax(0,1fr);gap:2rem}}
 
 /* ---------- Atalhos ---------- */
+/* Como contratar (06/11/2026): esteira conversa → proposta → projeto → operação, sem preço. */
+.como-contratar .steps{margin-top:2rem}
+.contratar-ctas{display:flex;flex-wrap:wrap;align-items:center;gap:1rem 1.6rem;margin:2.2rem 0 0}
 .atalhos-grade{list-style:none;margin:2rem 0 0;padding:0;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:1rem}
 .atalhos-grade a{display:flex;flex-direction:column;gap:.9rem;height:100%;padding:1.3rem 1.1rem;border:1px solid var(--line);border-radius:12px;background:var(--surface);color:var(--white);text-decoration:none;transition:transform .25s ease,border-color .25s ease,background .25s ease}
 .atalhos-grade a:hover,.atalhos-grade a:focus-visible{transform:translateY(-4px);border-color:var(--cyan);background:rgba(0,229,255,.06)}

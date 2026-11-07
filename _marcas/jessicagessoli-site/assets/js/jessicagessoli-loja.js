@@ -1,29 +1,36 @@
 /* Jéssica Gessoli — loja com carrinho (/jessicagessoli/loja). Valores aprovados pela Jéssica em 03/11/2026:
    consultoria R$ 400 por hora, mentoria de posicionamento (sessão avulsa R$ 400; programa de 3 meses com 8 sessões
-   R$ 3.200) e aula ao vivo "IA segura para o seu Negócio" (R$ 97). Os outros serviços entram como pedido de proposta.
+   R$ 3.200) e aula ao vivo "IA segura para o seu Negócio" (R$ 97). Checkup Black Friday Segura (R$ 297), aprovado em
+   06/11/2026: 8 vagas, vendido de 13/11 a 25/11/2026 (CHECKUP_VENDAS_DE e CHECKUP_VENDAS_ATE na configuração). Os outros serviços entram como pedido de proposta.
    Pagamento pelo link do Asaas de cada item (ASAAS_LINKS em jessicagessoli-config.js). Com vários itens pagos,
    usa o CHECKOUT_ENDPOINT (n8n) se estiver preenchido; senão, mostra o link de cada item.
    04/11/2026 (decisão da Jéssica, como na loja da Pode Curtir): no site o pagamento é integral. O programa de
    3 meses tem dois links: _pix (Pix ou boleto, à vista) e _cartao (cartão em até 3x sem juros).
-   06/11/2026: entra o Checkup Black Friday Segura (R$ 297), à vista, até 25/11/2026. */
+   06/11/2026: entram a conversa de escopo, a proteção das contas, os pacotes Essenciais e a palestra online. */
 (function () {
   var C = window.JESSICAGESSOLI || {};
   var LINKS = C.ASAAS_LINKS || {};
   var brl = function (v) { return v.toLocaleString("pt-BR", { style: "currency", currency: "BRL", minimumFractionDigits: 0, maximumFractionDigits: 2 }); };
   var $ = function (id) { return document.getElementById(id); };
   var AULA_DATA = String(C.AULA_DATA || "").trim();
+  /* Datas de venda do Checkup, comparadas no horário de Brasília (AAAA-MM-DD). */
+  var HOJE = new Date(Date.now() - 3 * 3600 * 1000).toISOString().slice(0, 10);
+  var CK_DE = String(C.CHECKUP_VENDAS_DE || "").trim(), CK_ATE = String(C.CHECKUP_VENDAS_ATE || "").trim();
+  var dataBR = function (d) { return d.split("-").reverse().slice(0, 2).join("/"); };
+  var ckAberto = (!CK_DE || HOJE >= CK_DE) && (!CK_ATE || HOJE <= CK_ATE);
+  var ckEncerrado = !!CK_ATE && HOJE > CK_ATE;
 
   var ITENS = [
     { id: "consultoria", nome: "Consultoria · 1 hora", preco: 400, agora: 1, quando: "Data combinada por e-mail ou WhatsApp depois do pagamento",
       desc: "Uma hora por videochamada para levar uma decisão de cibersegurança ou de IA, com orientação clara do que fazer." },
+    { id: "checkup", nome: "Checkup Black Friday Segura", preco: 297, agora: 1, checkup: true, quando: "8 vagas, com agendamento até 25/11/2026, por videochamada",
+      desc: "Revisão, antes da Black Friday, dos pontos por onde o golpe entra: contas e perfis da loja, pagamentos e comprovantes, e a equipe que atende. Você sai sabendo o que corrigir primeiro." },
     { id: "sessao", nome: "Mentoria de posicionamento · sessão avulsa", preco: 400, agora: 1, quando: "Data combinada por e-mail ou WhatsApp depois do pagamento",
       desc: "Uma sessão individual de 1 hora, por videochamada, para destravar uma decisão de carreira ou do seu Negócio." },
     { id: "programa", nome: "Mentoria de posicionamento · programa de 3 meses", preco: 3200, agora: 1, parcelas: 3, em: "no", quando: "8 sessões individuais em 3 meses, com datas combinadas por e-mail ou WhatsApp",
       desc: "Para definir com clareza onde você ou o seu Negócio quer chegar e como se posicionar para chegar lá." },
     { id: "aula", nome: "Aula ao vivo · IA segura para o seu Negócio", preco: 97, agora: 1, aula: true, quando: AULA_DATA ? AULA_DATA + ", online" : "",
       desc: "Como usar IA no dia a dia do Negócio sem expor dados de clientes. Online e ao vivo." },
-    { id: "checkup", nome: "Checkup Black Friday Segura", preco: 297, agora: 1, quando: "Agendamento até 25/11/2026, depois do pagamento · 8 vagas",
-      desc: "Checkup do seu Negócio antes da Black Friday, com o que corrigir primeiro para não perder dinheiro com golpe." },
     /* 06/11/2026 (decisão da Jéssica: o máximo possível em compra online): pacotes de escopo fechado e a conversa de escopo paga.
        O que passa do limite de cada pacote continua como pedido de proposta. */
     { id: "escopo", nome: "Conversa de escopo · 1 hora", preco: 400, agora: 1, quando: "Data e horário escolhidos depois do pagamento",
@@ -37,10 +44,6 @@
     { id: "palestra_online", nome: "Palestra online · 1 hora", preco: 5000, agora: 1, quando: "Data combinada por escrito depois do pagamento",
       desc: "Palestra ao vivo e online sobre golpes digitais, risco cibernético ou uso seguro de IA, com perguntas do público." }
   ];
-  /* 06/11/2026 (aprovado pela Jéssica): Checkup Black Friday Segura a R$ 297, pago antes de agendar, 8 vagas
-     (o link do Asaas aceita 8 vendas) e agendamento até 25/11/2026. Depois do fim do dia 25/11 (Brasília), sai da loja. */
-  var CHECKUP_FIM = new Date("2026-11-26T03:00:00Z");
-  if (new Date() >= CHECKUP_FIM) ITENS = ITENS.filter(function (p) { return p.id !== "checkup"; });
   var PROPOSTAS = [
     { id: "diagnostico", nome: "Diagnóstico de Cibersegurança e IA · acima de 20 pessoas", desc: "Onde o seu Negócio pode perder dinheiro com golpe, vazamento de dados ou IA sem regra, e o que resolver primeiro." },
     { id: "antigolpe", nome: "Programa Antigolpe · acima de 20 pessoas", desc: "Equipe que reconhece golpes, regras que impedem pagamento indevido e cultura em que reportar não gera culpa." },
@@ -54,6 +57,8 @@
     { id: "palestra", nome: "Palestra presencial, painéis e eventos", desc: "Palestra presencial, painel, mediação ou apresentação de palco. O deslocamento entra na proposta." }
   ];
   /* Sem data marcada, a aula não é vendida: vira um pedido de aviso da próxima turma. */
+  /* Depois do último dia de venda, o Checkup sai da loja. */
+  if (ckEncerrado) ITENS = ITENS.filter(function (p) { return !p.checkup; });
   if (!AULA_DATA) PROPOSTAS.push({ id: "aula-aviso", nome: "Aviso da próxima turma da aula ao vivo", aviso: true, desc: "Sem pagamento. Você recebe a data por e-mail quando as inscrições abrirem." });
 
   var CHAVE = "jessicagessoli-carrinho-v1";
@@ -68,7 +73,7 @@
   function tem(lista, id) { return lista.indexOf(id) >= 0; }
   function alterna(lista, id) { var i = lista.indexOf(id); if (i >= 0) lista.splice(i, 1); else lista.push(id); }
   function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
-  function vendivel(p) { return !p.aula || !!AULA_DATA; }
+  function vendivel(p) { return (!p.aula || !!AULA_DATA) && (!p.checkup || ckAberto); }
   /* Formas de pagamento de cada item. Parcelado só no cartão; Pix e boleto sempre à vista. */
   function formas(p) { return p.parcelas ? "Pix ou boleto à vista, ou cartão em até " + p.parcelas + "x sem juros" : "Pix, boleto ou cartão, à vista"; }
   function forma() { var r = document.querySelector('input[name="forma"]:checked'); return r ? r.value : ""; }
@@ -79,11 +84,13 @@
   function catalogo() {
     $("grade-itens").innerHTML = ITENS.map(function (p) {
       var on = tem(cart.itens, p.id);
-      var botao = vendivel(p)
+      var botao = p.checkup && !vendivel(p)
+        ? '<button class="por por-aviso" type="button" disabled>Vendas a partir de ' + dataBR(CK_DE) + "</button>"
+        : vendivel(p)
         ? '<button class="por" type="button" data-item="' + p.id + '" aria-pressed="' + on + '">' + (on ? "No pedido · tirar" : "Pôr no pedido") + "</button>"
         : '<button class="por por-aviso" type="button" data-prop="aula-aviso" aria-pressed="' + tem(cart.prop, "aula-aviso") + '">' + (tem(cart.prop, "aula-aviso") ? "Aviso pedido · tirar" : "Avise-me quando abrir") + "</button>";
       return '<article class="item"><h3>' + p.nome + '</h3><p class="preco num">' + brl(p.preco) + "</p><p>" + p.desc + "</p>" +
-        '<dl class="meta"><div><dt>' + (p.aula ? "Data" : "Quando") + "</dt><dd>" + (vendivel(p) ? esc(p.quando) : "Data em breve") + "</dd></div>" +
+        '<dl class="meta"><div><dt>' + (p.aula ? "Data" : "Quando") + "</dt><dd>" + (vendivel(p) || p.checkup ? esc(p.quando) : "Data em breve") + "</dd></div>" +
         '<div><dt>Pagamento</dt><dd>' + pagamento(p) + "</dd></div></dl>" + botao + "</article>";
     }).join("");
     $("lista-propostas").innerHTML = PROPOSTAS.filter(function (a) { return !a.aviso; }).map(function (a) {

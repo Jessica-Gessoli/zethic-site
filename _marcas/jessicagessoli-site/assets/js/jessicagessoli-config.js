@@ -3,12 +3,14 @@
 
    ASAAS_LINKS: link de pagamento do Asaas de cada item (https://www.asaas.com/c/...). Vazio = "pagamento em configuração".
      consultoria: 1 hora de consultoria (R$ 400) · sessao: mentoria de posicionamento, sessão avulsa (R$ 400)
+     checkup: Checkup Black Friday Segura (R$ 297; aprovado em 06/11/2026)
      programa_pix e programa_cartao: programa de mentoria de 3 meses (R$ 3.200, pagamento integral; 04/11/2026):
        _pix para Pix ou boleto, à vista; _cartao só cartão, em até 3x sem juros · aula: aula ao vivo (R$ 97)
-     checkup: Checkup Black Friday Segura (R$ 297, à vista; configure o link para aceitar 8 vendas, as 8 vagas)
      06/11/2026: escopo (conversa de escopo, R$ 400) · protecao (proteção das contas, R$ 400) ·
        antigolpe_essencial_pix e _cartao (R$ 2.500; cartão em até 3x) · diagnostico_essencial_pix e _cartao (R$ 7.500;
        cartão em até 6x) · palestra_online (R$ 5.000, à vista)
+   CHECKUP_VENDAS_DE e CHECKUP_VENDAS_ATE: primeiro e último dia de venda do Checkup (AAAA-MM-DD, horário de Brasília).
+     Antes da abertura o item aparece com "vendas a partir de"; depois do último dia ele sai da loja.
    AULA_DATA: data e horário da próxima turma da aula ao vivo, como deve aparecer na loja (ex.: "26/11/2026, às 19h").
      Vazio = a aula aparece com "data em breve" e o botão vira "Avise-me quando abrir".
    CHECKOUT_ENDPOINT: webhook do n8n que cria o checkout do Asaas com vários itens e devolve {"url": "..."}.
@@ -19,11 +21,11 @@
 window.JESSICAGESSOLI = {
   ASAAS_LINKS: {
     consultoria: "",
+    checkup: "",
     sessao: "",
     programa_pix: "",
     programa_cartao: "",
     aula: "",
-    checkup: "",
     escopo: "",
     protecao: "",
     antigolpe_essencial_pix: "",
@@ -32,6 +34,8 @@ window.JESSICAGESSOLI = {
     diagnostico_essencial_cartao: "",
     palestra_online: ""
   },
+  CHECKUP_VENDAS_DE: "2026-11-13",
+  CHECKUP_VENDAS_ATE: "2026-11-25",
   AULA_DATA: "",
   CHECKOUT_ENDPOINT: "",
   FORM_ENDPOINT: "",
