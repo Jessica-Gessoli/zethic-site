@@ -1,0 +1,18 @@
+/* Zethic — compra online dos pacotes de entrada (/comprar). Protótipo de 06/11/2026. Carrega depois de zethic-loja.css. */
+.prototipo{margin:0;background:#FEF4E2;color:#02041A;padding:.7rem 0;font-size:.9rem;font-weight:600}
+.loja-hero .lead a{color:var(--cyan)}
+.loja-item.p-tec{--pilar:var(--ciano-texto)}
+.loja-item.p-seg{--pilar:var(--navy)}
+.preco-zethic{margin:0;font-size:.95rem;color:var(--ice)}
+.preco-zethic .valor{font-size:1.9rem;line-height:1.1;font-weight:800;color:#02041A;font-variant-numeric:tabular-nums;margin-right:.25rem}
+.preco-depois{margin:0;font-size:.85rem;color:var(--ice)}
+.totais{display:flex;flex-direction:column;gap:.4rem;border-top:1px solid var(--line);padding-top:.7rem}
+.totais p{margin:0;display:flex;justify-content:space-between;gap:1rem;font-size:.9rem}
+.totais b{font-variant-numeric:tabular-nums;white-space:nowrap}
+.totais .total{font-size:1.05rem;border-top:1px solid var(--line);padding-top:.5rem}
+.aviso-carrinho{margin:0;font-size:.85rem;color:var(--ice)}
+.resumo ul{margin:0;padding-left:1.1rem;display:flex;flex-direction:column;gap:.5rem;font-size:.93rem}
+#form-compra fieldset{border:0;padding:0;margin:0 0 1.8rem;display:flex;flex-direction:column;gap:.8rem;min-width:0}
+#form-compra legend{padding:0;margin-bottom:.8rem;font-size:1.25rem;font-weight:700}
+.campo select:disabled{opacity:.55}
+#resultado-links{margin:0;padding-left:1.1rem}
