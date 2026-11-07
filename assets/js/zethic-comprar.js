@@ -55,8 +55,10 @@
     var sup = suporteAtual();
     var mensal = (sup ? preco(sup) : 0) + (sup ? estado.pessoas * preco(PROTECAO) : 0);
     var site = estado.site ? preco(SITE) : 0;
-    return { sup: sup, mensal: mensal, implantacao: mensal, site: site, entradaSite: Math.round(site * 0.4 * 100) / 100,
-      hoje: mensal * 2 + Math.round(site * 0.4 * 100) / 100 };
+    // Black Week (23 a 30/11/2026): só a implantação agora; a primeira mensalidade vence em janeiro. Preço igual.
+    var bw = !!window.zethicBlackWeek && !!sup;
+    return { sup: sup, mensal: mensal, implantacao: mensal, site: site, entradaSite: Math.round(site * 0.4 * 100) / 100, bw: bw,
+      hoje: (bw ? mensal : mensal * 2) + Math.round(site * 0.4 * 100) / 100 };
   }
 
   function cartaoPreco(item, unidade) {
@@ -108,7 +110,9 @@
     var t = [];
     if (c.mensal) {
       t.push("<p><span>Mensalidade</span><b>" + reais(c.mensal) + "</b></p>");
-      t.push("<p><span>Implantação (1 mensalidade, paga com a primeira)</span><b>" + reais(c.implantacao) + "</b></p>");
+      t.push(c.bw
+        ? "<p><span>Implantação (1 mensalidade), paga agora</span><b>" + reais(c.implantacao) + "</b></p><p><span>Primeira mensalidade, em janeiro (Black Week)</span><b>" + reais(c.mensal) + "</b></p>"
+        : "<p><span>Implantação (1 mensalidade, paga com a primeira)</span><b>" + reais(c.implantacao) + "</b></p>");
     }
     if (c.site) t.push("<p><span>Entrada do site (40%)</span><b>" + reais(c.entradaSite) + "</b></p>");
     t.push('<p class="total"><span>A pagar agora</span><b>' + reais(c.hoje) + "</b></p>");
@@ -161,7 +165,9 @@
     if (c.sup) l.push("- " + c.sup.nome + ": " + reais(preco(c.sup)) + " por mês");
     if (c.sup && estado.pessoas) l.push("- Proteção por pessoa, " + estado.pessoas + ": " + reais(estado.pessoas * preco(PROTECAO)) + " por mês");
     if (estado.site) l.push("- " + SITE.nome + ": " + reais(c.site) + " (40% agora: " + reais(c.entradaSite) + ")");
-    if (c.mensal) l.push("Implantação: " + reais(c.implantacao) + ", com a primeira mensalidade");
+    if (c.mensal) l.push(c.bw
+      ? "Black Week: implantação de " + reais(c.implantacao) + " paga agora; primeira mensalidade em janeiro; 1 hora extra de suporte no primeiro mês"
+      : "Implantação: " + reais(c.implantacao) + ", com a primeira mensalidade");
     l.push("A pagar agora: " + reais(c.hoje));
     l.push("Preço de fundador: " + (estado.fundador ? "sim, com depoimento" : "não"));
     // Venda casada (07/11/2026): o valor de um checkup feito nos últimos 30 dias abate a implantação. A loja da Zethic
@@ -200,7 +206,7 @@
       $("resultado-links").innerHTML = prontos.map(function (id) { return '<li><a href="' + esc(LINKS[id]) + '" rel="noopener">Pagar: ' + esc(id === SITE.id ? SITE.nome : suporteAtual().nome) + "</a></li>"; }).join("");
       $("resultado-links").hidden = false;
     }
-    if (window.zethicEvento) window.zethicEvento("pedido_enviado", { loja: "comprar", valor: c.hoje, currency: "BRL", origem: window.zethicOrigem ? window.zethicOrigem() : "" });
+    if (window.zethicEvento) window.zethicEvento("pedido_enviado", { loja: "comprar", black_week: !!c.bw, valor: c.hoje, currency: "BRL", origem: window.zethicOrigem ? window.zethicOrigem() : "" });
     $("form-compra").hidden = true;
     $("resultado").hidden = false;
     $("resultado").scrollIntoView({ block: "start" });

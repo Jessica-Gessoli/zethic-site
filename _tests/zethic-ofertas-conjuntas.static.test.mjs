@@ -48,3 +48,27 @@ test("sites da Jéssica Gessoli e da Pode Curtir levam à Zethic, com a fundador
   }
   assert.match(ler("podecurtir/loja/obrigado/index.html"), /https:\/\/zethic\.net\/para-o-seu-negocio\?utm_source=podecurtir/);
 });
+
+// 07/11/2026, 07h03 (aprovado pela Jéssica): Black Week da Zethic, de 23 a 30/11/2026. Condição de pagamento,
+// não desconto: implantação agora, primeira mensalidade em janeiro, 1 hora extra de suporte. Preço igual.
+test("Black Week: datas fixas, aparece e some sozinha, sem preço na página inicial", () => {
+  const js = ler("assets/js/zethic-black-week.js");
+  assert.match(js, /Date\.parse\("2026-11-23T00:00:00-03:00"\)/);
+  assert.match(js, /Date\.parse\("2026-12-01T00:00:00-03:00"\)/);
+  const home = ler("index.html");
+  assert.match(home, /<div class="faixa-bw" data-black-week hidden>/);
+  assert.match(home, /zethic-black-week\.js/);
+  const faixa = home.split('class="faixa-bw"')[1].split("</div></div>")[0];
+  assert.doesNotMatch(faixa, /R\$/);
+  assert.doesNotMatch(faixa, /desconto|de R\$|por R\$/i);
+});
+
+test("Black Week na loja e nas campanhas: só a implantação agora, mensalidade em janeiro, pedido marcado", () => {
+  const c = ler("assets/js/zethic-comprar.js");
+  assert.match(c, /hoje: \(bw \? mensal : mensal \* 2\)/);
+  assert.match(c, /Black Week: implantação de/);
+  assert.match(ler("comprar.html"), /<div class="bw-caixa" data-black-week hidden>/);
+  const ordem = ler("comprar.html");
+  assert.ok(ordem.indexOf("zethic-black-week.js") < ordem.indexOf("zethic-comprar.js"), "a Black Week carrega antes da loja");
+  for (const p of CAMPANHAS) assert.match(ler(p + ".html"), /<p class="campanha-bw" data-black-week hidden>/, p);
+});
