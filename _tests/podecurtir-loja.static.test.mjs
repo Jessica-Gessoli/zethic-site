@@ -15,7 +15,7 @@ test("configuração única, com pagamento e Pixel desligados até serem preench
   const c = ctx.window.PODECURTIR;
   assert.deepEqual(Object.keys(c.ASAAS_LINKS).sort(),
     ["ajuste", "arrumado_cartao", "arrumado_pix", "completa", "essencial", "marca_cartao", "marca_pix", "padrao",
-      "plus_gravacao", "plus_livro", "plus_mentoria", "plus_protecao", "plus_site_cartao", "plus_site_pix"]);
+      "plus_gravacao", "plus_livro", "plus_mentoria", "plus_protecao", "plus_recuperacao", "plus_site_cartao", "plus_site_pix"]);
   for (const v of Object.values(c.ASAAS_LINKS)) assert.ok(v === "" || /^https:\/\/(www\.)?asaas\.com\//.test(v), "link do Asaas inválido: " + v);
   assert.ok([500, 750, 1200].includes(c.PRECO_AJUSTE), "preço do Ajuste fora da escada aprovada");
   assert.ok(c.PIXEL_ID === "" || /^\d{10,20}$/.test(c.PIXEL_ID));
@@ -186,7 +186,7 @@ test("plus no fechamento: preços aprovados, só com serviço pago, parceria ide
   assert.match(plus, /id: "plus_protecao", marca: "jg", nome: "Proteção das contas", preco: 400,/);
   assert.match(plus, /id: "plus_mentoria", marca: "jg", nome: "Mentoria em IA · 1 hora", preco: 400,/);
   assert.match(plus, /id: "plus_site", marca: "ze", nome: "Site Essencial", preco: 3000, parcelas: 3, em: "no", fundador: true,/);
-  assert.match(js, /var plus = pagos\.length \? PLUS\.filter/);
+  assert.match(js, /var plus = PLUS\.filter\(function \(p\) \{ return tem\(cart\.plus, p\.id\) && \(principal \|\| p\.avulso\); \}\);/);
   assert.match(js, /" \(" \+ COM\[p\.marca\] \+ ", em parceria; o seu contato continua sendo a Pode Curtir\)"/);
   assert.match(js, /var COM = \{ jg: "com Jéssica Gessoli", ze: "com a Zethic" \};/);
   assert.match(js, /\$\("plus-lista"\)\.addEventListener\("change"/);
@@ -197,4 +197,31 @@ test("plus no fechamento: preços aprovados, só com serviço pago, parceria ide
   const t = ler("podecurtir/termos/index.html");
   assert.match(t, /<strong>Plus no fechamento do pedido:<\/strong>/);
   assert.match(t, /O Site Essencial pode ser parcelado em até 3x no cartão de crédito, sem juros/);
+});
+
+// 06/11/2026 (protótipo aprovado pela Jéssica): tipo de Negócio com sugestão; segurança das contas vendida sozinha,
+// feita por Jéssica Gessoli em parceria, sem promessa de recuperar a conta; preço depois das vagas de fundador em cada item.
+test("tipos de Negócio, segurança das contas avulsa e preço depois das vagas de fundador", () => {
+  const js = ler("assets/js/podecurtir-loja.js");
+  for (const id of ["doceria", "salao", "consultorio", "outro"]) assert.match(js, new RegExp('id: "' + id + '"'));
+  assert.match(js, /regra de publicidade do seu conselho profissional/);
+  const plus = js.split("var PLUS = [")[1].split("];")[0];
+  assert.match(plus, /id: "plus_protecao", marca: "jg", nome: "Proteção das contas", preco: 400, avulso: true,/);
+  assert.match(plus, /id: "plus_recuperacao", marca: "jg", nome: "Recuperação de conta", preco: 400, avulso: true,/);
+  assert.match(plus, /não há garantia de recuperação/);
+  assert.doesNotMatch(plus, /id: "plus_(gravacao|livro|mentoria|site)"[^}]*avulso: true/);
+  assert.match(js, /Depois, R\$ 3\.200\./);
+  assert.match(js, /Depois, R\$ 12\.000\./);
+  assert.match(js, /A partir do 4º cliente, R\$ 2\.400 por mês\./);
+  assert.match(js, /A partir do 4º cliente, R\$ 4\.480 por mês\./);
+  assert.match(js, /A partir do 4º cliente, R\$ 7\.200 por mês\./);
+  const loja = ler("podecurtir/loja/index.html");
+  assert.match(loja, /<div class="tipos-opcoes" id="tipos-opcoes"><\/div>/);
+  assert.match(loja, /<div class="grade" id="grade-seguranca"><\/div>/);
+  assert.match(loja, /Feita por Jéssica Gessoli, em parceria\. O seu contato continua sendo a Pode Curtir\./);
+  const ctx = { window: {} };
+  vm.runInNewContext(ler("assets/js/podecurtir-config.js"), ctx);
+  assert.ok("plus_recuperacao" in ctx.window.PODECURTIR.ASAAS_LINKS);
+  const t = ler("podecurtir/termos/index.html");
+  assert.match(t, /também podem ser compradas sozinhas, na seção Segurança das contas/);
 });

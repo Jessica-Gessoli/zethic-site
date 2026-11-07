@@ -8,7 +8,11 @@
    (R$ 3.000, preço de fundador, até 3x no cartão). Os feitos em parceria aparecem em linha separada, com o nome de
    quem faz; o contato continua sendo a Pode Curtir. Trabalhos maiores seguem como pedido de proposta.
    Pagamento pelo link do Asaas de cada item (ASAAS_LINKS em podecurtir-config.js). Com vários itens pagos,
-   usa o CHECKOUT_ENDPOINT (n8n) se estiver preenchido; senão, mostra o link de cada item. */
+   usa o CHECKOUT_ENDPOINT (n8n) se estiver preenchido; senão, mostra o link de cada item.
+   Decisões de 06/11/2026 (protótipo aprovado pela Jéssica): escolha do tipo de Negócio no topo (doceria, salão,
+   consultório ou outro), com sugestão de por onde começar; seção "Segurança das contas" com a Proteção das contas e a
+   Recuperação de conta (R$ 400 cada, Jéssica Gessoli, em parceria), que podem ser compradas sozinhas ("avulso");
+   o preço depois das vagas de fundador aparece em cada item. */
 (function () {
   var C = window.PODECURTIR || {};
   var LINKS = C.ASAAS_LINKS || {};
@@ -20,36 +24,71 @@
     { id: "ajuste", nome: "Ajuste de Perfil", preco: PRECO_AJUSTE, prazo: "5 dias úteis", fundador: PRECO_AJUSTE === 500,
       desc: "Bio, nome, foto, link e botão de WhatsApp, destaques com capa, 3 posts fixados e checagem básica de segurança da conta." },
     { id: "arrumado", nome: "Perfil Arrumado", preco: 2000, parcelas: 3, em: "no", prazo: "15 dias úteis", fundador: true,
+      depois: "Preço de fundador para os 3 primeiros clientes. Depois, R$ 3.200.",
       desc: "Tudo do Ajuste de Perfil, mais análise de quem você segue, curadoria da grade, revisão das legendas e dos acessos e plano de 30 dias." },
     { id: "marca", nome: "Marca Completa", preco: 7500, parcelas: 6, em: "na", prazo: "30 dias úteis", fundador: true,
+      depois: "Preço de fundador para os 3 primeiros clientes. Depois, R$ 12.000.",
       desc: "Tudo do Perfil Arrumado, mais paleta, tipografia, símbolo e assinatura, modelos de capa, post e story e manual curto de uso." }
   ];
   var PLANOS = [
-    { id: "essencial", nome: "Gestão Essencial", mensal: 1500, desc: "1 rede, 12 posts por mês e relatório mensal." },
-    { id: "padrao", nome: "Gestão Padrão", mensal: 2800, desc: "2 redes, 16 posts e 4 Reels por mês, com relatório." },
-    { id: "completa", nome: "Gestão Completa", mensal: 4500, desc: "3 redes, 20 posts e 8 Reels por mês." }
+    { id: "essencial", nome: "Gestão Essencial", mensal: 1500, depois: "Preço de fundador. A partir do 4º cliente, R$ 2.400 por mês.", desc: "1 rede, 12 posts por mês e relatório mensal." },
+    { id: "padrao", nome: "Gestão Padrão", mensal: 2800, depois: "Preço de fundador. A partir do 4º cliente, R$ 4.480 por mês.", desc: "2 redes, 16 posts e 4 Reels por mês, com relatório." },
+    { id: "completa", nome: "Gestão Completa", mensal: 4500, depois: "Preço de fundador. A partir do 4º cliente, R$ 7.200 por mês.", desc: "3 redes, 20 posts e 8 Reels por mês." }
   ];
   var PROPOSTAS = [
-    { id: "gravacao", marca: "pc", nome: "Gravação de foto e vídeo", plus: "plus_gravacao", desc: "Diária, evento ou sessão maior. O deslocamento entra na proposta." },
+    { id: "gravacao", marca: "pc", nome: "Sessão de fotos, ensaio e gravação de vídeo", plus: "plus_gravacao", desc: "Produto, ambiente ou retrato profissional; diária, evento ou sessão maior. O deslocamento entra na proposta." },
     { id: "livro", marca: "pc", nome: "Livro pronto", plus: "plus_livro", desc: "Revisão, capa, diagramação, publicação e divulgação." },
-    { id: "protecao", marca: "jg", nome: "Proteção completa das contas", plus: "plus_protecao", desc: "Feita por Jéssica Gessoli, em parceria. Sem senha." },
+    { id: "protecao", marca: "jg", nome: "Proteção das contas da equipe inteira", plus: "plus_protecao", desc: "Mais de 3 contas ou a equipe toda. Feita por Jéssica Gessoli, em parceria. Sem senha." },
     { id: "mentoria", marca: "jg", nome: "Mentoria e consultoria em IA", plus: "plus_mentoria", desc: "Você aprende a fazer com IA, no seu projeto. Com Jéssica Gessoli." },
     { id: "tech", marca: "ze", nome: "Site, app, automação e bot de WhatsApp", plus: "plus_site", desc: "Feitos pela Zethic, em parceria. Atendimento e dados das redes num lugar só." }
   ];
-  /* Plus do fechamento do pedido: escopo fechado e preço próprio. Só entram com um serviço pago no pedido. */
+  /* Plus do fechamento do pedido: escopo fechado e preço próprio. Só entram com um serviço pago no pedido,
+     menos os marcados "avulso" (segurança das contas, 06/11/2026), que também se compram sozinhos. */
   var PLUS = [
     { id: "plus_gravacao", marca: "pc", nome: "Sessão de fotos de 1 hora", preco: 500, prazo: "Edição pronta em até 14 dias depois da sessão",
       desc: "10 fotos editadas, em Campinas/SP. Fora de Campinas, o deslocamento é combinado antes e cobrado à parte." },
     { id: "plus_livro", marca: "pc", nome: "Capa e diagramação do e-book", preco: 1500, prazo: "Prazo combinado por escrito depois do briefing",
       desc: "Com o texto pronto, até 100 páginas: capa simples e diagramação do e-book. ISBN, ficha catalográfica e gráfica ficam com o autor." },
-    { id: "plus_protecao", marca: "jg", nome: "Proteção das contas", preco: 400, prazo: "Data combinada depois do pagamento",
-      desc: "1 hora a distância, até 3 contas do Negócio: verificação em duas etapas, e-mail e telefone de recuperação, revisão de acessos e acesso de parceiro, sem senha. Recuperar conta invadida fica fora e é cobrado por hora." },
+    { id: "plus_protecao", marca: "jg", nome: "Proteção das contas", preco: 400, avulso: true, prazo: "Data combinada depois do pagamento",
+      desc: "1 hora a distância, até 3 contas do Negócio: verificação em duas etapas, e-mail e telefone de recuperação, revisão de acessos e acesso de parceiro, sem senha. Conta já invadida ou bloqueada: Recuperação de conta." },
+    { id: "plus_recuperacao", marca: "jg", nome: "Recuperação de conta", preco: 400, avulso: true, prazo: "Data combinada depois do pagamento",
+      desc: "1 hora a distância, para conta invadida ou bloqueada, pelos canais oficiais da plataforma. A decisão de devolver a conta é da plataforma; por isso, não há garantia de recuperação." },
     { id: "plus_mentoria", marca: "jg", nome: "Mentoria em IA · 1 hora", preco: 400, prazo: "Data combinada depois do pagamento",
       desc: "Por videochamada, nas ferramentas de IA que você já tem. Você aprende fazendo, no seu projeto." },
     { id: "plus_site", marca: "ze", nome: "Site Essencial", preco: 3000, parcelas: 3, em: "no", fundador: true, prazo: "Prazo combinado por escrito depois do briefing",
       desc: "Site de uma página com apresentação e serviços, botão de WhatsApp, formulário, mapa e cadastro no Google. Domínio e hospedagem ficam no nome do seu Negócio, à parte. Preço de fundador para os 3 primeiros clientes." }
   ];
   function plusDe(id) { return PLUS.filter(function (p) { return p.id === id; })[0]; }
+  /* Tipo de Negócio (06/11/2026): sugestão de por onde começar, a partir das personas de clientes (hipótese até as entrevistas). */
+  var TIPOS = [
+    { id: "doceria", nome: "Doceria ou confeitaria", proj: ["ajuste"], plano: null, plus: ["plus_gravacao"], prop: [],
+      txt: "Comece pelo <strong>Ajuste de Perfil</strong>: bio que diz o que você vende, cardápio nos destaques e botão de WhatsApp para encomendar. Se as fotos do celular não mostram o capricho dos doces, some a <strong>sessão de fotos de 1 hora</strong> no fechamento do pedido." },
+    { id: "salao", nome: "Salão ou estúdio de beleza", proj: [], plano: "padrao", plus: [], prop: [], alt: ["arrumado"],
+      txt: "A <strong>Gestão Padrão</strong> tem 4 Reels por mês para mostrar o seu trabalho sem você parar de atender. Prefere sem mensalidade? O <strong>Perfil Arrumado</strong> é um projeto com começo, meio e fim." },
+    { id: "consultorio", nome: "Consultório de saúde", proj: ["arrumado"], plano: null, plus: [], prop: ["gravacao"],
+      txt: "O <strong>Perfil Arrumado</strong> organiza o seu perfil com discrição, e o <strong>ensaio de fotos</strong> sai por proposta. Antes do primeiro post, você confirma a regra de publicidade do seu conselho profissional. Nada de foto, relato ou dado de paciente." },
+    { id: "outro", nome: "Outro Negócio", proj: [], plano: null, plus: [], prop: [],
+      txt: "Veja os três níveis do Perfil Pronto logo abaixo. Se o seu caso for diferente, peça proposta, sem compromisso." }
+  ];
+  var tipo = null;
+  function tipoAtual() { return TIPOS.filter(function (t) { return t.id === tipo; })[0] || null; }
+  function sugerido(tipoItem, id) {
+    var t = tipoAtual(); if (!t) return false;
+    if (tipoItem === "plano") return t.plano === id;
+    if (tipoItem === "proj") return tem(t.proj, id) || tem(t.alt || [], id);
+    return tem(t[tipoItem] || [], id);
+  }
+  function tipos() {
+    $("tipos-opcoes").innerHTML = TIPOS.map(function (t) {
+      return '<button class="pedir" type="button" data-tipo="' + t.id + '" aria-pressed="' + (tipo === t.id) + '">' + t.nome + "</button>";
+    }).join("");
+    var t = tipoAtual();
+    $("sugestao").hidden = !t;
+    if (t) {
+      var algo = t.proj.length || t.plano || t.plus.length || t.prop.length;
+      $("sugestao").innerHTML = "<p>" + t.txt + "</p>" + (algo ? '<button class="pedir" type="button" id="usar-sugestao">Pôr a sugestão no pedido</button>' : "");
+    }
+  }
   var MARCA = { pc: "PODE CURTIR", jg: "JÉSSICA GESSOLI", ze: "ZETHIC" };
   var MARCA_NOME = { pc: "Pode Curtir", jg: "Jéssica Gessoli", ze: "Zethic" };
   var COM = { jg: "com Jéssica Gessoli", ze: "com a Zethic" };
@@ -85,23 +124,31 @@
   }
 
   function catalogo() {
+    var marcaSug = '<span class="marca-sugestao">PARA O SEU NEGÓCIO</span>';
     $("grade-perfil").innerHTML = PROJ.map(function (p) {
-      var on = tem(cart.proj, p.id);
-      return '<article class="item"><h3>' + p.nome + '</h3><p class="preco num">' + brl(p.preco) + "</p><p>" + p.desc + "</p>" +
-        (p.id === "ajuste" ? '<p class="vagas">' + textoVagas() + "</p>" : "") +
+      var on = tem(cart.proj, p.id), sug = sugerido("proj", p.id);
+      return '<article class="item' + (sug ? " sugerido" : "") + '">' + (sug ? marcaSug : "") + "<h3>" + p.nome + '</h3><p class="preco num">' + brl(p.preco) + "</p><p>" + p.desc + "</p>" +
+        (p.id === "ajuste" ? '<p class="vagas">' + textoVagas() + "</p>" : (p.depois ? '<p class="vagas">' + p.depois + "</p>" : "")) +
         '<dl class="meta"><div><dt>Prazo</dt><dd>' + p.prazo + ', a partir do briefing completo</dd></div><div><dt>Pagamento</dt><dd>Integral: ' + formas(p) + "</dd></div></dl>" +
         '<button class="por" type="button" data-proj="' + p.id + '" aria-pressed="' + on + '">' + (on ? "No pedido · tirar" : "Pôr no pedido") + "</button></article>";
     }).join("");
+    $("grade-seguranca").innerHTML = PLUS.filter(function (p) { return p.avulso; }).map(function (p) {
+      var on = tem(cart.plus, p.id);
+      return '<article class="item"><h3>' + p.nome + '</h3><p class="preco num">' + brl(p.preco) + "</p><p>" + p.desc + "</p>" +
+        '<dl class="meta"><div><dt>Quando</dt><dd>' + p.prazo + '</dd></div><div><dt>Pagamento</dt><dd>Integral: ' + formas(p) + "</dd></div></dl>" +
+        '<button class="por" type="button" data-plus="' + p.id + '" aria-pressed="' + on + '">' + (on ? "No pedido · tirar" : "Pôr no pedido") + "</button></article>";
+    }).join("");
     $("grade-planos").innerHTML = PLANOS.map(function (p) {
-      var on = cart.plano === p.id;
-      return '<article class="item"><h3>' + p.nome + '</h3><p class="preco num">' + brl(p.mensal) + ' <small>por mês</small></p><p>' + p.desc + "</p>" +
+      var on = cart.plano === p.id, sug = sugerido("plano", p.id);
+      return '<article class="item' + (sug ? " sugerido" : "") + '">' + (sug ? marcaSug : "") + "<h3>" + p.nome + '</h3><p class="preco num">' + brl(p.mensal) + ' <small>por mês</small></p><p>' + p.desc + "</p>" +
+        (p.depois ? '<p class="vagas">' + p.depois + "</p>" : "") +
         '<dl class="meta"><div><dt>Mínimo</dt><dd>3 meses = ' + brl(p.mensal * 3) + '</dd></div><div><dt>Pagamento</dt><dd>1ª mensalidade hoje; depois, todo mês</dd></div></dl>' +
         '<button class="por" type="button" data-plano="' + p.id + '" aria-pressed="' + on + '">' + (on ? "No pedido · tirar" : "Pôr no pedido") + "</button></article>";
     }).join("");
     $("lista-propostas").innerHTML = PROPOSTAS.map(function (a) {
       var on = tem(cart.prop, a.id);
       var x = a.plus ? plusDe(a.plus) : null;
-      return '<div class="proposta"><div><span class="selo ' + a.marca + '">' + MARCA[a.marca] + "</span><strong>" + a.nome + "</strong><p>" + a.desc + "</p>" +
+      return '<div class="proposta' + (sugerido("prop", a.id) ? " sugerido" : "") + '"><div><span class="selo ' + a.marca + '">' + MARCA[a.marca] + "</span><strong>" + a.nome + "</strong><p>" + a.desc + "</p>" +
         (x ? '<p class="plus-dica">Ou como plus, no fechamento de um pedido: ' + x.nome + " por " + brl(x.preco) + ".</p>" : "") + "</div>" +
         '<button class="pedir" type="button" data-prop="' + a.id + '" aria-pressed="' + on + '">' + (on ? "Pedido · tirar" : "Pedir proposta") + "</button></div>";
     }).join("");
@@ -113,8 +160,9 @@
        No Ajuste de Perfil, só a R$ 500; a R$ 750 ou R$ 1.200 não se pede depoimento nem autorização. */
     PROJ.forEach(function (p) { if (tem(cart.proj, p.id)) { hoje += p.preco; pagos.push({ id: p.id, nome: p.nome, valor: p.preco, parcelas: p.parcelas || 0, em: p.em || "" }); if (p.fundador) fundador = true; } });
     PLANOS.forEach(function (p) { if (cart.plano === p.id) { plano = p; hoje += p.mensal; pagos.push({ id: p.id, nome: p.nome, valor: p.mensal }); fundador = true; } });
-    /* Plus só com um serviço pago no pedido. */
-    var plus = pagos.length ? PLUS.filter(function (p) { return tem(cart.plus, p.id); }) : [];
+    /* Plus só com um serviço pago no pedido; os "avulso" (segurança das contas) também sozinhos. */
+    var principal = pagos.length > 0;
+    var plus = PLUS.filter(function (p) { return tem(cart.plus, p.id) && (principal || p.avulso); });
     plus.forEach(function (p) {
       hoje += p.preco;
       pagos.push({ id: p.id, nome: p.nome, valor: p.preco, parcelas: p.parcelas || 0, em: p.em || "", marca: p.marca });
@@ -137,9 +185,9 @@
       out.push("<li><span>" + p.nome + '</span><span class="num">' + brl(p.mensal) + "</span><small>1ª mensalidade · mínimo de 3 meses = " + brl(p.mensal * 3) + "</small>" +
         (comTirar ? '<button class="tirar" type="button" data-plano="' + p.id + '">Tirar</button>' : "") + "</li>");
     });
-    if (temPrincipal()) PLUS.forEach(function (p) {
-      if (!tem(cart.plus, p.id)) return;
-      out.push('<li><span><span class="selo ' + p.marca + '">' + MARCA[p.marca] + "</span>" + p.nome + '</span><span class="num">' + brl(p.preco) + "</span><small>Plus · pagamento integral · " + formas(p) + "</small>" +
+    PLUS.forEach(function (p) {
+      if (!tem(cart.plus, p.id) || !(temPrincipal() || p.avulso)) return;
+      out.push('<li><span><span class="selo ' + p.marca + '">' + MARCA[p.marca] + "</span>" + p.nome + '</span><span class="num">' + brl(p.preco) + "</span><small>" + (p.avulso && !temPrincipal() ? "Segurança das contas" : "Plus") + " · pagamento integral · " + formas(p) + "</small>" +
         (comTirar ? '<button class="tirar" type="button" data-plus="' + p.id + '">Tirar</button>' : "") + "</li>");
     });
     PROPOSTAS.forEach(function (a) {
@@ -170,7 +218,19 @@
     $("aviso-carrinho").hidden = !aviso; $("aviso-carrinho").textContent = aviso;
   }
 
-  function tudo() { catalogo(); carrinho(); salvar(); }
+  function tudo() { tipos(); catalogo(); carrinho(); salvar(); }
+
+  document.addEventListener("click", function (e) {
+    if ($("vista-loja").hidden || !e.target.closest) return;
+    var tb = e.target.closest("[data-tipo]");
+    if (tb) { tipo = tipo === tb.dataset.tipo ? null : tb.dataset.tipo; tudo(); return; }
+    if (e.target.closest("#usar-sugestao")) {
+      var t = tipoAtual();
+      cart = { proj: t.proj.slice(), plano: t.plano, prop: t.prop.slice(), plus: t.plus.slice() };
+      aviso = "Sugestão para " + t.nome.toLowerCase() + " no pedido. Você pode trocar à vontade.";
+      tudo();
+    }
+  });
 
   document.addEventListener("click", function (e) {
     var b = e.target.closest && e.target.closest("[data-proj],[data-plano],[data-prop],button[data-plus]");
@@ -280,7 +340,7 @@
   function mensagem(t, d) {
     var l = ["Olá! Quero contratar pela loja da Pode Curtir:"];
     t.pagos.forEach(function (p) {
-      l.push("- " + (p.marca ? "Plus: " : "") + p.nome + (p.marca && p.marca !== "pc" ? ", " + COM[p.marca] : "") +
+      l.push("- " + (p.marca ? (temPrincipal() ? "Plus: " : "Segurança das contas: ") : "") + p.nome + (p.marca && p.marca !== "pc" ? ", " + COM[p.marca] : "") +
         " (" + brl(p.valor) + " hoje" + (p.parcelas ? ", " + comoPaga(p) : "") + ")");
     });
     PROPOSTAS.forEach(function (a) { if (tem(cart.prop, a.id)) l.push("- Proposta: " + a.nome + " (" + MARCA_NOME[a.marca] + ")"); });
