@@ -5,18 +5,22 @@
    Pagamento pelo link do Asaas de cada item (ASAAS_LINKS em jessicagessoli-config.js). Com vários itens pagos,
    usa o CHECKOUT_ENDPOINT (n8n) se estiver preenchido; senão, mostra o link de cada item.
    04/11/2026 (decisão da Jéssica, como na loja da Pode Curtir): no site o pagamento é integral. O programa de
-   3 meses tem dois links: _pix (Pix ou boleto, à vista) e _cartao (cartão em até 3x sem juros). */
+   3 meses tem dois links: _pix (Pix ou boleto, à vista) e _cartao (cartão em até 3x sem juros).
+   06/11/2026: entram a conversa de escopo, a proteção das contas, os pacotes Essenciais e a palestra online. */
 (function () {
   var C = window.JESSICAGESSOLI || {};
   var LINKS = C.ASAAS_LINKS || {};
   var brl = function (v) { return v.toLocaleString("pt-BR", { style: "currency", currency: "BRL", minimumFractionDigits: 0, maximumFractionDigits: 2 }); };
   var $ = function (id) { return document.getElementById(id); };
   var AULA_DATA = String(C.AULA_DATA || "").trim();
-  /* Datas de venda do Checkup, comparadas no horário de Brasília (AAAA-MM-DD). */
-  var HOJE = new Date(Date.now() - 3 * 3600 * 1000).toISOString().slice(0, 10);
+  /* Datas de venda do Checkup, comparadas no horário de Brasília (AAAA-MM-DD).
+     A data é conferida de novo a cada cálculo do pedido: com a página aberta de um dia para o outro, o Checkup
+     sai do total e do pagamento quando a venda fecha. */
+  var hoje = function () { return new Date(Date.now() - 3 * 3600 * 1000).toISOString().slice(0, 10); };
+  var HOJE = hoje();
   var CK_DE = String(C.CHECKUP_VENDAS_DE || "").trim(), CK_ATE = String(C.CHECKUP_VENDAS_ATE || "").trim();
   var dataBR = function (d) { return d.split("-").reverse().slice(0, 2).join("/"); };
-  var ckAberto = (!CK_DE || HOJE >= CK_DE) && (!CK_ATE || HOJE <= CK_ATE);
+  var ckAberto = function () { var h = hoje(); return (!CK_DE || h >= CK_DE) && (!CK_ATE || h <= CK_ATE); };
   var ckEncerrado = !!CK_ATE && HOJE > CK_ATE;
 
   var ITENS = [
@@ -29,19 +33,31 @@
     { id: "programa", nome: "Mentoria de posicionamento · programa de 3 meses", preco: 3200, agora: 1, parcelas: 3, em: "no", quando: "8 sessões individuais em 3 meses, com datas combinadas por e-mail ou WhatsApp",
       desc: "Para definir com clareza onde você ou o seu Negócio quer chegar e como se posicionar para chegar lá." },
     { id: "aula", nome: "Aula ao vivo · IA segura para o seu Negócio", preco: 97, agora: 1, aula: true, quando: AULA_DATA ? AULA_DATA + ", online" : "",
-      desc: "Como usar IA no dia a dia do Negócio sem expor dados de clientes. Online e ao vivo." }
+      desc: "Como usar IA no dia a dia do Negócio sem expor dados de clientes. Online e ao vivo." },
+    /* 06/11/2026 (decisão da Jéssica: o máximo possível em compra online): pacotes de escopo fechado e a conversa de escopo paga.
+       O que passa do limite de cada pacote continua como pedido de proposta. */
+    { id: "escopo", nome: "Conversa de escopo · 1 hora", preco: 400, agora: 1, quando: "Data e horário escolhidos depois do pagamento",
+      desc: "Uma hora por videochamada para entender o seu caso e montar a proposta de um projeto. Se você fechar o projeto em até 30 dias, os R$ 400 são abatidos do valor." },
+    { id: "protecao", nome: "Proteção das contas · 1 hora", preco: 400, agora: 1, quando: "Data combinada por e-mail ou WhatsApp depois do pagamento",
+      desc: "1 hora a distância, até 3 contas do Negócio: verificação em duas etapas, e-mail e telefone de recuperação, revisão de acessos e acesso de parceiro, sem senha." },
+    { id: "antigolpe_essencial", nome: "Programa Antigolpe Essencial · até 20 pessoas", preco: 2500, agora: 1, parcelas: 3, em: "no", quando: "Datas combinadas por escrito depois do pagamento",
+      desc: "Para o Negócio com até 20 pessoas: 1 treinamento ao vivo online de 2 horas sobre os golpes mais comuns, regras escritas contra pagamento indevido e 1 hora com o dono para ajustar as regras." },
+    { id: "diagnostico_essencial", nome: "Diagnóstico de Cibersegurança e IA Essencial · até 20 pessoas", preco: 7500, agora: 1, parcelas: 6, em: "no", quando: "Prazo combinado por escrito depois do pagamento",
+      desc: "Para o Negócio com até 20 pessoas: entrevistas online, levantamento de contas, pagamentos, dados e uso de IA, relatório em linguagem de dono com o que resolver primeiro e reunião de apresentação." },
+    { id: "palestra_online", nome: "Palestra online · 1 hora", preco: 5000, agora: 1, quando: "Data combinada por escrito depois do pagamento",
+      desc: "Palestra ao vivo e online sobre golpes digitais, risco cibernético ou uso seguro de IA, com perguntas do público." }
   ];
   var PROPOSTAS = [
-    { id: "diagnostico", nome: "Diagnóstico de Cibersegurança e IA", desc: "Onde o seu Negócio pode perder dinheiro com golpe, vazamento de dados ou IA sem regra, e o que resolver primeiro." },
-    { id: "antigolpe", nome: "Programa Antigolpe", desc: "Equipe que reconhece golpes, regras que impedem pagamento indevido e cultura em que reportar não gera culpa." },
+    { id: "diagnostico", nome: "Diagnóstico de Cibersegurança e IA · acima de 20 pessoas", desc: "Onde o seu Negócio pode perder dinheiro com golpe, vazamento de dados ou IA sem regra, e o que resolver primeiro." },
+    { id: "antigolpe", nome: "Programa Antigolpe · acima de 20 pessoas", desc: "Equipe que reconhece golpes, regras que impedem pagamento indevido e cultura em que reportar não gera culpa." },
     { id: "governanca", nome: "Governança de IA, de segurança, privacidade e LGPD", desc: "IA usada com regras e controles, dados pessoais tratados com responsabilidade e respostas aos questionários de segurança dos clientes." },
-    { id: "contas", nome: "Segurança das contas e dos perfis", desc: "Proteção das contas do dono e da equipe, sem passar senha." },
+    { id: "contas", nome: "Segurança das contas da equipe inteira", desc: "Proteção de mais de 3 contas, do dono e da equipe, sem passar senha." },
     { id: "ia", nome: "Mentoria e consultoria em IA", desc: "Você aprende a fazer com IA, no seu próprio projeto." },
     { id: "conselheira", nome: "Conselheira de Risco", desc: "Acompanhamento mensal da diretoria nas decisões de risco cibernético e de IA." },
     { id: "projetos", nome: "Projetos para grandes organizações", desc: "Tecnologia operacional, infraestrutura crítica e programas de governança em operações reguladas." },
     { id: "capacitacao", nome: "Capacitação em IA para empresas", desc: "Treinamento da equipe para usar IA com regras claras e sem expor dados da empresa." },
     { id: "treinamento", nome: "Treinamento técnico", desc: "Cibersegurança e IA para equipes técnicas, adaptado à operação da empresa." },
-    { id: "palestra", nome: "Palestras, painéis e eventos", desc: "Palestra, painel, mediação ou apresentação de palco." }
+    { id: "palestra", nome: "Palestra presencial, painéis e eventos", desc: "Palestra presencial, painel, mediação ou apresentação de palco. O deslocamento entra na proposta." }
   ];
   /* Sem data marcada, a aula não é vendida: vira um pedido de aviso da próxima turma. */
   /* Depois do último dia de venda, o Checkup sai da loja. */
@@ -60,7 +76,7 @@
   function tem(lista, id) { return lista.indexOf(id) >= 0; }
   function alterna(lista, id) { var i = lista.indexOf(id); if (i >= 0) lista.splice(i, 1); else lista.push(id); }
   function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
-  function vendivel(p) { return (!p.aula || !!AULA_DATA) && (!p.checkup || ckAberto); }
+  function vendivel(p) { return (!p.aula || !!AULA_DATA) && (!p.checkup || ckAberto()); }
   /* Formas de pagamento de cada item. Parcelado só no cartão; Pix e boleto sempre à vista. */
   function formas(p) { return p.parcelas ? "Pix ou boleto à vista, ou cartão em até " + p.parcelas + "x sem juros" : "Pix, boleto ou cartão, à vista"; }
   function forma() { var r = document.querySelector('input[name="forma"]:checked'); return r ? r.value : ""; }
@@ -155,11 +171,11 @@
     PROPOSTAS.forEach(function (a) {
       if (!tem(cart.prop, a.id)) return;
       itens.push("<li><strong>" + a.nome + "</strong>: " + (a.aviso ? "pedido de aviso, sem pagamento e sem compromisso." :
-        "pedido de proposta, sem valor e sem compromisso. A proposta chega por escrito depois de uma conversa de 30 minutos.") + "</li>");
+        "pedido de proposta, sem valor e sem compromisso. A proposta chega por escrito depois da conversa de escopo, que você compra nesta loja e é abatida se fechar o projeto em até 30 dias.") + "</li>");
     });
     return "<h3>O QUE VOCÊ ESTÁ CONTRATANDO</h3><ul>" + itens.join("") + "</ul>" +
       "<h3>CONDIÇÕES</h3><ul>" +
-      "<li>As sessões e a aula são online, por videochamada. Você recebe o link por e-mail.</li>" +
+      "<li>As sessões, a aula, a palestra online e os encontros dos pacotes são online, por videochamada. Você recebe o link por e-mail.</li>" +
       "<li>Para remarcar uma sessão, avise com pelo menos 24 horas de antecedência; sem aviso, a sessão conta como feita.</li>" +
       "<li>O que você contar fica em sigilo e não vira exemplo sem a sua autorização por escrito.</li>" +
       "<li>A consultoria e a mentoria orientam; as decisões e a execução continuam com você. Nenhum serviço garante contratação, vendas ou ausência de incidentes.</li></ul>" +
