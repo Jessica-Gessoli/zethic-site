@@ -4,7 +4,7 @@ import { readFileSync } from "node:fs";
 import vm from "node:vm";
 
 const ler = (p) => readFileSync(new URL("../" + p, import.meta.url), "utf8");
-const PAGINAS = ["podecurtir/loja/index.html", "podecurtir/loja/obrigado/index.html", "podecurtir/termos/index.html",
+const PAGINAS = ["podecurtir.html", "podecurtir/loja/obrigado/index.html", "podecurtir/termos/index.html",
   "podecurtir/privacidade/index.html", "podecurtir/desistencia/index.html", "podecurtir/parceiros/index.html"];
 const JS = ["assets/js/podecurtir-config.js", "assets/js/podecurtir-comum.js", "assets/js/podecurtir-loja.js"];
 
@@ -43,7 +43,7 @@ test("páginas de compra: CSP sem inline, identificação e links de termos, pri
     assert.match(h, /R\. Teófilo Braga, 489, Sala 05/, p);
     assert.match(h, /podecurtir@zethic\.net/, p);
     assert.match(h, /98331-0769/, p);
-    assert.match(h, /data-cnpj hidden/, p);
+    assert.match(h, /data-cnpj hidden|CNPJ 67\.678\.226\/0001-17/, p);
     assert.match(h, /href="\/podecurtir\/termos\/"/, p);
     assert.match(h, /href="\/podecurtir\/privacidade\/" data-link-privacidade/, p);
     assert.match(h, /href="\/podecurtir\/desistencia\/"/, p);
@@ -102,34 +102,62 @@ test("medição só depois do aceite e aviso de cookies só com GA4 ou Pixel con
 // 04/11/2026 (pedido da Jéssica: o site como máquina de vendas; decisão de 04/11 "site = preço pronto"): a página
 // inicial passa a mostrar preço. Substitui a regra de 21/10/2026 "nenhum preço na página inicial". O preço da página
 // inicial precisa ser o mesmo da loja: mudou na loja, muda aqui.
-test("página inicial: preço na primeira dobra igual ao da loja, comprar antes do WhatsApp", () => {
+// 07/11/2026 (aprovado pela Jéssica): página única de venda. A loja entra na página inicial, no lugar dos cartões
+// de preço que repetiam a loja (substitui a regra de 04/11 "preço da página inicial igual ao da loja": agora o preço
+// existe num lugar só). /podecurtir/loja/ leva para /podecurtir#loja, com o mesmo trecho.
+test("página única: loja na página inicial, comprar antes do WhatsApp e endereço antigo levando para lá", () => {
   const h = ler("podecurtir.html");
-  const js = ler("assets/js/podecurtir-loja.js");
-  const ctx = { window: {} };
-  vm.runInNewContext(ler("assets/js/podecurtir-config.js"), ctx);
-  const reais = v => "R$ " + v.toLocaleString("pt-BR");
-  const ofertas = h.split('class="oferta"').slice(1);
-  const card = nome => ofertas.find(o => o.includes("<h3>" + nome + "</h3>"));
-  assert.ok(card("Ajuste de Perfil").includes(reais(ctx.window.PODECURTIR.PRECO_AJUSTE)), "Ajuste de Perfil fora do preço da configuração");
-  for (const [nome, re] of [["Perfil Arrumado", /nome: "Perfil Arrumado", preco: (\d+), parcelas: (\d+)[^}]*prazo: "([^"]+)"/],
-                             ["Marca Completa", /nome: "Marca Completa", preco: (\d+), parcelas: (\d+)[^}]*prazo: "([^"]+)"/]]) {
-    const [, preco, parcelas, prazo] = js.match(re);
-    const c = card(nome);
-    assert.ok(c.includes(reais(Number(preco))), nome + ": preço diferente da loja");
-    assert.ok(c.includes("Até " + parcelas + "x sem juros"), nome + ": parcelas diferentes da loja");
-    assert.ok(c.includes(prazo), nome + ": prazo diferente da loja");
-  }
-  const menor = Math.min(...[...js.matchAll(/mensal: (\d+)/g)].map(m => Number(m[1])));
-  assert.ok(card("Gestão mensal").includes(reais(menor)), "Gestão mensal: 'a partir de' diferente do menor plano");
   const hero = h.split('<div class="hero">')[1].split("</div>\n  </div>")[0];
-  assert.match(hero, /<a class="btn cheio" href="#precos"[^>]*>Ver preços e comprar<\/a>\s*<a class="btn contorno" href="\/fale\?utm_source=podecurtir"/);
-  assert.match(h, /id="precos"/);
-  assert.match(h, /href="\/podecurtir\/loja\/"[^>]*>Comprar online/);
-  assert.match(h, /3 vagas por serviço, em troca de um depoimento com as suas palavras/);
+  assert.match(hero, /<a class="btn cheio" href="#loja"[^>]*>Ver preços e comprar<\/a>\s*<a class="btn contorno" href="\/fale\?utm_source=podecurtir"/);
+  assert.doesNotMatch(h, /class="oferta"/, "cartões de preço repetidos voltaram");
+  for (const id of ['id="loja"', 'id="vista-loja"', 'id="vista-checkout" hidden', 'id="grade-perfil"', 'id="grade-contas"', 'id="grade-planos"',
+    'id="lista-propostas"', 'id="carrinho"', 'id="ir-carrinho"', 'id="tipos-opcoes"', 'id="link-obrigado" href="/podecurtir/loja/obrigado/"'])
+    assert.ok(h.includes(id), "falta " + id);
+  assert.match(h, /<script src="\/assets\/js\/podecurtir-loja\.js" defer><\/script>/);
+  assert.match(h, /href="#loja"[^>]*>Comprar online/);
+  assert.match(h, /Preço de fundador: 3 vagas por serviço, em troca de depoimento/);
+  assert.equal((h.match(/<h1[ >]/g) || []).length, 1, "uma h1 só");
+  assert.doesNotMatch(h, /href="\/podecurtir\/loja\/"/);
   // identificação também na página inicial (Decreto 7.962/2013, art. 2º)
   assert.match(h, /R\. Teófilo Braga, 489, Sala 05/);
   assert.match(h, /CNPJ 67\.678\.226\/0001-17/);
   assert.match(h, /href="\/podecurtir\/parceiros\/">Seja parceiro/);
+  const r = ler("podecurtir/loja/index.html");
+  assert.match(r, /<meta name="robots" content="noindex, follow">/);
+  assert.match(r, /<link rel="canonical" href="https:\/\/zethic\.net\/podecurtir">/);
+  assert.match(r, /<meta http-equiv="refresh" content="0; url=https:\/\/zethic\.net\/podecurtir#loja">/);
+  assert.match(r, /<script src="\/assets\/js\/podecurtir-redireciona\.js"><\/script>/);
+  assert.match(ler("assets/js/podecurtir-redireciona.js"), /location\.replace\(c\.href\.split\("#"\)\[0\] \+ \(location\.hash && location\.hash\.length > 1 \? location\.hash : "#loja"\)\)/);
+  assert.doesNotMatch(ler("sitemap.xml"), /podecurtir\/loja\//);
+  // review do PR #106: link para um trecho da página, no fechamento, volta à loja antes de rolar; faixa final legível no escuro
+  const js = ler("assets/js/podecurtir-loja.js");
+  assert.match(js, /if \(!alvo \|\| !\$\("vista-loja"\)\.contains\(alvo\) \|\| !\$\("vista-loja"\)\.hidden\) return false;/);
+  assert.match(js, /window\.addEventListener\("hashchange", function \(\) \{ irPara\(location\.hash\); \}\);/);
+  assert.match(ler("assets/css/podecurtir-loja.css"), /@media \(prefers-color-scheme:dark\)\{\n  \.pc-inicio \.fim\{background:#1B1530;color:#F4F1F8\}/);
+});
+
+// 07/11/2026 (pedido da Jéssica: as páginas se ligam de frente para trás e de trás para frente): o mesmo mapa no
+// rodapé de todas as páginas e um bloco "Continue por aqui" no fim de cada página de apoio, sempre com a volta à loja.
+test("páginas ligadas nos dois sentidos", () => {
+  const todas = ["podecurtir.html", ...PAGINAS.slice(1)];
+  const mapa = ['href="/podecurtir#loja"', 'href="/podecurtir#como"', 'href="/podecurtir#duvidas"', 'href="/podecurtir/termos/"',
+    'href="/podecurtir/privacidade/" data-link-privacidade', 'href="/podecurtir/desistencia/"', 'href="/podecurtir/parceiros/"'];
+  for (const p of todas) {
+    const rodape = ler(p).split('<footer class="ident">')[1];
+    assert.ok(rodape, p + ": sem rodapé");
+    const linha = rodape.split('<p class="mapa">')[1];
+    assert.ok(linha, p + ": sem mapa no rodapé");
+    for (const m of mapa) assert.ok(linha.split("</p>")[0].includes(m), p + ": mapa sem " + m);
+    assert.doesNotMatch(ler(p), /href="\/podecurtir\/loja\/(#[^"]*)?"/, p + ": link para o endereço antigo da loja");
+  }
+  for (const p of PAGINAS.slice(1)) {
+    const seguir = ler(p).split('<nav class="wrap seguir" aria-label="Continue por aqui">')[1];
+    assert.ok(seguir, p + ": sem Continue por aqui");
+    assert.match(seguir.split("</nav>")[0], /href="\/podecurtir#(loja|como)"/, p);
+  }
+  const h = ler("podecurtir.html");
+  for (const destino of ["/podecurtir/termos/", "/podecurtir/privacidade/", "/podecurtir/desistencia/", "/podecurtir/parceiros/"])
+    assert.ok(h.split('<footer class="ident">')[0].includes('href="' + destino + '"'), "página inicial sem link no conteúdo para " + destino);
 });
 
 // 04/11/2026: página de parceiros sem promessa de renda, sem cara de emprego e com a regra de publicidade do CONAR.
@@ -161,7 +189,7 @@ test("site: pagamento integral, parcelado só no cartão e Gestão Completa com 
   assert.doesNotMatch(js, /p\.agora|t\.saldo|Entrada de 50%|saldo antes da entrega/);
   const propostas = js.split("var PROPOSTAS")[1].split("];")[0];
   assert.doesNotMatch(propostas, /Gestão Completa/);
-  const loja = ler("podecurtir/loja/index.html");
+  const loja = ler("podecurtir.html");
   assert.match(loja, /<input type="radio" id="forma-pix" name="forma" value="pix">/);
   assert.match(loja, /<input type="radio" id="forma-cartao" name="forma" value="cartao">/);
   assert.match(loja, /por Pix, boleto ou cartão/);
@@ -191,7 +219,7 @@ test("plus no fechamento: preços aprovados, só com serviço pago, parceria ide
   assert.match(js, /var COM = \{ jg: "com Jéssica Gessoli", ze: "com a Zethic" \};/);
   assert.match(js, /\$\("plus-lista"\)\.addEventListener\("change"/);
   assert.match(js, /if \(resumo !== resumoAceito\) \{ \$\("aceite"\)\.checked = false;/);
-  const loja = ler("podecurtir/loja/index.html");
+  const loja = ler("podecurtir.html");
   assert.match(loja, /<fieldset id="plus-campo" hidden>/);
   assert.match(loja, /<div class="plus-lista" id="plus-lista"><\/div>/);
   const t = ler("podecurtir/termos/index.html");
@@ -215,13 +243,13 @@ test("tipos de Negócio, segurança das contas avulsa e preço depois das vagas 
   assert.match(js, /A partir do 4º cliente, R\$ 2\.400 por mês\./);
   assert.match(js, /A partir do 4º cliente, R\$ 4\.480 por mês\./);
   assert.match(js, /A partir do 4º cliente, R\$ 7\.200 por mês\./);
-  const loja = ler("podecurtir/loja/index.html");
+  const loja = ler("podecurtir.html");
   assert.match(loja, /<div class="tipos-opcoes" id="tipos-opcoes"><\/div>/);
-  assert.match(loja, /<div class="grade" id="grade-seguranca"><\/div>/);
-  assert.match(loja, /Feita por Jéssica Gessoli, em parceria\. O seu contato continua sendo a Pode Curtir\./);
+  assert.match(loja, /<div class="grade" id="grade-contas"><\/div>/);
+  assert.match(loja, /Feitas por Jéssica Gessoli, em parceria\. O seu contato continua sendo a Pode Curtir\./);
   const ctx = { window: {} };
   vm.runInNewContext(ler("assets/js/podecurtir-config.js"), ctx);
   assert.ok("plus_recuperacao" in ctx.window.PODECURTIR.ASAAS_LINKS);
   const t = ler("podecurtir/termos/index.html");
-  assert.match(t, /também podem ser compradas sozinhas, na seção Segurança das contas/);
+  assert.match(t, /também podem ser compradas sozinhas, na seção Proteção e recuperação de conta/);
 });

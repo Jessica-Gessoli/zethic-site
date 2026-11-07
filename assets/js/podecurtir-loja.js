@@ -1,4 +1,4 @@
-/* Pode Curtir — loja com carrinho (/podecurtir/loja). Valores de 03/11/2026, aprovados pela Jéssica.
+/* Pode Curtir — loja com carrinho (na página inicial /podecurtir desde 07/11/2026; /podecurtir/loja leva para lá). Valores de 03/11/2026, aprovados pela Jéssica.
    Decisões de 04/11/2026: no site o pagamento é integral (entrada e saldo só na venda presencial); o parcelamento
    fica só no cartão, com um link para Pix ou boleto à vista e outro para cartão; a Gestão Completa é vendida aqui,
    com assinatura. O WhatsApp fica para orçamento.
@@ -10,7 +10,7 @@
    Pagamento pelo link do Asaas de cada item (ASAAS_LINKS em podecurtir-config.js). Com vários itens pagos,
    usa o CHECKOUT_ENDPOINT (n8n) se estiver preenchido; senão, mostra o link de cada item.
    Decisões de 06/11/2026 (protótipo aprovado pela Jéssica): escolha do tipo de Negócio no topo (doceria, salão,
-   consultório ou outro), com sugestão de por onde começar; seção "Segurança das contas" com a Proteção das contas e a
+   consultório ou outro), com sugestão de por onde começar; seção "Proteção e recuperação de conta" (07/11: sem a palavra segurança na Pode Curtir, regra de 28/10) com a Proteção das contas e a
    Recuperação de conta (R$ 400 cada, Jéssica Gessoli, em parceria), que podem ser compradas sozinhas ("avulso");
    o preço depois das vagas de fundador aparece em cada item. */
 (function () {
@@ -43,7 +43,7 @@
     { id: "tech", marca: "ze", nome: "Site, app, automação e bot de WhatsApp", plus: "plus_site", desc: "Feitos pela Zethic, em parceria. Atendimento e dados das redes num lugar só." }
   ];
   /* Plus do fechamento do pedido: escopo fechado e preço próprio. Só entram com um serviço pago no pedido,
-     menos os marcados "avulso" (segurança das contas, 06/11/2026), que também se compram sozinhos. */
+     menos os marcados "avulso" (proteção e recuperação de conta, 06/11/2026), que também se compram sozinhos. */
   var PLUS = [
     { id: "plus_gravacao", marca: "pc", nome: "Sessão de fotos de 1 hora", preco: 500, prazo: "Edição pronta em até 14 dias depois da sessão",
       desc: "10 fotos editadas, em Campinas/SP. Fora de Campinas, o deslocamento é combinado antes e cobrado à parte." },
@@ -132,7 +132,7 @@
         '<dl class="meta"><div><dt>Prazo</dt><dd>' + p.prazo + ', a partir do briefing completo</dd></div><div><dt>Pagamento</dt><dd>Integral: ' + formas(p) + "</dd></div></dl>" +
         '<button class="por" type="button" data-proj="' + p.id + '" aria-pressed="' + on + '">' + (on ? "No pedido · tirar" : "Pôr no pedido") + "</button></article>";
     }).join("");
-    $("grade-seguranca").innerHTML = PLUS.filter(function (p) { return p.avulso; }).map(function (p) {
+    $("grade-contas").innerHTML = PLUS.filter(function (p) { return p.avulso; }).map(function (p) {
       var on = tem(cart.plus, p.id);
       return '<article class="item"><h3>' + p.nome + '</h3><p class="preco num">' + brl(p.preco) + "</p><p>" + p.desc + "</p>" +
         '<dl class="meta"><div><dt>Quando</dt><dd>' + p.prazo + '</dd></div><div><dt>Pagamento</dt><dd>Integral: ' + formas(p) + "</dd></div></dl>" +
@@ -187,7 +187,7 @@
     });
     PLUS.forEach(function (p) {
       if (!tem(cart.plus, p.id) || !(temPrincipal() || p.avulso)) return;
-      out.push('<li><span><span class="selo ' + p.marca + '">' + MARCA[p.marca] + "</span>" + p.nome + '</span><span class="num">' + brl(p.preco) + "</span><small>" + (p.avulso && !temPrincipal() ? "Segurança das contas" : "Plus") + " · pagamento integral · " + formas(p) + "</small>" +
+      out.push('<li><span><span class="selo ' + p.marca + '">' + MARCA[p.marca] + "</span>" + p.nome + '</span><span class="num">' + brl(p.preco) + "</span><small>" + (p.avulso && !temPrincipal() ? "Proteção e recuperação de conta" : "Plus") + " · pagamento integral · " + formas(p) + "</small>" +
         (comTirar ? '<button class="tirar" type="button" data-plus="' + p.id + '">Tirar</button>' : "") + "</li>");
     });
     PROPOSTAS.forEach(function (a) {
@@ -338,10 +338,26 @@
   });
   $("voltar").addEventListener("click", function () { mostrar("loja"); });
 
+  /* Página única (07/11/2026, review do PR #106): no fechamento, um link para um trecho da página (#loja, #como,
+     #duvidas, no cabeçalho ou no rodapé) volta à loja antes de rolar, porque esses trechos ficam dentro da vista da loja. */
+  function irPara(hash) {
+    var alvo = hash && hash.length > 1 ? document.getElementById(hash.slice(1)) : null;
+    if (!alvo || !$("vista-loja").contains(alvo) || !$("vista-loja").hidden) return false;
+    mostrar("loja");
+    alvo.scrollIntoView();
+    return true;
+  }
+  document.addEventListener("click", function (e) {
+    var a = e.target.closest ? e.target.closest("a[href*='#']") : null;
+    if (!a || a.origin !== location.origin || a.pathname !== location.pathname) return;
+    if (irPara(a.hash)) { e.preventDefault(); if (location.hash !== a.hash) history.pushState(null, "", a.hash); }
+  });
+  window.addEventListener("hashchange", function () { irPara(location.hash); });
+
   function mensagem(t, d) {
     var l = ["Olá! Quero contratar pela loja da Pode Curtir:"];
     t.pagos.forEach(function (p) {
-      l.push("- " + (p.marca ? (temPrincipal() ? "Plus: " : "Segurança das contas: ") : "") + p.nome + (p.marca && p.marca !== "pc" ? ", " + COM[p.marca] : "") +
+      l.push("- " + (p.marca ? (temPrincipal() ? "Plus: " : "Proteção e recuperação de conta: ") : "") + p.nome + (p.marca && p.marca !== "pc" ? ", " + COM[p.marca] : "") +
         " (" + brl(p.valor) + " hoje" + (p.parcelas ? ", " + comoPaga(p) : "") + ")");
     });
     PROPOSTAS.forEach(function (a) { if (tem(cart.prop, a.id)) l.push("- Proposta: " + a.nome + " (" + MARCA_NOME[a.marca] + ")"); });
