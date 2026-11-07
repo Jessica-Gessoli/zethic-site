@@ -16,7 +16,7 @@
       para: "o profissional que trabalha sozinho",
       itens: ["Até 2 computadores e 2 celulares", "1 hora de suporte por mês", "Atualizações e proteção em dia"] },
     { id: "suporte_padrao", nome: "Suporte de TI Padrão", fundador: 225, depois: 290,
-      para: "o consultório ou o escritório pequeno; é a base do pacote TI do consultório",
+      para: "a equipe de até 4 pessoas; é a base das campanhas de TI por nicho",
       itens: ["Até 4 computadores e 4 celulares", "2 horas de suporte por mês", "Inventário dos equipamentos"] }
   ];
   var PROTECAO = { id: "protecao", nome: "Proteção por pessoa", fundador: 19, depois: 25, max: 10,
@@ -33,6 +33,8 @@
   /* Jornada (06/11/2026, 23h22): /comprar?pacote=consultorio chega da página Consultório e da campanha
      TI do consultório com o Suporte Padrão e a proteção de 3 pessoas já escolhidos. */
   var PACOTES = {
+    // equipe_pequena: pacote de entrada das campanhas por nicho (07/11/2026). consultorio fica para os links antigos.
+    equipe_pequena: { suporte: "suporte_padrao", pessoas: 3, site: false },
     consultorio: { suporte: "suporte_padrao", pessoas: 3, site: false },
     suporte_essencial: { suporte: "suporte_essencial", pessoas: 0, site: false },
     suporte_padrao: { suporte: "suporte_padrao", pessoas: 0, site: false },
@@ -68,7 +70,7 @@
     $("grade-suporte").innerHTML = SUPORTE.map(function (p) {
       return '<article class="loja-item p-tec"><div class="loja-item-cab"><span class="loja-tipo">Mensal</span><h3>' + esc(p.nome) + "</h3></div>" +
         cartaoPreco(p, " por mês") + lista(p.itens) + '<p><b>Para quem:</b> ' + esc(p.para) + ".</p>" +
-        (p.id === "suporte_padrao" ? '<p class="loja-fora"><a href="/consultorio">Como fica no consultório</a> · <a href="/tecnologia#suporte">Ver o suporte em detalhe</a></p>' : '<p class="loja-fora"><a href="/tecnologia#suporte">Ver o suporte em detalhe</a></p>') +
+        (p.id === "suporte_padrao" ? '<p class="loja-fora"><a href="/para-o-seu-negocio#tamanho">Qual plano para o tamanho da equipe</a> · <a href="/tecnologia#suporte">Ver o suporte em detalhe</a></p>' : '<p class="loja-fora"><a href="/tecnologia#suporte">Ver o suporte em detalhe</a></p>') +
         '<div class="loja-acoes"><button class="por" type="button" data-suporte="' + p.id + '" aria-pressed="false">Escolher este plano</button></div></article>';
     }).join("");
     $("grade-protecao").innerHTML = '<article class="loja-item p-seg"><div class="loja-item-cab"><span class="loja-tipo">Mensal, por pessoa</span><h3>' + PROTECAO.nome + "</h3></div>" +

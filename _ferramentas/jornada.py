@@ -7,12 +7,14 @@ documento "Zethic · Benchmark das páginas do site". Este arquivo é a fonte ú
 - PROXIMO: o passo seguinte de cada página (a chamada principal e a secundária).
 - LIGADAS: pares de páginas que se indicam uma à outra em "Veja também". Cada par vale nos dois sentidos,
   e o teste _tests/zethic-jornada.static.test.mjs confere a volta no HTML.
+07/11/2026: as páginas por nicho (consultório, contabilidade, advocacia) saíram do site, a pedido da Jéssica, para
+não deixar nenhum tipo de cliente de fora. No lugar entra /para-o-seu-negocio, organizada por necessidade e por
+tamanho da equipe; os nichos ficam só nas campanhas (_ferramentas/campanhas.py), fora do menu e do Google.
 Usado por _ferramentas/cabecalhos.py, que grava os blocos entre <!-- trilha:inicio/fim --> e <!-- jornada:inicio/fim -->.
 """
 
 INICIO = ("/", "Início")
 PILARES = ("/#pilares", "Pilares")
-PARA_QUEM = ("/#para-quem", "Para quem")
 LOJA = ("/comprar", "Loja")
 
 # página: (endereço, nome curto, frase do cartão em "Veja também")
@@ -21,9 +23,7 @@ PAGINAS = {
     "tecnologia.html": ("/tecnologia", "Tecnologia", "Suporte de TI, automação, IA, redes e nuvem"),
     "atendimento.html": ("/atendimento", "Atendimento", "Bot de WhatsApp, dados num painel só e site"),
     "financeiro.html": ("/financeiro", "Financeiro", "Gestão financeira, auditoria de contas e Reforma Tributária"),
-    "consultorio.html": ("/consultorio", "Consultório", "Consultórios e clínicas de 1 a 3 pessoas"),
-    "contabilidade.html": ("/contabilidade", "Contabilidade", "Escritórios de contabilidade"),
-    "advocacia.html": ("/advocacia", "Advocacia", "Escritórios de advocacia"),
+    "para-o-seu-negocio.html": ("/para-o-seu-negocio", "Para o seu Negócio", "Escolha pela necessidade e pelo tamanho da equipe"),
     "quem-somos.html": ("/quem-somos", "Quem somos", "Quem faz o trabalho e como a Zethic trabalha"),
 }
 
@@ -32,9 +32,7 @@ TRILHA = {
     "tecnologia.html": [INICIO, PILARES, "Tecnologia"],
     "atendimento.html": [INICIO, PILARES, "Atendimento"],
     "financeiro.html": [INICIO, PILARES, "Financeiro"],
-    "consultorio.html": [INICIO, PARA_QUEM, "Consultório"],
-    "contabilidade.html": [INICIO, PARA_QUEM, "Contabilidade"],
-    "advocacia.html": [INICIO, PARA_QUEM, "Advocacia"],
+    "para-o-seu-negocio.html": [INICIO, "Para o seu Negócio"],
     "quem-somos.html": [INICIO, "Quem somos"],
     "comprar.html": [INICIO, LOJA, "Comprar agora"],
     "loja.html": [INICIO, LOJA, "Pedir proposta"],
@@ -48,25 +46,21 @@ PROXIMO = {
     "tecnologia.html": (("/comprar", "Comprar o suporte de TI"), ("/loja#d-tecnologia", "Pedir proposta de Tecnologia")),
     "atendimento.html": (("/loja#d-atendimento", "Montar o pedido de Atendimento"), ("/agendar?utm_source=atendimento", "Agendar uma conversa")),
     "financeiro.html": (("/loja#d-financeiro", "Montar o pedido do Financeiro"), ("/agendar?utm_source=financeiro", "Agendar uma conversa")),
-    "consultorio.html": (("/comprar?pacote=consultorio", "Comprar o suporte do consultório"), ("/loja?itens=lgpd", "Pedir proposta da implantação da LGPD")),
-    "contabilidade.html": (("/loja?itens=suporte:completo,lgpd,reforma", "Montar o pedido do escritório"), ("/agendar?utm_source=contabilidade", "Agendar uma conversa")),
-    "advocacia.html": (("/loja?itens=suporte:completo,lgpd,continuidade", "Montar o pedido do escritório"), ("/agendar?utm_source=advocacia", "Agendar uma conversa")),
+    "para-o-seu-negocio.html": (("/comprar", "Ver os pacotes com preço"), ("/loja", "Montar um pedido com várias necessidades")),
     "quem-somos.html": (("/comprar", "Ver os pacotes com preço"), ("/loja", "Pedir proposta")),
     "loja-obrigado.html": (("/quem-somos", "Conhecer quem faz o trabalho"), ("/comprar", "Voltar à loja")),
 }
 
 # Pares que se indicam nos dois sentidos em "Veja também".
 LIGADAS = [
-    ("seguranca.html", "consultorio.html"), ("seguranca.html", "contabilidade.html"), ("seguranca.html", "advocacia.html"),
-    ("tecnologia.html", "consultorio.html"), ("tecnologia.html", "contabilidade.html"), ("tecnologia.html", "advocacia.html"),
-    ("atendimento.html", "consultorio.html"), ("atendimento.html", "advocacia.html"),
-    ("financeiro.html", "contabilidade.html"),
-    ("quem-somos.html", "consultorio.html"), ("quem-somos.html", "contabilidade.html"), ("quem-somos.html", "advocacia.html"),
+    ("para-o-seu-negocio.html", "seguranca.html"), ("para-o-seu-negocio.html", "tecnologia.html"),
+    ("para-o-seu-negocio.html", "atendimento.html"), ("para-o-seu-negocio.html", "financeiro.html"),
+    ("quem-somos.html", "para-o-seu-negocio.html"),
     ("quem-somos.html", "seguranca.html"), ("quem-somos.html", "tecnologia.html"),
     ("quem-somos.html", "atendimento.html"), ("quem-somos.html", "financeiro.html"),
 ]
-# Depois do pedido, a pessoa pode continuar lendo sobre o tipo de cliente dela (só ida: a confirmação não é destino).
-SO_IDA = {"loja-obrigado.html": ["consultorio.html", "contabilidade.html", "advocacia.html"]}
+# Depois do pedido, a pessoa pode ver as outras necessidades (só ida: a confirmação não é destino).
+SO_IDA = {"loja-obrigado.html": ["para-o-seu-negocio.html"]}
 
 ORDEM = list(PAGINAS)
 

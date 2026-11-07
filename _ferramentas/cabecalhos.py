@@ -34,10 +34,8 @@ ZETHIC = [
     ("loja-obrigado.html", "loja", None),
     # Compra online dos pacotes de entrada (decisão da Jéssica em 06/11/2026): preço só nesses pacotes. Protótipo.
     ("comprar.html", "comprar", "loja"),
-    # Páginas por tipo de cliente (aprovado pela Jéssica em 06/11/2026, 23h22).
-    ("consultorio.html", "consultorio", None),
-    ("contabilidade.html", "contabilidade", None),
-    ("advocacia.html", "advocacia", None),
+    # Por necessidade e por tamanho da equipe (decisão da Jéssica em 07/11/2026; substitui as páginas por nicho).
+    ("para-o-seu-negocio.html", "seu-negocio", None),
 ]
 
 LOGO = ('<a class="logo" href="/" aria-label="Zethic, início">'
@@ -114,14 +112,17 @@ FRENTES = [
 
 # Tipos de cliente (aprovado em 06/11/2026, 23h22): o 5º painel do menu leva às páginas por tipo de cliente.
 PARA_QUEM = {
-    "id": "para-quem", "pilar": "p-tec", "nome": "Para quem", "rotulo": "Para quem",
-    "frase": "Escolha o seu Negócio e veja o que serve.",
-    "pagina": "/#para-quem", "ir": "Ver os tipos de cliente",
+    # 07/11/2026: por necessidade, não por nicho de cliente (decisão da Jéssica: ninguém fica de fora).
+    "id": "seu-negocio", "pilar": "p-tec", "nome": "Seu Negócio", "rotulo": "Para o seu Negócio",
+    "frase": "Escolha pela necessidade: serve para qualquer área.",
+    "pagina": "/para-o-seu-negocio", "ir": "Ver todas as necessidades",
     "img": ("/assets/img/zethic-800", 800, 450),
     "servicos": [
-        ("/consultorio", "Consultório e clínica", "De 1 a 3 pessoas: suporte de TI, proteção e implantação da LGPD"),
-        ("/contabilidade", "Escritório de contabilidade", "Certificado digital, sigilo fiscal e semana de entrega"),
-        ("/advocacia", "Escritório de advocacia", "Sigilo do cliente, e-mail do escritório e certificado"),
+        ("/para-o-seu-negocio#sem-ti", "Ninguém cuida da TI", "Suporte de TI e manutenção todo mês"),
+        ("/para-o-seu-negocio#dados-sigilosos", "Dados sigilosos de clientes", "Proteção por pessoa e implantação técnica da LGPD"),
+        ("/para-o-seu-negocio#nao-pode-parar", "O Negócio não pode parar", "Cópia testada e plano de retorno"),
+        ("/para-o-seu-negocio#whatsapp", "Atendo pelo WhatsApp", "Bot e contatos num painel só"),
+        ("/para-o-seu-negocio#tamanho", "Pelo tamanho da equipe", "De quem trabalha sozinho à operação crítica"),
     ],
 }
 

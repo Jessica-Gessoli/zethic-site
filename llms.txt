@@ -12,9 +12,7 @@
 
 ## Para quem
 
-- [Consultório e clínica](https://zethic.net/consultorio): para consultórios e clínicas de 1 a 3 pessoas: suporte de TI, proteção por pessoa, LGPD para dados de saúde e WhatsApp organizado, com compra direta na loja.
-- [Escritório de contabilidade](https://zethic.net/contabilidade): suporte de TI com certificados digitais A1 e A3 e sistemas do setor, proteção por pessoa, continuidade, LGPD e Reforma Tributária nos sistemas.
-- [Escritório de advocacia](https://zethic.net/advocacia): suporte de TI, e-mail do escritório protegido, conscientização e simulação de golpe, continuidade e LGPD.
+- [Para o seu Negócio](https://zethic.net/para-o-seu-negocio): para qualquer Negócio, de qualquer área: o serviço é escolhido pela necessidade (suporte de TI, dados sigilosos de clientes, continuidade, conscientização, WhatsApp, site, automação, financeiro, indústria e agro) e o plano pelo tamanho da equipe.
 
 ## Loja
 
