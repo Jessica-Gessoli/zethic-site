@@ -331,6 +331,7 @@
     if (e.target.checked && i < 0) cart.plus.push(id);
     if (!e.target.checked && i >= 0) cart.plus.splice(i, 1);
     salvar();
+    catalogo();
     carrinho();
     montarCheckout();
     var alvo = $(id); if (alvo) alvo.focus();
