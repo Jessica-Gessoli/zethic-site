@@ -223,7 +223,7 @@ test("plus no fechamento: preços aprovados, só com serviço pago, parceria ide
   assert.match(plus, /id: "plus_protecao", marca: "jg", nome: "Proteção das contas", preco: 400,/);
   assert.match(plus, /id: "plus_mentoria", marca: "jg", nome: "Mentoria em IA · 1 hora", preco: 400,/);
   assert.match(plus, /id: "plus_site", marca: "ze", nome: "Site Essencial", preco: 3000, parcelas: 3, em: "no", fundador: true,/);
-  assert.match(js, /var plus = PLUS\.filter\(function \(p\) \{ return tem\(cart\.plus, p\.id\) && \(principal \|\| p\.avulso\); \}\);/);
+  assert.match(js, /var plus = PLUS\.filter\(function \(p\) \{ return tem\(cart\.plus, p\.id\) && \(principal \|\| p\.avulso\) && !\(p\.id === "plus_protecao" && bonusValido\(\)\); \}\);/);
   assert.match(js, /" \(" \+ COM\[p\.marca\] \+ ", em parceria; o seu contato continua sendo a Pode Curtir\)"/);
   assert.match(js, /var COM = \{ jg: "com Jéssica Gessoli", ze: "com a Zethic" \};/);
   assert.match(js, /\$\("plus-lista"\)\.addEventListener\("change"/);
@@ -314,4 +314,8 @@ test("campanhas mudam sozinhas pela data e somem depois de 25/01/2027", () => {
   assert.match(loja, /c\.bonus && \(tem\(cart\.proj, "arrumado"\) \|\| tem\(cart\.proj, "marca"\) \|\| !!cart\.plano\)/);
   assert.match(loja, /Bônus Black Friday: Proteção das contas incluída, sem custo \(campanha até 30\/11\)\./);
   assert.match(ler("assets/css/podecurtir-loja.css"), /\.campanha\{background:var\(--flash\)/);
+  // review do PR #117: loja certa no site próprio, Proteção paga some com o bônus, bônus vai no pedido registrado
+  assert.match(js, /document\.querySelector\('a\[href\$="#loja"\]'\)/);
+  assert.match(loja, /!\(p\.id === "plus_protecao" && bonusValido\(\)\)/);
+  assert.match(loja, /bonus: bonusValido\(\) \? \["plus_protecao"\] : \[\]/);
 });
