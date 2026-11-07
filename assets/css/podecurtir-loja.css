@@ -162,3 +162,11 @@ legend{font-size:1.25rem;font-weight:700;padding:0;margin-bottom:.75rem}
 .mapa{line-height:1.9}
 /* Página inicial no celular: o carrinho fica na mesma linha da marca; "Ver preços" vai para a barra fixa de baixo. */
 @media (max-width:40rem){.pc-inicio .top .wrap{flex-wrap:nowrap}.pc-inicio .top-nav{display:none}}
+/* Tema escuro na página inicial (07/11/2026, review do PR #106): a faixa final "Escolha o seu serviço" continua
+   escura, porque podecurtir.css fixa a cor do texto dela; com a paleta escura da loja, ela ficaria clara e ilegível. */
+@media (prefers-color-scheme:dark){
+  .pc-inicio .fim{background:#1B1530;color:#F4F1F8}
+  .pc-inicio .fim .btn.cheio{color:#FFFFFF}
+  .pc-inicio .fim .btn.cheio:hover{color:#1B1530}
+  .pc-inicio .fim .btn.contorno{color:#F4F1F8;border-color:#F4F1F8}
+}

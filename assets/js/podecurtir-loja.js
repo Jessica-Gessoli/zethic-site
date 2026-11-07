@@ -338,6 +338,22 @@
   });
   $("voltar").addEventListener("click", function () { mostrar("loja"); });
 
+  /* Página única (07/11/2026, review do PR #106): no fechamento, um link para um trecho da página (#loja, #como,
+     #duvidas, no cabeçalho ou no rodapé) volta à loja antes de rolar, porque esses trechos ficam dentro da vista da loja. */
+  function irPara(hash) {
+    var alvo = hash && hash.length > 1 ? document.getElementById(hash.slice(1)) : null;
+    if (!alvo || !$("vista-loja").contains(alvo) || !$("vista-loja").hidden) return false;
+    mostrar("loja");
+    alvo.scrollIntoView();
+    return true;
+  }
+  document.addEventListener("click", function (e) {
+    var a = e.target.closest ? e.target.closest("a[href*='#']") : null;
+    if (!a || a.origin !== location.origin || a.pathname !== location.pathname) return;
+    if (irPara(a.hash)) { e.preventDefault(); if (location.hash !== a.hash) history.pushState(null, "", a.hash); }
+  });
+  window.addEventListener("hashchange", function () { irPara(location.hash); });
+
   function mensagem(t, d) {
     var l = ["Olá! Quero contratar pela loja da Pode Curtir:"];
     t.pagos.forEach(function (p) {

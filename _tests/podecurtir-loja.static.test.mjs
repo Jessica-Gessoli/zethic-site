@@ -129,6 +129,11 @@ test("página única: loja na página inicial, comprar antes do WhatsApp e ender
   assert.match(r, /<script src="\/assets\/js\/podecurtir-redireciona\.js"><\/script>/);
   assert.match(ler("assets/js/podecurtir-redireciona.js"), /location\.replace\(c\.href\.split\("#"\)\[0\] \+ \(location\.hash && location\.hash\.length > 1 \? location\.hash : "#loja"\)\)/);
   assert.doesNotMatch(ler("sitemap.xml"), /podecurtir\/loja\//);
+  // review do PR #106: link para um trecho da página, no fechamento, volta à loja antes de rolar; faixa final legível no escuro
+  const js = ler("assets/js/podecurtir-loja.js");
+  assert.match(js, /if \(!alvo \|\| !\$\("vista-loja"\)\.contains\(alvo\) \|\| !\$\("vista-loja"\)\.hidden\) return false;/);
+  assert.match(js, /window\.addEventListener\("hashchange", function \(\) \{ irPara\(location\.hash\); \}\);/);
+  assert.match(ler("assets/css/podecurtir-loja.css"), /@media \(prefers-color-scheme:dark\)\{\n  \.pc-inicio \.fim\{background:#1B1530;color:#F4F1F8\}/);
 });
 
 // 07/11/2026 (pedido da Jéssica: as páginas se ligam de frente para trás e de trás para frente): o mesmo mapa no
