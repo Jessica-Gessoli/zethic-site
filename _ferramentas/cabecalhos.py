@@ -156,6 +156,7 @@ def cabecalho(origem, atual, home):
     lj = ' aria-current="page"' if atual == "loja" else ""
     paineis = "\n".join(painel(t) for t in FRENTES + [PARA_QUEM])
     return f"""<!-- cabecalho:inicio -->
+<div class="faixa-campanha" data-faixa-campanha hidden></div>
 <header>
   <div class="wrap bar">
     {LOGO}
