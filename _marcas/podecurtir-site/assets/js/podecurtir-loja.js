@@ -103,6 +103,13 @@
     }
   } catch (e) {}
   function salvar() { try { sessionStorage.setItem(CHAVE, JSON.stringify(cart)); } catch (e) {} }
+  /* Medição (07/11/2026, benchmark de publicidade aprovado pela Jéssica): tipo de Negócio escolhido, item posto no
+     pedido e, ao seguir para o Asaas, o valor guardado para a página de confirmação registrar a compra (Purchase). */
+  function medir(nome, params) { if (window.podecurtirEvento) window.podecurtirEvento(nome, params); }
+  var PAGAMENTO = "podecurtir-pagamento-v1";
+  function marcarPagamento(valor) {
+    try { localStorage.setItem(PAGAMENTO, JSON.stringify({ valor: valor, em: Date.now() })); } catch (e) {}
+  }
   var aviso = "";
   var resumoAceito = null;
 
@@ -223,11 +230,16 @@
   document.addEventListener("click", function (e) {
     if ($("vista-loja").hidden || !e.target.closest) return;
     var tb = e.target.closest("[data-tipo]");
-    if (tb) { tipo = tipo === tb.dataset.tipo ? null : tb.dataset.tipo; tudo(); return; }
+    if (tb) {
+      tipo = tipo === tb.dataset.tipo ? null : tb.dataset.tipo;
+      if (tipo) medir("EscolheuTipo", { tipo: tipo });
+      tudo(); return;
+    }
     if (e.target.closest("#usar-sugestao")) {
       var t = tipoAtual();
       cart = { proj: t.proj.slice(), plano: t.plano, prop: t.prop.slice(), plus: t.plus.slice() };
       aviso = "Sugestão para " + t.nome.toLowerCase() + " no pedido. Você pode trocar à vontade.";
+      medir("AddToCart", { content_name: "sugestao_" + t.id });
       tudo();
     }
   });
@@ -236,6 +248,9 @@
     var b = e.target.closest && e.target.closest("[data-proj],[data-plano],[data-prop],button[data-plus]");
     if (!b || $("vista-loja").hidden) return;
     aviso = "";
+    var item = b.dataset.plus || b.dataset.proj || b.dataset.plano || b.dataset.prop;
+    var lista = b.dataset.plus ? cart.plus : b.dataset.proj ? cart.proj : b.dataset.prop ? cart.prop : null;
+    if (lista ? !tem(lista, item) : cart.plano !== item) medir("AddToCart", { content_name: item });
     if (b.dataset.plus) alterna(cart.plus, b.dataset.plus);
     if (b.dataset.proj) alterna(cart.proj, b.dataset.proj);
     if (b.dataset.plano) {
@@ -433,7 +448,7 @@
         /* Sem registro (FORM_ENDPOINT vazio ou fora do ar), as propostas e o aceite iriam se perder no redirecionamento:
            mostra a mensagem pronta junto com o link de pagamento. */
         registrar(pedido).then(function (ok) {
-          if (ok) location.href = url;
+          if (ok) { marcarPagamento(t.hoje); location.href = url; }
           else manual("Falta um passo: envie o pedido e pague pelo link", texto, t);
         });
         return;
@@ -451,6 +466,18 @@
     /* Pedido com mais de um item: registra antes de mostrar os links, para a recuperação de pedido saber quem quase comprou. */
     registrar(pedido);
     manual(t.pagos.every(function (p) { return linkDe(p); }) ? "Pague cada item pelo link" : "Pagamento em configuração", texto, t);
+  });
+
+  /* Link por persona: ?negocio=doceria (ou salao, consultorio, outro) abre a loja com o tipo já escolhido. */
+  var doLink = new URLSearchParams(location.search).get("negocio");
+  if (doLink && TIPOS.some(function (x) { return x.id === doLink; })) {
+    tipo = doLink;
+    /* Depois do load: a medição só liga quando as partes comuns terminam de iniciar (aceite de cookies). */
+    window.addEventListener("load", function () { medir("EscolheuTipo", { tipo: doLink, origem: "link" }); });
+  }
+
+  document.addEventListener("click", function (e) {
+    if (e.target.closest && e.target.closest("a.pagar-item")) marcarPagamento(totais().hoje);
   });
 
   tudo();
