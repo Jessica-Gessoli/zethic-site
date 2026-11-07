@@ -175,7 +175,8 @@
     PLANOS.forEach(function (p) { if (cart.plano === p.id) { plano = p; hoje += p.mensal; pagos.push({ id: p.id, nome: p.nome, valor: p.mensal }); fundador = true; } });
     /* Plus só com um serviço pago no pedido; os "avulso" (contas, e-book e mentoria em IA) também sozinhos. */
     var principal = pagos.length > 0;
-    var plus = PLUS.filter(function (p) { return tem(cart.plus, p.id) && (principal || p.avulso); });
+    /* Com o bônus da Black Friday, a Proteção das contas sai da cobrança (review do PR #117). */
+    var plus = PLUS.filter(function (p) { return tem(cart.plus, p.id) && (principal || p.avulso) && !(p.id === "plus_protecao" && bonusValido()); });
     plus.forEach(function (p) {
       hoje += p.preco;
       pagos.push({ id: p.id, nome: p.nome, valor: p.preco, parcelas: p.parcelas || 0, em: p.em || "", marca: p.marca });
@@ -205,7 +206,7 @@
         (comTirar ? '<button class="tirar" type="button" data-plano="' + p.id + '">Tirar</button>' : "") + "</li>");
     });
     PLUS.forEach(function (p) {
-      if (!tem(cart.plus, p.id) || !(temPrincipal() || p.avulso)) return;
+      if (!tem(cart.plus, p.id) || !(temPrincipal() || p.avulso) || (p.id === "plus_protecao" && bonusValido())) return;
       out.push('<li><span><span class="selo ' + p.marca + '">' + MARCA[p.marca] + "</span>" + p.nome + '</span><span class="num">' + brl(p.preco) + "</span><small>" + (p.avulso && !temPrincipal() ? (p.secao === "contas" ? "Proteção e recuperação de conta" : "Livro e IA") : "Plus") + " · pagamento integral · " + formas(p) + "</small>" +
         (comTirar ? '<button class="tirar" type="button" data-plus="' + p.id + '">Tirar</button>' : "") + "</li>");
     });
@@ -444,7 +445,9 @@
       id: "PC-" + Date.now().toString(36).toUpperCase() + "-" + Math.random().toString(36).slice(2, 6).toUpperCase(),
       tipo: t.pagos.length ? "compra" : "proposta", cliente: d, novidades: $("novidades").checked, avisos: $("avisos").checked,
       itens: t.pagos, plus: t.plus.map(function (p) { return p.id; }), propostas: cart.prop.slice(), hoje: t.hoje, forma: forma() || null,
-      aceite: { contrato: true, fundador: t.fundador, em: new Date().toISOString() }, pagina: location.pathname
+      aceite: { contrato: true, fundador: t.fundador, em: new Date().toISOString() }, pagina: location.pathname,
+      campanha: (window.podecurtirCampanha && window.podecurtirCampanha()) ? window.podecurtirCampanha().id : null,
+      bonus: bonusValido() ? ["plus_protecao"] : []
     };
     texto += "\nNúmero do pedido: " + pedido.id;
 

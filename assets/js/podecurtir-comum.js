@@ -74,7 +74,11 @@
       var faixa = document.createElement("div");
       faixa.className = "campanha";
       faixa.setAttribute("role", "note");
-      var alvo = (inicio ? "" : "/podecurtir") + (campanha.negocio && !inicio ? "?negocio=" + campanha.negocio : "") + campanha.link;
+      /* Endereço da loja tirado de um link que já existe na página (review do PR #117): no site próprio da
+         Pode Curtir a loja fica em "/", e aqui em "/podecurtir". */
+      var lojaLink = document.querySelector('a[href$="#loja"]');
+      var base = lojaLink ? lojaLink.getAttribute("href").split("#")[0] : "/podecurtir";
+      var alvo = (inicio ? "" : base) + (campanha.negocio && !inicio ? "?negocio=" + campanha.negocio : "") + campanha.link;
       faixa.innerHTML = '<div class="wrap"><p></p><a></a></div>';
       faixa.querySelector("p").textContent = campanha.faixa;
       var a = faixa.querySelector("a");
