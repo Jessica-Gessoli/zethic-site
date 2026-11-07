@@ -93,6 +93,8 @@
     for (var i = 0; i < pref.length; i++) { pref[i].hidden = false; pref[i].addEventListener("click", function (e) { e.preventDefault(); window.zethicPreferencias(); }); }
     document.addEventListener("click", function (e) {
       var l = e.target.closest && e.target.closest('a[href^="/fale"], a[href^="/agendar"]');
+      var x = e.target.closest && e.target.closest('a[href*="podecurtir.zethic.net"], a[href*="jessicagessoli.zethic.net"]');
+      if (x) evento("oferta_conjunta", { destino: x.hostname, pagina: location.pathname });
       if (l) evento("generate_lead", { canal: l.getAttribute("href").indexOf("/agendar") === 0 ? "agenda" : "whatsapp", pagina: location.pathname, link: l.getAttribute("href") });
     });
   }

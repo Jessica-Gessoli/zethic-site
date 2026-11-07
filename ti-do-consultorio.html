@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>TI do consultório | Zethic</title>
 <meta name="description" content="Para consultórios e clínicas: suporte de TI pelo WhatsApp, cópia dos arquivos dos pacientes testada e as contas de cada pessoa protegidas.">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; img-src 'self'; font-src 'self'; style-src 'self'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' https://www.googletagmanager.com; img-src 'self' https://*.google-analytics.com https://*.googletagmanager.com; font-src 'self'; style-src 'self'; base-uri 'none'; form-action 'none'; connect-src https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com">
 <meta name="color-scheme" content="dark">
 <meta name="robots" content="noindex, follow">
 <link rel="preload" href="/assets/fonts/public-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
@@ -39,8 +39,9 @@
         <li>Backup em nuvem com teste de restauração a cada 3 meses</li>
       </ul>
       <p class="campanha-preco"><b>R$ 282 por mês</b> para 3 pessoas, no preço de fundador (3 vagas), marcado no pedido em troca de um depoimento; depois, R$ 365. Implantação no valor de 1 mensalidade, paga com a primeira. Mínimo de 3 meses.</p>
+      <p class="campanha-prazo"><b>Vagas de implantação de janeiro:</b> compre até 18/12/2026 e a implantação começa a partir de 4/01/2027. A vaga fica garantida com a primeira mensalidade.</p>
       <div class="hero-ctas">
-        <a class="btn btn-main" href="/comprar?pacote=equipe_pequena">Comprar o suporte de TI</a>
+        <a class="btn btn-main" href="/comprar?pacote=equipe_pequena&utm_source=campanha&utm_campaign=ti-do-consultorio">Comprar o suporte de TI</a>
         <a class="link-sec" href="/loja?itens=suporte:completo,lgpd">Equipe de 4 pessoas ou mais? Pedir proposta</a>
       </div>
     </div>
@@ -86,6 +87,19 @@
       <p class="steps-nota">Outra necessidade? <a href="/para-o-seu-negocio">Veja tudo o que a Zethic faz para o seu Negócio</a>.</p>
     </div>
   </section>
+
+  <section>
+    <div class="wrap">
+      <h2>E para vender mais</h2>
+      <p class="lead">Com a TI em dia, o próximo passo é o estabelecimento atender e vender sozinho.</p>
+      <ul class="situ" role="list">
+        <li><a href="/atendimento#site">Site no ar e mantido todo mês</a>: textos, fotos, formulário e WhatsApp testados.</li>
+        <li><a href="/atendimento#whatsapp">Bot de WhatsApp</a> que responde na hora, inclusive no recesso e nos feriados.</li>
+        <li><a href="/tecnologia#automacao">Automação e IA aplicada</a>: a tarefa repetida feita sozinha.</li>
+      </ul>
+      <p class="parceria">Quer mais gente chegando no seu site e no seu WhatsApp? A <a href="https://podecurtir.zethic.net/?utm_source=zethic&amp;utm_campaign=ti-do-consultorio">Pode Curtir</a> cuida das redes, do conteúdo e das campanhas, em parceria com a Zethic.</p>
+    </div>
+  </section>
 </main>
 
 <footer>
@@ -93,8 +107,10 @@
     <div class="logo" role="img" aria-label="Zethic"><span aria-hidden="true">Z</span><svg class="logo-e" viewBox="0 0 72 52.5" aria-hidden="true" focusable="false"><rect width="72" height="7" rx="1"/><rect y="22.75" width="72" height="7" rx="1"/><rect y="45.5" width="72" height="7" rx="1"/></svg><span aria-hidden="true">THIC</span></div>
     <p>© 2026 Zethic. Razão social: Jessica Caroline da Silva Secco Gessoli.</p>
     <p>CNPJ 67.678.226/0001-17. Campinas, São Paulo, Brasil.</p>
-    <p><a href="https://www.linkedin.com/company/144656905/">LinkedIn</a> · <a href="https://www.instagram.com/zethic_net/">Instagram</a> · <a href="/quem-somos">Quem somos</a> · <a href="/privacidade">Privacidade e termos de uso</a> · <a href="/privacidade#cancelamento">Cancelamento e devolução</a>. Esta página não usa cookies. O pedido fica guardado só nesta aba do navegador até ser enviado. Pagamento por Pix ou boleto, na página do Asaas.</p>
+    <p><a href="https://www.linkedin.com/company/144656905/">LinkedIn</a> · <a href="https://www.instagram.com/zethic_net/">Instagram</a> · <a href="/quem-somos">Quem somos</a> · <a href="/privacidade">Privacidade e termos de uso</a> · <a href="/privacidade#cancelamento">Cancelamento e devolução</a>. Cookies só com a sua permissão.<a href="#" data-preferencias-cookies hidden> · Preferências de cookies</a> O pedido fica guardado só nesta aba do navegador até ser enviado. Pagamento por Pix ou boleto, na página do Asaas.</p>
   </div>
 </footer>
+<script src="/assets/js/zethic-origem.js" defer></script>
+<script src="/assets/js/medicao.js" defer></script>
 </body>
 </html>

@@ -16,7 +16,16 @@ from pathlib import Path
 RAIZ = Path(__file__).resolve().parent.parent
 
 # Pacote de entrada de todas as campanhas: Suporte de TI Padrão + proteção para 3 pessoas (ver zethic-comprar.js).
-COMPRAR = "/comprar?pacote=equipe_pequena"
+COMPRAR = "/comprar?pacote=equipe_pequena&utm_source=campanha&utm_campaign={slug}"
+# Campanhas de novembro ao Carnaval (aprovadas em 07/11/2026): vagas de implantação de janeiro, vendidas antes.
+# Depois de 18/12/2026, trocar PRAZO pela campanha de janeiro (implantações e preço público).
+PRAZO = ("<b>Vagas de implantação de janeiro:</b> compre até 18/12/2026 e a implantação começa a partir de 4/01/2027. "
+         "A vaga fica garantida com a primeira mensalidade.")
+CSP = ("default-src 'none'; script-src 'self' https://www.googletagmanager.com; img-src 'self' https://*.google-analytics.com "
+       "https://*.googletagmanager.com; font-src 'self'; style-src 'self'; base-uri 'none'; form-action 'none'; "
+       "connect-src https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com")
+SCRIPTS = ('<script src="/assets/js/zethic-origem.js" defer></script>\n'
+           '<script src="/assets/js/medicao.js" defer></script>\n')
 PRECO = ("<b>R$ 282 por mês</b> para 3 pessoas, no preço de fundador (3 vagas), marcado no pedido em troca de um "
          "depoimento; depois, R$ 365. Implantação no valor de 1 mensalidade, paga com a primeira. Mínimo de 3 meses.")
 
@@ -136,7 +145,7 @@ CABECA = """<!DOCTYPE html>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{titulo} | Zethic</title>
 <meta name="description" content="{desc}">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; img-src 'self'; font-src 'self'; style-src 'self'; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="{csp}">
 <meta name="color-scheme" content="dark">
 <meta name="robots" content="noindex, follow">
 {extra}<link rel="preload" href="/assets/fonts/public-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
@@ -155,10 +164,10 @@ RODAPE = f"""<footer>
     <div class="logo" role="img" aria-label="Zethic">{LOGO}</div>
     <p>© 2026 Zethic. Razão social: Jessica Caroline da Silva Secco Gessoli.</p>
     <p>CNPJ 67.678.226/0001-17. Campinas, São Paulo, Brasil.</p>
-    <p><a href="https://www.linkedin.com/company/144656905/">LinkedIn</a> · <a href="https://www.instagram.com/zethic_net/">Instagram</a> · <a href="/quem-somos">Quem somos</a> · <a href="/privacidade">Privacidade e termos de uso</a> · <a href="/privacidade#cancelamento">Cancelamento e devolução</a>. Esta página não usa cookies. O pedido fica guardado só nesta aba do navegador até ser enviado. Pagamento por Pix ou boleto, na página do Asaas.</p>
+    <p><a href="https://www.linkedin.com/company/144656905/">LinkedIn</a> · <a href="https://www.instagram.com/zethic_net/">Instagram</a> · <a href="/quem-somos">Quem somos</a> · <a href="/privacidade">Privacidade e termos de uso</a> · <a href="/privacidade#cancelamento">Cancelamento e devolução</a>. Cookies só com a sua permissão.<a href="#" data-preferencias-cookies hidden> · Preferências de cookies</a> O pedido fica guardado só nesta aba do navegador até ser enviado. Pagamento por Pix ou boleto, na página do Asaas.</p>
   </div>
 </footer>
-</body>
+{{scripts}}</body>
 </html>
 """
 
@@ -170,7 +179,8 @@ def campanha(slug, n):
         f'          <p class="nota"><a href="{link}">Ver em detalhe</a></p>\n        </article>'
         for (nome, link), frase in n["servicos"])
     desc = n["lead"]
-    return CABECA.format(titulo=n["rotulo"], desc=desc, extra="") + f"""<body class="frente p-tec campanha">
+    comprar = COMPRAR.format(slug=slug)
+    return CABECA.format(titulo=n["rotulo"], desc=desc, extra="", csp=CSP) + f"""<body class="frente p-tec campanha">
 
 <a class="skip" href="#conteudo">Pular para o conteúdo</a>
 
@@ -192,8 +202,9 @@ def campanha(slug, n):
         <li>Backup em nuvem com teste de restauração a cada 3 meses</li>
       </ul>
       <p class="campanha-preco">{PRECO}</p>
+      <p class="campanha-prazo">{PRAZO}</p>
       <div class="hero-ctas">
-        <a class="btn btn-main" href="{COMPRAR}">Comprar o suporte de TI</a>
+        <a class="btn btn-main" href="{comprar}">Comprar o suporte de TI</a>
         <a class="link-sec" href="/loja?itens={n['proposta']}">Equipe de 4 pessoas ou mais? Pedir proposta</a>
       </div>
     </div>
@@ -217,16 +228,30 @@ def campanha(slug, n):
       <p class="steps-nota">Outra necessidade? <a href="/para-o-seu-negocio">Veja tudo o que a Zethic faz para o seu Negócio</a>.</p>
     </div>
   </section>
+
+  <section>
+    <div class="wrap">
+      <h2>E para vender mais</h2>
+      <p class="lead">Com a TI em dia, o próximo passo é o estabelecimento atender e vender sozinho.</p>
+      <ul class="situ" role="list">
+        <li><a href="/atendimento#site">Site no ar e mantido todo mês</a>: textos, fotos, formulário e WhatsApp testados.</li>
+        <li><a href="/atendimento#whatsapp">Bot de WhatsApp</a> que responde na hora, inclusive no recesso e nos feriados.</li>
+        <li><a href="/tecnologia#automacao">Automação e IA aplicada</a>: a tarefa repetida feita sozinha.</li>
+      </ul>
+      <p class="parceria">Quer mais gente chegando no seu site e no seu WhatsApp? A <a href="https://podecurtir.zethic.net/?utm_source=zethic&amp;utm_campaign={slug}">Pode Curtir</a> cuida das redes, do conteúdo e das campanhas, em parceria com a Zethic.</p>
+    </div>
+  </section>
 </main>
 
-""" + RODAPE
+""" + RODAPE.format(scripts=SCRIPTS)
 
 
 def redirecionamento(antigo, slug):
     destino = f"/{slug}"
     extra = (f'<meta http-equiv="refresh" content="0; url={destino}">\n'
              f'<link rel="canonical" href="https://zethic.net{destino}">\n')
-    return CABECA.format(titulo="Página movida", desc="Esta página mudou de endereço.", extra=extra) + f"""<body class="frente p-tec campanha">
+    return CABECA.format(titulo="Página movida", desc="Esta página mudou de endereço.", extra=extra,
+                         csp="default-src 'none'; style-src 'self'; font-src 'self'; img-src 'self'") + f"""<body class="frente p-tec campanha">
 <main id="conteudo">
   <section class="hero">
     <div class="wrap">

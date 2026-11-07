@@ -75,7 +75,7 @@ test("as chamadas de compra levam a itens que existem na loja", () => {
   const cj = ler("assets/js/zethic-comprar.js");
   assert.match(cj, /equipe_pequena: \{ suporte: "suporte_padrao", pessoas: 3, site: false \}/);
   assert.match(cj, /consultorio: \{ suporte: "suporte_padrao", pessoas: 3, site: false \}/, "links antigos com pacote=consultorio");
-  for (const p of CAMPANHAS) assert.match(ler(p + ".html"), /href="\/comprar\?pacote=equipe_pequena"/, p);
+  for (const p of CAMPANHAS) assert.match(ler(p + ".html"), new RegExp(`href="/comprar\\?pacote=equipe_pequena&amp;utm_source=campanha&amp;utm_campaign=${p}"|href="/comprar\\?pacote=equipe_pequena&utm_source=campanha&utm_campaign=${p}"`), p);
   for (const [, pc] of ler("para-o-seu-negocio.html").matchAll(/href="\/comprar\?pacote=([a-z_]+)"/g)) assert.match(cj, new RegExp(`\\b${pc}: \\{`), pc);
   assert.ok(ctx);
 });

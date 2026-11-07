@@ -105,6 +105,8 @@
         desc: "Vendas, atendimento e redes num painel só, com relatórios." },
       { id: "site", nome: "Site e presença no Google", tipo: "Projeto", link: "/atendimento#site", niveis: NIVEIS_SITE,
         desc: "O seu Negócio encontrado no Google, com o WhatsApp a um toque.", fora: "Domínio e hospedagem ficam no nome da sua empresa." },
+      { id: "manutencao-site", nome: "Manutenção mensal do site", tipo: "Mensalidade", link: "/atendimento#site",
+        desc: "O site no ar, atualizado e com cópia: textos e fotos trocados, formulário e WhatsApp testados, segurança em dia.", fora: "Domínio e hospedagem ficam no nome da sua empresa." },
       { id: "site-movimento", nome: "Site em movimento", tipo: "Projeto", link: "/atendimento#site", niveis: NIVEIS_MOVIMENTO,
         desc: "A sua empresa apresentada com movimento, sem perder velocidade.", fora: "Domínio, hospedagem e vídeos ficam com a sua empresa." },
       { id: "loja-virtual", nome: "Loja virtual", tipo: "Projeto", link: "/atendimento#site", niveis: NIVEIS_LOJA,
@@ -263,6 +265,8 @@
     if (d.cidade) l.push("Cidade: " + d.cidade);
     l.push("Pessoas na empresa: " + d.pessoas);
     if (d.mensagem) l.push("", d.mensagem);
+    var origem = window.zethicOrigem ? window.zethicOrigem() : "";
+    if (origem) l.push("", "Origem: " + origem);
     return l.join("\n");
   }
 
@@ -293,6 +297,7 @@
     if (falta.length) { $("erro").textContent = "Falta preencher: " + falta.join(", ") + "."; $("erro").hidden = false; $("erro").focus(); return; }
     $("erro").hidden = true;
     var texto = mensagem(d);
+    if (window.zethicEvento) window.zethicEvento("pedido_enviado", { loja: "proposta", itens: pedido.length, origem: window.zethicOrigem ? window.zethicOrigem() : "" });
     var corpo = {
       marca: "zethic", tipo: "pedido-de-proposta", cliente: d,
       servicos: pedido.map(function (p) { return { id: p.id, nivel: p.nivel, nome: rotulo(p), departamento: SERVICOS[p.id].depto }; }),
