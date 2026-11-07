@@ -82,7 +82,8 @@ header .wrap.bar,.painel .wrap{max-width:72rem}
   .painel-lista{grid-template-columns:minmax(0,1fr)}
   .painel-lista li{opacity:1;transform:none}
 }
-@media (max-width:26rem){.btn-topo{display:none}.menu-btn{margin-left:auto}}
+/* 07/11/2026: em celulares de 417 a 512 px (iPhone Pro Max, por exemplo), logo + WhatsApp + Menu passavam da largura da tela; o WhatsApp do topo some até 32rem (continua no Próximo passo e no rodapé). */
+@media (max-width:32rem){.btn-topo{display:none}.menu-btn{margin-left:auto}}
 
 /* ---------- Faixa de oferta ---------- */
 
