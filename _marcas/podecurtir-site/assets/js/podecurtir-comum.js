@@ -24,7 +24,7 @@
       faixa: "Black Friday sem desconto falso: até 30/11, Perfil Arrumado, Marca Completa ou qualquer Gestão mensal ganham a Proteção das contas (R$ 400).",
       link: "#t-perfil", linkTexto: "Ver o que ganha o bônus",
       titulo: "Black Friday sem preço inflado.",
-      texto: "Aqui o preço é o mesmo do ano todo. Até 30/11, quem compra Perfil Arrumado, Marca Completa ou qualquer Gestão mensal ganha a Proteção das contas, feita por Jéssica Gessoli.",
+      texto: "Aqui o preço é o mesmo do ano todo. Até 30/11, quem compra Perfil Arrumado, Marca Completa ou qualquer Gestão mensal ganha a Proteção das contas, feita pela Zethic.",
       botao: "Ver o que ganha o bônus" },
     { id: "onda3", de: "2026-12-01", ate: "2026-12-23",
       faixa: "Garanta janeiro: compre agora e mande o briefing em janeiro. O prazo só começa com o briefing completo.",

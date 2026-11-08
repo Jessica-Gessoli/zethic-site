@@ -225,7 +225,7 @@ test("plus no fechamento: preços aprovados, só com serviço pago, parceria ide
   const plus = js.split("var PLUS = [")[1].split("];")[0];
   assert.match(plus, /id: "plus_gravacao", marca: "pc", nome: "Sessão de fotos de 1 hora", preco: 500,/);
   assert.match(plus, /id: "plus_livro", marca: "pc", nome: "Capa e diagramação do e-book", preco: 1500,/);
-  assert.match(plus, /id: "plus_protecao", marca: "jg", nome: "Proteção das contas", preco: 400,/);
+  assert.match(plus, /id: "plus_protecao", marca: "ze", nome: "Proteção das contas", preco: 400,/);
   assert.match(plus, /id: "plus_mentoria", marca: "jg", nome: "Mentoria em IA · 1 hora", preco: 400,/);
   assert.match(plus, /id: "plus_site", marca: "ze", nome: "Site Essencial", preco: 3000, parcelas: 3, em: "no", fundador: true,/);
   assert.match(js, /var plus = PLUS\.filter\(function \(p\) \{ return tem\(cart\.plus, p\.id\) && \(principal \|\| p\.avulso\) && !\(p\.id === "plus_protecao" && bonusValido\(\)\); \}\);/);
@@ -248,8 +248,8 @@ test("tipos de Negócio, segurança das contas avulsa e preço depois das vagas 
   for (const id of ["doceria", "salao", "consultorio", "outro"]) assert.match(js, new RegExp('id: "' + id + '"'));
   assert.match(js, /regra de publicidade do seu conselho profissional/);
   const plus = js.split("var PLUS = [")[1].split("];")[0];
-  assert.match(plus, /id: "plus_protecao", marca: "jg", nome: "Proteção das contas", preco: 400, avulso: true,/);
-  assert.match(plus, /id: "plus_recuperacao", marca: "jg", nome: "Recuperação de conta", preco: 400, avulso: true,/);
+  assert.match(plus, /id: "plus_protecao", marca: "ze", nome: "Proteção das contas", preco: 400, avulso: true,/);
+  assert.match(plus, /id: "plus_recuperacao", marca: "ze", nome: "Recuperação de conta", preco: 400, avulso: true,/);
   assert.match(plus, /não há garantia de recuperação/);
   // 07/11/2026 (pedido da Jéssica): e-book e mentoria em IA também se compram sozinhos, na seção "Livro e IA".
   assert.doesNotMatch(plus, /id: "plus_(gravacao|site)"[^}]*avulso: true/);
@@ -265,12 +265,12 @@ test("tipos de Negócio, segurança das contas avulsa e preço depois das vagas 
   const loja = ler("podecurtir.html");
   assert.match(loja, /<div class="tipos-opcoes" id="tipos-opcoes"><\/div>/);
   assert.match(loja, /<div class="grade" id="grade-contas"><\/div>/);
-  assert.match(loja, /Feitas por Jéssica Gessoli, em parceria\. O seu contato continua sendo a Pode Curtir\./);
+  assert.match(loja, /Feitas pela Zethic, em parceria\. Você leva só se quiser, junto com o seu pedido ou sozinhas\. O seu contato continua sendo a Pode Curtir\./);
   const ctx = { window: {} };
   vm.runInNewContext(ler("assets/js/podecurtir-config.js"), ctx);
   assert.ok("plus_recuperacao" in ctx.window.PODECURTIR.ASAAS_LINKS);
   const t = ler("podecurtir/termos/index.html");
-  assert.match(t, /também podem ser compradas sozinhas, na seção Proteção e recuperação de conta/);
+  assert.match(t, /também podem ser compradas sozinhas, na faixa Leve junto, da Zethic; nenhuma compra depende delas/);
 });
 
 // 07/11/2026 (benchmark de publicidade, aprovado pela Jéssica): compra medida na confirmação, tipo e item medidos na
@@ -362,4 +362,17 @@ test("compra: janela de atribuição cobre o prazo do boleto", () => {
   assert.match(js, /Date\.now\(\) - p\.em < 7 \* 24 \* 3600 \* 1000\)/);
   assert.doesNotMatch(js, /48 \* 3600 \* 1000/);
   assert.match(ler("podecurtir/termos/index.html"), /vence 2 dias úteis depois de gerado/);
+});
+
+// 08/11/2026 (Jéssica): proteção e recuperação de conta são da Zethic, numa faixa "Leve junto · opcional" com as cores
+// da Zethic, depois do portfólio da Pode Curtir. "Venda casada" nunca aparece no site (CDC, art. 39, I).
+test("faixa Leve junto da Zethic: separada do portfólio, opcional e sem venda casada", () => {
+  const h = ler("podecurtir.html"), js = ler("assets/js/podecurtir-loja.js"), css = ler("assets/css/podecurtir-loja.css");
+  assert.match(h, /<section class="secao leve-junto" aria-labelledby="t-contas">[\s\S]*<span class="selo ze">ZETHIC<\/span>Leve junto · opcional[\s\S]*Feitas pela Zethic, em parceria/);
+  assert.ok(h.indexOf('id="t-esp"') < h.indexOf('id="t-contas"') && h.indexOf('id="t-contas"') < h.indexOf('id="t-propostas"'), "faixa depois do portfólio e antes dos pedidos de proposta");
+  assert.match(js, /id: "protecao", marca: "ze", nome: "Proteção das contas da equipe inteira"/);
+  assert.match(css, /\.leve-junto\{background:#02041A;/);
+  for (const f of ["podecurtir.html", "assets/js/podecurtir-loja.js", "assets/js/podecurtir-comum.js", "podecurtir/termos/index.html"])
+    assert.doesNotMatch(ler(f).replace(/No site nunca se usa "venda casada"/, ""), /venda casada/i, f);
+  assert.doesNotMatch(h + js + ler("assets/js/podecurtir-comum.js"), /(Proteção das contas|Recuperação de conta)[^<"]{0,80}Jéssica Gessoli|feita por Jéssica Gessoli/);
 });
