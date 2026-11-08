@@ -35,7 +35,7 @@ Limites grátis do Google (contas gmail.com): 100 destinatários de e-mail por d
    - Executar como: **Eu**. Quem pode acessar: **Qualquer pessoa**.
    - Implantar → copie a URL que termina em `/exec`.
    - Volte em Propriedades do script e adicione `URL_PUBLICA` com essa URL (é usada no link "não quero mais avisos" dos e-mails).
-   - **Me mande essa URL.** Eu coloco no site (é um endereço público por natureza; não é segredo).
+   - **Me mande essa URL.** Eu coloco no site, nas lojas da Pode Curtir e da Jéssica Gessoli (é um endereço público por natureza; não é segredo). As duas lojas usam a mesma planilha; o número do pedido diz a marca (PC- ou JG-), e cada lembrete sai com o nome, o e-mail e o WhatsApp da marca certa.
 7. **Publique a tela de pedidos.**
    - Implantar → Nova implantação → "App da Web" de novo.
    - Executar como: **Eu**. Quem pode acessar: **Somente eu**.
