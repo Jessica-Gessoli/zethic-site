@@ -77,14 +77,16 @@ function doPost(e) {
     var sh = aba_("pedidos");
     if (sh.getLastRow() > 1 && sh.getRange(2, 1, sh.getLastRow() - 1, 1).getValues().some(function (r) { return r[0] === p.id; })) return json_({ ok: true, repetido: true });
     var itens = (p.itens || []).map(function (i) { return String(i.nome || i.id || "").slice(0, 80); });
-    (p.propostas || []).forEach(function (id) { itens.push("Proposta: " + String(id).slice(0, 60)); });
+    (p.propostas || []).forEach(function (id) { itens.push("Proposta: " + String(id).slice(0, 80)); });
+    if (p.detalhes) itens.push("Detalhes: " + String(p.detalhes).slice(0, 2000));
     var valor = (p.itens || []).reduce(function (s, i) { return s + (Number(i.valor) || 0); }, 0);
     var links = (p.links || []).filter(function (l) { return /^https:\/\/(www\.)?asaas\.com\//.test(String(l.url || "")); })
       .map(function (l) { return String(l.nome || "").slice(0, 80) + " | " + l.url; });
     var situacao = (p.itens || []).length ? "Aguardando pagamento" : "Pedido de proposta";
-    if (situacao === "Pedido de proposta") avisarProposta_(p.id, cli, itens);
     sh.appendRow([p.id, new Date(), limpa_(cli.nome, 120), limpa_(cli.email, 120).toLowerCase(), limpa_(cli.whats, 30), itens.join(" + "), valor,
       p.avisos === true ? "Sim" : "Não", situacao, 0, "", "Não", limpa_(p.pagina, 80), links.join("\n"), 0]);
+    // O aviso por e-mail vem depois de gravar: uma falha no e-mail não pode recusar um pedido já salvo.
+    if (situacao === "Pedido de proposta") { try { avisarProposta_(p.id, cli, itens); } catch (errAviso) {} }
     return json_({ ok: true });
   } catch (err) {
     return json_({ ok: false, erro: "falha" });
@@ -98,7 +100,7 @@ function zethicParaPedido_(p) {
   var c = p.cliente || {};
   var extra = [c.cargo, c.cidade, c.pessoas ? c.pessoas + " pessoas" : "", c.mensagem].filter(String).join(" · ");
   return { id: p.id, cliente: { nome: (c.nome || "") + (c.empresa ? " (" + c.empresa + ")" : ""), email: c.email, whats: c.whats },
-    itens: [], propostas: (p.servicos || []).map(function (s) { return s.nome || s.id; }).concat(extra ? ["Detalhes: " + extra] : []),
+    itens: [], propostas: (p.servicos || []).map(function (s) { return s.nome || s.id; }), detalhes: extra,
     avisos: false, pagina: p.pagina };
 }
 
@@ -121,11 +123,11 @@ function desistencia_(p) {
   sh.appendRow(linha);
   sh.getRange(sh.getLastRow(), 7).insertCheckboxes();
   var dono = PropertiesService.getScriptProperties().getProperty("DONO_EMAIL");
-  if (dono && MailApp.getRemainingDailyQuota() > 0) {
+  if (dono && MailApp.getRemainingDailyQuota() > 0) try {
     MailApp.sendEmail({ to: dono, replyTo: linha[2], subject: "Pedido de desistência (" + marca + "): " + linha[1],
       body: "Chegou um pedido de desistência pelo site.\n\nNome: " + linha[1] + "\nE-mail: " + linha[2] + "\nPedido ou data: " + linha[3] +
         "\nMotivo: " + (linha[4] || "(não informado)") + "\n\nPrazo legal de 7 dias corridos. Está na aba Desistências da planilha." });
-  }
+  } catch (errAviso) {} // a desistência já está gravada; falha no e-mail não a recusa
   return json_({ ok: true });
 }
 
