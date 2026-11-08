@@ -14,7 +14,7 @@ test("configuração única, com pagamento, aula e Pixel desligados até serem p
   const ctx = { window: {} };
   vm.runInNewContext(ler("assets/js/jessicagessoli-config.js"), ctx);
   const c = ctx.window.JESSICAGESSOLI;
-  assert.deepEqual(Object.keys(c.ASAAS_LINKS).sort(), ["antigolpe_essencial_cartao", "antigolpe_essencial_pix", "aula", "checkup", "consultoria", "diagnostico_essencial_cartao", "diagnostico_essencial_pix", "escopo", "palestra_online", "programa_cartao", "programa_pix", "protecao", "sessao"]);
+  assert.deepEqual(Object.keys(c.ASAAS_LINKS).sort(), ["antigolpe_essencial_cartao", "antigolpe_essencial_pix", "aula", "checkup", "consultoria", "diagnostico_essencial_cartao", "diagnostico_essencial_pix", "escopo", "palestra_online", "programa_cartao", "programa_pix", "sessao"]);
   for (const v of Object.values(c.ASAAS_LINKS)) assert.ok(v === "" || /^https:\/\/(www\.)?asaas\.com\//.test(v), "link do Asaas inválido: " + v);
   assert.equal(typeof c.AULA_DATA, "string");
   assert.ok(c.PIXEL_ID === "" || /^\d{10,20}$/.test(c.PIXEL_ID));
@@ -35,11 +35,12 @@ test("preços aprovados em 03/11/2026 e 06/11/2026, e mais nenhum", () => {
   // 06/11/2026 (decisão da Jéssica: o máximo possível em compra online): pacotes fechados e conversa de escopo paga.
   assert.match(js, /id: "escopo", nome: "Conversa de escopo · 1 hora", preco: 400, agora: 1/);
   assert.match(js, /se você fechar o projeto em até 30 dias, os R\$ 400 são abatidos/i);
-  assert.match(js, /id: "protecao", nome: "Proteção das contas · 1 hora", preco: 400, agora: 1/);
+  // 08/11/2026 (Jéssica): a proteção das contas saiu desta loja e passou para a Zethic.
+  assert.doesNotMatch(js, /id: "protecao"|id: "contas"|item-protecao/);
   assert.match(js, /id: "antigolpe_essencial", nome: "Programa Antigolpe Essencial · até 20 pessoas", preco: 2500, agora: 1, parcelas: 3, em: "no"/);
   assert.match(js, /id: "diagnostico_essencial", nome: "Diagnóstico de Cibersegurança e IA Essencial · até 20 pessoas", preco: 7500, agora: 1, parcelas: 6, em: "no"/);
   assert.match(js, /id: "palestra_online", nome: "Palestra online · 1 hora", preco: 5000, agora: 1/);
-  assert.equal((js.match(/preco: \d+/g) || []).length, 10, "item com preço fora dos aprovados");
+  assert.equal((js.match(/preco: \d+/g) || []).length, 9, "item com preço fora dos aprovados");
   const propostas = js.split("var PROPOSTAS")[1].split("];")[0];
   assert.doesNotMatch(propostas, /R\$ ?\d|preco/, "proposta com preço publicado");
 });

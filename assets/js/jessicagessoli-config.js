@@ -6,9 +6,10 @@
      checkup: Checkup Black Friday Segura (R$ 297; aprovado em 06/11/2026)
      programa_pix e programa_cartao: programa de mentoria de 3 meses (R$ 3.200, pagamento integral; 04/11/2026):
        _pix para Pix ou boleto, à vista; _cartao só cartão, em até 3x sem juros · aula: aula ao vivo (R$ 97)
-     06/11/2026: escopo (conversa de escopo, R$ 400) · protecao (proteção das contas, R$ 400) ·
+     06/11/2026: escopo (conversa de escopo, R$ 400) ·
        antigolpe_essencial_pix e _cartao (R$ 2.500; cartão em até 3x) · diagnostico_essencial_pix e _cartao (R$ 7.500;
        cartão em até 6x) · palestra_online (R$ 5.000, à vista)
+     08/11/2026 (Jéssica): a proteção das contas saiu desta loja e passou para a Zethic (faixa Leve junto da Pode Curtir).
    CHECKUP_VENDAS_DE e CHECKUP_VENDAS_ATE: primeiro e último dia de venda do Checkup (AAAA-MM-DD, horário de Brasília).
      Antes da abertura o item aparece com "vendas a partir de"; depois do último dia ele sai da loja.
    AULA_DATA: data e horário da próxima turma da aula ao vivo, como deve aparecer na loja (ex.: "26/11/2026, às 19h").
@@ -29,7 +30,6 @@ window.JESSICAGESSOLI = {
     programa_cartao: "",
     aula: "",
     escopo: "",
-    protecao: "",
     antigolpe_essencial_pix: "",
     antigolpe_essencial_cartao: "",
     diagnostico_essencial_pix: "",

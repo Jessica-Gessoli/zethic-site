@@ -45,8 +45,6 @@
        O que passa do limite de cada pacote continua como pedido de proposta. */
     { id: "escopo", nome: "Conversa de escopo · 1 hora", preco: 400, agora: 1, quando: "Data e horário escolhidos depois do pagamento",
       desc: "Uma hora por videochamada para entender o seu caso e montar a proposta de um projeto. Se você fechar o projeto em até 30 dias, os R$ 400 são abatidos do valor." },
-    { id: "protecao", nome: "Proteção das contas · 1 hora", preco: 400, agora: 1, quando: "Data combinada por e-mail ou WhatsApp depois do pagamento",
-      desc: "1 hora a distância, até 3 contas do Negócio: verificação em duas etapas, e-mail e telefone de recuperação, revisão de acessos e acesso de parceiro, sem senha." },
     { id: "antigolpe_essencial", nome: "Programa Antigolpe Essencial · até 20 pessoas", preco: 2500, agora: 1, parcelas: 3, em: "no", quando: "Datas combinadas por escrito depois do pagamento",
       desc: "Para o Negócio com até 20 pessoas: 1 treinamento ao vivo online de 2 horas sobre os golpes mais comuns, regras escritas contra pagamento indevido e 1 hora com o dono para ajustar as regras." },
     { id: "diagnostico_essencial", nome: "Diagnóstico de Cibersegurança e IA Essencial · até 20 pessoas", preco: 7500, agora: 1, parcelas: 6, em: "no", quando: "Prazo combinado por escrito depois do pagamento",
@@ -58,7 +56,6 @@
     { id: "diagnostico", nome: "Diagnóstico de Cibersegurança e IA · acima de 20 pessoas", desc: "Onde o seu Negócio pode perder dinheiro com golpe, vazamento de dados ou IA sem regra, e o que resolver primeiro." },
     { id: "antigolpe", nome: "Programa Antigolpe · acima de 20 pessoas", desc: "Equipe que reconhece golpes, regras que impedem pagamento indevido e cultura em que reportar não gera culpa." },
     { id: "governanca", nome: "Governança de IA, de segurança, privacidade e LGPD", desc: "IA usada com regras e controles, dados pessoais tratados com responsabilidade e respostas aos questionários de segurança dos clientes." },
-    { id: "contas", nome: "Segurança das contas da equipe inteira", desc: "Proteção de mais de 3 contas, do dono e da equipe, sem passar senha." },
     { id: "ia", nome: "Mentoria e consultoria em IA", desc: "Você aprende a fazer com IA, no seu próprio projeto." },
     { id: "conselheira", nome: "Conselheira de Risco", desc: "Acompanhamento mensal da diretoria nas decisões de risco cibernético e de IA." },
     { id: "projetos", nome: "Projetos para grandes organizações", desc: "Tecnologia operacional, infraestrutura crítica e programas de governança em operações reguladas." },
@@ -93,8 +90,8 @@
 
   /* Volta para o serviço na página principal. O endereço vem do link do cabeçalho, que muda no site próprio da marca. */
   var SOBRE = { consultoria: "ia", checkup: "checkup", sessao: "mentoria", programa: "mentoria", aula: "checkup", escopo: "consultoria",
-    protecao: "contas", antigolpe_essencial: "antigolpe", diagnostico_essencial: "diagnostico", palestra_online: "palestras",
-    diagnostico: "diagnostico", antigolpe: "antigolpe", governanca: "governanca", contas: "contas", ia: "ia", conselheira: "comecar",
+    antigolpe_essencial: "antigolpe", diagnostico_essencial: "diagnostico", palestra_online: "palestras",
+    diagnostico: "diagnostico", antigolpe: "antigolpe", governanca: "governanca", ia: "ia", conselheira: "comecar",
     projetos: "consultoria", capacitacao: "capacitacao", treinamento: "treinamento", palestra: "palestras" };
   function saiba(id) {
     var marca = document.querySelector(".top .mark");

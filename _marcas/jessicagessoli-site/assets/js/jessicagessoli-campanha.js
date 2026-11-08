@@ -25,10 +25,10 @@
       cta: ["Fazer o Teste de golpe grátis", "teste"] },
     { id: "janeiro", de: "2027-01-04", ate: "2027-01-24", nome: "Janeiro: o Negócio protegido em 2027",
       texto: "Janeiro é o mês do boleto falso. Deixe por escrito, antes de pagar, quem confere o quê.",
-      cta: ["Ver o Programa Antigolpe", "/loja/#item-antigolpe_essencial"], sec: ["Proteção das contas, R$ 400", "/loja/#item-protecao"] },
+      cta: ["Ver o Programa Antigolpe", "/loja/#item-antigolpe_essencial"], sec: ["Fazer o Teste de golpe grátis", "teste"] },
     { id: "carnaval", de: "2027-01-25", ate: "2027-02-05", nome: "Carnaval sem golpe",
-      texto: "No Carnaval, a loja fica com menos gente olhando. Proteja as contas antes de sair: R$ 400, com venda até 05/02.",
-      cta: ["Proteger as contas", "/loja/#item-protecao"], sec: ["Fazer o Teste de golpe grátis", "teste"] },
+      texto: "No Carnaval, a loja fica com menos gente olhando. Antes de sair, combine por escrito quem confere cada pagamento.",
+      cta: ["Ver o Programa Antigolpe", "/loja/#item-antigolpe_essencial"], sec: ["Fazer o Teste de golpe grátis", "teste"] },
     { id: "carnaval-semana", de: "2027-02-06", ate: "2027-02-10", nome: "Carnaval sem golpe",
       texto: "Pix na pressa e perfil da loja invadido são os golpes desta semana. Veja se a sua equipe reconhece.",
       cta: ["Fazer o Teste de golpe grátis", "teste"] }
