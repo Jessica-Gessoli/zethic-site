@@ -17,7 +17,9 @@ test("configuração única, com pagamento e Pixel desligados até serem preench
     ["ajuste", "arrumado_cartao", "arrumado_pix", "completa", "essencial", "marca_cartao", "marca_pix", "padrao",
       "plus_gravacao", "plus_livro", "plus_mentoria", "plus_protecao", "plus_recuperacao", "plus_site_cartao", "plus_site_pix",
       // 08/11/2026: seção para especialistas, produtoras e empresas
-      "acabamento", "diag_esp", "esp_marca", "esp_news", "esp_portavozes", "esp_produtora", "video_presenca"].sort());
+      "acabamento", "diag_esp", "esp_marca", "esp_news", "esp_portavozes", "esp_produtora", "video_presenca",
+      // 08/11/2026: seção para restaurantes, lanchonetes e bares
+      "cardapio", "cardapio_mensal"].sort());
   for (const v of Object.values(c.ASAAS_LINKS)) assert.ok(v === "" || /^https:\/\/(www\.)?asaas\.com\//.test(v), "link do Asaas inválido: " + v);
   assert.ok([500, 750, 1200].includes(c.PRECO_AJUSTE), "preço do Ajuste fora da escada aprovada");
   assert.ok(c.PIXEL_ID === "" || /^\d{10,20}$/.test(c.PIXEL_ID));
@@ -214,6 +216,8 @@ test("site: pagamento integral, parcelado só no cartão e Gestão Completa com 
     if (k.startsWith("plus_") && v === "") continue; // plus: "pagamento em configuração" até o link existir
     // 08/11/2026: itens da seção para especialistas também ficam em configuração até a Jéssica criar os links
     if (["diag_esp", "video_presenca", "acabamento", "esp_marca", "esp_produtora", "esp_news", "esp_portavozes"].includes(k) && v === "") continue;
+    // 08/11/2026: cardápio de restaurante, em configuração até a Jéssica criar os links
+    if (["cardapio", "cardapio_mensal"].includes(k) && v === "") continue;
     assert.match(v, /^https:\/\/www\.asaas\.com\/000\/c\/[a-z0-9]{16}$/, k);
   }
 });
@@ -390,4 +394,21 @@ test("Pode Curtir: benefício por item sem promessa e ordem da loja", () => {
   assert.ok(h.indexOf('id="t-perfil"') < h.indexOf('id="t-planos"') && h.indexOf('id="t-planos"') < h.indexOf('id="t-esp"') && h.indexOf('id="t-esp"') < h.indexOf('id="t-conteudo"') && h.indexOf('id="t-conteudo"') < h.indexOf('id="t-contas"'));
   assert.match(h, /<summary>Vocês garantem seguidores ou vendas\?<\/summary>\s*<p>Não\./);
   assert.match(h, /tem 7 dias para desistir, com devolução integral\.<\/p>/);
+});
+
+// 08/11/2026 (Jéssica aprovou): cardápio de restaurante. Pode Curtir vende e cuida do conteúdo; página e app
+// (instalável pelo navegador) pela Zethic, em parceria. Projeto R$ 1.500 (depois R$ 2.400); mensal R$ 290 (depois R$ 460).
+test("Pode Curtir: cardápio de restaurante com a Zethic em parceria", () => {
+  const h = ler("podecurtir.html");
+  const js = ler("assets/js/podecurtir-loja.js");
+  const cfg = ler("assets/js/podecurtir-config.js");
+  assert.match(js, /id: "cardapio", secao: "rest", nome: "Cardápio Pronto", preco: 1500, prazo: "10 dias úteis", fundador: true,/);
+  assert.match(js, /Depois, R\$ 2\.400\."[\s\S]*Página e app feitos pela Zethic, em parceria\./);
+  assert.match(js, /id: "cardapio_mensal", secao: "rest", nome: "Cuidado do Cardápio", mensal: 290, depois: "[^"]*Depois, R\$ 460 por mês\."/);
+  assert.match(js, /id: "restaurante", nome: "Restaurante, lanchonete ou bar", proj: \["cardapio"\]/);
+  assert.match(js, /\$\("grade-rest"\)\.innerHTML = daSecao\(PROJ, "rest"\)/);
+  assert.match(h, /<h2 id="t-rest">Para restaurantes, lanchonetes e bares<\/h2><p>[^<]*feitos pela Zethic, em parceria; o seu contato continua sendo a Pode Curtir\.<\/p>/);
+  assert.ok(h.indexOf('id="t-planos"') < h.indexOf('id="t-rest"') && h.indexOf('id="t-rest"') < h.indexOf('id="t-esp"'));
+  assert.match(cfg, /cardapio: "[^"]*",\s*cardapio_mensal: "[^"]*"/);
+  assert.match(ler("podecurtir/termos/index.html"), /<strong>Para restaurantes, lanchonetes e bares:<\/strong>/);
 });
