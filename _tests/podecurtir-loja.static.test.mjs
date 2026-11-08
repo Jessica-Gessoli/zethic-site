@@ -129,7 +129,8 @@ test("página única: loja na página inicial, comprar antes do WhatsApp e ender
   assert.match(r, /<link rel="canonical" href="https:\/\/zethic\.net\/podecurtir">/);
   assert.match(r, /<meta http-equiv="refresh" content="0; url=https:\/\/zethic\.net\/podecurtir#loja">/);
   assert.match(r, /<script src="\/assets\/js\/podecurtir-redireciona\.js"><\/script>/);
-  assert.match(ler("assets/js/podecurtir-redireciona.js"), /location\.replace\(c\.href\.split\("#"\)\[0\] \+ \(location\.hash && location\.hash\.length > 1 \? location\.hash : "#loja"\)\)/);
+  // 08/11/2026: os parâmetros (?interno=1, utm_*, negocio) vão junto para o destino.
+  assert.match(ler("assets/js/podecurtir-redireciona.js"), /location\.replace\(c\.href\.split\("#"\)\[0\]\.split\("\?"\)\[0\] \+ location\.search \+ \(location\.hash && location\.hash\.length > 1 \? location\.hash : "#loja"\)\)/);
   assert.doesNotMatch(ler("sitemap.xml"), /podecurtir\/loja\//);
   // review do PR #106: link para um trecho da página, no fechamento, volta à loja antes de rolar; faixa final legível no escuro
   const js = ler("assets/js/podecurtir-loja.js");
@@ -288,7 +289,7 @@ test("medição de compra e link por persona", () => {
   assert.match(loja, /cart\.plus\.push\(id\); medir\("AddToCart", \{ content_name: id \}\);/);
   assert.match(comum, /AddToCart: "add_to_cart", EscolheuTipo: "escolheu_tipo"/);
   assert.match(comum, /window\.podecurtirEvento\("Purchase", \{ value: p\.valor, currency: "BRL" \}\)/);
-  assert.match(comum, /Date\.now\(\) - p\.em < 48 \* 3600 \* 1000/);
+  assert.match(comum, /Date\.now\(\) - p\.em < 7 \* 24 \* 3600 \* 1000/);
 });
 
 // 07/11/2026 (pedido da Jéssica): campanhas automáticas até o Carnaval, trocadas pela data de São Paulo.
@@ -353,4 +354,12 @@ test("seção para especialistas, produtoras e empresas: preços aprovados e reg
   const termos = ler("podecurtir/termos/index.html");
   assert.match(termos, /Versão de 08\/11\/2026/);
   assert.match(termos, /Para especialistas, produtoras e empresas:<\/strong> Diagnóstico de marca de especialista, Presença em vídeo e Acabamento de vídeo têm pagamento integral/);
+});
+
+// 08/11/2026 (review do podecurtir-site #3): a compra conta até 7 dias depois da ida ao Asaas, porque o boleto vence em 2 dias úteis.
+test("compra: janela de atribuição cobre o prazo do boleto", () => {
+  const js = ler("assets/js/podecurtir-comum.js");
+  assert.match(js, /Date\.now\(\) - p\.em < 7 \* 24 \* 3600 \* 1000\)/);
+  assert.doesNotMatch(js, /48 \* 3600 \* 1000/);
+  assert.match(ler("podecurtir/termos/index.html"), /vence 2 dias úteis depois de gerado/);
 });
