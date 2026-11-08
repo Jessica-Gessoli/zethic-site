@@ -411,4 +411,10 @@ test("Pode Curtir: cardápio de restaurante com a Zethic em parceria", () => {
   assert.ok(h.indexOf('id="t-planos"') < h.indexOf('id="t-rest"') && h.indexOf('id="t-rest"') < h.indexOf('id="t-esp"'));
   assert.match(cfg, /cardapio: "[^"]*",\s*cardapio_mensal: "[^"]*"/);
   assert.match(ler("podecurtir/termos/index.html"), /<strong>Para restaurantes, lanchonetes e bares:<\/strong>/);
+  // 08/11/2026 (Jéssica aprovou): 1 troca = 1 item; pacote avulso de 5 trocas por R$ 90; 12 meses no ar incluídos,
+  // depois R$ 120 por ano ou sem custo com o Cuidado; no encerramento, o cliente recebe a planilha e o PDF.
+  assert.match(js, /12 meses no ar incluídos\./);
+  assert.match(js, /1 troca = mudar um item: preço, nome, descrição, foto ou disponibilidade/);
+  assert.match(ler("podecurtir/termos/index.html"), /pacote de até 5 por R\$ 90, feitas em até 2 dias úteis[\s\S]*recebe a planilha e o PDF/);
+  assert.match(ler("podecurtir/termos/index.html"), /a hospedagem custa R\$ 120 por ano, ou não tem custo para quem tem o Cuidado do Cardápio/);
 });
