@@ -12,7 +12,11 @@
    Decisões de 06/11/2026 (protótipo aprovado pela Jéssica): escolha do tipo de Negócio no topo (doceria, salão,
    consultório ou outro), com sugestão de por onde começar; seção "Proteção e recuperação de conta" (07/11: sem a palavra segurança na Pode Curtir, regra de 28/10) com a Proteção das contas e a
    Recuperação de conta (R$ 400 cada, Jéssica Gessoli, em parceria), que podem ser compradas sozinhas ("avulso");
-   o preço depois das vagas de fundador aparece em cada item. */
+   o preço depois das vagas de fundador aparece em cada item.
+   Decisão de 08/11/2026 (Jéssica: "Vamos subir todos no site", com benchmark de mercado e de lucro): seção
+   "Para especialistas, produtoras e empresas" (secao: "esp"), com Diagnóstico, Presença em vídeo, Acabamento de vídeo
+   e 4 planos mensais; Blog que publica sozinho (com a Zethic) e Licença do método entram como pedido de proposta,
+   com o valor de referência na descrição. A Gestão de marca de especialista tem 1 vaga de fundador. */
 (function () {
   var C = window.PODECURTIR || {};
   var LINKS = C.ASAAS_LINKS || {};
@@ -28,20 +32,41 @@
       desc: "Tudo do Ajuste de Perfil, mais análise de quem você segue, curadoria da grade, revisão das legendas e dos acessos e plano de 30 dias." },
     { id: "marca", nome: "Marca Completa", preco: 7500, parcelas: 6, em: "na", prazo: "30 dias úteis", fundador: true,
       depois: "Preço de fundador para os 3 primeiros clientes. Depois, R$ 12.000.",
-      desc: "Tudo do Perfil Arrumado, mais paleta, tipografia, símbolo e assinatura, modelos de capa, post e story e manual curto de uso." }
+      desc: "Tudo do Perfil Arrumado, mais paleta, tipografia, símbolo e assinatura, modelos de capa, post e story e manual curto de uso." },
+    { id: "diag_esp", secao: "esp", nome: "Diagnóstico de marca de especialista", preco: 1500, prazo: "10 dias úteis", fundador: true,
+      depois: "Preço de fundador para os 3 primeiros clientes. Depois, R$ 2.400. Se você contratar a Gestão de marca de especialista em até 30 dias, o valor vira crédito na 1ª mensalidade.",
+      desc: "Leitura dos seus canais, do que você já publica e de quem já trabalha com você (produtora, mentora, editor), posicionamento em uma frase e plano de 30 dias." },
+    { id: "video_presenca", secao: "esp", nome: "Presença em vídeo · treino individual", preco: 1500, prazo: "2 encontros em até 15 dias", fundador: true,
+      depois: "Preço de fundador para os 3 primeiros clientes. Depois, R$ 2.400.",
+      desc: "2 encontros de 2 horas, online ou em Campinas/SP: roteiro falado, teleprompter, postura, voz e ritmo, com gravação de teste e devolutiva por escrito. Para render mais em cada gravação." },
+    { id: "acabamento", secao: "esp", nome: "Acabamento de vídeo · 4 vídeos", preco: 600, prazo: "5 dias úteis", fundador: true,
+      depois: "Preço de fundador para os 3 primeiros clientes. Depois, R$ 960 (R$ 240 por vídeo).",
+      desc: "Para quem já tem o vídeo editado: capa, gancho nos 3 primeiros segundos e legendas para cada rede. R$ 150 por vídeo." }
   ];
   var PLANOS = [
     { id: "essencial", nome: "Gestão Essencial", mensal: 1500, depois: "Preço de fundador. A partir do 4º cliente, R$ 2.400 por mês.", desc: "1 rede, 12 posts por mês e relatório mensal." },
     { id: "padrao", nome: "Gestão Padrão", mensal: 2800, depois: "Preço de fundador. A partir do 4º cliente, R$ 4.480 por mês.", desc: "2 redes, 16 posts e 4 Reels por mês, com relatório." },
-    { id: "completa", nome: "Gestão Completa", mensal: 4500, depois: "Preço de fundador. A partir do 4º cliente, R$ 7.200 por mês.", desc: "3 redes, 20 posts e 8 Reels por mês." }
+    { id: "completa", nome: "Gestão Completa", mensal: 4500, depois: "Preço de fundador. A partir do 4º cliente, R$ 7.200 por mês.", desc: "3 redes, 20 posts e 8 Reels por mês." },
+    { id: "esp_marca", secao: "esp", nome: "Gestão de marca de especialista", mensal: 7650, depois: "Preço de fundador para 1 cliente. Depois, R$ 12.240 por mês.",
+      desc: "A sua marca de ponta a ponta: estratégia, roteiros, coordenação da produtora e da mentora que você já tem, acabamento, publicação, newsletter e relatório. Você grava, confere os fatos e aprova." },
+    { id: "esp_produtora", secao: "esp", nome: "Coordenação da sua produtora", mensal: 3150, depois: "Preço de fundador para os 3 primeiros clientes. Depois, R$ 5.040 por mês.",
+      desc: "Para quem já tem produtora ou editor e não quer coordenar: padrão de edição, calendário de gravação, prazos, revisões e aceite das entregas. Até 21 horas por mês." },
+    { id: "esp_news", secao: "esp", nome: "Newsletter pronta · 2 edições por mês", mensal: 1200, depois: "Preço de fundador para os 3 primeiros clientes. Depois, R$ 1.920 por mês.",
+      desc: "Pauta, texto com fontes, capa e texto pronto para publicar no LinkedIn. Com blog no site, a edição também entra lá." },
+    { id: "esp_portavozes", secao: "esp", nome: "Programa de porta-vozes · 2 porta-vozes", mensal: 5800, depois: "Preço de fundador para os 3 primeiros clientes. Depois, R$ 9.200 por mês.",
+      desc: "Para empresas: posts e roteiros de vídeo para 2 líderes, com calendário e aprovação numa rotina só. Mais porta-vozes por proposta: 10% de desconto a partir do 3º e 15% a partir do 5º." }
   ];
+  /* Planos de Gestão que entram na campanha de Black Friday (a Proteção das contas de bônus vale só para eles). */
+  var GESTAO = ["essencial", "padrao", "completa"];
   var PROPOSTAS = [
     { id: "gravacao", marca: "pc", nome: "Sessão de fotos, ensaio e gravação de vídeo", plus: "plus_gravacao", desc: "Produto, ambiente ou retrato profissional; diária, evento ou sessão maior. O deslocamento entra na proposta." },
     { id: "livro", marca: "pc", nome: "Livro pronto", plus: "plus_livro", desc: "Revisão, capa, diagramação, publicação e divulgação." },
     { id: "produto_digital", marca: "pc", nome: "Produto digital e curso online", desc: "Roteiro, gravação e edição das aulas, capa e materiais do curso ou do produto. A plataforma (Hotmart ou outra) e as vendas ficam no nome do autor." },
     { id: "protecao", marca: "jg", nome: "Proteção das contas da equipe inteira", plus: "plus_protecao", desc: "Mais de 3 contas ou a equipe toda. Feita por Jéssica Gessoli, em parceria. Sem senha." },
     { id: "mentoria", marca: "jg", nome: "Mentoria e consultoria em IA", plus: "plus_mentoria", desc: "Você aprende a fazer com IA, no seu projeto. Com Jéssica Gessoli." },
-    { id: "tech", marca: "ze", nome: "Site, app, automação e bot de WhatsApp", plus: "plus_site", desc: "Feitos pela Zethic, em parceria. Atendimento e dados das redes num lugar só." }
+    { id: "tech", marca: "ze", nome: "Site, app, automação e bot de WhatsApp", plus: "plus_site", desc: "Feitos pela Zethic, em parceria. Atendimento e dados das redes num lugar só." },
+    { id: "blog", marca: "ze", nome: "Blog que publica sozinho", desc: "Feito pela Zethic, em parceria: área de blog no site do seu Negócio, com textos programados que entram no ar sozinhos na data. Implantação a partir de R$ 1.500 (preço de fundador); a proposta confirma se o seu site é compatível." },
+    { id: "licenca", marca: "pc", nome: "Licença do método de produção", desc: "Para produtoras e agências: o fluxo de produção da Pode Curtir, com treino de 8 horas da equipe, modelos e listas de conferência. A partir de R$ 2.400 por ano (preço de fundador); renovação anual de R$ 1.200." }
   ];
   /* Plus do fechamento do pedido: escopo fechado e preço próprio. Só entram com um serviço pago no pedido,
      menos os marcados "avulso", que também se compram sozinhos: proteção e recuperação de conta (06/11/2026, seção "contas")
@@ -69,6 +94,8 @@
       txt: "A <strong>Gestão Padrão</strong> tem 4 Reels por mês para mostrar o seu trabalho sem você parar de atender. Prefere sem mensalidade? O <strong>Perfil Arrumado</strong> é um projeto com começo, meio e fim." },
     { id: "consultorio", nome: "Consultório de saúde", proj: ["arrumado"], plano: null, plus: [], prop: ["gravacao"],
       txt: "O <strong>Perfil Arrumado</strong> organiza o seu perfil com discrição, e o <strong>ensaio de fotos</strong> sai por proposta. Antes do primeiro post, você confirma a regra de publicidade do seu conselho profissional. Nada de foto, relato ou dado de paciente." },
+    { id: "especialista", nome: "Especialista, consultor ou palestrante", proj: ["diag_esp"], plano: null, plus: [], prop: [],
+      txt: "Comece pelo <strong>Diagnóstico de marca de especialista</strong>: o que você já tem, quem já trabalha com você e o plano de 30 dias. Se você já paga produtora e mentora e não quer mais coordenar todo mundo, a <strong>Gestão de marca de especialista</strong> cuida de tudo." },
     { id: "outro", nome: "Outro Negócio", proj: [], plano: null, plus: [], prop: [],
       txt: "Veja os três níveis do Perfil Pronto logo abaixo. Se o seu caso for diferente, peça proposta, sem compromisso." }
   ];
@@ -134,13 +161,22 @@
 
   function catalogo() {
     var marcaSug = '<span class="marca-sugestao">PARA O SEU NEGÓCIO</span>';
-    $("grade-perfil").innerHTML = PROJ.map(function (p) {
+    function cardProj(p) {
       var on = tem(cart.proj, p.id), sug = sugerido("proj", p.id);
       return '<article class="item' + (sug ? " sugerido" : "") + '">' + (sug ? marcaSug : "") + "<h3>" + p.nome + '</h3><p class="preco num">' + brl(p.preco) + "</p><p>" + p.desc + "</p>" +
         (p.id === "ajuste" ? '<p class="vagas">' + textoVagas() + "</p>" : (p.depois ? '<p class="vagas">' + p.depois + "</p>" : "")) +
         '<dl class="meta"><div><dt>Prazo</dt><dd>' + p.prazo + ', a partir do briefing completo</dd></div><div><dt>Pagamento</dt><dd>Integral: ' + formas(p) + "</dd></div></dl>" +
         '<button class="por" type="button" data-proj="' + p.id + '" aria-pressed="' + on + '">' + (on ? "No pedido · tirar" : "Pôr no pedido") + "</button></article>";
-    }).join("");
+    }
+    function cardPlano(p) {
+      var on = cart.plano === p.id, sug = sugerido("plano", p.id);
+      return '<article class="item' + (sug ? " sugerido" : "") + '">' + (sug ? marcaSug : "") + "<h3>" + p.nome + '</h3><p class="preco num">' + brl(p.mensal) + ' <small>por mês</small></p><p>' + p.desc + "</p>" +
+        (p.depois ? '<p class="vagas">' + p.depois + "</p>" : "") +
+        '<dl class="meta"><div><dt>Mínimo</dt><dd>3 meses = ' + brl(p.mensal * 3) + '</dd></div><div><dt>Pagamento</dt><dd>1ª mensalidade hoje; depois, todo mês</dd></div></dl>' +
+        '<button class="por" type="button" data-plano="' + p.id + '" aria-pressed="' + on + '">' + (on ? "No pedido · tirar" : "Pôr no pedido") + "</button></article>";
+    }
+    function daSecao(lista, secao) { return lista.filter(function (p) { return (p.secao || "") === secao; }); }
+    $("grade-perfil").innerHTML = daSecao(PROJ, "").map(cardProj).join("");
     function avulsos(secao) {
       return PLUS.filter(function (p) { return p.avulso && p.secao === secao; }).map(function (p) {
         var on = tem(cart.plus, p.id);
@@ -151,13 +187,8 @@
     }
     $("grade-contas").innerHTML = avulsos("contas");
     $("grade-conteudo").innerHTML = avulsos("conteudo");
-    $("grade-planos").innerHTML = PLANOS.map(function (p) {
-      var on = cart.plano === p.id, sug = sugerido("plano", p.id);
-      return '<article class="item' + (sug ? " sugerido" : "") + '">' + (sug ? marcaSug : "") + "<h3>" + p.nome + '</h3><p class="preco num">' + brl(p.mensal) + ' <small>por mês</small></p><p>' + p.desc + "</p>" +
-        (p.depois ? '<p class="vagas">' + p.depois + "</p>" : "") +
-        '<dl class="meta"><div><dt>Mínimo</dt><dd>3 meses = ' + brl(p.mensal * 3) + '</dd></div><div><dt>Pagamento</dt><dd>1ª mensalidade hoje; depois, todo mês</dd></div></dl>' +
-        '<button class="por" type="button" data-plano="' + p.id + '" aria-pressed="' + on + '">' + (on ? "No pedido · tirar" : "Pôr no pedido") + "</button></article>";
-    }).join("");
+    $("grade-planos").innerHTML = daSecao(PLANOS, "").map(cardPlano).join("");
+    $("grade-esp").innerHTML = daSecao(PROJ, "esp").map(cardProj).join("") + daSecao(PLANOS, "esp").map(cardPlano).join("");
     $("lista-propostas").innerHTML = PROPOSTAS.map(function (a) {
       var on = tem(cart.prop, a.id);
       var x = a.plus ? plusDe(a.plus) : null;
@@ -191,7 +222,7 @@
      Gestão mensal no pedido ganham a Proteção das contas. Aparece no pedido e na mensagem, para o bônus ser cumprido. */
   function bonusValido() {
     var c = window.podecurtirCampanha && window.podecurtirCampanha();
-    return !!(c && c.bonus && (tem(cart.proj, "arrumado") || tem(cart.proj, "marca") || !!cart.plano));
+    return !!(c && c.bonus && (tem(cart.proj, "arrumado") || tem(cart.proj, "marca") || tem(GESTAO, cart.plano)));
   }
   function linhas(comTirar) {
     var out = [];
