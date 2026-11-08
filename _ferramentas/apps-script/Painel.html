@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<base target="_top">
+<meta charset="utf-8">
+<style>
+  :root { --bg:#0d0d0c; --card:#1c1c1a; --linha:#2a2a28; --txt:#f3f5f2; --sub:#a8a7a2; --lar:#ff6a1a; --ok:#4fbf7a; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--txt); font:15px/1.4 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; }
+  header { display:flex; flex-wrap:wrap; gap:12px; align-items:center; padding:14px 16px; border-bottom:1px solid var(--linha); position:sticky; top:0; background:var(--bg); z-index:2; }
+  h1 { font-size:18px; margin:0 auto 0 0; }
+  .num { font-size:13px; color:var(--sub); }
+  .num b { color:var(--txt); font-size:16px; }
+  button { font:inherit; border:0; border-radius:8px; padding:10px 14px; cursor:pointer; }
+  #som { background:var(--lar); color:#000; font-weight:700; }
+  #som.ligado { background:var(--linha); color:var(--txt); font-weight:400; }
+  main { display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:12px; padding:12px; }
+  section { background:#141413; border-radius:12px; padding:10px; min-height:120px; }
+  section h2 { font-size:14px; text-transform:uppercase; letter-spacing:.04em; color:var(--sub); margin:4px 4px 10px; }
+  .card { background:var(--card); border-radius:10px; padding:12px; margin-bottom:8px; border-left:4px solid var(--linha); }
+  .card.novo { border-left-color:var(--lar); }
+  .card.chegou { animation:pisca 1s ease-in-out 4; }
+  @keyframes pisca { 50% { background:#3a2414; } }
+  .t { font-weight:700; }
+  .m { font-size:13px; color:var(--sub); margin-top:2px; }
+  .v { font-weight:700; margin-top:6px; }
+  .acoes { display:flex; gap:6px; margin-top:10px; }
+  .acoes button { flex:1; background:var(--linha); color:var(--txt); padding:8px; font-size:13px; }
+  .acoes button.prox { background:var(--lar); color:#000; font-weight:700; }
+  .vazio { color:var(--sub); font-size:13px; padding:4px; }
+  #aviso { padding:8px 16px; font-size:13px; color:var(--sub); }
+  #aviso.erro { color:#ff8a8a; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Pedidos</h1>
+  <span class="num">Hoje: <b id="hoje-qtd">0</b> · <b id="hoje-valor">R$ 0</b></span>
+  <button id="som" type="button">Ativar som</button>
+</header>
+<div id="aviso">Carregando…</div>
+<main>
+  <section><h2>Novo</h2><div id="col-Novo"></div></section>
+  <section><h2>Em produção</h2><div id="col-Em produção"></div></section>
+  <section><h2>Entregue</h2><div id="col-Entregue"></div></section>
+  <section><h2>Aguardando pagamento</h2><div id="col-aguardando"></div></section>
+</main>
+<script>
+  var ETAPAS = ["Novo", "Em produção", "Entregue"];
+  var conhecidas = null, audio = null, somLigado = false;
+
+  document.getElementById("som").addEventListener("click", function () {
+    audio = audio || new (window.AudioContext || window.webkitAudioContext)();
+    audio.resume();
+    somLigado = true;
+    this.textContent = "Som ligado";
+    this.className = "ligado";
+    tocar();
+  });
+
+  // Som próprio: três notas subindo, repetidas duas vezes. Não usa o som de nenhum outro aplicativo.
+  function tocar() {
+    if (!somLigado || !audio) return;
+    var t = audio.currentTime;
+    [0, 0.6].forEach(function (rep) {
+      [880, 1175, 1568].forEach(function (f, i) {
+        var o = audio.createOscillator(), g = audio.createGain();
+        o.type = "triangle"; o.frequency.value = f;
+        var ini = t + rep + i * 0.12;
+        g.gain.setValueAtTime(0.0001, ini);
+        g.gain.exponentialRampToValueAtTime(0.5, ini + 0.02);
+        g.gain.exponentialRampToValueAtTime(0.0001, ini + 0.25);
+        o.connect(g); g.connect(audio.destination);
+        o.start(ini); o.stop(ini + 0.3);
+      });
+    });
+  }
+
+  function reais(v) { return "R$ " + Number(v || 0).toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 }); }
+  function hora(iso) { if (!iso) return ""; var d = new Date(iso); return d.toLocaleDateString("pt-BR", { day: "2-digit", month: "2-digit" }) + " " + d.toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit" }); }
+  function el(tag, cls, txt) { var e = document.createElement(tag); if (cls) e.className = cls; if (txt != null) e.textContent = txt; return e; }
+
+  function desenhar(d) {
+    var ids = d.vendas.map(function (v) { return v.id; });
+    var chegaram = conhecidas ? ids.filter(function (id) { return conhecidas.indexOf(id) < 0; }) : [];
+    conhecidas = ids;
+
+    ETAPAS.forEach(function (et) { document.getElementById("col-" + et).innerHTML = ""; });
+    d.vendas.slice().sort(function (a, b) { return (b.quando || "").localeCompare(a.quando || ""); }).forEach(function (v) {
+      var etapa = ETAPAS.indexOf(v.etapa) >= 0 ? v.etapa : "Novo";
+      if (etapa === "Entregue" && Date.now() - new Date(v.quando).getTime() > 3 * 864e5) return;
+      var c = el("div", "card" + (etapa === "Novo" ? " novo" : "") + (chegaram.indexOf(v.id) >= 0 ? " chegou" : ""));
+      c.appendChild(el("div", "t", v.item || "(sem nome)"));
+      c.appendChild(el("div", "m", (v.marca || "Sem marca") + " · " + (v.cliente || "") ));
+      c.appendChild(el("div", "m", hora(v.quando) + " · " + (v.forma || "") + (v.pedido ? " · " + v.pedido : "")));
+      c.appendChild(el("div", "v", reais(v.valor)));
+      var a = el("div", "acoes"), i = ETAPAS.indexOf(etapa);
+      if (i > 0) a.appendChild(botao("Voltar", "", v.id, ETAPAS[i - 1]));
+      if (i < 2) a.appendChild(botao(i === 0 ? "Começar" : "Entregue", "prox", v.id, ETAPAS[i + 1]));
+      c.appendChild(a);
+      document.getElementById("col-" + etapa).appendChild(c);
+    });
+    ETAPAS.forEach(function (et) { var col = document.getElementById("col-" + et); if (!col.children.length) col.appendChild(el("div", "vazio", "Nada aqui.")); });
+
+    var ag = document.getElementById("col-aguardando"); ag.innerHTML = "";
+    d.aguardando.slice(-30).reverse().forEach(function (p) {
+      var c = el("div", "card");
+      c.appendChild(el("div", "t", p.itens || "Pedido de proposta"));
+      c.appendChild(el("div", "m", (p.nome || "") + " · " + hora(p.quando)));
+      c.appendChild(el("div", "m", p.numero + " · avisos: " + (p.avisos === "Sim" ? "sim" : "não")));
+      c.appendChild(el("div", "v", reais(p.valor) + (p.pago ? " · pago em parte: " + reais(p.pago) : "")));
+      ag.appendChild(c);
+    });
+    if (!ag.children.length) ag.appendChild(el("div", "vazio", "Nenhum pedido em aberto."));
+
+    var hoje = new Date().toDateString();
+    var deHoje = d.vendas.filter(function (v) { return v.quando && new Date(v.quando).toDateString() === hoje; });
+    document.getElementById("hoje-qtd").textContent = deHoje.length;
+    document.getElementById("hoje-valor").textContent = reais(deHoje.reduce(function (s, v) { return s + Number(v.valor || 0); }, 0));
+
+    var av = document.getElementById("aviso");
+    av.className = ""; av.textContent = "Atualizado às " + new Date().toLocaleTimeString("pt-BR") + (somLigado ? "" : " · toque em Ativar som para ouvir cada venda");
+    if (chegaram.length) { tocar(); document.title = "(" + chegaram.length + ") Nova venda!"; setTimeout(function () { document.title = "Pedidos"; }, 15000); }
+  }
+
+  function botao(txt, cls, id, etapa) {
+    var b = el("button", cls, txt); b.type = "button";
+    b.addEventListener("click", function () {
+      b.disabled = true;
+      google.script.run.withSuccessHandler(atualizar).withFailureHandler(erro).moverVenda(id, etapa);
+    });
+    return b;
+  }
+
+  function erro(e) { var av = document.getElementById("aviso"); av.className = "erro"; av.textContent = "Não consegui atualizar: " + (e && e.message ? e.message : e) + ". Tento de novo em 30 segundos."; }
+  function atualizar() { google.script.run.withSuccessHandler(desenhar).withFailureHandler(erro).painelDados(); }
+
+  atualizar();
+  setInterval(atualizar, 30000);
+</script>
+</body>
+</html>
