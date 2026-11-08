@@ -91,13 +91,15 @@ function doPost(e) {
 /** Direito de arrependimento: grava o pedido e avisa a dona por e-mail na hora. */
 function desistencia_(p) {
   if (!String(p.nome || "").trim() || !/^\S+@\S+\.\S+$/.test(String(p.email || ""))) return json_({ ok: false, erro: "dados" });
-  var linha = [new Date(), limpa_(p.nome, 120), limpa_(p.email, 120).toLowerCase(), limpa_(p.pedido, 120), limpa_(p.motivo, 1000), limpa_(p.pagina, 80), false];
+  // A marca vem no envio (a loja da Jéssica Gessoli manda marca: "jessicagessoli"); sem ela, é a Pode Curtir.
+  var marca = p.marca === "jessicagessoli" ? "Jéssica Gessoli" : "Pode Curtir";
+  var linha = [new Date(), limpa_(p.nome, 120), limpa_(p.email, 120).toLowerCase(), limpa_(p.pedido, 120), limpa_(p.motivo, 1000), marca + " · " + limpa_(p.pagina, 80), false];
   var sh = aba_("desistencias");
   sh.appendRow(linha);
   sh.getRange(sh.getLastRow(), 7).insertCheckboxes();
   var dono = PropertiesService.getScriptProperties().getProperty("DONO_EMAIL");
   if (dono && MailApp.getRemainingDailyQuota() > 0) {
-    MailApp.sendEmail({ to: dono, replyTo: linha[2], subject: "Pedido de desistência (" + (/jessicagessoli/.test(linha[5]) ? "Jéssica Gessoli" : "Pode Curtir") + "): " + linha[1],
+    MailApp.sendEmail({ to: dono, replyTo: linha[2], subject: "Pedido de desistência (" + marca + "): " + linha[1],
       body: "Chegou um pedido de desistência pelo site.\n\nNome: " + linha[1] + "\nE-mail: " + linha[2] + "\nPedido ou data: " + linha[3] +
         "\nMotivo: " + (linha[4] || "(não informado)") + "\n\nPrazo legal de 7 dias corridos. Está na aba Desistências da planilha." });
   }
@@ -210,7 +212,9 @@ function marcarPedidosPagos_(pagas) {
     if (!email) return;
     for (var i = dados.length - 1; i >= 1; i--) {
       var sit = dados[i][8];
-      if (String(dados[i][3]).toLowerCase() === email && (sit === "Aguardando pagamento" || sit === "Pago em parte")) {
+      // Só liga a venda a um pedido da mesma marca (a venda "Sem marca" pode ligar a qualquer uma).
+      var mesmaMarca = !v[3] || v[3] === "Sem marca" || v[3] === loja_(dados[i][0]).nome;
+      if (mesmaMarca && String(dados[i][3]).toLowerCase() === email && (sit === "Aguardando pagamento" || sit === "Pago em parte")) {
         var total = (Number(dados[i][14]) || 0) + (Number(v[9]) || 0);
         var nova = situacaoPedido_(dados[i][6], total, n.parcelado);
         sh.getRange(i + 1, 9).setValue(nova);
