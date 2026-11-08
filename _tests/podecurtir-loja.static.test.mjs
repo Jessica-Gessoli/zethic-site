@@ -15,7 +15,9 @@ test("configuração única, com pagamento e Pixel desligados até serem preench
   const c = ctx.window.PODECURTIR;
   assert.deepEqual(Object.keys(c.ASAAS_LINKS).sort(),
     ["ajuste", "arrumado_cartao", "arrumado_pix", "completa", "essencial", "marca_cartao", "marca_pix", "padrao",
-      "plus_gravacao", "plus_livro", "plus_mentoria", "plus_protecao", "plus_recuperacao", "plus_site_cartao", "plus_site_pix"]);
+      "plus_gravacao", "plus_livro", "plus_mentoria", "plus_protecao", "plus_recuperacao", "plus_site_cartao", "plus_site_pix",
+      // 08/11/2026: seção para especialistas, produtoras e empresas
+      "acabamento", "diag_esp", "esp_marca", "esp_news", "esp_portavozes", "esp_produtora", "video_presenca"].sort());
   for (const v of Object.values(c.ASAAS_LINKS)) assert.ok(v === "" || /^https:\/\/(www\.)?asaas\.com\//.test(v), "link do Asaas inválido: " + v);
   assert.ok([500, 750, 1200].includes(c.PRECO_AJUSTE), "preço do Ajuste fora da escada aprovada");
   assert.ok(c.PIXEL_ID === "" || /^\d{10,20}$/.test(c.PIXEL_ID));
@@ -209,6 +211,8 @@ test("site: pagamento integral, parcelado só no cartão e Gestão Completa com 
   vm.runInNewContext(ler("assets/js/podecurtir-config.js"), ctx);
   for (const [k, v] of Object.entries(ctx.window.PODECURTIR.ASAAS_LINKS)) {
     if (k.startsWith("plus_") && v === "") continue; // plus: "pagamento em configuração" até o link existir
+    // 08/11/2026: itens da seção para especialistas também ficam em configuração até a Jéssica criar os links
+    if (["diag_esp", "video_presenca", "acabamento", "esp_marca", "esp_produtora", "esp_news", "esp_portavozes"].includes(k) && v === "") continue;
     assert.match(v, /^https:\/\/www\.asaas\.com\/000\/c\/[a-z0-9]{16}$/, k);
   }
 });
@@ -311,11 +315,42 @@ test("campanhas mudam sozinhas pela data e somem depois de 25/01/2027", () => {
   assert.match(js, /timeZone: "America\/Sao_Paulo"/);
   assert.match(js, /function iniciar\(\) \{ aplicarCampanha\(\);/);
   const loja = ler("assets/js/podecurtir-loja.js");
-  assert.match(loja, /c\.bonus && \(tem\(cart\.proj, "arrumado"\) \|\| tem\(cart\.proj, "marca"\) \|\| !!cart\.plano\)/);
+  // 08/11/2026: o bônus continua só nos 3 planos de Gestão da campanha, não nos planos novos para especialistas
+  assert.match(loja, /c\.bonus && \(tem\(cart\.proj, "arrumado"\) \|\| tem\(cart\.proj, "marca"\) \|\| tem\(GESTAO, cart\.plano\)\)/);
+  assert.match(loja, /var GESTAO = \["essencial", "padrao", "completa"\];/);
   assert.match(loja, /Bônus Black Friday: Proteção das contas incluída, sem custo \(campanha até 30\/11\)\./);
   assert.match(ler("assets/css/podecurtir-loja.css"), /\.campanha\{background:var\(--flash\)/);
   // review do PR #117: loja certa no site próprio, Proteção paga some com o bônus, bônus vai no pedido registrado
   assert.match(js, /document\.querySelector\('a\[href\$="#loja"\]'\)/);
   assert.match(loja, /!\(p\.id === "plus_protecao" && bonusValido\(\)\)/);
   assert.match(loja, /bonus: bonusValido\(\) \? \["plus_protecao"\] : \[\]/);
+});
+
+// 08/11/2026 (Jéssica: "Vamos subir todos no site", com benchmark de mercado e de lucro): 9 produtos para
+// especialistas, produtoras e empresas. Preço de fundador e preço depois em cada um; Blog (Zethic) e Licença como
+// pedido de proposta com valor de referência; Gestão de marca de especialista com 1 vaga de fundador.
+test("seção para especialistas, produtoras e empresas: preços aprovados e regras das marcas", () => {
+  const js = ler("assets/js/podecurtir-loja.js");
+  const proj = js.split("var PROJ = [")[1].split("];")[0];
+  const planos = js.split("var PLANOS = [")[1].split("];")[0];
+  const props = js.split("var PROPOSTAS = [")[1].split("];")[0];
+  assert.match(proj, /id: "diag_esp", secao: "esp", nome: "Diagnóstico de marca de especialista", preco: 1500,[^}]*Depois, R\$ 2\.400\./);
+  assert.match(proj, /id: "video_presenca", secao: "esp", nome: "Presença em vídeo · treino individual", preco: 1500,[^}]*Depois, R\$ 2\.400\./);
+  assert.match(proj, /id: "acabamento", secao: "esp", nome: "Acabamento de vídeo · 4 vídeos", preco: 600,[^}]*Depois, R\$ 960/);
+  assert.match(planos, /id: "esp_marca", secao: "esp", nome: "Gestão de marca de especialista", mensal: 7650, depois: "Preço de fundador para 1 cliente\. Depois, R\$ 12\.240 por mês\."/);
+  assert.match(planos, /id: "esp_produtora", secao: "esp", nome: "Coordenação da sua produtora", mensal: 3150,[^}]*R\$ 5\.040 por mês/);
+  assert.match(planos, /id: "esp_news", secao: "esp", nome: "Newsletter pronta · 2 edições por mês", mensal: 1200,[^}]*R\$ 1\.920 por mês/);
+  assert.match(planos, /id: "esp_portavozes", secao: "esp", nome: "Programa de porta-vozes · 2 porta-vozes", mensal: 5800,[^}]*R\$ 9\.200 por mês[^}]*10% de desconto a partir do 3º e 15% a partir do 5º/);
+  assert.match(props, /id: "blog", marca: "ze", nome: "Blog que publica sozinho",[^}]*a partir de R\$ 1\.500 \(preço de fundador\)/);
+  assert.match(props, /id: "licenca", marca: "pc", nome: "Licença do método de produção",[^}]*A partir de R\$ 2\.400 por ano \(preço de fundador\); renovação anual de R\$ 1\.200/);
+  assert.match(js, /id: "especialista", nome: "Especialista, consultor ou palestrante", proj: \["diag_esp"\]/);
+  // a seção não usa número de vídeos por hora de gravação nem cita área técnica do piloto
+  assert.doesNotMatch(js, /vídeos em 4 horas|Cibersegurança/);
+  assert.match(js, /\$\("grade-esp"\)\.innerHTML = daSecao\(PROJ, "esp"\)\.map\(cardProj\)\.join\(""\) \+ daSecao\(PLANOS, "esp"\)\.map\(cardPlano\)\.join\(""\);/);
+  const loja = ler("podecurtir.html");
+  assert.match(loja, /<h2 id="t-esp">Para especialistas, produtoras e empresas<\/h2>/);
+  assert.match(loja, /<div class="grade" id="grade-esp"><\/div>/);
+  const termos = ler("podecurtir/termos/index.html");
+  assert.match(termos, /Versão de 08\/11\/2026/);
+  assert.match(termos, /Para especialistas, produtoras e empresas:<\/strong> Diagnóstico de marca de especialista, Presença em vídeo e Acabamento de vídeo têm pagamento integral/);
 });
