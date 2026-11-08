@@ -261,8 +261,10 @@
 
   function registrar(dados) {
     if (!C.FORM_ENDPOINT) return Promise.resolve(false);
-    return fetch(C.FORM_ENDPOINT, { method: "POST", keepalive: true, headers: { "Content-Type": "application/json" }, body: JSON.stringify(dados) })
-      .then(function (r) { return r.ok; }).catch(function () { return false; });
+    // text/plain evita a verificação prévia do navegador, que o Google Apps Script não atende.
+    // keepalive: o envio continua mesmo se a cliente tocar no link de pagamento antes de ele terminar.
+    return fetch(C.FORM_ENDPOINT, { method: "POST", keepalive: true, headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(dados) })
+      .then(function (r) { return r.ok ? r.json() : null; }).then(function (j) { return !!(j && j.ok); }).catch(function () { return false; });
   }
 
   function obrigado(tipo) {
@@ -298,12 +300,15 @@
     if (t.pagos.some(function (p) { return p.parcelas; }) && !forma()) falta.push("forma de pagamento");
     if (falta.length) { $("erro").textContent = "Falta preencher: " + falta.join(", ") + "."; $("erro").hidden = false; return; }
     $("erro").hidden = true;
-    var texto = mensagem(t, d);
     var pedido = {
+      id: "JG-" + Date.now().toString(36).toUpperCase() + "-" + Math.random().toString(36).slice(2, 6).toUpperCase(),
       marca: "jessicagessoli", tipo: t.pagos.length ? "compra" : "proposta", cliente: d, novidades: $("novidades").checked,
+      avisos: $("avisos").checked,
       itens: t.pagos, propostas: cart.prop.slice(), hoje: t.hoje, forma: forma() || null,
-      aceite: { contrato: true, em: new Date().toISOString() }, pagina: location.pathname
+      aceite: { contrato: true, em: new Date().toISOString() }, pagina: location.pathname,
+      links: t.pagos.filter(function (p) { return !!linkDe(p); }).map(function (p) { return { nome: p.nome, valor: p.valor, url: linkDe(p) }; })
     };
+    var texto = mensagem(t, d) + "\nNúmero do pedido: " + pedido.id;
 
     if (!t.pagos.length) {
       if (window.jgEvento) window.jgEvento("Lead");
@@ -334,6 +339,8 @@
         .catch(function () { manual("Pague cada item pelo link", texto, t); });
       return;
     }
+    /* Pedido com mais de um item: registra antes de mostrar os links, para a recuperação de pedido saber quem quase comprou. */
+    registrar(pedido);
     manual(t.pagos.every(function (p) { return linkDe(p); }) ? "Pague cada item pelo link" : "Pagamento em configuração", texto, t);
   });
 

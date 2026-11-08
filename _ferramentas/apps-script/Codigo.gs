@@ -20,6 +20,15 @@ var ABAS = {
 };
 var NOMES_ABAS = { pedidos: "Pedidos", vendas: "Vendas", saidas: "Saídas", whatsapp: "WhatsApp", desistencias: "Desistências", resumo: "Resumo" };
 var MARCAS = ["Pode Curtir", "Jéssica Gessoli", "Zethic"];
+/* Marca do pedido, pelo prefixo do número (PC- vem da loja da Pode Curtir, JG- da loja da Jéssica Gessoli). */
+var LOJAS = {
+  PC: { nome: "Pode Curtir", email: "podecurtir@zethic.net", whats: "(19) 98331-0769", loja: "https://podecurtir.zethic.net/#loja",
+        desistir: "você paga por Pix, boleto ou cartão, e tem 7 dias para desistir com devolução integral" },
+  JG: { nome: "Jéssica Gessoli", email: "jessica.gessoli@zethic.net", whats: "(19) 98180-0221", loja: "https://zethic.net/jessicagessoli/loja/",
+        desistir: "você paga por Pix, boleto ou cartão, e pode desistir em até 7 dias corridos, nas condições dos Termos" }
+};
+function loja_(numero) { return LOJAS[String(numero || "").slice(0, 2)] || LOJAS.PC; }
+
 var PAGO = ["RECEIVED", "CONFIRMED", "RECEIVED_IN_CASH"];
 // Situações que não mudam mais (a cobrança só é consultada de novo se ainda puder mudar).
 var FINAL = ["RECEIVED", "RECEIVED_IN_CASH", "REFUNDED", "DELETED", "CHARGEBACK_DONE"];
@@ -88,7 +97,7 @@ function desistencia_(p) {
   sh.getRange(sh.getLastRow(), 7).insertCheckboxes();
   var dono = PropertiesService.getScriptProperties().getProperty("DONO_EMAIL");
   if (dono && MailApp.getRemainingDailyQuota() > 0) {
-    MailApp.sendEmail({ to: dono, replyTo: linha[2], subject: "Pedido de desistência: " + linha[1],
+    MailApp.sendEmail({ to: dono, replyTo: linha[2], subject: "Pedido de desistência (" + (/jessicagessoli/.test(linha[5]) ? "Jéssica Gessoli" : "Pode Curtir") + "): " + linha[1],
       body: "Chegou um pedido de desistência pelo site.\n\nNome: " + linha[1] + "\nE-mail: " + linha[2] + "\nPedido ou data: " + linha[3] +
         "\nMotivo: " + (linha[4] || "(não informado)") + "\n\nPrazo legal de 7 dias corridos. Está na aba Desistências da planilha." });
   }
@@ -100,7 +109,7 @@ function doGet(e) {
   if (q.parar) {
     var ok = q.t === assinatura_(q.parar) && marcarParar_(q.parar);
     return HtmlService.createHtmlOutput('<meta name="viewport" content="width=device-width,initial-scale=1"><p style="font-family:sans-serif;font-size:18px;padding:24px">' +
-      (ok ? "Pronto. Você não vai mais receber avisos sobre este pedido." : "Não encontramos este pedido. Se precisar, escreva para podecurtir@zethic.net.") + "</p>");
+      (ok ? "Pronto. Você não vai mais receber avisos sobre este pedido." : "Não encontramos este pedido. Se precisar, escreva para " + loja_(q.parar).email + ".") + "</p>");
   }
   if (!ehDono_()) return HtmlService.createHtmlOutput('<p style="font-family:sans-serif;padding:24px">Acesso restrito.</p>');
   return HtmlService.createHtmlOutputFromFile("Painel").setTitle("Pedidos").addMetaTag("viewport", "width=device-width, initial-scale=1");
@@ -234,7 +243,8 @@ function lembretes_() {
     if (devida <= enviados) continue;
     if (MailApp.getRemainingDailyQuota() < 1) return;
     var msg = mensagem_(devida, { numero: r[0], nome: r[2], itens: r[5], valor: r[6], links: r[13], pago: Number(r[14]) || 0 });
-    MailApp.sendEmail({ to: r[3], subject: msg.assunto, htmlBody: msg.html, body: msg.texto, name: "Pode Curtir", replyTo: "podecurtir@zethic.net" });
+    var lj = loja_(r[0]);
+    MailApp.sendEmail({ to: r[3], subject: msg.assunto, htmlBody: msg.html, body: msg.texto, name: lj.nome, replyTo: lj.email });
     sh.getRange(i + 1, 10, 1, 2).setValues([[devida, new Date()]]);
     filaWhatsApp_(r, devida, msg.whats);
   }
@@ -246,22 +256,23 @@ function mensagem_(etapa, p) {
   var links = String(p.links || "").split("\n").filter(String).map(function (l) {
     var x = l.split(" | "); return { nome: x[0], url: x[1] };
   });
-  var lista = links.length ? links.map(function (l) { return "• " + l.nome + ": " + l.url; }).join("\n") : "• Loja: https://podecurtir.zethic.net/loja/";
+  var lj = loja_(p.numero);
+  var lista = links.length ? links.map(function (l) { return "• " + l.nome + ": " + l.url; }).join("\n") : "• Loja: " + lj.loja;
   var parar = urlParar_(p.numero);
   var textos = {
-    1: { assunto: "Seu pedido na Pode Curtir ficou em aberto", corpo: "Oi, " + primeiro + "! Você começou um pedido (" + p.itens + ", " + valor + ") e o pagamento ainda não apareceu aqui. Se quiser concluir, é só pagar pelo link:" },
-    2: { assunto: "Ficou alguma dúvida sobre o seu pedido?", corpo: "Oi, " + primeiro + ". O seu pedido (" + p.itens + ") continua separado. Se travou em alguma dúvida: você paga por Pix, boleto ou cartão, e tem 7 dias para desistir com devolução integral. É só responder este e-mail ou chamar no WhatsApp (19) 98331-0769. Para concluir:" },
+    1: { assunto: "Seu pedido na loja da " + lj.nome + " ficou em aberto", corpo: "Oi, " + primeiro + "! Você começou um pedido (" + p.itens + ", " + valor + ") e o pagamento ainda não apareceu aqui. Se quiser concluir, é só pagar pelo link:" },
+    2: { assunto: "Ficou alguma dúvida sobre o seu pedido?", corpo: "Oi, " + primeiro + ". O seu pedido (" + p.itens + ") continua separado. Se travou em alguma dúvida: " + lj.desistir + ". É só responder este e-mail ou chamar no WhatsApp " + lj.whats + ". Para concluir:" },
     3: { assunto: "Último aviso sobre o seu pedido", corpo: "Oi, " + primeiro + ". Este é o último aviso sobre o pedido " + p.numero + " (" + p.itens + "). Depois dele, não mandamos mais mensagens sobre este pedido. Se ainda quiser concluir:" }
   };
   var t = textos[etapa];
   if (p.pago > 0) t = { assunto: etapa === 3 ? "Último aviso sobre o seu pedido" : "Falta uma parte do seu pedido",
     corpo: "Oi, " + primeiro + ". Recebemos R$ " + Number(p.pago).toLocaleString("pt-BR") + " do pedido " + p.numero + " (" + p.itens + ", " + valor +
       "). Ainda falta pagar o restante." + (etapa === 3 ? " Este é o último aviso sobre este pedido." : "") + " Os links do pedido, para você conferir qual item falta:" };
-  var rodape = "Pedido " + p.numero + " · Pode Curtir · CNPJ 67.678.226/0001-17 · podecurtir@zethic.net · WhatsApp (19) 98331-0769";
+  var rodape = "Pedido " + p.numero + " · " + lj.nome + " · CNPJ 67.678.226/0001-17 · " + lj.email + " · WhatsApp " + lj.whats;
   var texto = t.corpo + "\n\n" + lista + "\n\nNão quer mais receber avisos sobre este pedido? " + parar + "\n\n" + rodape;
   var html = '<div style="font-family:Arial,sans-serif;font-size:15px;line-height:1.5;color:#1d1b20;max-width:560px">' +
     "<p>" + esc_(t.corpo) + "</p><ul>" +
-    (links.length ? links.map(function (l) { return '<li><a href="' + esc_(l.url) + '">' + esc_(l.nome) + "</a></li>"; }).join("") : '<li><a href="https://podecurtir.zethic.net/loja/">Loja Pode Curtir</a></li>') +
+    (links.length ? links.map(function (l) { return '<li><a href="' + esc_(l.url) + '">' + esc_(l.nome) + "</a></li>"; }).join("") : '<li><a href="' + esc_(lj.loja) + '">Loja ' + esc_(lj.nome) + "</a></li>") +
     '</ul><p style="font-size:13px;color:#5f5e5a"><a href="' + esc_(parar) + '">Não quero mais receber avisos sobre este pedido</a> · ou responda PARAR.</p>' +
     '<p style="font-size:12px;color:#888780">' + esc_(rodape) + "</p></div>";
   var whats = t.corpo + "\n" + lista;
