@@ -376,3 +376,18 @@ test("faixa Leve junto da Zethic: separada do portfólio, opcional e sem venda c
     assert.doesNotMatch(ler(f).replace(/No site nunca se usa "venda casada"/, ""), /venda casada/i, f);
   assert.doesNotMatch(h + js + ler("assets/js/podecurtir-comum.js"), /(Proteção das contas|Recuperação de conta)[^<"]{0,80}Jéssica Gessoli|feita por Jéssica Gessoli/);
 });
+
+// 08/11/2026 (revisão de publicidade pedida pela Jéssica): cada item diz para que serve, sem prometer resultado;
+// a escada Perfil Pronto → Gestão mensal fica junta, e Livro e IA vai para depois dos especialistas.
+test("Pode Curtir: benefício por item sem promessa e ordem da loja", () => {
+  const h = ler("podecurtir.html");
+  const js = ler("assets/js/podecurtir-loja.js");
+  const para = js.match(/var PARA = \{[\s\S]*?\n  \};/)[0];
+  for (const id of ["ajuste", "arrumado", "marca", "essencial", "padrao", "completa", "plus_recuperacao"]) assert.match(para, new RegExp("\\b" + id + ": \"Para "), id);
+  assert.doesNotMatch(para, /garant|[Ss]eguran[çc]a|golpe|seguidores|vendas? garantid|mais vendas|\d+ ?%/);
+  assert.match(js, /"<\/p>" \+ beneficio\(p\) \+ "<p>" \+ p\.desc/);
+  assert.doesNotMatch(js, /checagem básica de segurança/);
+  assert.ok(h.indexOf('id="t-perfil"') < h.indexOf('id="t-planos"') && h.indexOf('id="t-planos"') < h.indexOf('id="t-esp"') && h.indexOf('id="t-esp"') < h.indexOf('id="t-conteudo"') && h.indexOf('id="t-conteudo"') < h.indexOf('id="t-contas"'));
+  assert.match(h, /<summary>Vocês garantem seguidores ou vendas\?<\/summary>\s*<p>Não\./);
+  assert.match(h, /tem 7 dias para desistir, com devolução integral\.<\/p>/);
+});
