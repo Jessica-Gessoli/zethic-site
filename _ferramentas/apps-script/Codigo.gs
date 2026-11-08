@@ -9,7 +9,9 @@
  */
 
 var ASAAS_URL = "https://api.asaas.com/v3";
-var TETO_MEI = 81000; // conferir o valor vigente com a contabilidade antes de usar como alerta
+/* Teto do MEI por ano-calendário (Lei Complementar 238/2026, publicada em 21/10/2026): R$ 81 mil até 2026,
+   R$ 110 mil em 2027 e R$ 140 mil a partir de 2028 (este último condicionado à lei orçamentária). */
+function tetoMei_(ano) { ano = Number(ano); return ano <= 2026 ? 81000 : ano === 2027 ? 110000 : 140000; }
 var ABAS = {
   pedidos: ["Número", "Recebido em", "Nome", "E-mail", "WhatsApp", "Itens", "Valor", "Avisos", "Situação", "Lembretes enviados", "Último lembrete", "Parar", "Página", "Links", "Pago até agora"],
   vendas: ["Cobrança", "Criada em", "Paga em", "Marca", "Item", "Cliente", "E-mail", "Forma", "Situação no Asaas", "Valor", "Taxa", "Líquido", "Crédito previsto", "Pedido", "Etapa"],
@@ -20,12 +22,13 @@ var ABAS = {
 };
 var NOMES_ABAS = { pedidos: "Pedidos", vendas: "Vendas", saidas: "Saídas", whatsapp: "WhatsApp", desistencias: "Desistências", resumo: "Resumo" };
 var MARCAS = ["Pode Curtir", "Jéssica Gessoli", "Zethic"];
-/* Marca do pedido, pelo prefixo do número (PC- vem da loja da Pode Curtir, JG- da loja da Jéssica Gessoli). */
+/* Marca do pedido, pelo prefixo do número (PC- vem da loja da Pode Curtir, JG- da loja da Jéssica Gessoli, ZT- da loja da Zethic). */
 var LOJAS = {
   PC: { nome: "Pode Curtir", email: "podecurtir@zethic.net", whats: "(19) 98331-0769", loja: "https://podecurtir.zethic.net/#loja",
         desistir: "você paga por Pix, boleto ou cartão, e tem 7 dias para desistir com devolução integral" },
   JG: { nome: "Jéssica Gessoli", email: "jessica.gessoli@zethic.net", whats: "(19) 98180-0221", loja: "https://zethic.net/jessicagessoli/loja/",
-        desistir: "você paga por Pix, boleto ou cartão, e pode desistir em até 7 dias corridos, nas condições dos Termos" }
+        desistir: "você paga por Pix, boleto ou cartão, e pode desistir em até 7 dias corridos, nas condições dos Termos" },
+  ZT: { nome: "Zethic", email: "contato@zethic.net", whats: "(19) 98180-0221", loja: "https://zethic.net/loja", desistir: "" }
 };
 function loja_(numero) { return LOJAS[String(numero || "").slice(0, 2)] || LOJAS.PC; }
 
@@ -68,6 +71,7 @@ function doPost(e) {
     if (raw.length > 20000) return json_({ ok: false, erro: "grande" });
     var p = JSON.parse(raw);
     if (p.tipo === "desistencia") return desistencia_(p);
+    if (p.marca === "zethic") p = zethicParaPedido_(p);
     var cli = p.cliente || {};
     if (!/^[A-Z]{2}-[A-Z0-9-]{6,40}$/.test(String(p.id || "")) || !/^\S+@\S+\.\S+$/.test(String(cli.email || ""))) return json_({ ok: false, erro: "dados" });
     var sh = aba_("pedidos");
@@ -78,6 +82,7 @@ function doPost(e) {
     var links = (p.links || []).filter(function (l) { return /^https:\/\/(www\.)?asaas\.com\//.test(String(l.url || "")); })
       .map(function (l) { return String(l.nome || "").slice(0, 80) + " | " + l.url; });
     var situacao = (p.itens || []).length ? "Aguardando pagamento" : "Pedido de proposta";
+    if (situacao === "Pedido de proposta") avisarProposta_(p.id, cli, itens);
     sh.appendRow([p.id, new Date(), limpa_(cli.nome, 120), limpa_(cli.email, 120).toLowerCase(), limpa_(cli.whats, 30), itens.join(" + "), valor,
       p.avisos === true ? "Sim" : "Não", situacao, 0, "", "Não", limpa_(p.pagina, 80), links.join("\n"), 0]);
     return json_({ ok: true });
@@ -86,6 +91,24 @@ function doPost(e) {
   } finally {
     try { lock.releaseLock(); } catch (x) {}
   }
+}
+
+/** Loja da Zethic: só pedido de proposta. Converte para o formato dos outros pedidos (empresa junto do nome). */
+function zethicParaPedido_(p) {
+  var c = p.cliente || {};
+  var extra = [c.cargo, c.cidade, c.pessoas ? c.pessoas + " pessoas" : "", c.mensagem].filter(String).join(" · ");
+  return { id: p.id, cliente: { nome: (c.nome || "") + (c.empresa ? " (" + c.empresa + ")" : ""), email: c.email, whats: c.whats },
+    itens: [], propostas: (p.servicos || []).map(function (s) { return s.nome || s.id; }).concat(extra ? ["Detalhes: " + extra] : []),
+    avisos: false, pagina: p.pagina };
+}
+
+/** Pedido de proposta (qualquer marca): avisa a dona por e-mail na hora, porque não há pagamento que dispare a tela. */
+function avisarProposta_(numero, cli, itens) {
+  var dono = PropertiesService.getScriptProperties().getProperty("DONO_EMAIL");
+  if (!dono || MailApp.getRemainingDailyQuota() < 1) return;
+  MailApp.sendEmail({ to: dono, replyTo: String(cli.email || ""), subject: "Pedido de proposta (" + loja_(numero).nome + "): " + String(cli.nome || "").slice(0, 80),
+    body: "Chegou um pedido de proposta pelo site.\n\nPedido: " + numero + "\nNome: " + (cli.nome || "") + "\nE-mail: " + (cli.email || "") +
+      "\nWhatsApp: " + (cli.whats || "") + "\n\n" + itens.join("\n") + "\n\nEstá na aba Pedidos da planilha." });
 }
 
 /** Direito de arrependimento: grava o pedido e avisa a dona por e-mail na hora. */
@@ -320,7 +343,8 @@ function resumo_() {
   var brutoAno = linhas.filter(function (l) { return l[0].indexOf(ano) === 0; }).reduce(function (s, l) { return s + l[2]; }, 0);
   sh.getRange(1, 10).setValue("Faturamento bruto de " + ano + " (as três marcas, um CNPJ)");
   sh.getRange(2, 10).setValue(brutoAno);
-  sh.getRange(3, 10).setValue("Teto do MEI usado: " + Math.round(brutoAno / TETO_MEI * 100) + "% de R$ " + TETO_MEI.toLocaleString("pt-BR"));
+  var teto = tetoMei_(ano);
+  sh.getRange(3, 10).setValue("Teto do MEI usado: " + Math.round(brutoAno / teto * 100) + "% de R$ " + teto.toLocaleString("pt-BR"));
 }
 
 /* ---------- Tela de pedidos (só abre com a conta da dona) ---------- */
