@@ -372,6 +372,8 @@ test("faixa Leve junto da Zethic: separada do portfólio, opcional e sem venda c
   assert.ok(h.indexOf('id="t-esp"') < h.indexOf('id="t-contas"') && h.indexOf('id="t-contas"') < h.indexOf('id="t-propostas"'), "faixa depois do portfólio e antes dos pedidos de proposta");
   assert.match(js, /id: "protecao", marca: "ze", nome: "Proteção das contas da equipe inteira"/);
   assert.match(css, /\.leve-junto\{background:#02041A;/);
+  // Review do Codex no #124: o pedido avulso leva a seção, para a mensagem dizer "Leve junto (Zethic)".
+  assert.match(js, /marca: p\.marca, secao: p\.secao \|\| "" \}\);/);
   for (const f of ["podecurtir.html", "assets/js/podecurtir-loja.js", "assets/js/podecurtir-comum.js", "podecurtir/termos/index.html"])
     assert.doesNotMatch(ler(f).replace(/No site nunca se usa "venda casada"/, ""), /venda casada/i, f);
   assert.doesNotMatch(h + js + ler("assets/js/podecurtir-comum.js"), /(Proteção das contas|Recuperação de conta)[^<"]{0,80}Jéssica Gessoli|feita por Jéssica Gessoli/);
