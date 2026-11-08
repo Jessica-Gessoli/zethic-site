@@ -8,6 +8,7 @@ Tudo roda na sua conta Google, sem custo. Leva uns 20 minutos, uma vez só.
 |---|---|
 | Guarda cada pedido do site | Aba **Pedidos** da planilha |
 | Guarda cada pedido de desistência e te avisa por e-mail na hora | Aba **Desistências** |
+| Te avisa por e-mail na hora de cada pedido de proposta (Pode Curtir, Jéssica Gessoli e Zethic) | Aba **Pedidos** |
 | Confere no Asaas quem pagou, a cada 10 minutos | Aba **Vendas** (valor, taxa, líquido, data de crédito) |
 | Lembretes de pedido não pago: 1 h, 24 h e 72 h depois | Só para quem marcou a opção no site. Para sozinho quando a pessoa paga ou clica em "não quero mais avisos" |
 | Lista do dia para WhatsApp | Aba **WhatsApp**: mensagem pronta e botão "Abrir"; você toca e envia |
@@ -35,7 +36,7 @@ Limites grátis do Google (contas gmail.com): 100 destinatários de e-mail por d
    - Executar como: **Eu**. Quem pode acessar: **Qualquer pessoa**.
    - Implantar → copie a URL que termina em `/exec`.
    - Volte em Propriedades do script e adicione `URL_PUBLICA` com essa URL (é usada no link "não quero mais avisos" dos e-mails).
-   - **Me mande essa URL.** Eu coloco no site, nas lojas da Pode Curtir e da Jéssica Gessoli (é um endereço público por natureza; não é segredo). As duas lojas usam a mesma planilha; o número do pedido diz a marca (PC- ou JG-), e cada lembrete sai com o nome, o e-mail e o WhatsApp da marca certa.
+   - **Me mande essa URL.** Eu coloco no site, nas lojas da Pode Curtir, da Jéssica Gessoli e da Zethic (é um endereço público por natureza; não é segredo). As duas lojas usam a mesma planilha; o número do pedido diz a marca (PC-, JG- ou ZT-), e cada lembrete sai com o nome, o e-mail e o WhatsApp da marca certa.
 7. **Publique a tela de pedidos.**
    - Implantar → Nova implantação → "App da Web" de novo.
    - Executar como: **Eu**. Quem pode acessar: **Somente eu**.
@@ -60,5 +61,5 @@ Implantar → Gerenciar implantações → lápis em cada implantação → Vers
 
 - **Nomes dos campos da API do Asaas** e o cabeçalho `access_token`: usei os nomes dos exemplos oficiais; o passo 8 confirma com uma cobrança real.
 - **Cruzamento pedido ↔ pagamento** é feito pelo e-mail que o cliente usa no Asaas. Se ele usar outro e-mail, o pedido continua "Aguardando pagamento" e pode receber lembrete mesmo tendo pago; nesse caso, escreva `Pago` na coluna Situação.
-- **Teto do MEI** no Resumo usa R$ 81.000 (valor em `TETO_MEI` no começo do código). Confira o valor vigente com a contabilidade.
+- **Teto do MEI** no Resumo muda sozinho com o ano, pela Lei Complementar 238/2026: R$ 81 mil em 2026, R$ 110 mil em 2027 e R$ 140 mil a partir de 2028 (este depende da lei orçamentária). O cálculo soma as três marcas, porque é um CNPJ só.
 - Na tela, "Em produção/Entregue" vale para os últimos 30 dias de vendas.

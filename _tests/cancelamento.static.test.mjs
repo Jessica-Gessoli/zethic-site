@@ -35,7 +35,7 @@ test("Zethic: seção de cancelamento e devolução na página de privacidade e 
   const h = ler("privacidade.html");
   const secao = semTags(h.split('<h2 id="cancelamento">')[1].split("<h2>")[0]);
   // 07/11/2026: versão 1.15, medição em todas as páginas da Zethic e origem do pedido.
-  assert.match(h, /<p class="meta">Versão 1\.15, atualizada em 07\/11\/2026: medição de visitas em todas as páginas da Zethic, com consentimento, e origem do pedido\.<\/p>/);
+  assert.match(h, /<p class="meta">Versão 1\.16, atualizada em 08\/11\/2026: o pedido de proposta da loja passa a ser registrado numa planilha da Zethic no Google\.<\/p>/);
   assert.match(secao, /A Zethic contrata só com empresas, por proposta e contrato escritos/);
   assert.match(secao, /40% na assinatura, 30% na aprovação da versão de teste e 30% quando entram em uso/);
   assert.match(secao, /em até 7 dias corridos da assinatura, enquanto o trabalho não começou, a sua empresa pode desistir sem dar motivo e recebe de volta o valor integral/);

@@ -272,8 +272,9 @@
 
   function registrar(corpo) {
     if (!C.FORM_ENDPOINT || !window.fetch) return Promise.resolve(false);
-    return fetch(C.FORM_ENDPOINT, { method: "POST", keepalive: true, headers: { "Content-Type": "application/json" }, body: JSON.stringify(corpo) })
-      .then(function (r) { return r.ok; }).catch(function () { return false; });
+    // text/plain evita a verificação prévia do navegador, que o Google Apps Script não atende; só confirma com ok: true.
+    return fetch(C.FORM_ENDPOINT, { method: "POST", keepalive: true, headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(corpo) })
+      .then(function (r) { return r.ok ? r.json() : null; }).then(function (j) { return !!(j && j.ok); }).catch(function () { return false; });
   }
 
   function manual(texto) {
@@ -296,10 +297,11 @@
     if (!pedido.length) falta.push("ao menos um serviço no pedido");
     if (falta.length) { $("erro").textContent = "Falta preencher: " + falta.join(", ") + "."; $("erro").hidden = false; $("erro").focus(); return; }
     $("erro").hidden = true;
-    var texto = mensagem(d);
+    var id = "ZT-" + Date.now().toString(36).toUpperCase() + "-" + Math.random().toString(36).slice(2, 6).toUpperCase();
+    var texto = mensagem(d) + "\n\nNúmero do pedido: " + id;
     if (window.zethicEvento) window.zethicEvento("pedido_enviado", { loja: "proposta", itens: pedido.length, origem: window.zethicOrigem ? window.zethicOrigem() : "" });
     var corpo = {
-      marca: "zethic", tipo: "pedido-de-proposta", cliente: d,
+      id: id, marca: "zethic", tipo: "pedido-de-proposta", cliente: d,
       servicos: pedido.map(function (p) { return { id: p.id, nivel: p.nivel, nome: rotulo(p), departamento: SERVICOS[p.id].depto }; }),
       consentimento: { finalidade: "preparar a conversa e a proposta", em: new Date().toISOString() }, pagina: location.pathname
     };
