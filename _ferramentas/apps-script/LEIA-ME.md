@@ -48,6 +48,7 @@ Limites grátis do Google (contas gmail.com): 100 destinatários de e-mail por d
 - **WhatsApp:** na aba WhatsApp, toque em **Abrir**, confira a mensagem e envie. Marque a caixa "Enviado".
 - **Se alguém responder PARAR por e-mail ou WhatsApp:** na aba Pedidos, escreva `Sim` na coluna **Parar** daquele pedido.
 - **Marca de cada venda:** sai do começo do nome do link no Asaas ("Pode Curtir · …", "Jéssica Gessoli · …", "Zethic · …"). Se aparecer "Sem marca", corrija na coluna Marca da aba Vendas; o script não sobrescreve o que você corrigir.
+- **Pedido com vários itens:** só vira "Pago" quando a soma dos pagamentos cobre o pedido. Antes disso fica "Pago em parte", e o lembrete avisa que falta o restante. No cartão parcelado, a primeira parcela paga já conta como o item pago.
 - **Despesas:** lance na aba Saídas (data, marca, descrição, categoria, valor). O Resumo atualiza sozinho a cada 10 minutos.
 - **Desistências:** chegam por e-mail e na aba Desistências. Prazo legal de 7 dias corridos.
 

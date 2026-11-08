@@ -108,7 +108,7 @@
       c.appendChild(el("div", "t", p.itens || "Pedido de proposta"));
       c.appendChild(el("div", "m", (p.nome || "") + " · " + hora(p.quando)));
       c.appendChild(el("div", "m", p.numero + " · avisos: " + (p.avisos === "Sim" ? "sim" : "não")));
-      c.appendChild(el("div", "v", reais(p.valor)));
+      c.appendChild(el("div", "v", reais(p.valor) + (p.pago ? " · pago em parte: " + reais(p.pago) : "")));
       ag.appendChild(c);
     });
     if (!ag.children.length) ag.appendChild(el("div", "vazio", "Nenhum pedido em aberto."));

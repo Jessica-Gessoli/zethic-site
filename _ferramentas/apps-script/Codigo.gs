@@ -11,7 +11,7 @@
 var ASAAS_URL = "https://api.asaas.com/v3";
 var TETO_MEI = 81000; // conferir o valor vigente com a contabilidade antes de usar como alerta
 var ABAS = {
-  pedidos: ["Número", "Recebido em", "Nome", "E-mail", "WhatsApp", "Itens", "Valor", "Avisos", "Situação", "Lembretes enviados", "Último lembrete", "Parar", "Página", "Links"],
+  pedidos: ["Número", "Recebido em", "Nome", "E-mail", "WhatsApp", "Itens", "Valor", "Avisos", "Situação", "Lembretes enviados", "Último lembrete", "Parar", "Página", "Links", "Pago até agora"],
   vendas: ["Cobrança", "Criada em", "Paga em", "Marca", "Item", "Cliente", "E-mail", "Forma", "Situação no Asaas", "Valor", "Taxa", "Líquido", "Crédito previsto", "Pedido", "Etapa"],
   saidas: ["Data", "Marca", "Descrição", "Categoria", "Valor"],
   whatsapp: ["Data", "Pedido", "Nome", "WhatsApp", "Lembrete", "Mensagem", "Abrir conversa", "Enviado"],
@@ -21,6 +21,8 @@ var ABAS = {
 var NOMES_ABAS = { pedidos: "Pedidos", vendas: "Vendas", saidas: "Saídas", whatsapp: "WhatsApp", desistencias: "Desistências", resumo: "Resumo" };
 var MARCAS = ["Pode Curtir", "Jéssica Gessoli", "Zethic"];
 var PAGO = ["RECEIVED", "CONFIRMED", "RECEIVED_IN_CASH"];
+// Situações que não mudam mais (a cobrança só é consultada de novo se ainda puder mudar).
+var FINAL = ["RECEIVED", "RECEIVED_IN_CASH", "REFUNDED", "DELETED", "CHARGEBACK_DONE"];
 
 /* ---------- Instalação ---------- */
 
@@ -62,12 +64,13 @@ function doPost(e) {
     var sh = aba_("pedidos");
     if (sh.getLastRow() > 1 && sh.getRange(2, 1, sh.getLastRow() - 1, 1).getValues().some(function (r) { return r[0] === p.id; })) return json_({ ok: true, repetido: true });
     var itens = (p.itens || []).map(function (i) { return String(i.nome || i.id || "").slice(0, 80); });
+    (p.propostas || []).forEach(function (id) { itens.push("Proposta: " + String(id).slice(0, 60)); });
     var valor = (p.itens || []).reduce(function (s, i) { return s + (Number(i.valor) || 0); }, 0);
     var links = (p.links || []).filter(function (l) { return /^https:\/\/(www\.)?asaas\.com\//.test(String(l.url || "")); })
       .map(function (l) { return String(l.nome || "").slice(0, 80) + " | " + l.url; });
     var situacao = (p.itens || []).length ? "Aguardando pagamento" : "Pedido de proposta";
     sh.appendRow([p.id, new Date(), limpa_(cli.nome, 120), limpa_(cli.email, 120).toLowerCase(), limpa_(cli.whats, 30), itens.join(" + "), valor,
-      p.avisos === true ? "Sim" : "Não", situacao, 0, "", "Não", limpa_(p.pagina, 80), links.join("\n")]);
+      p.avisos === true ? "Sim" : "Não", situacao, 0, "", "Não", limpa_(p.pagina, 80), links.join("\n"), 0]);
     return json_({ ok: true });
   } catch (err) {
     return json_({ ok: false, erro: "falha" });
@@ -113,9 +116,14 @@ function rotina() {
 
 function limpezaDiaria() {
   // Privacidade: pedidos não pagos são apagados em até 90 dias.
-  var sh = aba_("pedidos"), dados = sh.getDataRange().getValues(), limite = Date.now() - 90 * 864e5;
+  var sh = aba_("pedidos"), dados = sh.getDataRange().getValues(), limite = Date.now() - 90 * 864e5, apagados = {};
   for (var i = dados.length - 1; i >= 1; i--) {
-    if (dados[i][8] !== "Pago" && new Date(dados[i][1]).getTime() < limite) sh.deleteRow(i + 1);
+    if (dados[i][8] !== "Pago" && dados[i][8] !== "Pago em parte" && new Date(dados[i][1]).getTime() < limite) { apagados[dados[i][0]] = true; sh.deleteRow(i + 1); }
+  }
+  // As cópias na aba WhatsApp saem junto (e qualquer linha de lá com mais de 90 dias).
+  var wa = aba_("whatsapp"), w = wa.getDataRange().getValues();
+  for (var j = w.length - 1; j >= 1; j--) {
+    if (apagados[w[j][1]] || new Date(w[j][0]).getTime() < limite) wa.deleteRow(j + 1);
   }
 }
 
@@ -137,7 +145,7 @@ function sincronizarAgora_(props) {
     offset += 100;
   } while (pag.hasMore && offset < 1000);
 
-  var sh = aba_("vendas"), dados = sh.getDataRange().getValues(), linhaPorId = {};
+  var sh = aba_("vendas"), dados = sh.getDataRange().getValues(), linhaPorId = {}, vistos = {};
   for (var i = 1; i < dados.length; i++) linhaPorId[dados[i][0]] = i + 1;
   var novasPagas = [];
   lista.forEach(function (c) {
@@ -153,22 +161,52 @@ function sincronizarAgora_(props) {
       Number(c.netValue) || 0, data_(c.estimatedCreditDate || c.creditDate), antes ? antes[13] : "", etapa];
     if (linha) sh.getRange(linha, 1, 1, valores.length).setValues([valores]);
     else sh.appendRow(valores);
-    if (pago && (!antes || PAGO.indexOf(antes[8]) < 0)) novasPagas.push(valores);
+    if (pago && (!antes || PAGO.indexOf(antes[8]) < 0)) novasPagas.push({ v: valores, parcelado: !!c.installment });
+    vistos[c.id] = true;
   });
+  // Cobranças mais antigas que a janela e ainda não resolvidas: consulta uma a uma (até 40 por rodada).
+  var abertas = 0;
+  for (var k = 1; k < dados.length && abertas < 40; k++) {
+    var r = dados[k];
+    if (vistos[r[0]] || FINAL.indexOf(r[8]) >= 0) continue;
+    abertas++;
+    var c2;
+    try { c2 = asaas_("/payments/" + r[0]); } catch (e) { continue; }
+    if (c2.status === r[8]) continue;
+    var pago2 = PAGO.indexOf(c2.status) >= 0;
+    sh.getRange(k + 1, 3).setValue(data_(c2.paymentDate || c2.clientPaymentDate || c2.confirmedDate) || r[2]);
+    sh.getRange(k + 1, 9, 1, 4).setValues([[c2.status, Number(c2.value) || 0, (Number(c2.value) || 0) - (Number(c2.netValue) || 0), Number(c2.netValue) || 0]]);
+    if (pago2 && PAGO.indexOf(r[8]) < 0) {
+      if (r[14] === "Aguardando") sh.getRange(k + 1, 15).setValue("Novo");
+      r[8] = c2.status; r[9] = Number(c2.value) || 0;
+      novasPagas.push({ v: r, parcelado: !!c2.installment });
+    }
+  }
   if (novasPagas.length) marcarPedidosPagos_(novasPagas);
   props.setProperty("ULTIMA_SINC", String(Date.now()));
-  return novasPagas;
+  return novasPagas.map(function (n) { return n.v; });
+}
+
+/** Soma os pagamentos do cliente no pedido em aberto mais recente. Só fica "Pago" quando cobre o valor do pedido.
+    Parcelamento: a primeira parcela paga conta como o item pago (o Asaas cobra as demais sozinho). */
+function situacaoPedido_(valorPedido, pagoAteAgora, parcelado) {
+  if (parcelado || pagoAteAgora >= Number(valorPedido || 0) - 0.01) return "Pago";
+  return pagoAteAgora > 0 ? "Pago em parte" : "Aguardando pagamento";
 }
 
 function marcarPedidosPagos_(pagas) {
   var sh = aba_("pedidos"), dados = sh.getDataRange().getValues();
-  pagas.forEach(function (v) {
-    var email = String(v[6] || "").toLowerCase();
+  pagas.forEach(function (n) {
+    var v = n.v, email = String(v[6] || "").toLowerCase();
     if (!email) return;
     for (var i = dados.length - 1; i >= 1; i--) {
-      if (String(dados[i][3]).toLowerCase() === email && dados[i][8] === "Aguardando pagamento") {
-        sh.getRange(i + 1, 9).setValue("Pago");
-        dados[i][8] = "Pago";
+      var sit = dados[i][8];
+      if (String(dados[i][3]).toLowerCase() === email && (sit === "Aguardando pagamento" || sit === "Pago em parte")) {
+        var total = (Number(dados[i][14]) || 0) + (Number(v[9]) || 0);
+        var nova = situacaoPedido_(dados[i][6], total, n.parcelado);
+        sh.getRange(i + 1, 9).setValue(nova);
+        sh.getRange(i + 1, 15).setValue(total);
+        dados[i][8] = nova; dados[i][14] = total;
         ligarVendaAoPedido_(v[0], dados[i][0]);
         break;
       }
@@ -189,13 +227,13 @@ function lembretes_() {
   var sh = aba_("pedidos"), dados = sh.getDataRange().getValues(), agora = Date.now();
   for (var i = 1; i < dados.length; i++) {
     var r = dados[i];
-    if (r[8] !== "Aguardando pagamento" || r[7] !== "Sim" || r[11] === "Sim") continue;
+    if ((r[8] !== "Aguardando pagamento" && r[8] !== "Pago em parte") || r[7] !== "Sim" || r[11] === "Sim") continue;
     var horas = (agora - new Date(r[1]).getTime()) / 36e5;
     if (horas > 24 * 7) { sh.getRange(i + 1, 9).setValue("Não concluído"); continue; }
     var devida = etapaDevida_(horas), enviados = Number(r[9]) || 0;
     if (devida <= enviados) continue;
     if (MailApp.getRemainingDailyQuota() < 1) return;
-    var msg = mensagem_(devida, { numero: r[0], nome: r[2], itens: r[5], valor: r[6], links: r[13] });
+    var msg = mensagem_(devida, { numero: r[0], nome: r[2], itens: r[5], valor: r[6], links: r[13], pago: Number(r[14]) || 0 });
     MailApp.sendEmail({ to: r[3], subject: msg.assunto, htmlBody: msg.html, body: msg.texto, name: "Pode Curtir", replyTo: "podecurtir@zethic.net" });
     sh.getRange(i + 1, 10, 1, 2).setValues([[devida, new Date()]]);
     filaWhatsApp_(r, devida, msg.whats);
@@ -216,6 +254,9 @@ function mensagem_(etapa, p) {
     3: { assunto: "Último aviso sobre o seu pedido", corpo: "Oi, " + primeiro + ". Este é o último aviso sobre o pedido " + p.numero + " (" + p.itens + "). Depois dele, não mandamos mais mensagens sobre este pedido. Se ainda quiser concluir:" }
   };
   var t = textos[etapa];
+  if (p.pago > 0) t = { assunto: etapa === 3 ? "Último aviso sobre o seu pedido" : "Falta uma parte do seu pedido",
+    corpo: "Oi, " + primeiro + ". Recebemos R$ " + Number(p.pago).toLocaleString("pt-BR") + " do pedido " + p.numero + " (" + p.itens + ", " + valor +
+      "). Ainda falta pagar o restante." + (etapa === 3 ? " Este é o último aviso sobre este pedido." : "") + " Os links do pedido, para você conferir qual item falta:" };
   var rodape = "Pedido " + p.numero + " · Pode Curtir · CNPJ 67.678.226/0001-17 · podecurtir@zethic.net · WhatsApp (19) 98331-0769";
   var texto = t.corpo + "\n\n" + lista + "\n\nNão quer mais receber avisos sobre este pedido? " + parar + "\n\n" + rodape;
   var html = '<div style="font-family:Arial,sans-serif;font-size:15px;line-height:1.5;color:#1d1b20;max-width:560px">' +
@@ -228,9 +269,8 @@ function mensagem_(etapa, p) {
 }
 
 function filaWhatsApp_(r, etapa, texto) {
-  var numero = String(r[4] || "").replace(/\D/g, "");
-  if (numero.length < 10) return;
-  if (numero.indexOf("55") !== 0) numero = "55" + numero;
+  var numero = whatsBR_(r[4]);
+  if (!numero) return;
   var url = "https://wa.me/" + numero + "?text=" + encodeURIComponent(texto);
   aba_("whatsapp").appendRow([new Date(), r[0], r[2], r[4], etapa + "º", texto, '=HYPERLINK("' + url + '";"Abrir")', false]);
   var sh = aba_("whatsapp");
@@ -280,17 +320,21 @@ function painelDados() {
     .filter(function (v) { return PAGO.indexOf(v[8]) >= 0 && new Date(v[2] || v[1]).getTime() > limite; })
     .map(function (v) { return { id: v[0], quando: v[2] || v[1] ? new Date(v[2] || v[1]).toISOString() : "", marca: v[3], item: v[4], cliente: v[5], forma: v[7], valor: v[9], etapa: v[14] || "Novo", pedido: v[13] }; });
   var aguardando = aba_("pedidos").getDataRange().getValues().slice(1)
-    .filter(function (p) { return p[8] === "Aguardando pagamento"; })
-    .map(function (p) { return { numero: p[0], quando: new Date(p[1]).toISOString(), nome: p[2], itens: p[5], valor: p[6], avisos: p[7] }; });
+    .filter(function (p) { return p[8] === "Aguardando pagamento" || p[8] === "Pago em parte"; })
+    .map(function (p) { return { numero: p[0], quando: new Date(p[1]).toISOString(), nome: p[2], itens: p[5], valor: p[6], avisos: p[7], pago: Number(p[14]) || 0 }; });
   return { vendas: vendas, aguardando: aguardando, novas: novas.map(function (v) { return v[0]; }), agora: new Date().toISOString() };
 }
 
 function moverVenda(id, etapa) {
   if (!ehDono_()) throw new Error("Acesso restrito.");
   if (["Novo", "Em produção", "Entregue"].indexOf(etapa) < 0) throw new Error("Etapa inválida.");
-  var sh = aba_("vendas"), ids = sh.getRange(1, 1, sh.getLastRow(), 1).getValues();
-  for (var i = 1; i < ids.length; i++) if (ids[i][0] === id) { sh.getRange(i + 1, 15).setValue(etapa); return true; }
-  return false;
+  var lock = LockService.getScriptLock();
+  if (!lock.tryLock(20000)) throw new Error("A planilha está sendo atualizada. Tente de novo em instantes.");
+  try {
+    var sh = aba_("vendas"), ids = sh.getRange(1, 1, sh.getLastRow(), 1).getValues();
+    for (var i = 1; i < ids.length; i++) if (ids[i][0] === id) { sh.getRange(i + 1, 15).setValue(etapa); return true; }
+    return false;
+  } finally { lock.releaseLock(); }
 }
 
 /* ---------- Apoio ---------- */
@@ -325,6 +369,14 @@ function marcaEItem_(nome) {
     if (nome.indexOf(MARCAS[i] + " · ") === 0) return { marca: MARCAS[i], item: nome.slice(MARCAS[i].length + 3) };
   }
   return { marca: "Sem marca", item: nome };
+}
+
+/** Número brasileiro para wa.me: 10 ou 11 dígitos (DDD + número) ganham o 55; 12 ou 13 dígitos já precisam começar com 55. */
+function whatsBR_(s) {
+  var n = String(s || "").replace(/\D/g, "").replace(/^0+/, "");
+  if (n.length === 10 || n.length === 11) return "55" + n;
+  if ((n.length === 12 || n.length === 13) && n.indexOf("55") === 0) return n;
+  return "";
 }
 
 function forma_(b) { return { PIX: "Pix", BOLETO: "Boleto", CREDIT_CARD: "Cartão", UNDEFINED: "A escolher" }[b] || b || ""; }
