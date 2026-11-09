@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
+import { readFileSync, existsSync } from "node:fs";
 import vm from "node:vm";
 
 const ler = (p) => readFileSync(new URL("../" + p, import.meta.url), "utf8");
@@ -17,7 +17,9 @@ test("configuração única, com pagamento e Pixel desligados até serem preench
     ["ajuste", "arrumado_cartao", "arrumado_pix", "completa", "essencial", "marca_cartao", "marca_pix", "padrao",
       "plus_gravacao", "plus_livro", "plus_mentoria", "plus_protecao", "plus_recuperacao", "plus_site_cartao", "plus_site_pix",
       // 08/11/2026: seção para especialistas, produtoras e empresas
-      "acabamento", "diag_esp", "esp_marca", "esp_news", "esp_portavozes", "esp_produtora", "video_presenca"].sort());
+      "acabamento", "diag_esp", "esp_marca", "esp_news", "esp_portavozes", "esp_produtora", "video_presenca",
+      // 08/11/2026: seção para restaurantes, lanchonetes e bares
+      "cardapio", "cardapio_mensal"].sort());
   for (const v of Object.values(c.ASAAS_LINKS)) assert.ok(v === "" || /^https:\/\/(www\.)?asaas\.com\//.test(v), "link do Asaas inválido: " + v);
   assert.ok([500, 750, 1200].includes(c.PRECO_AJUSTE), "preço do Ajuste fora da escada aprovada");
   assert.ok(c.PIXEL_ID === "" || /^\d{10,20}$/.test(c.PIXEL_ID));
@@ -214,6 +216,8 @@ test("site: pagamento integral, parcelado só no cartão e Gestão Completa com 
     if (k.startsWith("plus_") && v === "") continue; // plus: "pagamento em configuração" até o link existir
     // 08/11/2026: itens da seção para especialistas também ficam em configuração até a Jéssica criar os links
     if (["diag_esp", "video_presenca", "acabamento", "esp_marca", "esp_produtora", "esp_news", "esp_portavozes"].includes(k) && v === "") continue;
+    // 08/11/2026: cardápio de restaurante, em configuração até a Jéssica criar os links
+    if (["cardapio", "cardapio_mensal"].includes(k) && v === "") continue;
     assert.match(v, /^https:\/\/www\.asaas\.com\/000\/c\/[a-z0-9]{16}$/, k);
   }
 });
@@ -392,4 +396,98 @@ test("Pode Curtir: benefício por item sem promessa e ordem da loja", () => {
   assert.ok(h.indexOf('id="t-perfil"') < h.indexOf('id="t-planos"') && h.indexOf('id="t-planos"') < h.indexOf('id="t-esp"') && h.indexOf('id="t-esp"') < h.indexOf('id="t-conteudo"') && h.indexOf('id="t-conteudo"') < h.indexOf('id="t-contas"'));
   assert.match(h, /<summary>Vocês garantem seguidores ou vendas\?<\/summary>\s*<p>Não\./);
   assert.match(h, /tem 7 dias para desistir, com devolução integral\.<\/p>/);
+});
+
+// 08/11/2026 (Jéssica aprovou): cardápio de restaurante. Pode Curtir vende e cuida do conteúdo; página e app
+// (instalável pelo navegador) pela Zethic, em parceria. Projeto R$ 1.500 (depois R$ 2.400); mensal R$ 290 (depois R$ 460).
+test("Pode Curtir: cardápio de restaurante com a Zethic em parceria", () => {
+  const h = ler("podecurtir.html");
+  const js = ler("assets/js/podecurtir-loja.js");
+  const cfg = ler("assets/js/podecurtir-config.js");
+  assert.match(js, /id: "cardapio", secao: "rest", nome: "Cardápio Pronto", preco: 1500, prazo: "10 dias úteis", fundador: true,/);
+  assert.match(js, /Depois, R\$ 2\.400\."[\s\S]*Página e app feitos pela Zethic, em parceria\./);
+  assert.match(js, /id: "cardapio_mensal", secao: "rest", nome: "Cuidado do Cardápio", mensal: 290, depois: "[^"]*Depois, R\$ 460 por mês\."/);
+  assert.match(js, /id: "restaurante", nome: "Restaurante, lanchonete ou bar", proj: \["cardapio"\]/);
+  assert.match(js, /\$\("grade-rest"\)\.innerHTML = daSecao\(PROJ, "rest"\)/);
+  assert.match(h, /<h2 id="t-rest">Para restaurantes, lanchonetes e bares<\/h2><p>[^<]*feitos pela Zethic, em parceria; o seu contato continua sendo a Pode Curtir\. <a href="\/podecurtir\/cardapio\/exemplo\/"[^>]*>Veja um cardápio de exemplo<\/a> ou <a href="\/podecurtir\/cardapio\/exemplo-delivery\/"[^>]*>um de delivery<\/a>\.<\/p>/);
+  // 08/11/2026 (aprovado pela Jéssica): cozinhas de delivery, sem salão, também citadas no subtítulo.
+  assert.match(h, /Também para cozinhas de delivery, sem salão: o cardápio vira o link de pedidos no WhatsApp e no Instagram\./);
+  assert.ok(h.indexOf('id="t-planos"') < h.indexOf('id="t-rest"') && h.indexOf('id="t-rest"') < h.indexOf('id="t-esp"'));
+  assert.match(cfg, /cardapio: "[^"]*",\s*cardapio_mensal: "[^"]*"/);
+  assert.match(ler("podecurtir/termos/index.html"), /<strong>Para restaurantes, lanchonetes e bares:<\/strong>/);
+  // 08/11/2026 (Jéssica aprovou): 1 troca = 1 item; pacote avulso de 5 trocas por R$ 90; 12 meses no ar incluídos,
+  // depois R$ 120 por ano ou sem custo com o Cuidado; no encerramento, o cliente recebe a planilha e o PDF.
+  assert.match(js, /12 meses no ar incluídos\./);
+  // D1 (08/11/2026): cardápio impresso da entrada e link no Perfil da Empresa no Google, sem mudar o preço.
+  assert.match(js, /cardápio impresso para a entrada \(PDF pronto para a gráfica, com os mesmos preços\)/);
+  assert.match(js, /link no Instagram e no Perfil da Empresa no Google/);
+  assert.match(js, /1 troca = mudar um item: preço, nome, descrição, foto ou disponibilidade/);
+  assert.match(ler("podecurtir/termos/index.html"), /pacote de até 5 por R\$ 90, feitas em até 2 dias úteis[\s\S]*recebe a planilha e o PDF/);
+  assert.match(ler("podecurtir/termos/index.html"), /a hospedagem custa R\$ 120 por ano, ou não tem custo para quem tem o Cuidado do Cardápio/);
+});
+
+// D3 (08/11/2026, aprovado pela Jéssica): cardápio de exemplo, com restaurante fictício e identificado como exemplo,
+// gerado pela planilha (_ferramentas/cardapio/gerar_cardapio.py). O digital e o impresso saem dos mesmos dados.
+test("Pode Curtir: cardápio de exemplo gerado da planilha, com os mesmos preços no digital e no impresso", () => {
+  const d = ler("podecurtir/cardapio/exemplo/index.html");
+  const imp = ler("podecurtir/cardapio/exemplo/imprimir/index.html");
+  const cfg = JSON.parse(ler("podecurtir/cardapio/exemplo/dados/restaurante.json"));
+  for (const h of [d, imp]) {
+    const csp = h.match(/http-equiv="Content-Security-Policy" content="([^"]+)"/);
+    assert.ok(csp && !/unsafe-inline|unsafe-eval/.test(csp[1]));
+    assert.doesNotMatch(h, /<script>|style="|onclick=/);
+    assert.match(h, /<meta name="robots" content="noindex">/);
+    assert.match(h, /Cardápio de exemplo, com restaurante, pratos e preços fictícios\./);
+    assert.match(h, /Alérgenos conforme informado pelo restaurante/);
+  }
+  assert.match(cfg.aviso, /fictícios/);
+  const linhas = ler("podecurtir/cardapio/exemplo/dados/cardapio.csv").trim().split("\n").slice(1);
+  assert.ok(linhas.length >= 10);
+  const brl = (v) => "R$ " + Number(v).toFixed(2).replace(".", ",").replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  for (const l of linhas) {
+    const cols = l.match(/("[^"]*"|[^,]*)(,|$)/g).map((c) => c.replace(/,$/, "").replace(/^"|"$/g, ""));
+    const [, nome, , preco] = cols;
+    assert.ok(d.includes('data-nome="' + nome + '" data-preco="' + Number(preco).toFixed(2) + '"'), "digital sem " + nome);
+    assert.ok(d.includes(brl(preco)) && imp.includes(brl(preco)), "preço diferente: " + nome);
+    assert.ok(imp.includes("<b>" + nome + "</b>"), "impresso sem " + nome);
+  }
+  const m = JSON.parse(ler("podecurtir/cardapio/exemplo/manifest.webmanifest"));
+  assert.equal(m.display, "standalone");
+  assert.ok(existsSync(new URL("../podecurtir/cardapio/exemplo/qr.svg", import.meta.url)));
+  assert.ok(existsSync(new URL("../podecurtir/cardapio/exemplo/cardapio-impresso.pdf", import.meta.url)));
+  const js = ler("assets/js/cardapio.js");
+  assert.match(js, /"https:\/\/wa\.me\/" \+ numero \+ "\?text=" \+ encodeURIComponent\(mensagem\(\)\)/);
+  assert.doesNotMatch(js, /fetch\(|XMLHttpRequest|localStorage/);
+});
+
+// 08/11/2026 (aprovado pela Jéssica): tipo "Cozinha de delivery (em casa)" e segundo exemplo, sem mesa, balcão
+// nem cardápio impresso, gerado pela mesma planilha com "impresso": false e "opcoes_pedido".
+test("Pode Curtir: cozinha de delivery tem tipo próprio e cardápio de exemplo sem salão", () => {
+  const js = ler("assets/js/podecurtir-loja.js");
+  assert.match(js, /\{ id: "cozinha_delivery", nome: "Cozinha de delivery \(em casa\)", proj: \["cardapio"\]/);
+  assert.match(js, /fica na bio do Instagram e na mensagem de saudação do WhatsApp/);
+  assert.ok(js.indexOf('id: "cozinha_delivery"') < js.indexOf('id: "outro"'));
+  assert.doesNotMatch(js, /href=\\?"\/podecurtir\//, "link /podecurtir/ no JS quebraria no espelho");
+  const base = "podecurtir/cardapio/exemplo-delivery/";
+  const d = ler(base + "index.html");
+  const csp = d.match(/http-equiv="Content-Security-Policy" content="([^"]+)"/);
+  assert.ok(csp && !/unsafe-inline|unsafe-eval/.test(csp[1]));
+  assert.doesNotMatch(d, /<script>|style="|onclick=/);
+  assert.match(d, /<meta name="robots" content="noindex">/);
+  assert.match(d, /Cardápio de exemplo, com cozinha, pratos e preços fictícios\./);
+  assert.match(d, /Alérgenos conforme informado pela cozinha/);
+  assert.match(d, /O pedido só vale depois que a cozinha confirmar pelo WhatsApp\./);
+  // sem salão: nada de mesa, balcão, "comer aqui" nem cardápio impresso
+  assert.doesNotMatch(d, /balcão|Comer aqui|mesa|imprimir\/|cardápio impresso/i);
+  assert.match(d, /value="Entrega" checked> Entrega<\/label>/);
+  assert.match(d, /value="Retirada combinada"> Retirada combinada<\/label>/);
+  assert.ok(!existsSync(new URL("../" + base + "imprimir/index.html", import.meta.url)));
+  assert.ok(!existsSync(new URL("../" + base + "cardapio-impresso.pdf", import.meta.url)));
+  const linhas = ler(base + "dados/cardapio.csv").trim().split("\n").slice(1);
+  assert.ok(linhas.length >= 6);
+  for (const l of linhas) {
+    const cols = l.match(/("[^"]*"|[^,]*)(,|$)/g).map((c) => c.replace(/,$/, "").replace(/^"|"$/g, ""));
+    assert.ok(d.includes('data-nome="' + cols[1] + '" data-preco="' + Number(cols[3]).toFixed(2) + '"'), "digital sem " + cols[1]);
+  }
+  assert.equal(JSON.parse(ler(base + "manifest.webmanifest")).display, "standalone");
 });
