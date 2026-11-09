@@ -111,3 +111,34 @@ test("loja: Chegada ao Brasil sob proposta e minerais críticos no futuro", () =
   assert.doesNotMatch(js, /Parceira local de empresas de fora/);
   assert.match(js, /regra EUDR/);
 });
+
+// 08/11/2026 (Z1, Z2, Z3, Z5 e Z7 aprovados pela Jéssica): implantação de pedidos, caixa e impressora, sob proposta,
+// sem preço publicado, modelo neutro (sem caixa próprio, sem revenda de equipamento) e NFC-e só com o contador.
+test("Zethic: implantação de pedidos, caixa e impressora, sob proposta e neutra", () => {
+  const js = ler("assets/js/zethic-loja.js");
+  const catalogo = js.split("var DEPTOS")[1].split("var SERVICOS")[0];
+  const item = catalogo.match(/\{ id: "pedidos-caixa"[\s\S]*?\},?\n/);
+  assert.ok(item, "serviço no catálogo");
+  assert.match(item[0], /tipo: "Projeto", link: "\/tecnologia#pedidos-caixa"/);
+  assert.doesNotMatch(item[0], /R\$|niveis/, "sem preço publicado");
+  assert.match(item[0], /NFC-e\) é configurada só com os dados do seu contador/);
+  const tec = catalogo.split('id: "tecnologia"')[1].split('id: "atendimento"')[0];
+  assert.ok(tec.includes('id: "pedidos-caixa"'), "no pilar Tecnologia");
+  const h = ler("tecnologia.html");
+  const art = h.match(/<article class="svc" id="pedidos-caixa">[\s\S]*?<\/article>/)[0];
+  assert.doesNotMatch(art, /R\$/);
+  assert.match(art, /não tem sistema de caixa próprio e não revende equipamento/);
+  assert.match(art, /se houver vínculo comercial com algum fornecedor, ele vem escrito na proposta/);
+  assert.match(art, /configurada só com os dados escritos do contador do Negócio/);
+  assert.match(art, /Acompanhamento por 30 dias/);
+  for (const p of ["index.html", "tecnologia.html", "loja.html"]) assert.match(ler(p), /href="\/tecnologia#pedidos-caixa"/, p + ": no menu");
+});
+
+// 08/11/2026 (R1 aprovado pela Jéssica): as portas de entrada do restaurante usam linhas que já existem no catálogo.
+test("Zethic: auditoria cobre maquininha e repasses de delivery; infraestrutura cobre internet reserva", () => {
+  const js = ler("assets/js/zethic-loja.js");
+  assert.match(js, /taxas da maquininha e repasses de aplicativos de delivery, de volta\. Você paga sobre o que for recuperado\./);
+  assert.match(js, /enlace via rádio e internet reserva\./);
+  assert.match(ler("financeiro.html"), /<li>Conferência das taxas da maquininha e dos repasses dos aplicativos de delivery<\/li>/);
+  assert.match(ler("tecnologia.html"), /<li>Internet reserva para o caixa não parar<\/li>/);
+});

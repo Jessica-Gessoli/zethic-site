@@ -80,9 +80,13 @@
       { id: "processos", nome: "Processos e rotina operacional", tipo: "Projeto", link: "/tecnologia#processos",
         desc: "Menos erro e retrabalho no dia a dia." },
       { id: "infraestrutura", nome: "Infraestrutura, redes e conectividade", tipo: "Projeto", link: "/tecnologia#infraestrutura",
-        desc: "Teste de estresse, desempenho da rede e enlace via rádio." },
+        desc: "Teste de estresse, desempenho da rede, enlace via rádio e internet reserva." },
       { id: "nuvem", nome: "Nuvem e identidade digital", tipo: "Projeto", link: "/tecnologia#nuvem",
         desc: "E-mail e contas da equipe na nuvem, com custo e acesso sob controle." },
+      // 08/11/2026 (Z1, Z2, Z3, Z5 e Z7 aprovados pela Jéssica): sob proposta, sem preço publicado; modelo neutro.
+      { id: "pedidos-caixa", nome: "Implantação de pedidos, caixa e impressora", tipo: "Projeto", link: "/tecnologia#pedidos-caixa",
+        desc: "Para restaurante, lanchonete, bar e delivery: os pedidos do salão, do WhatsApp e do iFood chegando certos à cozinha e ao caixa, com a impressora testada e acompanhamento por 30 dias.",
+        fora: "O sistema, a impressora e a mensalidade ficam no nome da sua empresa. A nota fiscal (NFC-e) é configurada só com os dados do seu contador." },
       { id: "projetos", nome: "Escritório de projetos e gestão de serviços de TI", tipo: "Mensalidade", link: "/tecnologia#projetos", niveis: NIVEIS_PROJETOS,
         desc: "Projetos com dono, prazo e relatório, sem você correr atrás." },
       { id: "redes-privadas", nome: "TI e TO para indústria e agro: redes privadas", tipo: "Projeto", link: "/tecnologia#industria-agro",
@@ -118,7 +122,7 @@
       { id: "gestao-financeira", nome: "Gestão financeira terceirizada", tipo: "Mensalidade", link: "/financeiro#gestao-financeira", niveis: NIVEIS_FIN,
         desc: "O dia a dia do dinheiro, com painel, contas lançadas sozinhas, cobrança pelo WhatsApp e envio ao contador.", fora: "Escrituração, impostos e obrigações continuam com o contador da sua empresa." },
       { id: "auditoria", nome: "Auditoria de contas e contratos", tipo: "Sobre o valor recuperado", link: "/financeiro#auditoria",
-        desc: "O dinheiro cobrado a mais em contas e contratos, de volta. Você paga sobre o que for recuperado." },
+        desc: "O dinheiro cobrado a mais em contas, contratos, taxas da maquininha e repasses de aplicativos de delivery, de volta. Você paga sobre o que for recuperado." },
       { id: "reforma", nome: "Adaptação à Reforma Tributária", tipo: "Projeto", link: "/financeiro#reforma-tributaria",
         desc: "Sistemas, notas e preços prontos para as regras novas, junto com o seu contador." }
     ] }
