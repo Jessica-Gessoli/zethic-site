@@ -72,7 +72,8 @@ NICHOS = {
                   (PROTECAO, "Cada pessoa com as contas e os arquivos protegidos."),
                   (CONTINUIDADE, "Cópia dos arquivos fiscais com teste de restauração e plano de retorno."),
                   (REFORMA, "Os sistemas do escritório preparados para a Reforma Tributária.")],
-        proposta="suporte:completo,lgpd,reforma"),
+        proposta="suporte:completo,lgpd,reforma",
+        tambem='<a href="/tecnologia#paineis-intranet">painel com os prazos e os vencimentos dos certificados</a> dos clientes, sobre os sistemas que o escritório já usa'),
     "ti-da-advocacia": dict(
         rotulo="TI da advocacia", antigo="advocacia",
         h1="O sigilo do cliente protegido e o escritório funcionando.",
@@ -85,7 +86,8 @@ NICHOS = {
                   (PROTECAO, "Verificação em duas etapas e antivírus gerenciado para cada pessoa."),
                   (CONSCIENTIZACAO, "A equipe treinada para reconhecer mensagem falsa em nome de cliente e de banco."),
                   (CONTINUIDADE, "Cópia dos processos com teste de restauração.")],
-        proposta="suporte:completo,lgpd,continuidade"),
+        proposta="suporte:completo,lgpd,continuidade",
+        tambem='<a href="/tecnologia#paineis-intranet">painel com os prazos dos processos</a>, sobre os sistemas que o escritório já usa'),
     "ti-da-engenharia": dict(
         rotulo="TI da engenharia e das obras",
         h1="Projeto salvo, obra conectada e a equipe trabalhando.",
@@ -111,7 +113,8 @@ NICHOS = {
                   (NUVEM, "Entrada e saída de pessoas com os acessos liberados e retirados no mesmo dia."),
                   (LGPD, "Controle de acesso aos dados de candidatos e colaboradores. Não substitui a avaliação jurídica."),
                   (PROTECAO, "Verificação em duas etapas e antivírus gerenciado para cada pessoa.")],
-        proposta="suporte:completo,lgpd,nuvem"),
+        proposta="suporte:completo,lgpd,nuvem",
+        tambem='<a href="/tecnologia#ponto-rh">implantação do sistema de ponto ou de RH</a> que você escolher e <a href="/tecnologia#paineis-intranet">intranet da equipe</a>'),
     "ti-da-agencia": dict(
         rotulo="TI da agência de marketing",
         h1="Arquivos de cliente seguros e a equipe criando sem travar.",
@@ -186,6 +189,8 @@ def campanha(slug, n):
         for (nome, link), frase in n["servicos"])
     desc = n["lead"]
     comprar = COMPRAR.format(slug=slug)
+    # 09/11/2026 (D2 aprovada pela Jéssica): sob proposta, sem preço, só nos nichos em que a persona aponta a dor.
+    tambem = (f'      <p class="steps-nota">Também sob proposta: {n["tambem"]}.</p>\n' if n.get("tambem") else "")
     return CABECA.format(titulo=n["rotulo"], desc=desc, extra="", csp=CSP) + f"""<body class="frente p-tec campanha">
 
 <a class="skip" href="#conteudo">Pular para o conteúdo</a>
@@ -234,7 +239,7 @@ def campanha(slug, n):
       <div class="svc-grid">
 {cartoes}
       </div>
-      <p class="steps-nota">Outra necessidade? <a href="/para-o-seu-negocio">Veja tudo o que a Zethic faz para o seu Negócio</a>.</p>
+{tambem}      <p class="steps-nota">Outra necessidade? <a href="/para-o-seu-negocio">Veja tudo o que a Zethic faz para o seu Negócio</a>.</p>
     </div>
   </section>
 

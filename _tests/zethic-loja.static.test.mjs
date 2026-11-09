@@ -171,3 +171,13 @@ test("Zethic: FinOps na auditoria, painéis e intranet, ponto e RH, e plataforma
     assert.match(ler(p), /href="\/tecnologia#ponto-rh"/, p + ": ponto e RH no menu");
   }
 });
+
+// 09/11/2026: as campanhas de contabilidade, advocacia e RH apontam para as linhas novas, sem preço.
+test("campanhas de contabilidade, advocacia e RH citam painéis, ponto e RH sob proposta", () => {
+  for (const [p, re] of [["ti-da-contabilidade.html", /href="\/tecnologia#paineis-intranet"/], ["ti-da-advocacia.html", /href="\/tecnologia#paineis-intranet"/], ["ti-do-rh.html", /href="\/tecnologia#ponto-rh"/]]) {
+    const linha = ler(p).match(/<p class="steps-nota">Também sob proposta:[^\n]*<\/p>/);
+    assert.ok(linha, p);
+    assert.match(linha[0], re, p);
+    assert.doesNotMatch(linha[0], /R\$/, p + ": sem preço");
+  }
+});
