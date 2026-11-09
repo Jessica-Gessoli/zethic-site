@@ -31,8 +31,10 @@
   var aulaPassou = !!AU_ATE && HOJE > AU_ATE;
 
   var ITENS = [
-    { id: "consultoria", nome: "Consultoria · 1 hora", preco: 400, agora: 1, quando: "Data combinada por e-mail ou WhatsApp depois do pagamento",
-      desc: "Uma hora por videochamada para levar uma decisão de cibersegurança ou de IA, com orientação clara do que fazer." },
+    /* 09/11/2026 (decisão da Jéssica): a consultoria vira um pacote de 2 horas pelo preço de 1, como a consulta com advogado:
+       1 hora de consulta + 1 hora de retorno, em até 30 dias, sobre o mesmo tema. */
+    { id: "consultoria", nome: "Consulta com retorno · 1 hora + 1 hora de retorno", preco: 400, agora: 1, quando: "Consulta com data combinada por e-mail ou WhatsApp depois do pagamento; retorno em até 30 dias",
+      desc: "Uma hora por videochamada para levar uma decisão de cibersegurança ou de IA e mais uma hora de retorno, em até 30 dias, para as dúvidas que surgirem quando você aplicar a orientação. Se você fechar um projeto em até 30 dias, os R$ 400 são abatidos." },
     { id: "checkup", nome: "Checkup Black Friday Segura", preco: 297, agora: 1, checkup: true, rapido: true, quando: "8 vagas, com agendamento até 25/11/2026, por videochamada",
       desc: "Revisão, antes da Black Friday, dos pontos por onde o golpe entra: contas e perfis da loja, pagamentos e comprovantes, e a equipe que atende. Você sai sabendo o que corrigir primeiro." },
     { id: "sessao", nome: "Mentoria de posicionamento · sessão avulsa", preco: 400, agora: 1, quando: "Data combinada por e-mail ou WhatsApp depois do pagamento",
