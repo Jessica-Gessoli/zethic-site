@@ -142,3 +142,32 @@ test("Zethic: auditoria cobre maquininha e repasses de delivery; infraestrutura 
   assert.match(ler("financeiro.html"), /<li>Conferência das taxas da maquininha e dos repasses dos aplicativos de delivery<\/li>/);
   assert.match(ler("tecnologia.html"), /<li>Internet reserva para o caixa não parar<\/li>/);
 });
+
+// 09/11/2026 (D1, D2 e D5 aprovadas pela Jéssica): FinOps dentro da Auditoria; painéis, intranet, ponto e RH
+// sob proposta e neutros; a plataforma de curso, que já tinha página, entra na loja. Nada com preço publicado.
+test("Zethic: FinOps na auditoria, painéis e intranet, ponto e RH, e plataforma de curso na loja", () => {
+  const js = ler("assets/js/zethic-loja.js");
+  const catalogo = js.split("var DEPTOS")[1].split("var SERVICOS")[0];
+  assert.match(catalogo, /licenças e nuvem sem uso/);
+  assert.match(ler("financeiro.html"), /Licenças por pessoa e nuvem pagas sem uso/);
+  const tec = catalogo.split('id: "tecnologia"')[1].split('id: "atendimento"')[0];
+  const at = catalogo.split('id: "atendimento"')[1].split('id: "financeiro"')[0];
+  for (const [id, onde, link] of [["paineis-intranet", tec, "/tecnologia#paineis-intranet"], ["ponto-rh", tec, "/tecnologia#ponto-rh"], ["produto-digital", at, "/atendimento#produto-digital"]]) {
+    const item = onde.match(new RegExp('\\{ id: "' + id + '"[\\s\\S]*?\\},?\\n'));
+    assert.ok(item, id + " no departamento certo");
+    assert.match(item[0], new RegExp('tipo: "Projeto", link: "' + link.replace("#", "#") + '"'));
+    assert.doesNotMatch(item[0], /R\$|niveis/, id + ": sem preço publicado");
+  }
+  const h = ler("tecnologia.html");
+  const paineis = h.match(/<article class="svc" id="paineis-intranet">[\s\S]*?<\/article>/)[0];
+  assert.match(paineis, /não revende licença/);
+  const ponto = h.match(/<article class="svc" id="ponto-rh">[\s\S]*?<\/article>/)[0];
+  assert.match(ponto, /não desenvolve sistema de ponto nem revende licença/);
+  assert.match(ponto, /contador ou do jurídico do Negócio/);
+  const curso = ler("atendimento.html").match(/<article class="svc" id="produto-digital">[\s\S]*?<\/article>/)[0];
+  assert.match(curso, /não revende plataforma e não recebe o dinheiro das vendas/);
+  for (const p of ["index.html", "tecnologia.html", "loja.html"]) {
+    assert.match(ler(p), /href="\/tecnologia#paineis-intranet"/, p + ": painéis no menu");
+    assert.match(ler(p), /href="\/tecnologia#ponto-rh"/, p + ": ponto e RH no menu");
+  }
+});

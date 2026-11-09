@@ -87,6 +87,13 @@
       { id: "pedidos-caixa", nome: "Implantação de pedidos, caixa e impressora", tipo: "Projeto", link: "/tecnologia#pedidos-caixa",
         desc: "Para restaurante, lanchonete, bar e delivery: os pedidos do salão, do WhatsApp e do iFood chegando certos à cozinha e ao caixa, com a impressora testada e acompanhamento por 30 dias.",
         fora: "O sistema, a impressora e a mensalidade ficam no nome da sua empresa. A nota fiscal (NFC-e) é configurada só com os dados do seu contador." },
+      // 09/11/2026 (D2 aprovada pela Jéssica): sob proposta, sem preço publicado; sem revender licença.
+      { id: "paineis-intranet", nome: "Painéis de gestão e intranet", tipo: "Projeto", link: "/tecnologia#paineis-intranet",
+        desc: "Prazos, certificados, pessoas e indicadores num lugar só, e uma intranet para a equipe, sobre os sistemas que você já paga.",
+        fora: "O painel e a intranet ficam nas contas da sua empresa (Google Workspace ou Microsoft 365)." },
+      { id: "ponto-rh", nome: "Implantação de ponto e RH", tipo: "Projeto", link: "/tecnologia#ponto-rh",
+        desc: "O sistema de ponto ou de RH que você escolher configurado, com a equipe cadastrada, testado e acompanhado por 30 dias.",
+        fora: "A Zethic não desenvolve ponto. O sistema fica no nome da sua empresa; regras de jornada e folha vêm do seu contador ou jurídico." },
       { id: "projetos", nome: "Escritório de projetos e gestão de serviços de TI", tipo: "Mensalidade", link: "/tecnologia#projetos", niveis: NIVEIS_PROJETOS,
         desc: "Projetos com dono, prazo e relatório, sem você correr atrás." },
       { id: "redes-privadas", nome: "TI e TO para indústria e agro: redes privadas", tipo: "Projeto", link: "/tecnologia#industria-agro",
@@ -115,6 +122,10 @@
         desc: "A sua empresa apresentada com movimento, sem perder velocidade.", fora: "Domínio, hospedagem e vídeos ficam com a sua empresa." },
       { id: "loja-virtual", nome: "Loja virtual", tipo: "Projeto", link: "/atendimento#site", niveis: NIVEIS_LOJA,
         desc: "Venda pelo seu próprio site, com pagamento e pedido organizados.", fora: "O plano da plataforma e o domínio ficam no nome da sua empresa." },
+      // 09/11/2026 (D5 aprovada pela Jéssica): a página /atendimento#produto-digital já existia; faltava na loja.
+      { id: "produto-digital", nome: "Plataforma para curso e produto digital", tipo: "Projeto", link: "/atendimento#produto-digital",
+        desc: "A área de cursos montada: área de membros, pagamento, e-mails de acesso e compra de teste.",
+        fora: "A plataforma, as vendas e os impostos ficam com o autor. A Zethic não recebe o dinheiro das vendas." },
       { id: "app", nome: "App: descoberta e protótipo", tipo: "Projeto", link: "/atendimento#site",
         desc: "A ideia do app testada num protótipo antes do desenvolvimento. O desenvolvimento sai na proposta." }
     ] },
@@ -122,7 +133,7 @@
       { id: "gestao-financeira", nome: "Gestão financeira terceirizada", tipo: "Mensalidade", link: "/financeiro#gestao-financeira", niveis: NIVEIS_FIN,
         desc: "O dia a dia do dinheiro, com painel, contas lançadas sozinhas, cobrança pelo WhatsApp e envio ao contador.", fora: "Escrituração, impostos e obrigações continuam com o contador da sua empresa." },
       { id: "auditoria", nome: "Auditoria de contas e contratos", tipo: "Sobre o valor recuperado", link: "/financeiro#auditoria",
-        desc: "O dinheiro cobrado a mais em contas, contratos, taxas da maquininha e repasses de aplicativos de delivery, de volta. Você paga sobre o que for recuperado." },
+        desc: "O dinheiro cobrado a mais em contas, contratos, licenças e nuvem sem uso, taxas da maquininha e repasses de aplicativos de delivery, de volta. Você paga sobre o que for recuperado." },
       { id: "reforma", nome: "Adaptação à Reforma Tributária", tipo: "Projeto", link: "/financeiro#reforma-tributaria",
         desc: "Sistemas, notas e preços prontos para as regras novas, junto com o seu contador." }
     ] }
