@@ -19,7 +19,9 @@ test("configuração única, com pagamento e Pixel desligados até serem preench
       // 08/11/2026: seção para especialistas, produtoras e empresas
       "acabamento", "diag_esp", "esp_marca", "esp_news", "esp_portavozes", "esp_produtora", "video_presenca",
       // 08/11/2026: seção para restaurantes, lanchonetes e bares
-      "cardapio", "cardapio_mensal"].sort());
+      "cardapio", "cardapio_mensal",
+      // 09/11/2026 (D4): Portfólio da empresa
+      "portfolio"].sort());
   for (const v of Object.values(c.ASAAS_LINKS)) assert.ok(v === "" || /^https:\/\/(www\.)?asaas\.com\//.test(v), "link do Asaas inválido: " + v);
   assert.ok([500, 750, 1200].includes(c.PRECO_AJUSTE), "preço do Ajuste fora da escada aprovada");
   assert.ok(c.PIXEL_ID === "" || /^\d{10,20}$/.test(c.PIXEL_ID));
@@ -218,6 +220,8 @@ test("site: pagamento integral, parcelado só no cartão e Gestão Completa com 
     if (["diag_esp", "video_presenca", "acabamento", "esp_marca", "esp_produtora", "esp_news", "esp_portavozes"].includes(k) && v === "") continue;
     // 08/11/2026: cardápio de restaurante, em configuração até a Jéssica criar os links
     if (["cardapio", "cardapio_mensal"].includes(k) && v === "") continue;
+    // 09/11/2026 (D4): Portfólio da empresa, em configuração até a Jéssica criar o link
+    if (k === "portfolio" && v === "") continue;
     assert.match(v, /^https:\/\/www\.asaas\.com\/000\/c\/[a-z0-9]{16}$/, k);
   }
 });
@@ -490,4 +494,15 @@ test("Pode Curtir: cozinha de delivery tem tipo próprio e cardápio de exemplo 
     assert.ok(d.includes('data-nome="' + cols[1] + '" data-preco="' + Number(cols[3]).toFixed(2) + '"'), "digital sem " + cols[1]);
   }
   assert.equal(JSON.parse(ler(base + "manifest.webmanifest")).display, "standalone");
+});
+
+// 09/11/2026 (D4 aprovada pela Jéssica): Portfólio da empresa, R$ 1.200 de fundador e R$ 1.900 depois;
+// nada de cliente, número ou depoimento inventado. D5: o curso pode ter a área montada pela Zethic, em parceria.
+test("Portfólio da empresa e área de cursos da Zethic em parceria", () => {
+  const js = ler("assets/js/podecurtir-loja.js");
+  const proj = js.split("var PROJ = [")[1].split("];")[0];
+  assert.match(proj, /id: "portfolio", nome: "Portfólio da empresa", preco: 1200, prazo: "10 dias úteis", fundador: true,\s*depois: "Preço de fundador para os 3 primeiros clientes\. Depois, R\$ 1\.900\."/);
+  assert.match(proj, /Clientes, números e depoimentos entram só se você enviar, com autorização\./);
+  assert.match(js, /portfolio: "Para mandar uma apresentação pronta/);
+  assert.match(js, /id: "produto_digital"[^}]*a área de cursos pode ser montada pela Zethic, em parceria\./);
 });

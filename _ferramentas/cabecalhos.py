@@ -81,6 +81,8 @@ FRENTES = [
             ("/tecnologia#nuvem", "Nuvem e identidade digital", "E-mail, contas, custo e acesso sob controle"),
             # 08/11/2026 (Z1 e Z5 aprovados pela Jéssica): implantação para restaurante e delivery, sob proposta.
             ("/tecnologia#pedidos-caixa", "Pedidos, caixa e impressora", "Pedidos de todos os canais chegando certos à cozinha e ao caixa"),
+            ("/tecnologia#paineis-intranet", "Painéis de gestão e intranet", "Prazos, certificados e equipe num lugar só"),
+            ("/tecnologia#ponto-rh", "Implantação de ponto e RH", "O sistema escolhido configurado e testado com o RH"),
             ("/tecnologia#projetos", "Governança de projetos e serviços de TI", "Escopo, responsáveis e indicadores"),
             ("/tecnologia#industria-agro", "TI e TO para indústria e agro", "Redes privadas, máquinas conectadas e rastreio de origem para exportar"),
             ("/tecnologia#futuro", "No futuro: energia e cidades", "Energia, conectividade e cidades inteligentes, com parceiros"),
