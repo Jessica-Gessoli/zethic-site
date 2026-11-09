@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
+import { readFileSync, existsSync } from "node:fs";
 import vm from "node:vm";
 
 const ler = (p) => readFileSync(new URL("../" + p, import.meta.url), "utf8");
@@ -407,14 +407,51 @@ test("Pode Curtir: cardápio de restaurante com a Zethic em parceria", () => {
   assert.match(js, /id: "cardapio_mensal", secao: "rest", nome: "Cuidado do Cardápio", mensal: 290, depois: "[^"]*Depois, R\$ 460 por mês\."/);
   assert.match(js, /id: "restaurante", nome: "Restaurante, lanchonete ou bar", proj: \["cardapio"\]/);
   assert.match(js, /\$\("grade-rest"\)\.innerHTML = daSecao\(PROJ, "rest"\)/);
-  assert.match(h, /<h2 id="t-rest">Para restaurantes, lanchonetes e bares<\/h2><p>[^<]*feitos pela Zethic, em parceria; o seu contato continua sendo a Pode Curtir\.<\/p>/);
+  assert.match(h, /<h2 id="t-rest">Para restaurantes, lanchonetes e bares<\/h2><p>[^<]*feitos pela Zethic, em parceria; o seu contato continua sendo a Pode Curtir\. <a href="\/podecurtir\/cardapio\/exemplo\/"[^>]*>Veja um cardápio de exemplo<\/a>\.<\/p>/);
   assert.ok(h.indexOf('id="t-planos"') < h.indexOf('id="t-rest"') && h.indexOf('id="t-rest"') < h.indexOf('id="t-esp"'));
   assert.match(cfg, /cardapio: "[^"]*",\s*cardapio_mensal: "[^"]*"/);
   assert.match(ler("podecurtir/termos/index.html"), /<strong>Para restaurantes, lanchonetes e bares:<\/strong>/);
   // 08/11/2026 (Jéssica aprovou): 1 troca = 1 item; pacote avulso de 5 trocas por R$ 90; 12 meses no ar incluídos,
   // depois R$ 120 por ano ou sem custo com o Cuidado; no encerramento, o cliente recebe a planilha e o PDF.
   assert.match(js, /12 meses no ar incluídos\./);
+  // D1 (08/11/2026): cardápio impresso da entrada e link no Perfil da Empresa no Google, sem mudar o preço.
+  assert.match(js, /cardápio impresso para a entrada \(PDF pronto para a gráfica, com os mesmos preços\)/);
+  assert.match(js, /link no Instagram e no Perfil da Empresa no Google/);
   assert.match(js, /1 troca = mudar um item: preço, nome, descrição, foto ou disponibilidade/);
   assert.match(ler("podecurtir/termos/index.html"), /pacote de até 5 por R\$ 90, feitas em até 2 dias úteis[\s\S]*recebe a planilha e o PDF/);
   assert.match(ler("podecurtir/termos/index.html"), /a hospedagem custa R\$ 120 por ano, ou não tem custo para quem tem o Cuidado do Cardápio/);
+});
+
+// D3 (08/11/2026, aprovado pela Jéssica): cardápio de exemplo, com restaurante fictício e identificado como exemplo,
+// gerado pela planilha (_ferramentas/cardapio/gerar_cardapio.py). O digital e o impresso saem dos mesmos dados.
+test("Pode Curtir: cardápio de exemplo gerado da planilha, com os mesmos preços no digital e no impresso", () => {
+  const d = ler("podecurtir/cardapio/exemplo/index.html");
+  const imp = ler("podecurtir/cardapio/exemplo/imprimir/index.html");
+  const cfg = JSON.parse(ler("podecurtir/cardapio/exemplo/dados/restaurante.json"));
+  for (const h of [d, imp]) {
+    const csp = h.match(/http-equiv="Content-Security-Policy" content="([^"]+)"/);
+    assert.ok(csp && !/unsafe-inline|unsafe-eval/.test(csp[1]));
+    assert.doesNotMatch(h, /<script>|style="|onclick=/);
+    assert.match(h, /<meta name="robots" content="noindex">/);
+    assert.match(h, /Cardápio de exemplo, com restaurante, pratos e preços fictícios\./);
+    assert.match(h, /Alérgenos conforme informado pelo restaurante/);
+  }
+  assert.match(cfg.aviso, /fictícios/);
+  const linhas = ler("podecurtir/cardapio/exemplo/dados/cardapio.csv").trim().split("\n").slice(1);
+  assert.ok(linhas.length >= 10);
+  const brl = (v) => "R$ " + Number(v).toFixed(2).replace(".", ",").replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  for (const l of linhas) {
+    const cols = l.match(/("[^"]*"|[^,]*)(,|$)/g).map((c) => c.replace(/,$/, "").replace(/^"|"$/g, ""));
+    const [, nome, , preco] = cols;
+    assert.ok(d.includes('data-nome="' + nome + '" data-preco="' + Number(preco).toFixed(2) + '"'), "digital sem " + nome);
+    assert.ok(d.includes(brl(preco)) && imp.includes(brl(preco)), "preço diferente: " + nome);
+    assert.ok(imp.includes("<b>" + nome + "</b>"), "impresso sem " + nome);
+  }
+  const m = JSON.parse(ler("podecurtir/cardapio/exemplo/manifest.webmanifest"));
+  assert.equal(m.display, "standalone");
+  assert.ok(existsSync(new URL("../podecurtir/cardapio/exemplo/qr.svg", import.meta.url)));
+  assert.ok(existsSync(new URL("../podecurtir/cardapio/exemplo/cardapio-impresso.pdf", import.meta.url)));
+  const js = ler("assets/js/cardapio.js");
+  assert.match(js, /"https:\/\/wa\.me\/" \+ numero \+ "\?text=" \+ encodeURIComponent\(mensagem\(\)\)/);
+  assert.doesNotMatch(js, /fetch\(|XMLHttpRequest|localStorage/);
 });
