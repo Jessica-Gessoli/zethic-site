@@ -83,6 +83,10 @@
         desc: "Teste de estresse, desempenho da rede e enlace via rádio." },
       { id: "nuvem", nome: "Nuvem e identidade digital", tipo: "Projeto", link: "/tecnologia#nuvem",
         desc: "E-mail e contas da equipe na nuvem, com custo e acesso sob controle." },
+      // 08/11/2026 (Z1, Z2, Z3, Z5 e Z7 aprovados pela Jéssica): sob proposta, sem preço publicado; modelo neutro.
+      { id: "pedidos-caixa", nome: "Implantação de pedidos, caixa e impressora", tipo: "Projeto", link: "/tecnologia#pedidos-caixa",
+        desc: "Para restaurante, lanchonete, bar e delivery: os pedidos do salão, do WhatsApp e do iFood chegando certos à cozinha e ao caixa, com a impressora testada e acompanhamento por 30 dias.",
+        fora: "O sistema, a impressora e a mensalidade ficam no nome da sua empresa. A nota fiscal (NFC-e) é configurada só com os dados do seu contador." },
       { id: "projetos", nome: "Escritório de projetos e gestão de serviços de TI", tipo: "Mensalidade", link: "/tecnologia#projetos", niveis: NIVEIS_PROJETOS,
         desc: "Projetos com dono, prazo e relatório, sem você correr atrás." },
       { id: "redes-privadas", nome: "TI e TO para indústria e agro: redes privadas", tipo: "Projeto", link: "/tecnologia#industria-agro",
