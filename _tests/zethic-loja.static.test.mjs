@@ -133,3 +133,12 @@ test("Zethic: implantação de pedidos, caixa e impressora, sob proposta e neutr
   assert.match(art, /Acompanhamento por 30 dias/);
   for (const p of ["index.html", "tecnologia.html", "loja.html"]) assert.match(ler(p), /href="\/tecnologia#pedidos-caixa"/, p + ": no menu");
 });
+
+// 08/11/2026 (R1 aprovado pela Jéssica): as portas de entrada do restaurante usam linhas que já existem no catálogo.
+test("Zethic: auditoria cobre maquininha e repasses de delivery; infraestrutura cobre internet reserva", () => {
+  const js = ler("assets/js/zethic-loja.js");
+  assert.match(js, /taxas da maquininha e repasses de aplicativos de delivery, de volta\. Você paga sobre o que for recuperado\./);
+  assert.match(js, /enlace via rádio e internet reserva\./);
+  assert.match(ler("financeiro.html"), /<li>Conferência das taxas da maquininha e dos repasses dos aplicativos de delivery<\/li>/);
+  assert.match(ler("tecnologia.html"), /<li>Internet reserva para o caixa não parar<\/li>/);
+});
