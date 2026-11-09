@@ -407,7 +407,9 @@ test("Pode Curtir: cardápio de restaurante com a Zethic em parceria", () => {
   assert.match(js, /id: "cardapio_mensal", secao: "rest", nome: "Cuidado do Cardápio", mensal: 290, depois: "[^"]*Depois, R\$ 460 por mês\."/);
   assert.match(js, /id: "restaurante", nome: "Restaurante, lanchonete ou bar", proj: \["cardapio"\]/);
   assert.match(js, /\$\("grade-rest"\)\.innerHTML = daSecao\(PROJ, "rest"\)/);
-  assert.match(h, /<h2 id="t-rest">Para restaurantes, lanchonetes e bares<\/h2><p>[^<]*feitos pela Zethic, em parceria; o seu contato continua sendo a Pode Curtir\. <a href="\/podecurtir\/cardapio\/exemplo\/"[^>]*>Veja um cardápio de exemplo<\/a>\.<\/p>/);
+  assert.match(h, /<h2 id="t-rest">Para restaurantes, lanchonetes e bares<\/h2><p>[^<]*feitos pela Zethic, em parceria; o seu contato continua sendo a Pode Curtir\. <a href="\/podecurtir\/cardapio\/exemplo\/"[^>]*>Veja um cardápio de exemplo<\/a> ou <a href="\/podecurtir\/cardapio\/exemplo-delivery\/"[^>]*>um de delivery<\/a>\.<\/p>/);
+  // 08/11/2026 (aprovado pela Jéssica): cozinhas de delivery, sem salão, também citadas no subtítulo.
+  assert.match(h, /Também para cozinhas de delivery, sem salão: o cardápio vira o link de pedidos no WhatsApp e no Instagram\./);
   assert.ok(h.indexOf('id="t-planos"') < h.indexOf('id="t-rest"') && h.indexOf('id="t-rest"') < h.indexOf('id="t-esp"'));
   assert.match(cfg, /cardapio: "[^"]*",\s*cardapio_mensal: "[^"]*"/);
   assert.match(ler("podecurtir/termos/index.html"), /<strong>Para restaurantes, lanchonetes e bares:<\/strong>/);
@@ -454,4 +456,36 @@ test("Pode Curtir: cardápio de exemplo gerado da planilha, com os mesmos preço
   const js = ler("assets/js/cardapio.js");
   assert.match(js, /"https:\/\/wa\.me\/" \+ numero \+ "\?text=" \+ encodeURIComponent\(mensagem\(\)\)/);
   assert.doesNotMatch(js, /fetch\(|XMLHttpRequest|localStorage/);
+});
+
+// 08/11/2026 (aprovado pela Jéssica): tipo "Cozinha de delivery (em casa)" e segundo exemplo, sem mesa, balcão
+// nem cardápio impresso, gerado pela mesma planilha com "impresso": false e "opcoes_pedido".
+test("Pode Curtir: cozinha de delivery tem tipo próprio e cardápio de exemplo sem salão", () => {
+  const js = ler("assets/js/podecurtir-loja.js");
+  assert.match(js, /\{ id: "cozinha_delivery", nome: "Cozinha de delivery \(em casa\)", proj: \["cardapio"\]/);
+  assert.match(js, /fica na bio do Instagram e na mensagem de saudação do WhatsApp/);
+  assert.ok(js.indexOf('id: "cozinha_delivery"') < js.indexOf('id: "outro"'));
+  assert.doesNotMatch(js, /href=\\?"\/podecurtir\//, "link /podecurtir/ no JS quebraria no espelho");
+  const base = "podecurtir/cardapio/exemplo-delivery/";
+  const d = ler(base + "index.html");
+  const csp = d.match(/http-equiv="Content-Security-Policy" content="([^"]+)"/);
+  assert.ok(csp && !/unsafe-inline|unsafe-eval/.test(csp[1]));
+  assert.doesNotMatch(d, /<script>|style="|onclick=/);
+  assert.match(d, /<meta name="robots" content="noindex">/);
+  assert.match(d, /Cardápio de exemplo, com cozinha, pratos e preços fictícios\./);
+  assert.match(d, /Alérgenos conforme informado pela cozinha/);
+  assert.match(d, /O pedido só vale depois que a cozinha confirmar pelo WhatsApp\./);
+  // sem salão: nada de mesa, balcão, "comer aqui" nem cardápio impresso
+  assert.doesNotMatch(d, /balcão|Comer aqui|mesa|imprimir\/|cardápio impresso/i);
+  assert.match(d, /value="Entrega" checked> Entrega<\/label>/);
+  assert.match(d, /value="Retirada combinada"> Retirada combinada<\/label>/);
+  assert.ok(!existsSync(new URL("../" + base + "imprimir/index.html", import.meta.url)));
+  assert.ok(!existsSync(new URL("../" + base + "cardapio-impresso.pdf", import.meta.url)));
+  const linhas = ler(base + "dados/cardapio.csv").trim().split("\n").slice(1);
+  assert.ok(linhas.length >= 6);
+  for (const l of linhas) {
+    const cols = l.match(/("[^"]*"|[^,]*)(,|$)/g).map((c) => c.replace(/,$/, "").replace(/^"|"$/g, ""));
+    assert.ok(d.includes('data-nome="' + cols[1] + '" data-preco="' + Number(cols[3]).toFixed(2) + '"'), "digital sem " + cols[1]);
+  }
+  assert.equal(JSON.parse(ler(base + "manifest.webmanifest")).display, "standalone");
 });

@@ -13,6 +13,9 @@ restaurante, e dados/restaurante.json. O mesmo dado gera, de uma vez:
 O PDF para a gráfica sai de imprimir/index.html com: node _ferramentas/cardapio/pdf.js <pasta>
 
 Colunas do CSV: categoria, nome, descricao, preco, alergenos, disponivel (sim/não), destaque (sim ou vazio).
+Opcionais em restaurante.json (08/11/2026, cozinha de delivery): "impresso": false não gera o cardápio impresso
+da entrada (quem não tem salão não precisa); "opcoes_pedido": lista das formas de receber o pedido;
+"informado_por" (padrão "pelo restaurante") e "quem_confirma" (padrão "o restaurante") para quem não é restaurante.
 Alérgenos: só o que o restaurante informou por escrito. 1 troca = mudar um item (preço, nome, descrição,
 foto ou disponibilidade).
 
@@ -84,6 +87,10 @@ def qr_svg(url):
 
 def pagina_digital(cfg, itens):
     e = html.escape
+    impresso = cfg.get("impresso", True)
+    ops = cfg.get("opcoes_pedido", ["Retirar no balcão", "Entrega", "Comer aqui"])
+    opcoes = "\n      ".join(f'<label class="op"><input type="radio" name="tipo" value="{e(o)}"{" checked" if i == 0 else ""}> {e(o)}</label>'
+                              for i, o in enumerate(ops))
     nav = "".join(f'<a href="#{slug(c)}">{e(c)}</a>' for c, _ in categorias(itens))
     secoes = []
     for c, lista in categorias(itens):
@@ -122,8 +129,8 @@ def pagina_digital(cfg, itens):
 <header class="topo"><h1>{e(cfg["nome"])}</h1><p>{e(cfg["descricao"])}</p><p class="info">{e(cfg["horario"])} · {e(cfg["endereco"])}</p></header>
 <nav class="cats" aria-label="Categorias">{nav}</nav>
 <main>{"".join(secoes)}
-<p class="nota">Preços em reais, iguais aos do cardápio impresso. Alérgenos conforme informado pelo restaurante. Atualizado em {e(cfg["atualizado_em"])}.</p>
-<p class="nota"><a href="imprimir/">Versão para imprimir</a></p>
+<p class="nota">Preços em reais{", iguais aos do cardápio impresso" if impresso else ""}. Alérgenos conforme informado {e(cfg.get("informado_por", "pelo restaurante"))}. Atualizado em {e(cfg["atualizado_em"])}.</p>
+{'<p class="nota"><a href="imprimir/">Versão para imprimir</a></p>' if impresso else ""}
 </main>
 <div class="barra" id="barra" hidden><button type="button" id="abrir">Ver pedido · <span id="barra-qtd">0</span> itens · <span id="barra-total">R$ 0,00</span></button></div>
 <div class="painel" id="painel" role="dialog" aria-modal="true" aria-labelledby="t-pedido" hidden>
@@ -133,14 +140,12 @@ def pagina_digital(cfg, itens):
     <p class="total">Total <span id="total">R$ 0,00</span></p>
     <label>Seu nome<input id="nome" autocomplete="name"></label>
     <fieldset><legend>Como prefere</legend>
-      <label class="op"><input type="radio" name="tipo" value="Retirar no balcão" checked> Retirar no balcão</label>
-      <label class="op"><input type="radio" name="tipo" value="Entrega"> Entrega</label>
-      <label class="op"><input type="radio" name="tipo" value="Comer aqui"> Comer aqui</label>
+      {opcoes}
     </fieldset>
     <label>Observação<textarea id="obs" rows="2"></textarea></label>
     <a class="enviar" id="enviar" href="https://wa.me/{e(cfg["whatsapp"])}" rel="noopener">Enviar pelo WhatsApp</a>
     <button type="button" class="fechar" id="fechar">Continuar escolhendo</button>
-    <p class="nota">O pedido só vale depois que o restaurante confirmar pelo WhatsApp.</p>
+    <p class="nota">O pedido só vale depois que {e(cfg.get("quem_confirma", "o restaurante"))} confirmar pelo WhatsApp.</p>
   </div>
 </div>
 <footer class="rodape"><p>{e(cfg["rodape"])}</p></footer>
@@ -173,7 +178,7 @@ def pagina_impressa(cfg, itens):
 <p class="aviso">{e(cfg["aviso"])}</p>
 <header class="topo"><h1>{e(cfg["nome"])}</h1><p>{e(cfg["descricao"])} · {e(cfg["horario"])}</p></header>
 <div class="colunas">{"".join(secoes)}</div>
-<div class="qr-bloco"><img src="../qr.svg" alt="QR code do cardápio digital" width="110" height="110"><p>Aponte a câmera para ver o cardápio no celular e pedir pelo WhatsApp.<br>Preços em reais, iguais aos do cardápio digital. Alérgenos conforme informado pelo restaurante. Atualizado em {e(cfg["atualizado_em"])}.</p></div>
+<div class="qr-bloco"><img src="../qr.svg" alt="QR code do cardápio digital" width="110" height="110"><p>Aponte a câmera para ver o cardápio no celular e pedir pelo WhatsApp.<br>Preços em reais, iguais aos do cardápio digital. Alérgenos conforme informado {e(cfg.get("informado_por", "pelo restaurante"))}. Atualizado em {e(cfg["atualizado_em"])}.</p></div>
 </body>
 </html>
 '''
@@ -184,9 +189,10 @@ def main():
         sys.exit(__doc__)
     pasta = Path(sys.argv[1])
     cfg, itens = ler(pasta)
-    (pasta / "imprimir").mkdir(exist_ok=True)
     (pasta / "index.html").write_text(pagina_digital(cfg, itens), encoding="utf-8")
-    (pasta / "imprimir/index.html").write_text(pagina_impressa(cfg, itens), encoding="utf-8")
+    if cfg.get("impresso", True):
+        (pasta / "imprimir").mkdir(exist_ok=True)
+        (pasta / "imprimir/index.html").write_text(pagina_impressa(cfg, itens), encoding="utf-8")
     (pasta / "tema.css").write_text(f':root{{--cor:{cfg["cor"]};--fundo:{cfg["cor_fundo"]}}}\n', encoding="utf-8")
     (pasta / "qr.svg").write_text(qr_svg(cfg["url"]), encoding="utf-8")
     inicial = html.escape(cfg["nome"][:1].upper())

@@ -100,7 +100,9 @@ pc = [("/podecurtir", "/"), ("/podecurtir/loja/", "/loja/"), ("/podecurtir/loja/
       ("/podecurtir/termos/", "/termos/"), ("/podecurtir/privacidade/", "/privacidade/"),
       ("/podecurtir/desistencia/", "/desistencia/"), ("/podecurtir/parceiros/", "/parceiros/"),
       # 08/11/2026 (D3 aprovado pela Jéssica): cardápio de exemplo, gerado por _ferramentas/cardapio/gerar_cardapio.py
-      ("/podecurtir/cardapio/exemplo/", "/cardapio/exemplo/"), ("/podecurtir/cardapio/exemplo/imprimir/", "/cardapio/exemplo/imprimir/")]
+      ("/podecurtir/cardapio/exemplo/", "/cardapio/exemplo/"), ("/podecurtir/cardapio/exemplo/imprimir/", "/cardapio/exemplo/imprimir/"),
+      # 08/11/2026 (aprovado pela Jéssica): exemplo de cozinha de delivery, sem cardápio impresso
+      ("/podecurtir/cardapio/exemplo-delivery/", "/cardapio/exemplo-delivery/")]
 def pc_map(i): return [pc[i]] + pc[:i] + pc[i + 1:]
 pc_dest = build("podecurtir", "podecurtir.zethic.net", [
     ("podecurtir.html", "index.html", pc_map(0)),
@@ -112,10 +114,13 @@ pc_dest = build("podecurtir", "podecurtir.zethic.net", [
     ("podecurtir/parceiros/index.html", "parceiros/index.html", pc_map(6)),
     ("podecurtir/cardapio/exemplo/index.html", "cardapio/exemplo/index.html", pc_map(7)),
     ("podecurtir/cardapio/exemplo/imprimir/index.html", "cardapio/exemplo/imprimir/index.html", pc_map(8)),
+    ("podecurtir/cardapio/exemplo-delivery/index.html", "cardapio/exemplo-delivery/index.html", pc_map(9)),
 ], ["/assets/fonts/OFL.txt"])
 # Arquivos do cardápio de exemplo que a página carrega por caminho relativo (a planilha em dados/ fica só na fonte).
-for f in ("tema.css", "qr.svg", "icone.svg", "manifest.webmanifest", "cardapio-impresso.pdf"):
-    shutil.copy2(SRC / "podecurtir/cardapio/exemplo" / f, pc_dest / "cardapio/exemplo" / f)
+for pasta in ("exemplo", "exemplo-delivery"):
+    for f in ("tema.css", "qr.svg", "icone.svg", "manifest.webmanifest", "cardapio-impresso.pdf"):
+        if (SRC / "podecurtir/cardapio" / pasta / f).exists():
+            shutil.copy2(SRC / "podecurtir/cardapio" / pasta / f, pc_dest / "cardapio" / pasta / f)
 
 if CHECK:
     def diff(a, b):
