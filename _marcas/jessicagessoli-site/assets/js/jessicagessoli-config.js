@@ -2,7 +2,7 @@
    Um só lugar para preencher antes de publicar. Campos vazios deixam a função desligada, sem erro.
 
    ASAAS_LINKS: link de pagamento do Asaas de cada item (https://www.asaas.com/c/...). Vazio = "pagamento em configuração".
-     consultoria: 1 hora de consultoria (R$ 400) · sessao: mentoria de posicionamento, sessão avulsa (R$ 400)
+     consultoria: Consulta com retorno, 1 hora + 1 hora de retorno em até 30 dias (R$ 400; 09/11/2026) · sessao: mentoria de posicionamento, sessão avulsa (R$ 400)
      checkup: Checkup Black Friday Segura (R$ 297; aprovado em 06/11/2026)
      programa_pix e programa_cartao: programa de mentoria de 3 meses (R$ 3.200, pagamento integral; 04/11/2026):
        _pix para Pix ou boleto, à vista; _cartao só cartão, em até 3x sem juros · aula: aula ao vivo (R$ 97)

@@ -26,7 +26,9 @@ test("configuração única, com pagamento, aula e Pixel desligados até serem p
 // 06/11/2026 (aprovado pela Jéssica): Checkup Black Friday Segura a R$ 297, à vista, 8 vagas, agendamento até 25/11/2026.
 test("preços aprovados em 03/11/2026 e 06/11/2026, e mais nenhum", () => {
   const js = ler("assets/js/jessicagessoli-loja.js");
-  assert.match(js, /id: "consultoria", nome: "Consultoria · 1 hora", preco: 400, agora: 1/);
+  // 09/11/2026 (Jéssica): consultoria vendida como Consulta com retorno, 2 horas pelo preço de 1.
+  assert.match(js, /id: "consultoria", nome: "Consulta com retorno · 1 hora \+ 1 hora de retorno", preco: 400, agora: 1/);
+  assert.match(js, /retorno, em até 30 dias/);
   assert.match(js, /id: "sessao", nome: "Mentoria de posicionamento · sessão avulsa", preco: 400, agora: 1/);
   assert.match(js, /id: "programa", nome: "Mentoria de posicionamento · programa de 3 meses", preco: 3200, agora: 1, parcelas: 3, em: "no"/);
   assert.match(js, /id: "aula", nome: "Aula ao vivo · IA segura para o seu Negócio", preco: 97, agora: 1/);
