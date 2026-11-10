@@ -534,3 +534,12 @@ test("Pode Curtir: tradução em 5 dias úteis e catálogo com as mesmas regras 
   assert.match(cat, /recebe a planilha com os itens/);
   assert.match(js, /id: "catalogo_mensal"[\s\S]*O catálogo fica no ar sem custo de hospedagem\./);
 });
+
+// 10/11/2026 (Jéssica): o que é vendido em parceria com a Jéssica Gessoli fica numa faixa no mesmo formato da Zethic,
+// com as cores da marca dela. O rótulo é "Em parceria" (não "Leve junto"), porque a sessão se compra sozinha.
+test("faixa da Jéssica Gessoli: mesmo formato da Zethic, cores da marca dela", () => {
+  const h = ler("_fontes/podecurtir.html"), css = ler("assets/css/podecurtir-loja.css");
+  assert.match(h, /<section class="secao leve-junto jg" aria-labelledby="t-ia">[\s\S]*<span class="selo jg">JÉSSICA GESSOLI<\/span>Em parceria<\/p><h2 id="t-ia">Aprenda a fazer com IA/);
+  assert.match(css, /\.leve-junto\.jg\{background:#12352B;/);
+  assert.match(css, /\.leve-junto\.jg \.por\{background:#D9B76E;color:#12352B\}/);
+});
