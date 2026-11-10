@@ -56,9 +56,11 @@ test("PDF do guia publicado para o link do direct", () => {
 });
 
 // 09/11/2026 (Jéssica): o link do guia leva o nome da Jéssica Gessoli.
-// 10/11/2026 (Jéssica, "apague os links antigos"): o endereço antigo /vaga-real-ou-golpe foi apagado; o PDF do direct fica.
-test("endereço antigo apagado e PDF do direct publicado", () => {
-  assert.ok(!existsSync(new URL("../vaga-real-ou-golpe.html", import.meta.url)));
+// 10/11/2026 (Jéssica): o endereço antigo fica, porque o PDF do guia já enviado leva a ele.
+test("endereço antigo redireciona para o da marca e o PDF do direct continua publicado", () => {
+  const antiga = readFileSync(new URL("../vaga-real-ou-golpe.html", import.meta.url), "utf8");
+  assert.match(antiga, /<meta http-equiv="refresh" content="0; url=https:\/\/jessicagessoli\.zethic\.net\/vaga-real-ou-golpe\/">/);
+  assert.match(antiga, /<meta name="robots" content="noindex, follow">/);
   const pdf = readFileSync(new URL("../jessicagessoli/vaga-real-ou-golpe/guia-vaga-real-ou-golpe.pdf", import.meta.url));
   assert.equal(pdf.subarray(0, 5).toString(), "%PDF-");
 });

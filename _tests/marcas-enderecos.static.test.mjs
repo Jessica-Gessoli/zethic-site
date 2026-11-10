@@ -26,14 +26,13 @@ const MARCAS = ["jessicagessoli.html", "en/jessicagessoli.html", "jessicagessoli
 // subdomínio (currículo, kit, guia e Sympla já distribuídos imprimem esses dois endereços). O resto dá 404.
 test("zethic.net não mostra mais páginas das marcas: só o início de cada uma redireciona; o resto foi apagado", () => {
   const antigas = publicadas.filter((p) => MARCAS.some((m) => p === m || p.startsWith(m)));
-  assert.deepEqual(antigas.sort(), ["jessicagessoli.html", "podecurtir.html"]);
+  assert.deepEqual(antigas.sort(), ["en/jessicagessoli.html", "jessicagessoli.html", "podecurtir.html"]);
   for (const p of antigas) {
     const h = ler(p);
     assert.ok(redireciona(h), p + " ainda tem conteúdo");
-    assert.match(h, /<link rel="canonical" href="https:\/\/(jessicagessoli|podecurtir)\.zethic\.net\/">/, p);
+    assert.match(h, /<link rel="canonical" href="https:\/\/(jessicagessoli|podecurtir)\.zethic\.net\/(en\/)?">/, p);
     assert.match(h, /<meta name="robots" content="noindex/, p);
   }
-  assert.ok(!existsSync(join(RAIZ, "en/jessicagessoli.html")), "en/jessicagessoli.html devia estar apagado");
 });
 
 test("páginas da Zethic com conteúdo não levam às cópias antigas das marcas", () => {
@@ -57,8 +56,10 @@ test("mesma estrutura nas três marcas: loja, pedido recebido, termos, privacida
     }
   }
   for (const p of ["index.html", "loja.html", "loja/obrigado/index.html", "comprar.html", "privacidade.html"]) assert.ok(existsSync(join(RAIZ, p)), p);
-  // 10/11/2026 (Jéssica): os endereços antigos da raiz foram apagados.
-  for (const f of ["loja-obrigado.html", "diagnostico.html", "teste-golpe.html", "teste-ia.html", "copia-e-cola.html", "prompt-joia.html", "conte-seu-golpe.html", "vaga-real-ou-golpe.html"]) assert.ok(!existsSync(join(RAIZ, f)), f + " devia estar apagado");
+  // 10/11/2026 (Jéssica): apagados os endereços antigos da raiz que nenhum PDF distribuído usa.
+  // Ficam /diagnostico, /teste-ia, /teste-golpe e /vaga-real-ou-golpe, que os PDFs do Copia e Cola, do Prompt Joia e do guia levam.
+  for (const f of ["diagnostico.html", "teste-ia.html", "teste-golpe.html", "vaga-real-ou-golpe.html"]) assert.ok(redireciona(ler(f)) && /noindex/.test(ler(f)), f);
+  for (const f of ["loja-obrigado.html", "copia-e-cola.html", "prompt-joia.html", "conte-seu-golpe.html"]) assert.ok(!existsSync(join(RAIZ, f)), f + " devia estar apagado");
   assert.match(ler("loja.html"), /<a id="link-obrigado" href="\/loja\/obrigado\/" hidden>/);
 });
 

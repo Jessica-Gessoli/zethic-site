@@ -102,6 +102,6 @@ test("links internos levam a páginas que existem e o mapa do site lista as duas
 
 // 10/11/2026 (Jéssica, "apague os links antigos"): os endereços antigos da raiz de zethic.net foram apagados.
 test("os endereços antigos da raiz foram apagados e o compartilhamento usa o endereço da marca", () => {
-  for (const f of ["prompt-joia.html", "copia-e-cola.html", "teste-ia.html"]) assert.ok(!existsSync(new URL("../" + f, import.meta.url)), f);
+  for (const f of ["prompt-joia.html", "copia-e-cola.html"]) assert.ok(!existsSync(new URL("../" + f, import.meta.url)), f);
   for (const f of ["_fontes/jessicagessoli/copia-e-cola/index.html", "assets/js/teste-ia.js"]) assert.doesNotMatch(ler(f), /https:\/\/zethic\.net\/(copia-e-cola|teste-ia)\.html/, f);
 });

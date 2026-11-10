@@ -21,7 +21,8 @@ test("só o início da Jéssica Gessoli continua em zethic.net; os outros endere
   assert.match(h, /<meta name="robots" content="noindex, follow">/);
   assert.match(h, /<script src="\/assets\/js\/redireciona-marca\.js"><\/script>/);
   assert.doesNotMatch(h, /<main|<h1/, "ainda tem conteúdo");
-  for (const [arq] of antigos.slice(1)) {
+  assert.ok(ler("en/jessicagessoli.html").includes('<meta http-equiv="refresh" content="0; url=https://jessicagessoli.zethic.net/en/">'), "currículo em inglês já enviado");
+  for (const [arq] of antigos.slice(2)) {
     assert.ok(!existsSync(new URL("../" + arq, import.meta.url)), arq + " devia estar apagado");
     assert.ok(existsSync(new URL("../_fontes/" + arq, import.meta.url)), "fonte faltando: " + arq);
   }

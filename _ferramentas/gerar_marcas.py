@@ -150,11 +150,12 @@ REDIR = """<!DOCTYPE html>
 </body>
 </html>
 """
+# 10/11/2026 (Jéssica): /en/jessicagessoli também fica, porque o currículo em inglês já enviado leva a ele.
 # 10/11/2026 (Jéssica, "apague os links antigos"): só o início de cada marca continua em zethic.net, levando ao
 # subdomínio, porque o currículo, o kit de palestrante, o guia em PDF e o crédito do Sympla já distribuídos imprimem
 # zethic.net/jessicagessoli e zethic.net/podecurtir. Os outros endereços antigos foram apagados e dão 404.
 # O PDF do guia em jessicagessoli/vaga-real-ou-golpe/ continua, porque o link do direct aponta para ele.
-MANTIDOS = {"/jessicagessoli", "/podecurtir"}
+MANTIDOS = {"/jessicagessoli", "/en/jessicagessoli", "/podecurtir"}
 def redirecionar(pares, host, nome):
     for old, new in pares:
         dest = SRC / (old.lstrip("/") + ".html" if not old.endswith("/") else old.lstrip("/") + "index.html")
