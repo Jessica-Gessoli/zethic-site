@@ -43,8 +43,9 @@ test("Para quem é: os 3 perfis na página principal, com caminho para a loja", 
 });
 
 test("testes grátis levam à loja da Jéssica Gessoli", () => {
-  assert.match(ler("jessicagessoli/teste-golpe/index.html"), /href: "\/jessicagessoli\/loja\/#item-antigolpe_essencial"/);
-  assert.match(ler("jessicagessoli/diagnostico/index.html"), /href: "\/jessicagessoli\/loja\/#item-diagnostico_essencial"/);
+  // 10/11/2026: links relativos nos resultados, para funcionar nos dois endereços (revisão do Codex no jessicagessoli-site #2).
+  assert.match(ler("jessicagessoli/teste-golpe/index.html"), /href: "\.\.\/loja\/#item-antigolpe_essencial"/);
+  assert.match(ler("jessicagessoli/diagnostico/index.html"), /href: "\.\.\/loja\/#item-diagnostico_essencial"/);
   assert.match(principal, /<a href="\/jessicagessoli\/teste-golpe\/">Grátis: Teste de golpe, em 3 minutos<\/a>/);
 });
 

@@ -66,7 +66,7 @@ test("mensagens do WhatsApp vão para o número público com o texto combinado",
   const js = ler("assets/js/teste-ia.js");
   const wa = [...js.matchAll(/href: "(https:\/\/wa\.me\/[^"]+)"/g)].map((m) => m[1]);
   assert.ok(wa.some((l) => l.startsWith(WA) && texto(l) === "Olá, Jéssica! Fiz o teste de IA segura e quero conversar."));
-  assert.ok(wa.some((l) => l.startsWith("https://wa.me/?text=") && texto(l) === "Faça este teste de 2 minutos: https://zethic.net/teste-ia.html"));
+  assert.ok(wa.some((l) => l.startsWith("https://wa.me/?text=") && texto(l) === "Faça este teste de 2 minutos: https://zethic.net/jessicagessoli/teste-ia/"));
 });
 
 test("as 10 regras Antes de colar e a fonte da ANPD", () => {

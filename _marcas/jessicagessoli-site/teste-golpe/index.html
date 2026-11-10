@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-5IiQIvNVlFlgGjdGvX9S3IkqIZy++wy4LQZl4DJJRqA=' https://www.googletagmanager.com; img-src 'self' https://*.google-analytics.com https://*.googletagmanager.com; font-src 'self'; style-src 'self' 'unsafe-inline'; base-uri 'none'; form-action 'none'; connect-src https://jessicagessoli.app.n8n.cloud https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' 'sha256-fZgzIVLCEVAMI8gvQ0Gv2jPHP8cJdeVnJ2agN24Z23I=' https://www.googletagmanager.com; img-src 'self' https://*.google-analytics.com https://*.googletagmanager.com; font-src 'self'; style-src 'self' 'unsafe-inline'; base-uri 'none'; form-action 'none'; connect-src https://jessicagessoli.app.n8n.cloud https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com">
 <title>Teste de golpe grátis para empresas | Jéssica Gessoli</title>
 <meta name="description" content="Teste grátis de 10 situações reais de golpe: boleto falso, Pix pedido por mensagem, falso suporte. Veja quantas a sua equipe acerta.">
 <link rel="canonical" href="https://jessicagessoli.zethic.net/teste-golpe/">
@@ -301,7 +301,7 @@
     campos.appendChild(l1); campos.appendChild(l2); box.appendChild(campos);
     var lb = el("label", { "class": "aceite" }); var ok = el("input", { type: "checkbox", name: "aceite" }); lb.appendChild(ok);
     var tx = el("span", {}, "Aceito receber da Jéssica Gessoli o resultado e mensagens sobre golpes e o Checkup. Posso pedir para sair quando quiser. ");
-    tx.appendChild(el("a", { href: "/jessicagessoli/privacidade/" }, "Privacidade"));
+    tx.appendChild(el("a", { href: "../privacidade/" }, "Privacidade"));
     lb.appendChild(tx); box.appendChild(lb);
     box.appendChild(el("button", { type: "submit", "class": "btn btn-main" }, "Receber meu resultado"));
     var aviso = el("p", { "class": "note", "aria-live": "polite" }); box.appendChild(aviso);
@@ -365,9 +365,9 @@
     }
     out.appendChild(el("p", {}, "O Programa Antigolpe da Jéssica Gessoli treina a equipe e deixa por escrito as regras que impedem pagamento indevido."));
     var ctas = el("div", { "class": "hero-ctas" });
-    if (ckAberto()) ctas.appendChild(el("a", { "class": "btn btn-main", href: "/jessicagessoli/checkup/?utm_source=teste-golpe-resultado" }, "Ver o Checkup Black Friday Segura · R$ 297"));
-    ctas.appendChild(el("a", { "class": "btn " + (ckAberto() ? "btn-line" : "btn-main"), href: "/jessicagessoli/loja/#item-antigolpe_essencial" }, "Ver o Programa Antigolpe na loja"));
-    ctas.appendChild(el("a", { "class": "btn btn-line", href: "/jessicagessoli/loja/#item-consultoria" }, "Tirar uma dúvida: Consulta com retorno"));
+    if (ckAberto()) ctas.appendChild(el("a", { "class": "btn btn-main", href: "../checkup/?utm_source=teste-golpe-resultado" }, "Ver o Checkup Black Friday Segura · R$ 297"));
+    ctas.appendChild(el("a", { "class": "btn " + (ckAberto() ? "btn-line" : "btn-main"), href: "../loja/#item-antigolpe_essencial" }, "Ver o Programa Antigolpe na loja"));
+    ctas.appendChild(el("a", { "class": "btn btn-line", href: "../loja/#item-consultoria" }, "Tirar uma dúvida: Consulta com retorno"));
     out.appendChild(ctas);
     out.appendChild(contato(acertos, nv[0], erros));
     out.appendChild(el("p", { "class": "note" }, "Teste indicativo, com situações comuns. Não substitui um treinamento com simulação real."));

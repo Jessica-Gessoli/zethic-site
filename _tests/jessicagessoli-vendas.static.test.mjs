@@ -38,7 +38,8 @@ test("loja: compra rápida só para Checkup e aula, e só quando vendáveis", ()
 test("Teste de golpe: resultado sem pedir dado; contato opcional com aceite e política", () => {
   assert.match(teste, /Para ver o resultado, nenhum dado pessoal é pedido/);
   assert.match(teste, /if \(!ok\.checked\) falta\.push\("aceite"\)/);
-  assert.match(teste, /href: "\/jessicagessoli\/privacidade\/"/);
+  // 10/11/2026: link relativo, para funcionar em zethic.net/jessicagessoli e no site próprio da marca.
+  assert.match(teste, /href: "\.\.\/privacidade\/"/);
   assert.match(teste, /tipo: "lead_teste_golpe"/);
   assert.match(teste, /connect-src https:\/\/jessicagessoli\.app\.n8n\.cloud/);
   assert.match(priv, /Resultado do Teste de golpe por escrito/);
