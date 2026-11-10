@@ -9,7 +9,7 @@ const checkup = ler("jessicagessoli/checkup/index.html");
 const ckJs = ler("assets/js/jessicagessoli-checkup.js");
 const loja = ler("assets/js/jessicagessoli-loja.js");
 const lojaHtml = ler("jessicagessoli/loja/index.html");
-const teste = ler("teste-golpe.html");
+const teste = ler("jessicagessoli/teste-golpe/index.html");
 const priv = ler("jessicagessoli/privacidade/index.html");
 
 test("página do Checkup: um botão principal, preço visível e sem script embutido", () => {
@@ -38,7 +38,8 @@ test("loja: compra rápida só para Checkup e aula, e só quando vendáveis", ()
 test("Teste de golpe: resultado sem pedir dado; contato opcional com aceite e política", () => {
   assert.match(teste, /Para ver o resultado, nenhum dado pessoal é pedido/);
   assert.match(teste, /if \(!ok\.checked\) falta\.push\("aceite"\)/);
-  assert.match(teste, /href: "\/jessicagessoli\/privacidade\/"/);
+  // 10/11/2026: link relativo, para funcionar em zethic.net/jessicagessoli e no site próprio da marca.
+  assert.match(teste, /href: "\.\.\/privacidade\/"/);
   assert.match(teste, /tipo: "lead_teste_golpe"/);
   assert.match(teste, /connect-src https:\/\/jessicagessoli\.app\.n8n\.cloud/);
   assert.match(priv, /Resultado do Teste de golpe por escrito/);

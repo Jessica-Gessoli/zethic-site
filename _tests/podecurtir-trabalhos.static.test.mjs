@@ -38,7 +38,8 @@ test("Símbolos: monograma JG e visor da Pode Curtir, sem endosso da Zethic", ()
 
 // 14/10/2026 (aprovado pela Jéssica, orientação da Goreti): primeiro a conversa, depois o preço. Nenhum valor publicado no site.
 test("Zethic: nenhum preço publicado nas páginas", () => {
-  for (const p of ["index.html", "diagnostico.html", "seguranca.html", "tecnologia.html", "atendimento.html", "financeiro.html", "llms.txt"]) {
+  // 10/11/2026: o Diagnóstico é da Jéssica Gessoli, que publica preço na loja; saiu desta lista.
+  for (const p of ["index.html", "seguranca.html", "tecnologia.html", "atendimento.html", "financeiro.html", "llms.txt"]) {
     const h = ler(p).replace(/<label>[^<]*\(R\$\)/g, "");
     assert.doesNotMatch(h, /R\$ ?\d|[Pp]reço de fundador|minPrice/, p);
   }
@@ -48,7 +49,8 @@ test("Zethic: nenhum preço publicado nas páginas", () => {
 // e mostra a frente de redes sociais (Perfil Pronto e gestão mensal), sem preço e sem pedir senha.
 test("Pode Curtir: categoria clara e frente de redes sociais", () => {
   const h = ler("podecurtir.html");
-  assert.match(h, /<title>Pode Curtir \| Produtora de foto, vídeo e redes sociais<\/title>/);
+  // 10/11/2026 (Jéssica): o título diz primeiro o que a página vende (perfil e redes) e continua dizendo a categoria.
+  assert.match(h, /<title>Pode Curtir \| Perfil, redes sociais, foto e vídeo com preço fechado<\/title>/);
   assert.match(h, /<li id="redes">[\s\S]*Perfil Pronto[\s\S]*Gestão mensal/);
   // 04/11/2026: a regra "sem preço" caiu (site = preço pronto); o preço da página inicial é conferido no teste da loja.
   assert.doesNotMatch(h, /A publicação nas redes e os anúncios ficam com você/);

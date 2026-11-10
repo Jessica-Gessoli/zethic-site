@@ -35,7 +35,7 @@ for (const arquivo of ["jessicagessoli.html", "en/jessicagessoli.html"]) {
   });
 
   test(`${arquivo}: o topo da página leva ao LinkedIn e ao Instagram`, () => {
-    const acoes = ler(arquivo).match(/<div class="actions">[\s\S]*?<\/div>/)?.[0] ?? "";
+    const acoes = ler(arquivo).match(/<div class="hero">[\s\S]*?<\/figure>/)?.[0] ?? "";
     assert.match(acoes, /href="https:\/\/www\.linkedin\.com\/in\/jessicagessoli"/);
     assert.match(acoes, /href="https:\/\/www\.instagram\.com\/jessicagessoli\/"/);
   });

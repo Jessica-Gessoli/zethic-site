@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { createHash } from "node:crypto";
 
-const html = readFileSync(new URL("../teste-golpe.html", import.meta.url), "utf8");
+const html = readFileSync(new URL("../jessicagessoli/teste-golpe/index.html", import.meta.url), "utf8");
 const script = html.match(/<script>([\s\S]*?)<\/script>/)[1];
 
 test("CSP autoriza o script inline pelo hash correto", () => {

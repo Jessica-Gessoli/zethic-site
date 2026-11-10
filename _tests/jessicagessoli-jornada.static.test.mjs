@@ -19,7 +19,7 @@ test("cada link da página principal para a loja aponta para um item ou proposta
     assert.ok(m, "âncora fora do padrão: " + h);
     assert.ok(itens.includes(m[2]), "item inexistente na loja: " + h);
   }
-  assert.equal(links.filter((h) => !h).length, 3, "sem âncora, só o menu, a introdução dos serviços e o rodapé");
+  assert.equal(links.filter((h) => !h).length, 4, "sem âncora, só o menu, a porta do dono de Negócio no topo, a introdução dos serviços e o rodapé");
 });
 
 test("a loja volta para o serviço certo na página principal", () => {
@@ -36,16 +36,17 @@ test("a loja volta para o serviço certo na página principal", () => {
 test("Para quem é: os 3 perfis na página principal, com caminho para a loja", () => {
   const bloco = principal.split('id="perfis"')[1].split("</ul>")[0];
   for (const p of ["Comércio que vende pelo Instagram e pelo WhatsApp", "Escritórios de contabilidade", "Exportadoras de café e do agro"]) assert.match(bloco, new RegExp(p));
-  assert.match(bloco, /href="\/teste-golpe"/);
+  assert.match(bloco, /href="\/jessicagessoli\/teste-golpe\/"/);
   assert.match(bloco, /#item-checkup/);
   assert.match(bloco, /#item-aula/);
   assert.doesNotMatch(bloco, /Marta|Rogério|Paula/, "personas fictícias não aparecem para o cliente");
 });
 
 test("testes grátis levam à loja da Jéssica Gessoli", () => {
-  assert.match(ler("teste-golpe.html"), /href: "\/jessicagessoli\/loja\/#item-antigolpe_essencial"/);
-  assert.match(ler("diagnostico.html"), /href: "\/jessicagessoli\/loja\/#item-diagnostico_essencial"/);
-  assert.match(principal, /<a href="\/teste-golpe">Grátis: Teste de golpe, em 3 minutos<\/a>/);
+  // 10/11/2026: links relativos nos resultados, para funcionar nos dois endereços (revisão do Codex no jessicagessoli-site #2).
+  assert.match(ler("jessicagessoli/teste-golpe/index.html"), /href: "\.\.\/loja\/#item-antigolpe_essencial"/);
+  assert.match(ler("jessicagessoli/diagnostico/index.html"), /href: "\.\.\/loja\/#item-diagnostico_essencial"/);
+  assert.match(principal, /<a href="\/jessicagessoli\/teste-golpe\/">Grátis: Teste de golpe, em 3 minutos<\/a>/);
 });
 
 test("páginas de serviço fora do Google; termos e loja dentro", () => {

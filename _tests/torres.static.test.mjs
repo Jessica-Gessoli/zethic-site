@@ -85,8 +85,12 @@ test("home: três destaques, um título principal e uma chamada principal", () =
   assert.equal((main.match(/class="ponto p-[a-z]+(?: ativo)?"/g) || []).length, 3);
   // Escopo revisto em 28/10/2026: a Zethic é tecnologia, automação e IA.
   // Ficha v1.8 (03/11/2026): título novo, com a frase anterior como linha de apoio. Depende da aprovação da Jéssica no PR.
-  assert.match(main, /<h1>Tecnologia, dados e segurança <span class="realce">para as cadeias estratégicas do Brasil\.<\/span><\/h1>/);
-  assert.match(main, /<p class="lead">Tecnologia para o Negócio: automação, IA aplicada, TI e IT\/OT\./);
+  // 10/11/2026 (Jéssica): a vitrine fala primeiro com o Negócio pequeno (pacote com preço) e abre a segunda porta
+  // para a operação maior, a indústria e as cadeias estratégicas (proposta).
+  assert.match(main, /<h1>A TI do seu Negócio cuidada todo mês, <span class="realce">com preço fechado e compra online\.<\/span><\/h1>/);
+  assert.match(main, /<a class="btn btn-main" href="\/comprar">Ver os pacotes com preço<\/a>/);
+  assert.match(main, /<a class="link-sec" href="\/loja">Operação maior ou indústria: pedir proposta<\/a>/);
+  assert.match(main, /cadeias estratégicas do Brasil: automação, IA aplicada, TI e IT\/OT, por proposta/);
   assert.equal((h.match(/<h1[ >]/g) || []).length, 1);
   assert.equal((h.match(/class="btn btn-main"/g) || []).length, 1);
   assert.match(main, /<button type="button" class="pausa">Pausar<\/button>/);
@@ -139,7 +143,7 @@ test("atendimento: sem raio fixo nem \"remoto a partir de Campinas\" (decisão d
 });
 
 test("autoavaliação: a frase de privacidade segue a política", () => {
-  const d = ler("diagnostico.html");
+  const d = ler("jessicagessoli/diagnostico/index.html");
   assert.doesNotMatch(d, /nada é enviado/);
   assert.match(d, /não são enviadas nem guardadas/);
   assert.match(ler("privacidade.html"), /não são enviadas nem guardadas\. Se você aceitou a medição, só a nota final e a moeda mais exposta são registradas/);

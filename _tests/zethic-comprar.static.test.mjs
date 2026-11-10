@@ -39,11 +39,13 @@ test("regras de pagamento da Zethic: Pix ou boleto, sem cartão, multa de 2% e j
   assert.match(js, /até 7 dias depois da compra, com devolução integral/);
 });
 
-test("configuração: links do Asaas vazios até os valores da página baterem com os do link, contato comercial da Zethic", () => {
+test("configuração: links do Asaas com o valor exato de cada cobrança, contato comercial da Zethic", () => {
   const ctx = { window: {} };
   vm.runInNewContext(ler("assets/js/zethic-comprar-config.js"), ctx);
   const c = ctx.window.ZETHIC_COMPRA;
-  for (const v of Object.values(c.ASAAS_LINKS)) assert.equal(v, "");
+  for (const v of Object.values(c.ASAAS_LINKS)) assert.ok(v === "" || /^https:\/\/www\.asaas\.com\/000\/c\/[a-z0-9]{16}$/.test(v), v);
+  // O link de R$ 3.000 à vista da Pode Curtir não serve: esta página cobra 40% de entrada no site.
+  assert.ok(!Object.values(c.ASAAS_LINKS).includes("https://www.asaas.com/000/c/bzy6eqhwdy5pq3pn"));
   assert.equal(c.WHATSAPP, "5519981800221");
   assert.equal(c.EMAIL, "contato@zethic.net");
 });

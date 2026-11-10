@@ -181,6 +181,23 @@
     return l.join("\n");
   }
 
+  /* 10/11/2026: cada cobrança de agora tem o seu link no Asaas, com o valor exato que a página mostra.
+     Suporte: implantação (avulsa, 1 mensalidade) + assinatura mensal. Site: entrada de 40% (as outras etapas,
+     30% e 30%, são cobradas depois, na aprovação). Sem o preço de fundador marcado, valem os links "_depois".
+     Proteção por pessoa (valor muda com o número de pessoas) e Black Week (1ª mensalidade em janeiro) seguem
+     pelo fluxo manual: devolve null. Falta de qualquer link também deixa o pedido no fluxo manual. */
+  function cobrancasAgora(c) {
+    if (estado.pessoas || c.bw) return null;
+    var k = [];
+    var suf = function (id) { return estado.fundador && FUND[id] ? "" : "_depois"; };
+    if (c.sup) {
+      k.push({ chave: c.sup.id + "_implantacao" + suf(c.sup.id), rotulo: "Implantação do " + c.sup.nome, valor: c.implantacao });
+      k.push({ chave: c.sup.id + suf(c.sup.id), rotulo: "Assinatura mensal do " + c.sup.nome, valor: c.mensal });
+    }
+    if (estado.site) k.push({ chave: SITE.id + "_entrada" + suf(SITE.id), rotulo: "Entrada do " + SITE.nome + " (40%)", valor: c.entradaSite });
+    return k.length ? k : null;
+  }
+
   function enviar(ev) {
     ev.preventDefault();
     var campos = ["empresa", "documento", "nome", "email", "whats", "cidade"], dados = {}, falta = [];
@@ -192,18 +209,17 @@
     if (falta.length) { $("erro").textContent = "Falta preencher: " + falta.join(", ") + "."; $("erro").hidden = false; return; }
     $("erro").hidden = true;
 
-    var c = contas(), itens = [];
-    if (c.sup) itens.push(c.sup.id);
-    if (estado.site) itens.push(SITE.id);
-    var prontos = itens.filter(function (id) { return LINKS[id]; });
+    var c = contas();
+    var cobrancas = cobrancasAgora(c);
+    var prontos = cobrancas && cobrancas.every(function (k) { return LINKS[k.chave]; }) ? cobrancas : [];
     var texto = mensagem(c, dados);
     $("resultado-texto").value = texto;
     $("resultado-whats").href = "https://wa.me/" + (C.WHATSAPP || "5519981800221") + "?text=" + encodeURIComponent(texto);
     $("resultado-email").href = "mailto:" + (C.EMAIL || "contato@zethic.net") + "?subject=" + encodeURIComponent("Compra pela loja da Zethic") + "&body=" + encodeURIComponent(texto);
-    if (prontos.length && prontos.length === itens.length && !estado.pessoas && !estado.fundador) {
+    if (prontos.length) {
       $("resultado-titulo").textContent = "Pague pelo Asaas";
-      $("resultado-instrucao").textContent = "Abra o link de cada item e pague por Pix ou boleto. Envie também a mensagem abaixo, para a Zethic ligar o pagamento ao seu pedido.";
-      $("resultado-links").innerHTML = prontos.map(function (id) { return '<li><a href="' + esc(LINKS[id]) + '" rel="noopener">Pagar: ' + esc(id === SITE.id ? SITE.nome : suporteAtual().nome) + "</a></li>"; }).join("");
+      $("resultado-instrucao").textContent = "Abra cada link e pague por Pix ou boleto. Envie também a mensagem abaixo, para a Zethic ligar o pagamento ao seu pedido.";
+      $("resultado-links").innerHTML = prontos.map(function (k) { return '<li><a href="' + esc(LINKS[k.chave]) + '" rel="noopener">' + esc(k.rotulo) + ": " + reais(k.valor) + "</a></li>"; }).join("");
       $("resultado-links").hidden = false;
     }
     if (window.zethicEvento) window.zethicEvento("pedido_enviado", { loja: "comprar", black_week: !!c.bw, valor: c.hoje, currency: "BRL", origem: window.zethicOrigem ? window.zethicOrigem() : "" });
