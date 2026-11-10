@@ -9,6 +9,7 @@
      06/11/2026: escopo (conversa de escopo, R$ 400) ·
        antigolpe_essencial_pix e _cartao (R$ 2.500; cartão em até 3x) · diagnostico_essencial_pix e _cartao (R$ 7.500;
        cartão em até 6x) · palestra_online (R$ 5.000, à vista)
+     09/11/2026: os 12 links acima foram criados pela Jéssica no Asaas; os _cartao só aceitam cartão, sem juros para o cliente.
      08/11/2026 (Jéssica): a proteção das contas saiu desta loja e passou para a Zethic (faixa Leve junto da Pode Curtir).
    CHECKUP_VENDAS_DE e CHECKUP_VENDAS_ATE: primeiro e último dia de venda do Checkup (AAAA-MM-DD, horário de Brasília).
      Antes da abertura o item aparece com "vendas a partir de"; depois do último dia ele sai da loja.
@@ -23,18 +24,18 @@
    CNPJ: aparece no rodapé das páginas de compra (o cadastro público mostra o endereço comercial desde 24/10/2026). */
 window.JESSICAGESSOLI = {
   ASAAS_LINKS: {
-    consultoria: "",
-    checkup: "",
-    sessao: "",
-    programa_pix: "",
-    programa_cartao: "",
-    aula: "",
-    escopo: "",
-    antigolpe_essencial_pix: "",
-    antigolpe_essencial_cartao: "",
-    diagnostico_essencial_pix: "",
-    diagnostico_essencial_cartao: "",
-    palestra_online: ""
+    consultoria: "https://www.asaas.com/000/c/jxk4eo1xj772iv57",
+    checkup: "https://www.asaas.com/000/c/j6gedz7ocltnpkyb",
+    sessao: "https://www.asaas.com/000/c/3rmf0lvzexssrhd0",
+    programa_pix: "https://www.asaas.com/000/c/wds9bdzl3gjv0h04",
+    programa_cartao: "https://www.asaas.com/000/c/3os6w9ygpkv7z6j1",
+    aula: "https://www.asaas.com/000/c/su4d39uwgcfisgjc",
+    escopo: "https://www.asaas.com/000/c/4h5kpzz3gl0ny2bx",
+    antigolpe_essencial_pix: "https://www.asaas.com/000/c/3ta54onmficm6edr",
+    antigolpe_essencial_cartao: "https://www.asaas.com/000/c/zwydiz1xqtdq0ugd",
+    diagnostico_essencial_pix: "https://www.asaas.com/000/c/dugwbf96dbdvheoh",
+    diagnostico_essencial_cartao: "https://www.asaas.com/000/c/icpo7yz08ey3kwql",
+    palestra_online: "https://www.asaas.com/000/c/0ny6varbw4c5hgwb"
   },
   CHECKUP_VENDAS_DE: "2026-11-13",
   CHECKUP_VENDAS_ATE: "2026-11-25",

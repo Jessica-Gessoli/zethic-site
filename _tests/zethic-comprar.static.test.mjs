@@ -39,7 +39,7 @@ test("regras de pagamento da Zethic: Pix ou boleto, sem cartão, multa de 2% e j
   assert.match(js, /até 7 dias depois da compra, com devolução integral/);
 });
 
-test("configuração: links do Asaas vazios até a Jéssica criar, contato comercial da Zethic", () => {
+test("configuração: links do Asaas vazios até os valores da página baterem com os do link, contato comercial da Zethic", () => {
   const ctx = { window: {} };
   vm.runInNewContext(ler("assets/js/zethic-comprar-config.js"), ctx);
   const c = ctx.window.ZETHIC_COMPRA;

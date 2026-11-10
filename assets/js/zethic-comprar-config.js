@@ -7,6 +7,12 @@
      Pix ou boleto, com vencimento escrito; atraso com multa de 2% e juros de 1% ao mês. Sem cartão na Zethic.
      Os planos mensais pedem assinatura no Asaas, uma por plano; a proteção por pessoa varia com o número de pessoas,
      então entra na mesma cobrança, pelo valor total que a página calcula.
+     09/11/2026: a Jéssica criou no Asaas (Boleto bancário / Pix, limite de 3 vendas, preço de fundador, valor cheio):
+       suporte_essencial R$ 145/mês https://www.asaas.com/000/c/2an08d2egagr2h6c
+       suporte_padrao R$ 225/mês https://www.asaas.com/000/c/jwndlm6fc17wcry3
+       site_essencial: o link plus_site_pix da Pode Curtir, R$ 3.000 à vista https://www.asaas.com/000/c/bzy6eqhwdy5pq3pn
+     Ficam fora de ASAAS_LINKS porque esta página cobra outra coisa: preço de depois quando o fundador não é marcado,
+     implantação + 1ª mensalidade no suporte e 40% de entrada no site. Ligar só quando os valores da página e do link baterem.
    FUNDADOR: true enquanto o pacote tiver vaga de fundador (3 primeiros clientes de cada pacote); false = preço depois. */
 window.ZETHIC_COMPRA = {
   ASAAS_LINKS: {
