@@ -10,7 +10,7 @@ const fale = ler("fale.html");
 test("página do e-book é da marca Jéssica Gessoli, sem script inline", () => {
   assert.match(html, /class="logo marca-jg"/);
   assert.ok(!/<script>/.test(html), "script inline exige hash na CSP");
-  assert.match(html, /<link rel="canonical" href="https:\/\/zethic\.net\/jessicagessoli\/vaga-real-ou-golpe\/">/);
+  assert.match(html, /<link rel="canonical" href="https:\/\/jessicagessoli\.zethic\.net\/vaga-real-ou-golpe\/">/);
 });
 
 test("pedido do guia vai pelo WhatsApp com origem registrada", () => {
@@ -41,7 +41,7 @@ test("aviso de privacidade do número e link para a política", () => {
 });
 
 test("página no sitemap e nos materiais grátis", () => {
-  assert.match(ler("sitemap.xml"), /<loc>https:\/\/zethic\.net\/jessicagessoli\/vaga-real-ou-golpe\/<\/loc>/);
+  assert.match(ler("_marcas/jessicagessoli-site/sitemap.xml"), /<loc>https:\/\/jessicagessoli\.zethic\.net\/vaga-real-ou-golpe\/<\/loc>/);
   assert.match(ler("jessicagessoli.html"), /href="\/jessicagessoli\/vaga-real-ou-golpe\/"/);
 });
 

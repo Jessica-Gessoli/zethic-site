@@ -135,8 +135,9 @@ test("página única: loja na página inicial, comprar antes do WhatsApp e ender
   assert.match(h, /href="\/podecurtir\/parceiros\/">Seja parceiro/);
   const r = ler("podecurtir/loja/index.html");
   assert.match(r, /<meta name="robots" content="noindex, follow">/);
-  assert.match(r, /<link rel="canonical" href="https:\/\/zethic\.net\/podecurtir">/);
-  assert.match(r, /<meta http-equiv="refresh" content="0; url=https:\/\/zethic\.net\/podecurtir#loja">/);
+  // 10/11/2026 (Jéssica): o endereço oficial no Google é podecurtir.zethic.net.
+  assert.match(r, /<link rel="canonical" href="https:\/\/podecurtir\.zethic\.net\/">/);
+  assert.match(r, /<meta http-equiv="refresh" content="0; url=https:\/\/podecurtir\.zethic\.net\/#loja">/);
   assert.match(r, /<script src="\/assets\/js\/podecurtir-redireciona\.js"><\/script>/);
   // 08/11/2026: os parâmetros (?interno=1, utm_*, negocio) vão junto para o destino.
   assert.match(ler("assets/js/podecurtir-redireciona.js"), /location\.replace\(c\.href\.split\("#"\)\[0\]\.split\("\?"\)\[0\] \+ location\.search \+ \(location\.hash && location\.hash\.length > 1 \? location\.hash : "#loja"\)\)/);

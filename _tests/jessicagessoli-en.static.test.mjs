@@ -7,9 +7,9 @@ const en = readFileSync(new URL("../en/jessicagessoli.html", import.meta.url), "
 const sitemap = readFileSync(new URL("../sitemap.xml", import.meta.url), "utf8");
 
 const alternates = [
-  '<link rel="alternate" hreflang="pt-BR" href="https://zethic.net/jessicagessoli">',
-  '<link rel="alternate" hreflang="en" href="https://zethic.net/en/jessicagessoli">',
-  '<link rel="alternate" hreflang="x-default" href="https://zethic.net/jessicagessoli">',
+  '<link rel="alternate" hreflang="pt-BR" href="https://jessicagessoli.zethic.net/">',
+  '<link rel="alternate" hreflang="en" href="https://jessicagessoli.zethic.net/en/">',
+  '<link rel="alternate" hreflang="x-default" href="https://jessicagessoli.zethic.net/">',
 ];
 
 test("as duas versões declaram hreflang recíproco", () => {
@@ -21,7 +21,7 @@ test("as duas versões declaram hreflang recíproco", () => {
 
 test("versão em inglês tem idioma, canônico e troca de idioma", () => {
   assert.match(en, /<html lang="en">/);
-  assert.match(en, /<link rel="canonical" href="https:\/\/zethic\.net\/en\/jessicagessoli">/);
+  assert.match(en, /<link rel="canonical" href="https:\/\/jessicagessoli\.zethic\.net\/en\/">/);
   assert.match(en, /<a href="\/jessicagessoli" lang="pt-BR" hreflang="pt-BR">Português<\/a>/);
   assert.match(pt, /<a href="\/en\/jessicagessoli" lang="en" hreflang="en">English<\/a>/);
 });
@@ -60,7 +60,8 @@ test("nível de cargo: sem promessa de diretoria ou conselho como alvo", () => {
 });
 
 test("sitemap lista a versão em inglês", () => {
-  assert.match(sitemap, /<loc>https:\/\/zethic\.net\/en\/jessicagessoli<\/loc>/);
+  // 10/11/2026 (Jéssica): o endereço oficial no Google é o subdomínio da marca; a cópia em zethic.net aponta para ele.
+  assert.match(readFileSync(new URL("../_marcas/jessicagessoli-site/sitemap.xml", import.meta.url), "utf8"), /<loc>https:\/\/jessicagessoli\.zethic\.net\/en\/<\/loc>/);
 });
 
 test("descrição até 160 caracteres e imagem de compartilhamento 1200x630 nas duas versões", () => {

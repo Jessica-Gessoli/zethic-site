@@ -88,5 +88,7 @@
     if (cab && cab.parentNode) cab.parentNode.insertBefore(box, cab.nextSibling);
     else document.body.insertBefore(box, document.body.firstChild);
   }
-  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", por); else por();
+  /* 10/11/2026: carregado logo depois do cabeçalho (sem defer), entra antes do resto da página e não a desloca. */
+  if (document.readyState !== "loading" || document.querySelector("body > header")) por();
+  else document.addEventListener("DOMContentLoaded", por);
 })();

@@ -24,7 +24,7 @@ test("Jéssica Gessoli: regras de cancelamento na cláusula 8 dos termos", () =>
 test("Jéssica Gessoli: o endereço antigo leva à cláusula 8 e sai do Google", () => {
   const h = ler("jessicagessoli/cancelamento/index.html");
   assert.match(h, /<meta http-equiv="refresh" content="0; url=\.\.\/termos\/#desistencia">/);
-  assert.match(h, /<link rel="canonical" href="https:\/\/zethic\.net\/jessicagessoli\/termos\/">/);
+  assert.match(h, /<link rel="canonical" href="https:\/\/jessicagessoli\.zethic\.net\/termos\/">/);
   assert.match(h, /<meta name="robots" content="noindex, follow">/);
   assert.doesNotMatch(h, /<script/, "página sem script");
   assert.match(ler("jessicagessoli.html"), /<a href="\/jessicagessoli\/termos\/#desistencia">Cancelamento e devolução<\/a>/);
