@@ -57,7 +57,8 @@ test("mesma estrutura nas três marcas: loja, pedido recebido, termos, privacida
     }
   }
   for (const p of ["index.html", "loja.html", "loja/obrigado/index.html", "comprar.html", "privacidade.html"]) assert.ok(existsSync(join(RAIZ, p)), p);
-  assert.ok(redireciona(ler("loja-obrigado.html")), "o endereço antigo /loja-obrigado só redireciona");
+  // 10/11/2026 (Jéssica): os endereços antigos da raiz foram apagados.
+  for (const f of ["loja-obrigado.html", "diagnostico.html", "teste-golpe.html", "teste-ia.html", "copia-e-cola.html", "prompt-joia.html", "conte-seu-golpe.html", "vaga-real-ou-golpe.html"]) assert.ok(!existsSync(join(RAIZ, f)), f + " devia estar apagado");
   assert.match(ler("loja.html"), /<a id="link-obrigado" href="\/loja\/obrigado\/" hidden>/);
 });
 
