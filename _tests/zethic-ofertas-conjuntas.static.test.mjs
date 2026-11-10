@@ -41,18 +41,18 @@ test("manutenção mensal do site na loja de proposta e na página por necessida
 });
 
 test("sites da Jéssica Gessoli e da Pode Curtir levam à Zethic, com a fundadora declarada do lado da Jéssica", () => {
-  for (const p of ["jessicagessoli/checkup/index.html", "jessicagessoli/loja/obrigado/index.html"]) {
+  for (const p of ["_fontes/jessicagessoli/checkup/index.html", "_fontes/jessicagessoli/loja/obrigado/index.html"]) {
     const h = ler(p);
     assert.match(h, /https:\/\/zethic\.net\/para-o-seu-negocio\?utm_source=jessicagessoli/, p);
     assert.match(h, /Jéssica Gessoli é fundadora da Zethic, e você pode contratar a execução com quem preferir\./, p);
   }
-  assert.match(ler("podecurtir/loja/obrigado/index.html"), /https:\/\/zethic\.net\/para-o-seu-negocio\?utm_source=podecurtir/);
+  assert.match(ler("_fontes/podecurtir/loja/obrigado/index.html"), /https:\/\/zethic\.net\/para-o-seu-negocio\?utm_source=podecurtir/);
 });
 
 // 07/11/2026, 07h03 (aprovado pela Jéssica): Black Week da Zethic, de 23 a 30/11/2026. Condição de pagamento,
 // não desconto: implantação agora, primeira mensalidade em janeiro, 1 hora extra de suporte. Preço igual.
 // 07/11/2026, 07h35: o site muda sozinho a cada campanha até o Carnaval, por assets/js/zethic-calendario.js.
-const PAGINAS_ZETHIC = ["index", "quem-somos", "seguranca", "tecnologia", "financeiro", "atendimento", "privacidade", "loja", "loja-obrigado", "comprar", "para-o-seu-negocio", ...CAMPANHAS];
+const PAGINAS_ZETHIC = ["index", "quem-somos", "seguranca", "tecnologia", "financeiro", "atendimento", "privacidade", "loja", "loja/obrigado/index", "comprar", "para-o-seu-negocio", ...CAMPANHAS];
 
 function calendario() {
   const js = ler("assets/js/zethic-calendario.js");

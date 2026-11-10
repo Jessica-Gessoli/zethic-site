@@ -5,7 +5,7 @@ import { readFileSync, existsSync } from "node:fs";
 // 20/10/2026: canal "Conte o seu golpe" (relatos sem identificação, formulário no Google Forms).
 // 21/10/2026: formulário criado no Jotform (o Google Forms não foi criado); política 1.12 informa o registro de IP.
 const ler = (p) => readFileSync(new URL("../" + p, import.meta.url), "utf8");
-const h = ler("jessicagessoli/conte-seu-golpe/index.html");
+const h = ler("_fontes/jessicagessoli/conte-seu-golpe/index.html");
 const form = (h.match(/<a class="btn" id="formulario" href="([^"]+)"/) || [])[1];
 
 test("página da marca pessoal, sem script inline, sem rastreador e sem formulário no próprio site", () => {

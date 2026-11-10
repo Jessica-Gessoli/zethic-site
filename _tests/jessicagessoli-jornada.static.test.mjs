@@ -6,7 +6,7 @@ import { readFileSync } from "node:fs";
 // Página principal -> item certo da loja; loja -> serviço na página principal; testes grátis -> loja;
 // páginas de compra -> termos, privacidade, desistência e de volta.
 const ler = (p) => readFileSync(new URL("../" + p, import.meta.url), "utf8");
-const principal = ler("jessicagessoli.html");
+const principal = ler("_fontes/jessicagessoli.html");
 const js = ler("assets/js/jessicagessoli-loja.js");
 const ids = (re, s) => [...s.matchAll(re)].map((m) => m[1]);
 
@@ -30,7 +30,7 @@ test("a loja volta para o serviço certo na página principal", () => {
   assert.match(js, /'<article class="item" id="item-' \+ p\.id/);
   assert.match(js, /'<div class="proposta" id="proposta-' \+ a\.id/);
   assert.match(js, /window\.addEventListener\("hashchange"/);
-  assert.match(ler("jessicagessoli/loja/index.html"), /<a href="\/jessicagessoli#perfis">para quem é cada serviço<\/a>/);
+  assert.match(ler("_fontes/jessicagessoli/loja/index.html"), /<a href="\/jessicagessoli#perfis">para quem é cada serviço<\/a>/);
 });
 
 test("Para quem é: os 3 perfis na página principal, com caminho para a loja", () => {
@@ -44,13 +44,13 @@ test("Para quem é: os 3 perfis na página principal, com caminho para a loja", 
 
 test("testes grátis levam à loja da Jéssica Gessoli", () => {
   // 10/11/2026: links relativos nos resultados, para funcionar nos dois endereços (revisão do Codex no jessicagessoli-site #2).
-  assert.match(ler("jessicagessoli/teste-golpe/index.html"), /href: "\.\.\/loja\/#item-antigolpe_essencial"/);
-  assert.match(ler("jessicagessoli/diagnostico/index.html"), /href: "\.\.\/loja\/#item-diagnostico_essencial"/);
+  assert.match(ler("_fontes/jessicagessoli/teste-golpe/index.html"), /href: "\.\.\/loja\/#item-antigolpe_essencial"/);
+  assert.match(ler("_fontes/jessicagessoli/diagnostico/index.html"), /href: "\.\.\/loja\/#item-diagnostico_essencial"/);
   assert.match(principal, /<a href="\/jessicagessoli\/teste-golpe\/">Grátis: Teste de golpe, em 3 minutos<\/a>/);
 });
 
 test("páginas de serviço fora do Google; termos e loja dentro", () => {
-  for (const p of ["jessicagessoli/privacidade/index.html", "jessicagessoli/desistencia/index.html", "jessicagessoli/cancelamento/index.html"]) {
+  for (const p of ["_fontes/jessicagessoli/privacidade/index.html", "_fontes/jessicagessoli/desistencia/index.html", "_fontes/jessicagessoli/cancelamento/index.html"]) {
     assert.match(ler(p), /<meta name="robots" content="noindex, follow">/, p);
   }
   // 10/11/2026 (Jéssica): o endereço oficial no Google é o subdomínio da marca; a cópia em zethic.net aponta para ele.

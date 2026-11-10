@@ -10,9 +10,9 @@ const semTags = (h) => h.replace(/<script[\s\S]*?<\/script>/g, "").replace(/<[^>
 // 06/11/2026 (aprovado pela Jéssica): as regras saíram da página própria e ficaram na cláusula 8 dos termos.
 // O endereço antigo continua existindo só para levar à cláusula, fora do Google.
 test("Jéssica Gessoli: regras de cancelamento na cláusula 8 dos termos", () => {
-  const t = semTags(ler("jessicagessoli/termos/index.html").split('<h2 id="desistencia">')[1].split('<h2 id="dados">')[0]);
+  const t = semTags(ler("_fontes/jessicagessoli/termos/index.html").split('<h2 id="desistencia">')[1].split('<h2 id="dados">')[0]);
   assert.match(t, /Estas regras valem para quem contratou a distância: pela loja, pelo WhatsApp ou por e-mail/);
-  assert.match(t, /recebe de volta o valor integral \(art\. 49 do Código de Defesa do Consumidor\)/);
+  assert.match(t, /recebe de volta o valor integral, mesmo que uma sessão, a consulta ou a aula já tenha acontecido \(art\. 49 do Código de Defesa do Consumidor\)/);
   assert.match(t, /Depois de 7 dias, antes da primeira sessão ou da aula: o valor pago é devolvido com desconto de 25% do valor total do serviço/);
   assert.match(t, /Fica retido o maior valor entre 25% do valor total do programa e as sessões feitas/);
   assert.match(t, /o contrato prevê 7 dias depois da assinatura para desistir com devolução integral, enquanto o trabalho não começou/);
@@ -22,12 +22,12 @@ test("Jéssica Gessoli: regras de cancelamento na cláusula 8 dos termos", () =>
 });
 
 test("Jéssica Gessoli: o endereço antigo leva à cláusula 8 e sai do Google", () => {
-  const h = ler("jessicagessoli/cancelamento/index.html");
+  const h = ler("_fontes/jessicagessoli/cancelamento/index.html");
   assert.match(h, /<meta http-equiv="refresh" content="0; url=\.\.\/termos\/#desistencia">/);
   assert.match(h, /<link rel="canonical" href="https:\/\/jessicagessoli\.zethic\.net\/termos\/">/);
   assert.match(h, /<meta name="robots" content="noindex, follow">/);
   assert.doesNotMatch(h, /<script/, "página sem script");
-  assert.match(ler("jessicagessoli.html"), /<a href="\/jessicagessoli\/termos\/#desistencia">Cancelamento e devolução<\/a>/);
+  assert.match(ler("_fontes/jessicagessoli.html"), /<a href="\/jessicagessoli\/termos\/#desistencia">Cancelamento e devolução<\/a>/);
   assert.doesNotMatch(ler("sitemap.xml"), /jessicagessoli\/cancelamento/);
 });
 

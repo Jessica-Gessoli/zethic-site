@@ -103,7 +103,7 @@ test("resultado das iscas: mensagem montada só com números validados", () => {
 });
 
 test("nomes das moedas no /fale seguem a ordem da autoavaliação", () => {
-  const diagHtml = readFileSync(new URL("../jessicagessoli/diagnostico/index.html", import.meta.url), "utf8");
+  const diagHtml = readFileSync(new URL("../_fontes/jessicagessoli/diagnostico/index.html", import.meta.url), "utf8");
   const daAutoavaliacao = [...diagHtml.matchAll(/\{ nome: "([^"]+)"/g)].map((m) => m[1]);
   const doFale = JSON.parse(script.match(/var MOEDAS = (\[[^\]]+\]);/)[1]);
   assert.deepEqual(doFale, daAutoavaliacao);
@@ -128,5 +128,5 @@ test("o 0769 não aparece nas páginas da Zethic nem da Jéssica Gessoli", async
   const arquivos = [...readdirSync(raiz).filter((f) => /\.(html|txt|xml)$/.test(f)), ...readdirSync(new URL("en/", raiz)).map((f) => "en/" + f), ...readdirSync(new URL("_docs/", raiz)).filter((f) => f.endsWith(".html")).map((f) => "_docs/" + f)];
   // 03/11/2026: o /fale é a exceção, porque leva a origem podecurtir ao WhatsApp da Pode Curtir.
   // 04/11/2026: a página inicial da Pode Curtir também mostra o número dela no rodapé, como as páginas de compra.
-  for (const p of arquivos.filter((f) => f !== "fale.html" && f !== "podecurtir.html")) assert.doesNotMatch(readFileSync(new URL(p, raiz), "utf8"), /98331|0769|5519983310769/, p);
+  for (const p of arquivos.filter((f) => f !== "fale.html" && f !== "_fontes/podecurtir.html")) assert.doesNotMatch(readFileSync(new URL(p, raiz), "utf8"), /98331|0769|5519983310769/, p);
 });

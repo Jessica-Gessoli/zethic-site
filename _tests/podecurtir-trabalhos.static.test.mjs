@@ -7,7 +7,7 @@ const ler = (p) => readFileSync(new URL("../" + p, import.meta.url), "utf8");
 // 14/10/2026 (pedido da Goreti, aprovado pela Jéssica): os vídeos de demonstração saem até haver vídeos com edição mais elaborada;
 // a página fica só com texto. O título "Você curte, a gente registra." foi trocado por um título direto.
 test("Pode Curtir: sem vídeos de demonstração e com título direto", () => {
-  const h = ler("podecurtir.html");
+  const h = ler("_fontes/podecurtir.html");
   assert.doesNotMatch(h, /class="reel"|class="trabalhos"|<video/);
   // 07/11/2026 (benchmark de publicidade, aprovado pela Jéssica): o título diz o resultado e o preço fechado.
   assert.match(h, /<h1>Seu perfil pronto para vender, com preço fechado\.<\/h1>/);
@@ -19,7 +19,7 @@ test("Zethic: sem faixa de preço no topo da página inicial", () => {
 });
 
 test("Página profissional: a seção se chama Serviços", () => {
-  const h = ler("jessicagessoli.html");
+  const h = ler("_fontes/jessicagessoli.html");
   assert.match(h, /<a href="#trabalho">Serviços<\/a>/);
   assert.match(h, /<h2 id="t-trabalho">Serviços<\/h2>/);
   assert.doesNotMatch(h, /Como trabalhar comigo/);
@@ -32,8 +32,8 @@ test("Símbolos: monograma JG e visor da Pode Curtir, sem endosso da Zethic", ()
   assert.doesNotMatch(jg, /<text/, "letras em contorno, não dependem de fonte instalada");
   const pc = ler("assets/img/podecurtir-icone.svg");
   assert.match(pc, /fill="#FFD23F"/);
-  assert.doesNotMatch(ler("podecurtir.html"), /marca da|parentOrganization|href="\/"/);
-  assert.doesNotMatch(ler("podecurtir.html"), /zethic-marca\.svg/);
+  assert.doesNotMatch(ler("_fontes/podecurtir.html"), /marca da|parentOrganization|href="\/"/);
+  assert.doesNotMatch(ler("_fontes/podecurtir.html"), /zethic-marca\.svg/);
 });
 
 // 14/10/2026 (aprovado pela Jéssica, orientação da Goreti): primeiro a conversa, depois o preço. Nenhum valor publicado no site.
@@ -48,7 +48,7 @@ test("Zethic: nenhum preço publicado nas páginas", () => {
 // 21/10/2026 (retorno da Lucinha, aprovado pela Jéssica): a página diz logo no título que categoria a Pode Curtir é,
 // e mostra a frente de redes sociais (Perfil Pronto e gestão mensal), sem preço e sem pedir senha.
 test("Pode Curtir: categoria clara e frente de redes sociais", () => {
-  const h = ler("podecurtir.html");
+  const h = ler("_fontes/podecurtir.html");
   // 10/11/2026 (Jéssica): o título diz primeiro o que a página vende (perfil e redes) e continua dizendo a categoria.
   assert.match(h, /<title>Pode Curtir \| Perfil, redes, foto e vídeo com preço fechado<\/title>/);
   assert.match(h, /<li id="redes">[\s\S]*Perfil Pronto[\s\S]*Gestão mensal/);
@@ -67,11 +67,11 @@ test("Pode Curtir: a Zethic não cita o Pode Curtir", () => {
   }
   assert.match(ler("fale.html"), /"podecurtir": "[^"]*redes sociais ou anúncios\."/);
   // 28/10/2026 (decisão da Jéssica): o rodapé da página dela não traz mais o título de fundadora da Zethic.
-  assert.doesNotMatch(ler("jessicagessoli.html").match(/<footer>[\s\S]*<\/footer>/)[0], /diretora executiva|Zethic/);
+  assert.doesNotMatch(ler("_fontes/jessicagessoli.html").match(/<footer>[\s\S]*<\/footer>/)[0], /diretora executiva|Zethic/);
 });
 
 test('Pode Curtir: prévia de link com imagem grande', () => {
-  const h = readFileSync(new URL('../podecurtir.html', import.meta.url), 'utf8');
+  const h = readFileSync(new URL('../_fontes/podecurtir.html', import.meta.url), 'utf8');
   assert.match(h, /<meta property="og:image" content="https:\/\/zethic\.net\/assets\/img\/og-podecurtir\.jpg">/);
   assert.match(h, /<meta name="twitter:card" content="summary_large_image">/);
   assert.ok(existsSync(new URL('../assets/img/og-podecurtir.jpg', import.meta.url)));
