@@ -11,7 +11,8 @@ const texto = main.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ");
 
 test("quem-somos: endereço próprio e título", () => {
   assert.match(pagina, /<link rel="canonical" href="https:\/\/zethic\.net\/quem-somos">/);
-  assert.match(pagina, /<title>Quem somos \| Zethic<\/title>/);
+  // 10/11/2026: título com a categoria, para a busca (até 60 caracteres).
+  assert.match(pagina, /<title>Quem somos: tecnologia para o Negócio \| Zethic<\/title>/);
   assert.match(pagina, /"@type": "AboutPage"/);
 });
 

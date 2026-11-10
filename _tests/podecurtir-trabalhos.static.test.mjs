@@ -50,7 +50,7 @@ test("Zethic: nenhum preço publicado nas páginas", () => {
 test("Pode Curtir: categoria clara e frente de redes sociais", () => {
   const h = ler("podecurtir.html");
   // 10/11/2026 (Jéssica): o título diz primeiro o que a página vende (perfil e redes) e continua dizendo a categoria.
-  assert.match(h, /<title>Pode Curtir \| Perfil, redes sociais, foto e vídeo com preço fechado<\/title>/);
+  assert.match(h, /<title>Pode Curtir \| Perfil, redes, foto e vídeo com preço fechado<\/title>/);
   assert.match(h, /<li id="redes">[\s\S]*Perfil Pronto[\s\S]*Gestão mensal/);
   // 04/11/2026: a regra "sem preço" caiu (site = preço pronto); o preço da página inicial é conferido no teste da loja.
   assert.doesNotMatch(h, /A publicação nas redes e os anúncios ficam com você/);
