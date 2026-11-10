@@ -3,7 +3,8 @@
 
 Decisão de 21/10/2026: Pode Curtir e Jéssica Gessoli ganham endereço próprio
 (podecurtir.zethic.net e jessicagessoli.zethic.net). A fonte continua sendo
-podecurtir.html, jessicagessoli.html e en/jessicagessoli.html deste repositório;
+podecurtir.html deste repositório e, para a Jéssica Gessoli, _fontes/ (desde 10/11/2026 as páginas dela saíram de
+zethic.net: ficam em _fontes/, que o Jekyll não publica, e zethic.net/jessicagessoli/* só redireciona para o subdomínio);
 este script copia as páginas e os arquivos que elas usam para _marcas/<marca>-site,
 troca os endereços pelos novos e aponta para zethic.net o que é da Zethic.
 
@@ -89,22 +90,53 @@ jg = [("/jessicagessoli", "/"), ("/en/jessicagessoli", "/en/"), ("/jessicagessol
       ("/jessicagessoli/conte-seu-golpe/", "/conte-seu-golpe/")]
 def jg_map(i): return [jg[i]] + jg[:i] + jg[i + 1:]
 build("jessicagessoli", "jessicagessoli.zethic.net", [
-    ("jessicagessoli.html", "index.html", jg_map(0)),
-    ("en/jessicagessoli.html", "en/index.html", jg_map(1)),
-    ("jessicagessoli/loja/index.html", "loja/index.html", jg_map(2)),
-    ("jessicagessoli/loja/obrigado/index.html", "loja/obrigado/index.html", jg_map(3)),
-    ("jessicagessoli/termos/index.html", "termos/index.html", jg_map(4)),
-    ("jessicagessoli/privacidade/index.html", "privacidade/index.html", jg_map(5)),
-    ("jessicagessoli/desistencia/index.html", "desistencia/index.html", jg_map(6)),
-    ("jessicagessoli/cancelamento/index.html", "cancelamento/index.html", jg_map(7)),
-    ("jessicagessoli/checkup/index.html", "checkup/index.html", jg_map(8)),
-    ("jessicagessoli/vaga-real-ou-golpe/index.html", "vaga-real-ou-golpe/index.html", jg_map(9)),
-    ("jessicagessoli/diagnostico/index.html", "diagnostico/index.html", jg_map(10)),
-    ("jessicagessoli/teste-golpe/index.html", "teste-golpe/index.html", jg_map(11)),
-    ("jessicagessoli/teste-ia/index.html", "teste-ia/index.html", jg_map(12)),
-    ("jessicagessoli/copia-e-cola/index.html", "copia-e-cola/index.html", jg_map(13)),
-    ("jessicagessoli/conte-seu-golpe/index.html", "conte-seu-golpe/index.html", jg_map(14)),
+    ("_fontes/jessicagessoli.html", "index.html", jg_map(0)),
+    ("_fontes/en/jessicagessoli.html", "en/index.html", jg_map(1)),
+    ("_fontes/jessicagessoli/loja/index.html", "loja/index.html", jg_map(2)),
+    ("_fontes/jessicagessoli/loja/obrigado/index.html", "loja/obrigado/index.html", jg_map(3)),
+    ("_fontes/jessicagessoli/termos/index.html", "termos/index.html", jg_map(4)),
+    ("_fontes/jessicagessoli/privacidade/index.html", "privacidade/index.html", jg_map(5)),
+    ("_fontes/jessicagessoli/desistencia/index.html", "desistencia/index.html", jg_map(6)),
+    ("_fontes/jessicagessoli/cancelamento/index.html", "cancelamento/index.html", jg_map(7)),
+    ("_fontes/jessicagessoli/checkup/index.html", "checkup/index.html", jg_map(8)),
+    ("_fontes/jessicagessoli/vaga-real-ou-golpe/index.html", "vaga-real-ou-golpe/index.html", jg_map(9)),
+    ("_fontes/jessicagessoli/diagnostico/index.html", "diagnostico/index.html", jg_map(10)),
+    ("_fontes/jessicagessoli/teste-golpe/index.html", "teste-golpe/index.html", jg_map(11)),
+    ("_fontes/jessicagessoli/teste-ia/index.html", "teste-ia/index.html", jg_map(12)),
+    ("_fontes/jessicagessoli/copia-e-cola/index.html", "copia-e-cola/index.html", jg_map(13)),
+    ("_fontes/jessicagessoli/conte-seu-golpe/index.html", "conte-seu-golpe/index.html", jg_map(14)),
 ], ["/assets/fonts/OFL-IBM-Plex-Sans.txt", "/assets/fonts/OFL-Spectral.txt"])
+# 10/11/2026 (Jéssica): zethic.net/jessicagessoli/* não mostra mais as páginas; cada endereço antigo redireciona para
+# o mesmo endereço em jessicagessoli.zethic.net, levando junto ?parâmetros e #trecho (links de posts, PDFs e do Asaas).
+REDIR = """<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; base-uri 'none'; form-action 'none'">
+<!-- Gerado por _ferramentas/gerar_marcas.py. A página fica em {url}; este endereço só redireciona. -->
+<link rel="canonical" href="{url}">
+<meta name="robots" content="noindex, follow">
+<meta http-equiv="refresh" content="0; url={url}">
+<script src="/assets/js/redireciona-marca.js"></script>
+<title>Jéssica Gessoli</title>
+</head>
+<body>
+<p>Esta página mudou para <a href="{url}">{url}</a>.</p>
+</body>
+</html>
+"""
+def redirecionar(pares, host):
+    for old, new in pares:
+        dest = SRC / (old.lstrip("/") + ".html" if not old.endswith("/") else old.lstrip("/") + "index.html")
+        conteudo = REDIR.format(url=f"https://{host}{new}")
+        if CHECK:
+            if not dest.exists() or dest.read_text() != conteudo:
+                print(f"redirecionamento desatualizado: {dest.relative_to(SRC)}"); sys.exit(1)
+        else:
+            dest.parent.mkdir(parents=True, exist_ok=True); dest.write_text(conteudo)
+redirecionar(jg, "jessicagessoli.zethic.net")
+
 # 03/11/2026 (aprovado pela Jéssica): loja da Pode Curtir com carrinho, termos, privacidade e desistência.
 # 04/11/2026: página Seja parceiro (rede curada, modelo C).
 # Cada página leva o próprio endereço primeiro (vai para o sitemap) e depois os das outras páginas da marca.

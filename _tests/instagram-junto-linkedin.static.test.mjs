@@ -10,8 +10,8 @@ const INSTAGRAM = /href="https:\/\/www\.instagram\.com\/jessicagessoli\/?"/g;
 
 // A home saiu da lista em 28/10/2026: por decisão da Jéssica, o site da Zethic não cita mais os perfis pessoais dela.
 const arquivos = [
-  "jessicagessoli.html",
-  "en/jessicagessoli.html",
+  "_fontes/jessicagessoli.html",
+  "_fontes/en/jessicagessoli.html",
   "_docs/kit-palestrante.html",
   "_docs/curriculo.html",
   "_docs/resume.html",
@@ -27,7 +27,7 @@ for (const arquivo of arquivos) {
   });
 }
 
-for (const arquivo of ["jessicagessoli.html", "en/jessicagessoli.html"]) {
+for (const arquivo of ["_fontes/jessicagessoli.html", "_fontes/en/jessicagessoli.html"]) {
   test(`${arquivo}: dados estruturados listam LinkedIn e Instagram`, () => {
     const sameAs = ler(arquivo).match(/"sameAs":\s*\[([^\]]*)\]/)?.[1] ?? "";
     assert.match(sameAs, /https:\/\/www\.linkedin\.com\/in\/jessicagessoli"/);

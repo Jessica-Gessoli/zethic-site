@@ -519,3 +519,17 @@ test("Portfólio da empresa e área de cursos da Zethic em parceria", () => {
   assert.match(js, /portfolio: "Para mandar uma apresentação pronta/);
   assert.match(js, /id: "produto_digital"[^}]*a área de cursos pode ser montada pela Zethic, em parceria\./);
 });
+
+// 10/11/2026 (Jéssica, por benchmark): prazo da tradução e regras do catálogo depois de 12 meses, iguais às do cardápio.
+test("Pode Curtir: tradução em 5 dias úteis e catálogo com as mesmas regras do cardápio depois de 12 meses", () => {
+  const js = ler("assets/js/podecurtir-loja.js");
+  const termos = ler("podecurtir/termos/index.html");
+  assert.match(js, /id: "traducao", secao: "rest", nome: "Tradução do cardápio · inglês e espanhol", preco: 300, prazo: "5 dias úteis"/);
+  assert.match(termos, /em até 5 dias úteis do pedido, com tradução e revisão/);
+  assert.match(termos, /atualizado nos três idiomas e conta como uma troca só/);
+  const cat = termos.split("<strong>Catálogo no celular:</strong>")[1].split("</li>")[0];
+  assert.match(cat, /12 meses no ar\. Depois, a hospedagem custa R\$ 120 por ano, ou não tem custo para quem tem o Cuidado do Catálogo\./);
+  assert.match(cat, /pacote de até 5 por R\$ 90, feitas em até 2 dias úteis/);
+  assert.match(cat, /recebe a planilha com os itens/);
+  assert.match(js, /id: "catalogo_mensal"[\s\S]*O catálogo fica no ar sem custo de hospedagem\./);
+});

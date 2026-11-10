@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 
 const ler = (f) => readFileSync(new URL(`../${f}`, import.meta.url), "utf8");
-const html = ler("jessicagessoli/vaga-real-ou-golpe/index.html");
+const html = ler("_fontes/jessicagessoli/vaga-real-ou-golpe/index.html");
 const antiga = ler("vaga-real-ou-golpe.html");
 const fale = ler("fale.html");
 
@@ -42,7 +42,7 @@ test("aviso de privacidade do número e link para a política", () => {
 
 test("página no sitemap e nos materiais grátis", () => {
   assert.match(ler("_marcas/jessicagessoli-site/sitemap.xml"), /<loc>https:\/\/jessicagessoli\.zethic\.net\/vaga-real-ou-golpe\/<\/loc>/);
-  assert.match(ler("jessicagessoli.html"), /href="\/jessicagessoli\/vaga-real-ou-golpe\/"/);
+  assert.match(ler("_fontes/jessicagessoli.html"), /href="\/jessicagessoli\/vaga-real-ou-golpe\/"/);
 });
 
 test("sem PME e com Há 18 anos", () => {
@@ -58,7 +58,7 @@ test("PDF do guia publicado para o link do direct", () => {
 
 // 09/11/2026 (Jéssica): o link do guia leva o nome da Jéssica Gessoli; o endereço antigo só redireciona.
 test("endereço antigo redireciona para o da marca Jéssica Gessoli", () => {
-  assert.match(antiga, /<meta http-equiv="refresh" content="0; url=\/jessicagessoli\/vaga-real-ou-golpe\/">/);
+  assert.match(antiga, /<meta http-equiv="refresh" content="0; url=https:\/\/jessicagessoli\.zethic\.net\/vaga-real-ou-golpe\/">/);
   assert.match(antiga, /<meta name="robots" content="noindex, follow">/);
   assert.ok(!/<script/.test(antiga));
   const pdf = readFileSync(new URL("../jessicagessoli/vaga-real-ou-golpe/guia-vaga-real-ou-golpe.pdf", import.meta.url));

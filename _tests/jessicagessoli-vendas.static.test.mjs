@@ -5,12 +5,12 @@ import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 
 const ler = (p) => readFileSync(new URL("../" + p, import.meta.url), "utf8");
-const checkup = ler("jessicagessoli/checkup/index.html");
+const checkup = ler("_fontes/jessicagessoli/checkup/index.html");
 const ckJs = ler("assets/js/jessicagessoli-checkup.js");
 const loja = ler("assets/js/jessicagessoli-loja.js");
-const lojaHtml = ler("jessicagessoli/loja/index.html");
-const teste = ler("jessicagessoli/teste-golpe/index.html");
-const priv = ler("jessicagessoli/privacidade/index.html");
+const lojaHtml = ler("_fontes/jessicagessoli/loja/index.html");
+const teste = ler("_fontes/jessicagessoli/teste-golpe/index.html");
+const priv = ler("_fontes/jessicagessoli/privacidade/index.html");
 
 test("página do Checkup: um botão principal, preço visível e sem script embutido", () => {
   assert.equal((checkup.match(/class="btn-jg/g) || []).length, 1);
