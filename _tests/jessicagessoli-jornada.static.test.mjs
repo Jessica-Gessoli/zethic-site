@@ -53,9 +53,10 @@ test("páginas de serviço fora do Google; termos e loja dentro", () => {
   for (const p of ["jessicagessoli/privacidade/index.html", "jessicagessoli/desistencia/index.html", "jessicagessoli/cancelamento/index.html"]) {
     assert.match(ler(p), /<meta name="robots" content="noindex, follow">/, p);
   }
-  const sm = ler("sitemap.xml");
-  for (const u of ["privacidade", "desistencia", "cancelamento"]) assert.doesNotMatch(sm, new RegExp("jessicagessoli/" + u + "/"), u);
-  for (const u of ["loja", "termos"]) assert.match(sm, new RegExp("<loc>https://zethic\\.net/jessicagessoli/" + u + "/</loc>"), u);
+  // 10/11/2026 (Jéssica): o endereço oficial no Google é o subdomínio da marca; a cópia em zethic.net aponta para ele.
+  const sm = ler("_marcas/jessicagessoli-site/sitemap.xml");
+  for (const u of ["privacidade", "desistencia", "cancelamento"]) assert.doesNotMatch(sm, new RegExp("/" + u + "/"), u);
+  for (const u of ["loja", "termos"]) assert.match(sm, new RegExp("<loc>https://jessicagessoli\\.zethic\\.net/" + u + "/</loc>"), u);
 });
 
 test("rodapé da página principal leva às páginas de compra", () => {

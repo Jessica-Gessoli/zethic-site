@@ -17,8 +17,8 @@ test("página do Checkup: um botão principal, preço visível e sem script embu
   assert.match(checkup, /R\$ 297/);
   assert.ok(!/<script>/.test(checkup), "script embutido exige hash na CSP");
   assert.match(checkup, /jessicagessoli-checkup\.js/);
-  assert.match(checkup, /<link rel="canonical" href="https:\/\/zethic\.net\/jessicagessoli\/checkup\/">/);
-  assert.match(ler("sitemap.xml"), /zethic\.net\/jessicagessoli\/checkup\//);
+  // 10/11/2026 (Jéssica): o endereço oficial no Google é o subdomínio da marca; a cópia em zethic.net aponta para ele.
+  assert.match(checkup, /<link rel="canonical" href="https:\/\/jessicagessoli\.zethic\.net\/checkup\/">/);
   assert.match(ler("_marcas/jessicagessoli-site/sitemap.xml"), /jessicagessoli\.zethic\.net\/checkup\//);
 });
 

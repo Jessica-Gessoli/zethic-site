@@ -48,7 +48,9 @@ test("Instagram ao lado do LinkedIn e página no mapa do site", () => {
   const li = (h.match(/linkedin\.com\/in\/jessicagessoli/g) || []).length;
   const ig = (h.match(/instagram\.com\/jessicagessoli\//g) || []).length;
   assert.ok(ig >= li);
-  assert.match(ler("sitemap.xml"), /<loc>https:\/\/zethic\.net\/jessicagessoli\/conte-seu-golpe\/<\/loc>/);
+    // 10/11/2026 (Jéssica): o endereço oficial no Google é o subdomínio da marca; a cópia em zethic.net aponta para ele.
+  assert.match(ler("_marcas/jessicagessoli-site/sitemap.xml"), /<loc>https:\/\/jessicagessoli\.zethic\.net\/conte-seu-golpe\/<\/loc>/);
+  assert.doesNotMatch(ler("sitemap.xml"), /jessicagessoli/);
   for (const [, l] of h.matchAll(/href="\/([a-z-]+)(?:#[a-z-]+)?"/g)) assert.ok(existsSync(new URL(`../${l}.html`, import.meta.url)), `/${l}`);
 });
 

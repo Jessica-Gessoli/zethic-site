@@ -92,8 +92,9 @@ test("links internos levam a páginas que existem e o mapa do site lista as duas
   for (const p of PAGINAS) {
     for (const [, l] of ler(p).matchAll(/href="\/([a-z-]+)(?:#[a-z-]+)?"/g)) assert.ok(existsSync(new URL(`../${l}.html`, import.meta.url)), `${p}: /${l}`);
   }
-  const sm = ler("sitemap.xml");
-  for (const u of ["copia-e-cola", "teste-ia"]) assert.match(sm, new RegExp(`<loc>https://zethic\\.net/jessicagessoli/${u}/</loc>`));
+  // 10/11/2026 (Jéssica): o endereço oficial no Google é o subdomínio da marca; a cópia em zethic.net aponta para ele.
+  const sm = ler("_marcas/jessicagessoli-site/sitemap.xml");
+  for (const u of ["copia-e-cola", "teste-ia"]) assert.match(sm, new RegExp(`<loc>https://jessicagessoli\\.zethic\\.net/${u}/</loc>`));
   const pessoal = ler("jessicagessoli.html");
   assert.match(pessoal, /href="\/jessicagessoli\/copia-e-cola\/"/);
   assert.match(pessoal, /href="\/jessicagessoli\/teste-ia\/"/);
@@ -102,6 +103,6 @@ test("links internos levam a páginas que existem e o mapa do site lista as duas
 test("o endereço antigo /prompt-joia redireciona para o caderno, no endereço da Jéssica Gessoli", () => {
   const h = ler("prompt-joia.html");
   assert.match(h, /<meta http-equiv="refresh" content="0; url=\/jessicagessoli\/copia-e-cola\/">/);
-  assert.match(h, /<link rel="canonical" href="https:\/\/zethic\.net\/jessicagessoli\/copia-e-cola\/">/);
+  assert.match(h, /<link rel="canonical" href="https:\/\/jessicagessoli\.zethic\.net\/copia-e-cola\/">/);
   assert.match(h, /<meta name="robots" content="noindex">/);
 });
