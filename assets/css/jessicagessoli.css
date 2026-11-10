@@ -162,29 +162,87 @@ footer p{margin:.25rem 0}
   .par td::before,.par td + td::before{content:attr(data-rotulo);position:static;display:block;width:auto;height:auto;background:none;color:var(--latao-claro);font:500 .88rem/1.4 var(--sans);margin-bottom:.3rem}
 }
 
-/* Fotos do topo trocando sozinhas, como a vitrine de zethic.net (10/11/2026, pedido da Jéssica).
-   Troca a cada 6 s com fade e aproximação lenta; para ao passar o mouse, ao focar e no botão de pausa.
-   Sem JavaScript ou com "reduzir movimento", fica só a primeira foto, parada. */
-.retratos-quadro{position:relative;display:grid;overflow:hidden;border-radius:2px;aspect-ratio:4/5;background:var(--porcelana,#F3F5F2)}
-.retratos .retrato{grid-area:1/1;display:block;opacity:0;visibility:hidden;transition:opacity 1s ease,visibility 0s linear 1s}
-.retratos .retrato.ativo{opacity:1;visibility:visible;transition:opacity 1s ease}
-.retratos .retrato img{width:100%;height:100%;aspect-ratio:4/5;object-fit:cover;border-radius:0}
-.retratos figcaption{display:flex;justify-content:space-between;align-items:center;gap:1rem}
-.retratos-ctrl{display:none;align-items:center;gap:.75rem}
-html.retratos-js .retratos-ctrl{display:inline-flex}
-.retratos-barras{display:inline-flex;gap:.35rem}
-.retratos-barras i{display:block;width:1.6rem;height:2px;background:rgba(18,53,43,.18);overflow:hidden;position:relative}
-.retratos-barras i.ativo::after{content:"";position:absolute;inset:0;background:var(--latao,#A27B32);transform-origin:left;animation:retratos-barra 6s linear both}
-.retratos.pausado .retratos-barras i.ativo::after{animation-play-state:paused}
-.retratos.pausado .retrato.ativo img{animation-play-state:paused}
-.retratos-pausa{font:600 .75rem/1 var(--sans);letter-spacing:.05em;color:var(--garrafa,#12352B);background:none;border:1px solid rgba(18,53,43,.3);border-radius:2px;padding:.3rem .5rem;cursor:pointer}
-.retratos-pausa:hover{border-color:var(--garrafa,#12352B)}
-@keyframes retratos-barra{from{transform:scaleX(0)}to{transform:scaleX(1)}}
-@keyframes retratos-aproxima{from{transform:scale(1)}to{transform:scale(1.07)}}
-@media (prefers-reduced-motion:no-preference){
-  .retratos .retrato.ativo img{animation:retratos-aproxima 8s ease-out both}
+
+/* Vitrine do topo, como zethic.net (10/11/2026, pedido da Jéssica): fotos da Alpha trocando a cada 7 s, texto no degradê.
+   Slides .vj-matrix (óculos escuros): tema "A filha de Morpheus", com chuva digital verde desenhada pelo script da vitrine.
+   Sem JavaScript, os slides aparecem um embaixo do outro; com "reduzir movimento",
+   nada troca nem se mexe sozinho. */
+.vj{--vj-fundo:18,53,43;--vj-cor:var(--latao-claro);position:relative;overflow:hidden;background:var(--garrafa);color:#fff}
+.vj-slides{display:grid}
+.vj-slide{--vj-fundo:18,53,43;--vj-cor:var(--latao-claro);grid-area:1/1;position:relative;display:flex;align-items:center;min-height:clamp(34rem,78vh,44rem);background:rgb(var(--vj-fundo));opacity:0;visibility:hidden;transition:opacity .9s ease,visibility 0s linear .9s}
+.vj-slide.ativo{opacity:1;visibility:visible;transition:opacity .9s ease}
+html:not(.vj-js) .vj-slide{grid-area:auto;opacity:1;visibility:visible}
+html:not(.vj-js) .vj-ctrl{display:none}
+.vj-matrix{--vj-fundo:2,12,7;--vj-cor:#5CFF9D}
+.vj-img{position:absolute;top:0;right:0;bottom:0;width:46%;overflow:hidden}
+.vj-img img{width:100%;height:100%;object-fit:cover;object-position:50% 8%;display:block}
+.vj-slide::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgb(var(--vj-fundo)) 0%,rgb(var(--vj-fundo)) 54%,rgba(var(--vj-fundo),.6) 61%,rgba(var(--vj-fundo),.15) 69%,rgba(var(--vj-fundo),0) 78%)}
+.vj-img img[src*="slide-08"]{object-position:40% 55%}
+.vj-matrix .vj-img::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,255,120,.10),rgba(0,40,20,.35));mix-blend-mode:multiply}
+.vj-matrix .vj-img img{filter:saturate(.75) contrast(1.08)}
+.vj-chuva{position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none;mix-blend-mode:screen;opacity:.55;-webkit-mask-image:linear-gradient(90deg,#000 0,#000 40%,rgba(0,0,0,.35) 70%,rgba(0,0,0,.15) 100%);mask-image:linear-gradient(90deg,#000 0,#000 40%,rgba(0,0,0,.35) 70%,rgba(0,0,0,.15) 100%)}
+.vj-txt{position:relative;z-index:2;padding-top:3.5rem;padding-bottom:7rem}
+.vj-txt>*{max-width:34rem}
+.vj .categoria,.vj-marca{display:inline-flex;align-items:center;gap:.6rem;margin:0 0 1.1rem;font:600 .8rem/1.2 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--vj-cor)}
+.vj .categoria::before,.vj-marca::before{content:"";width:1.8rem;height:2px;background:currentColor}
+.vj h1{margin:0;font-weight:300;font-size:clamp(3rem,7vw,5.6rem);line-height:.98;letter-spacing:-.025em;color:#fff}
+.vj .thesis{color:#fff;margin:1.4rem 0 1.6rem}
+.vj-t{margin:0;font:400 clamp(2.1rem,4.6vw,3.6rem)/1.08 var(--serif);letter-spacing:-.01em;color:#fff;max-width:17ch}
+.vj .realce{color:var(--vj-cor)}
+.vj-lead{margin:1.3rem 0 1.9rem;color:var(--verde-claro);max-width:44ch}
+.vj .actions{gap:.75rem 1.5rem}
+.vj .btn,.vj-btn{background:var(--latao-claro);color:var(--garrafa)}
+.vj .btn:hover,.vj-btn:hover{background:#fff;color:var(--garrafa)}
+.vj .link-forte,.vj-link{color:#fff;font-weight:500;text-decoration-color:var(--vj-cor)}
+.vj .seguir{color:var(--verde-claro)}
+.vj .seguir a{color:#fff}
+.vj-ctas{display:flex;flex-wrap:wrap;align-items:center;gap:.75rem 1.5rem}
+/* Matrix: letra de terminal, cursor piscando e botão verde */
+.vj-matrix .vj-marca{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;letter-spacing:.08em;text-transform:none;font-size:.95rem}
+.vj-matrix .vj-marca::before{content:">";width:auto;height:auto;background:none}
+.vj-matrix .vj-marca::after{content:"";width:.55em;height:1.05em;background:currentColor;animation:vj-cursor 1s steps(1) infinite}
+.vj-matrix .vj-t{font-family:var(--sans);font-weight:600;letter-spacing:-.02em}
+.vj-matrix .vj-realce,.vj-matrix .realce{text-shadow:0 0 18px rgba(92,255,157,.45)}
+.vj-matrix .vj-lead{color:#B9E8CB}
+.vj-matrix .vj-btn{background:#5CFF9D;color:#02120A}
+.vj-matrix .vj-btn:hover{background:#fff}
+.vj-matrix .vj-link{text-decoration-color:#5CFF9D}
+@keyframes vj-cursor{50%{opacity:0}}
+/* entrada do slide */
+.vj-slide.ativo .vj-img img{animation:vj-aproxima 9s ease-out both}
+.vj-slide.ativo .vj-txt>*{animation:vj-sobe .8s ease both}
+.vj-slide.ativo .vj-txt>:nth-child(2){animation-delay:.08s}
+.vj-slide.ativo .vj-txt>:nth-child(3){animation-delay:.16s}
+.vj-slide.ativo .vj-txt>:nth-child(4){animation-delay:.24s}
+.vj-slide.ativo .vj-txt>:nth-child(n+5){animation-delay:.3s}
+.vj.pausado .vj-slide.ativo .vj-img img{animation-play-state:paused}
+@keyframes vj-aproxima{from{transform:scale(1.1)}to{transform:scale(1)}}
+@keyframes vj-sobe{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+/* controles, iguais aos da vitrine da Zethic */
+.vj-ctrl{position:absolute;left:0;right:0;bottom:1.6rem;z-index:3;display:flex;align-items:flex-end;gap:1.5rem}
+.vj-pontos{display:flex;gap:1.2rem;flex:1;min-width:0}
+.vj-ponto{flex:0 1 9.5rem;min-width:0;background:none;border:0;padding:.35rem 0;color:var(--verde-claro);font:inherit;font-size:.85rem;text-align:left;cursor:pointer}
+.vj-ponto:hover,.vj-ponto.ativo{color:#fff}
+.vj-ponto-nome{display:block;margin-bottom:.5rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.vj-barra{display:block;height:2px;background:linear-gradient(var(--latao-claro),var(--latao-claro)) no-repeat left/0% 100%,rgba(201,216,207,.3)}
+.vj-ponto.ativo .vj-barra{animation:vj-progresso 7s linear forwards}
+.vj.pausado .vj-ponto.ativo .vj-barra{animation-play-state:paused}
+@keyframes vj-progresso{to{background-size:100% 100%,auto}}
+.vj-pausa{flex:none;background:rgba(0,0,0,.25);border:1px solid rgba(201,216,207,.5);color:#fff;border-radius:999px;padding:.4rem .95rem;font:inherit;font-size:.82rem;cursor:pointer}
+.vj-pausa:hover{border-color:#fff}
+.vj-ponto:focus-visible,.vj-pausa:focus-visible,.vj a:focus-visible{outline:2px solid var(--latao-claro);outline-offset:3px}
+@media (max-width:56rem){
+  .vj-slide{min-height:0;flex-direction:column;align-items:stretch}
+  .vj-img{position:relative;width:100%;height:24rem;flex:none}
+  .vj-slide::after{background:linear-gradient(180deg,rgba(var(--vj-fundo),0) 10rem,rgba(var(--vj-fundo),.85) 21rem,rgb(var(--vj-fundo)) 24rem)}
+  .vj-chuva{-webkit-mask-image:linear-gradient(180deg,rgba(0,0,0,.25) 0,rgba(0,0,0,.25) 16rem,#000 26rem);mask-image:linear-gradient(180deg,rgba(0,0,0,.25) 0,rgba(0,0,0,.25) 16rem,#000 26rem)}
+  .vj-txt{margin-top:-4rem;padding-top:0;padding-bottom:6rem}
+  .vj-pontos{gap:.6rem}
+  .vj-ponto{flex:1 1 0;min-height:2.75rem;display:flex;flex-direction:column;justify-content:flex-end}
+  .vj-ponto-nome{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 }
 @media (prefers-reduced-motion:reduce){
-  .retratos .retrato,.retratos .retrato.ativo{transition:none}
-  .retratos-barras i.ativo::after{animation:none;transform:scaleX(1)}
+  .vj-slide,.vj-slide.ativo{transition:none}
+  .vj-slide.ativo .vj-img img,.vj-slide.ativo .vj-txt>*,.vj-matrix .vj-marca::after{animation:none}
+  .vj-ponto.ativo .vj-barra{animation:none;background-size:100% 100%,auto}
 }

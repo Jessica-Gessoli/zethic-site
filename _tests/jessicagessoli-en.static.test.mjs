@@ -75,12 +75,12 @@ test("descrição até 160 caracteres e imagem de compartilhamento 1200x630 nas 
 });
 
 test("foto com WebP e arquivos existentes", () => {
-  // Topo com fotos que trocam sozinhas (10/11/2026): cada foto tem WebP e os arquivos existem.
-  const retratos = ["10", "07", "12", "15"];
-  for (const html of [pt, en]) for (const n of retratos)
-    assert.ok(html.includes(`<source type="image/webp" srcset="/assets/img/jessica-gessoli-retrato-${n}-480.webp 480w, /assets/img/jessica-gessoli-retrato-${n}.webp 800w"`), n);
-  for (const n of retratos) for (const f of [`-${n}.jpg`, `-${n}.webp`, `-${n}-480.jpg`, `-${n}-480.webp`])
-    assert.ok(readFileSync(new URL(`../assets/img/jessica-gessoli-retrato${f}`, import.meta.url)).length > 1000, f);
+  // Topo em vitrine com as fotos da Alpha (10/11/2026): cada foto tem WebP e os arquivos existem.
+  const slides = { pt: ["10", "22", "12", "25", "07", "08"], en: ["10", "22", "07", "08"] };
+  for (const [lang, html] of [["pt", pt], ["en", en]]) for (const n of slides[lang])
+    assert.ok(html.includes(`<source type="image/webp" srcset="/assets/img/jessica-gessoli-slide-${n}-600.webp 600w, /assets/img/jessica-gessoli-slide-${n}.webp 1000w"`), `${lang} ${n}`);
+  for (const n of slides.pt) for (const f of [`-${n}.jpg`, `-${n}.webp`, `-${n}-600.jpg`, `-${n}-600.webp`])
+    assert.ok(readFileSync(new URL(`../assets/img/jessica-gessoli-slide${f}`, import.meta.url)).length > 1000, f);
   for (const f of ["jessica-gessoli.jpg", "jessica-gessoli-og.jpg", "jessica-gessoli-og-en.jpg"])
     assert.ok(readFileSync(new URL(`../assets/img/${f}`, import.meta.url)).length > 1000, f);
 });
