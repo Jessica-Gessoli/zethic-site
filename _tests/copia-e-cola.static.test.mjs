@@ -62,11 +62,11 @@ test("mensagens do WhatsApp vão para o número público com o texto combinado",
   const h = ler("_fontes/jessicagessoli/copia-e-cola/index.html");
   const links = [...h.matchAll(/href="(https:\/\/wa\.me\/[^"]+)"/g)].map((m) => m[1]);
   assert.ok(links.some((l) => l.startsWith(WA) && texto(l) === "Olá, Jéssica! Quero receber o Copia e Cola toda semana."));
-  assert.ok(links.some((l) => l.startsWith("https://wa.me/?text=") && texto(l) === "Olha este caderno com 26 prompts prontos para o Negócio: https://zethic.net/copia-e-cola.html"));
+  assert.ok(links.some((l) => l.startsWith("https://wa.me/?text=") && texto(l) === "Olha este caderno com 26 prompts prontos para o Negócio: https://jessicagessoli.zethic.net/copia-e-cola/"));
   const js = ler("assets/js/teste-ia.js");
   const wa = [...js.matchAll(/href: "(https:\/\/wa\.me\/[^"]+)"/g)].map((m) => m[1]);
   assert.ok(wa.some((l) => l.startsWith(WA) && texto(l) === "Olá, Jéssica! Fiz o teste de IA segura e quero conversar."));
-  assert.ok(wa.some((l) => l.startsWith("https://wa.me/?text=") && texto(l) === "Faça este teste de 2 minutos: https://zethic.net/jessicagessoli/teste-ia/"));
+  assert.ok(wa.some((l) => l.startsWith("https://wa.me/?text=") && texto(l) === "Faça este teste de 2 minutos: https://jessicagessoli.zethic.net/teste-ia/"));
 });
 
 test("as 10 regras Antes de colar e a fonte da ANPD", () => {
@@ -100,9 +100,8 @@ test("links internos levam a páginas que existem e o mapa do site lista as duas
   assert.match(pessoal, /href="\/jessicagessoli\/teste-ia\/"/);
 });
 
-test("o endereço antigo /prompt-joia redireciona para o caderno, no endereço da Jéssica Gessoli", () => {
-  const h = ler("prompt-joia.html");
-  assert.match(h, /<meta http-equiv="refresh" content="0; url=https:\/\/jessicagessoli\.zethic\.net\/copia-e-cola\/">/);
-  assert.match(h, /<link rel="canonical" href="https:\/\/jessicagessoli\.zethic\.net\/copia-e-cola\/">/);
-  assert.match(h, /<meta name="robots" content="noindex">/);
+// 10/11/2026 (Jéssica, "apague os links antigos"): os endereços antigos da raiz de zethic.net foram apagados.
+test("os endereços antigos da raiz foram apagados e o compartilhamento usa o endereço da marca", () => {
+  for (const f of ["prompt-joia.html", "copia-e-cola.html"]) assert.ok(!existsSync(new URL("../" + f, import.meta.url)), f);
+  for (const f of ["_fontes/jessicagessoli/copia-e-cola/index.html", "assets/js/teste-ia.js"]) assert.doesNotMatch(ler(f), /https:\/\/zethic\.net\/(copia-e-cola|teste-ia)\.html/, f);
 });

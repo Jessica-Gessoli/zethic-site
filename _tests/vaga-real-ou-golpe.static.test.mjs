@@ -1,10 +1,9 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
+import { readFileSync, existsSync } from "node:fs";
 
 const ler = (f) => readFileSync(new URL(`../${f}`, import.meta.url), "utf8");
 const html = ler("_fontes/jessicagessoli/vaga-real-ou-golpe/index.html");
-const antiga = ler("vaga-real-ou-golpe.html");
 const fale = ler("fale.html");
 
 test("página do e-book é da marca Jéssica Gessoli, sem script inline", () => {
@@ -56,11 +55,12 @@ test("PDF do guia publicado para o link do direct", () => {
   assert.ok(pdf.length < 2_000_000, "PDF grande demais para o celular");
 });
 
-// 09/11/2026 (Jéssica): o link do guia leva o nome da Jéssica Gessoli; o endereço antigo só redireciona.
-test("endereço antigo redireciona para o da marca Jéssica Gessoli", () => {
+// 09/11/2026 (Jéssica): o link do guia leva o nome da Jéssica Gessoli.
+// 10/11/2026 (Jéssica): o endereço antigo fica, porque o PDF do guia já enviado leva a ele.
+test("endereço antigo redireciona para o da marca e o PDF do direct continua publicado", () => {
+  const antiga = readFileSync(new URL("../vaga-real-ou-golpe.html", import.meta.url), "utf8");
   assert.match(antiga, /<meta http-equiv="refresh" content="0; url=https:\/\/jessicagessoli\.zethic\.net\/vaga-real-ou-golpe\/">/);
   assert.match(antiga, /<meta name="robots" content="noindex, follow">/);
-  assert.ok(!/<script/.test(antiga));
   const pdf = readFileSync(new URL("../jessicagessoli/vaga-real-ou-golpe/guia-vaga-real-ou-golpe.pdf", import.meta.url));
   assert.equal(pdf.subarray(0, 5).toString(), "%PDF-");
 });
