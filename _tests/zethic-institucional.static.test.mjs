@@ -45,7 +45,7 @@ test("perguntas frequentes migraram para o Diagnóstico, com dados estruturados"
 // para saber qual página e qual campanha vendem. Antes, só nas páginas com ferramenta.
 test("medição (Google Analytics) com consentimento em todas as páginas da Zethic e nas campanhas", () => {
   const com = ["_fontes/jessicagessoli/diagnostico/index.html", "_fontes/jessicagessoli/teste-golpe/index.html", "seguranca.html", "privacidade.html", "index.html", "quem-somos.html",
-    "tecnologia.html", "atendimento.html", "financeiro.html", "comprar.html", "loja.html", "loja-obrigado.html", "para-o-seu-negocio.html",
+    "tecnologia.html", "atendimento.html", "financeiro.html", "comprar.html", "loja.html", "loja/obrigado/index.html", "para-o-seu-negocio.html",
     "ti-do-consultorio.html", "ti-da-contabilidade.html", "ti-da-advocacia.html", "ti-da-engenharia.html", "ti-do-rh.html", "ti-da-agencia.html", "ti-do-seu-negocio.html"];
   for (const p of com) {
     const h = ler(p);

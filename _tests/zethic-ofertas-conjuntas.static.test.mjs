@@ -52,7 +52,7 @@ test("sites da Jéssica Gessoli e da Pode Curtir levam à Zethic, com a fundador
 // 07/11/2026, 07h03 (aprovado pela Jéssica): Black Week da Zethic, de 23 a 30/11/2026. Condição de pagamento,
 // não desconto: implantação agora, primeira mensalidade em janeiro, 1 hora extra de suporte. Preço igual.
 // 07/11/2026, 07h35: o site muda sozinho a cada campanha até o Carnaval, por assets/js/zethic-calendario.js.
-const PAGINAS_ZETHIC = ["index", "quem-somos", "seguranca", "tecnologia", "financeiro", "atendimento", "privacidade", "loja", "loja-obrigado", "comprar", "para-o-seu-negocio", ...CAMPANHAS];
+const PAGINAS_ZETHIC = ["index", "quem-somos", "seguranca", "tecnologia", "financeiro", "atendimento", "privacidade", "loja", "loja/obrigado/index", "comprar", "para-o-seu-negocio", ...CAMPANHAS];
 
 function calendario() {
   const js = ler("assets/js/zethic-calendario.js");

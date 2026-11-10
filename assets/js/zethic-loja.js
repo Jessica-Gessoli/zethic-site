@@ -1,7 +1,7 @@
 /* Zethic — loja de pedido de proposta (/loja). Decisão da Jéssica em 03/11/2026, 22h07: sem preço no site.
    O cliente escolhe os serviços por departamento (e o nível, quando o serviço tem níveis), conta sobre a empresa
    e envia o pedido. Com FORM_ENDPOINT preenchido em zethic-loja-config.js, o pedido é registrado e a pessoa vai para
-   /loja-obrigado; sem ele, ou se o envio falhar, a loja mostra a mensagem pronta para o WhatsApp e o e-mail.
+   /loja/obrigado/; sem ele, ou se o envio falhar, a loja mostra a mensagem pronta para o WhatsApp e o e-mail.
    Catálogo e níveis: material "Zethic — planos e valores" e Ficha oficial v1.12 (03/11/2026). A capacitação em IA
    para empresas, o treinamento técnico (06/11/2026) e a blindagem de contas são da Jéssica Gessoli e não entram aqui. */
 (function () {

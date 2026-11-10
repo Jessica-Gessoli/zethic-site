@@ -36,7 +36,7 @@ TRILHA = {
     "quem-somos.html": [INICIO, "Quem somos"],
     "comprar.html": [INICIO, LOJA, "Comprar agora"],
     "loja.html": [INICIO, LOJA, "Pedir proposta"],
-    "loja-obrigado.html": [INICIO, ("/loja", "Loja"), "Pedido recebido"],
+    "loja/obrigado/index.html": [INICIO, ("/loja", "Loja"), "Pedido recebido"],
     "privacidade.html": [INICIO, "Privacidade e termos de uso"],
 }
 
@@ -48,7 +48,7 @@ PROXIMO = {
     "financeiro.html": (("/loja#d-financeiro", "Montar o pedido do Financeiro"), ("/agendar?utm_source=financeiro", "Agendar uma conversa")),
     "para-o-seu-negocio.html": (("/comprar", "Ver os pacotes com preço"), ("/loja", "Montar um pedido com várias necessidades")),
     "quem-somos.html": (("/comprar", "Ver os pacotes com preço"), ("/loja", "Pedir proposta")),
-    "loja-obrigado.html": (("/quem-somos", "Conhecer quem faz o trabalho"), ("/comprar", "Voltar à loja")),
+    "loja/obrigado/index.html": (("/quem-somos", "Conhecer quem faz o trabalho"), ("/comprar", "Voltar à loja")),
 }
 
 # Pares que se indicam nos dois sentidos em "Veja também".
@@ -60,7 +60,7 @@ LIGADAS = [
     ("quem-somos.html", "atendimento.html"), ("quem-somos.html", "financeiro.html"),
 ]
 # Depois do pedido, a pessoa pode ver as outras necessidades (só ida: a confirmação não é destino).
-SO_IDA = {"loja-obrigado.html": ["para-o-seu-negocio.html"]}
+SO_IDA = {"loja/obrigado/index.html": ["para-o-seu-negocio.html"]}
 
 ORDEM = list(PAGINAS)
 

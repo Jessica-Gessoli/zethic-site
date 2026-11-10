@@ -4,7 +4,7 @@ import { readFileSync } from "node:fs";
 import vm from "node:vm";
 
 const ler = (p) => readFileSync(new URL("../" + p, import.meta.url), "utf8");
-const PAGINAS = ["loja.html", "loja-obrigado.html"];
+const PAGINAS = ["loja.html", "loja/obrigado/index.html"];
 const JS = ["assets/js/zethic-loja-config.js", "assets/js/zethic-loja.js"];
 const semTags = (h) => h.replace(/<script[\s\S]*?<\/script>/g, "").replace(/<[^>]+>/g, " ");
 
@@ -63,7 +63,7 @@ test("páginas: CSP sem inline, cabeçalho da Zethic, privacidade e consentiment
   const loja = ler("loja.html");
   assert.match(loja, /<input type="checkbox" id="consentimento" required>/);
   assert.match(loja, /Sem pagamento e sem compromisso/);
-  assert.match(ler("loja-obrigado.html"), /<meta name="robots" content="noindex, nofollow">/);
+  assert.match(ler("loja/obrigado/index.html"), /<meta name="robots" content="noindex, nofollow">/);
 });
 
 test("regras da marca na loja", () => {
