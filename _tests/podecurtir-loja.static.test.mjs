@@ -21,7 +21,9 @@ test("configuração única, com pagamento e Pixel desligados até serem preench
       // 08/11/2026: seção para restaurantes, lanchonetes e bares
       "cardapio", "cardapio_mensal",
       // 09/11/2026 (D4): Portfólio da empresa
-      "portfolio"].sort());
+      "portfolio",
+      // 10/11/2026: Tradução do cardápio, Catálogo Pronto e Cuidado do Catálogo
+      "traducao", "catalogo", "catalogo_mensal"].sort());
   for (const v of Object.values(c.ASAAS_LINKS)) assert.ok(v === "" || /^https:\/\/(www\.)?asaas\.com\//.test(v), "link do Asaas inválido: " + v);
   assert.ok([500, 750, 1200].includes(c.PRECO_AJUSTE), "preço do Ajuste fora da escada aprovada");
   assert.ok(c.PIXEL_ID === "" || /^\d{10,20}$/.test(c.PIXEL_ID));
@@ -114,7 +116,8 @@ test("medição só depois do aceite e aviso de cookies só com GA4 ou Pixel con
 test("página única: loja na página inicial, comprar antes do WhatsApp e endereço antigo levando para lá", () => {
   const h = ler("podecurtir.html");
   const hero = h.split('<div class="hero">')[1].split("</div>\n  </div>")[0];
-  assert.match(hero, /<a class="btn cheio" href="#loja"[^>]*>Ver preços e comprar<\/a>\s*<a class="btn contorno" href="\/fale\?utm_source=podecurtir"/);
+  // 10/11/2026 (Jéssica): a chamada principal leva à escolha pelo tipo de Negócio, no topo da loja.
+  assert.match(hero, /<a class="btn cheio" href="#loja"[^>]*>Escolher pelo meu Negócio<\/a>\s*<a class="btn contorno" href="\/fale\?utm_source=podecurtir"/);
   assert.doesNotMatch(h, /class="oferta"/, "cartões de preço repetidos voltaram");
   for (const id of ['id="loja"', 'id="vista-loja"', 'id="vista-checkout" hidden', 'id="grade-perfil"', 'id="grade-contas"', 'id="grade-planos"',
     'id="lista-propostas"', 'id="carrinho"', 'id="ir-carrinho"', 'id="tipos-opcoes"', 'id="link-obrigado" href="/podecurtir/loja/obrigado/"'])
