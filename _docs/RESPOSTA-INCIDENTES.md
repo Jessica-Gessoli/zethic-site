@@ -57,7 +57,7 @@ Sinais: zethic.net mostra outro site, o certificado HTTPS é estranho, ou o vigi
 
 ### 6. Conta do Calendly invadida
 
-O Calendly recebe a agenda de 30 minutos da página da fundadora (zethic.net/jessicagessoli).
+O Calendly recebe a agenda de 30 minutos da página da fundadora (jessicagessoli.zethic.net, seção Para recrutadores).
 
 1. Troque a senha do Calendly (ou da conta usada para entrar nele) e confira o segundo fator.
 2. Confira as agendas conectadas (configurações de calendários do Calendly) e, à parte, os aplicativos conectados (integrações e apps). Remova o que não reconhecer e, se a agenda tiver sido trocada ou desconectada, reconecte a certa (jessica.gessoli@zethic.net).

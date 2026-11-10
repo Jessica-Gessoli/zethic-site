@@ -10,7 +10,7 @@ const ler = (p) => readFileSync(new URL("../" + p, import.meta.url), "utf8");
 const existe = (p) => existsSync(new URL("../" + p, import.meta.url));
 // 28/10/2026: Diagnóstico e Teste de golpe passaram para a Jéssica Gessoli e saíram desta lista.
 const ZETHIC = ["index.html", "quem-somos.html", "seguranca.html", "tecnologia.html", "atendimento.html", "financeiro.html", "privacidade.html", "loja.html", "loja-obrigado.html", "comprar.html", "para-o-seu-negocio.html"];
-const MARCAS = { "_fontes/jessicagessoli.html": "g-j", "podecurtir.html": "g-p" };
+const MARCAS = { "_fontes/jessicagessoli.html": "g-j", "_fontes/podecurtir.html": "g-p" };
 const bloco = (html, nome) => html.match(new RegExp(`<!-- ${nome}:inicio -->([\\s\\S]*?)<!-- ${nome}:fim -->`))?.[1] ?? "";
 
 // 28/10/2026 (decisão da Jéssica): Zethic, Jéssica Gessoli e Pode Curtir não se citam; a barra das marcas saiu.
@@ -134,10 +134,10 @@ test("cores do sistema de design: pilares e tema claro", () => {
 });
 
 test("atendimento: sem raio fixo nem \"remoto a partir de Campinas\" (decisão de 13/10/2026)", () => {
-  for (const p of [...ZETHIC, "podecurtir.html", "llms.txt"]) {
+  for (const p of [...ZETHIC, "_fontes/podecurtir.html", "llms.txt"]) {
     assert.doesNotMatch(ler(p), /remoto, a partir de Campinas|Atendimento remoto|Remoto, também fora|Hortolândia, Jundiaí e região/, p);
   }
-  for (const p of [...ZETHIC, "podecurtir.html", "llms.txt", "_fontes/jessicagessoli.html"]) {
+  for (const p of [...ZETHIC, "_fontes/podecurtir.html", "llms.txt", "_fontes/jessicagessoli.html"]) {
     assert.doesNotMatch(ler(p), /100 km|geoRadius/, p);
   }
 });
