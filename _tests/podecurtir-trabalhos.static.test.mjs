@@ -19,7 +19,7 @@ test("Zethic: sem faixa de preço no topo da página inicial", () => {
 });
 
 test("Página profissional: a seção se chama Serviços", () => {
-  const h = ler("jessicagessoli.html");
+  const h = ler("_fontes/jessicagessoli.html");
   assert.match(h, /<a href="#trabalho">Serviços<\/a>/);
   assert.match(h, /<h2 id="t-trabalho">Serviços<\/h2>/);
   assert.doesNotMatch(h, /Como trabalhar comigo/);
@@ -67,7 +67,7 @@ test("Pode Curtir: a Zethic não cita o Pode Curtir", () => {
   }
   assert.match(ler("fale.html"), /"podecurtir": "[^"]*redes sociais ou anúncios\."/);
   // 28/10/2026 (decisão da Jéssica): o rodapé da página dela não traz mais o título de fundadora da Zethic.
-  assert.doesNotMatch(ler("jessicagessoli.html").match(/<footer>[\s\S]*<\/footer>/)[0], /diretora executiva|Zethic/);
+  assert.doesNotMatch(ler("_fontes/jessicagessoli.html").match(/<footer>[\s\S]*<\/footer>/)[0], /diretora executiva|Zethic/);
 });
 
 test('Pode Curtir: prévia de link com imagem grande', () => {

@@ -2,8 +2,8 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 
-const pt = readFileSync(new URL("../jessicagessoli.html", import.meta.url), "utf8");
-const en = readFileSync(new URL("../en/jessicagessoli.html", import.meta.url), "utf8");
+const pt = readFileSync(new URL("../_fontes/jessicagessoli.html", import.meta.url), "utf8");
+const en = readFileSync(new URL("../_fontes/en/jessicagessoli.html", import.meta.url), "utf8");
 const sitemap = readFileSync(new URL("../sitemap.xml", import.meta.url), "utf8");
 
 const alternates = [

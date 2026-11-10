@@ -5,8 +5,8 @@ import { readFileSync, readdirSync } from "node:fs";
 // Estratégia de idiomas aprovada em 21/10/2026 (documento "Busca em outro idioma · Benchmark e BSC"):
 // um endereço por idioma, as duas versões ligadas e sempre com as mesmas seções (objetivo P1 do BSC),
 // sem redirecionamento automático por idioma (objetivo P2, regra do Google Search Central).
-const pt = readFileSync(new URL("../jessicagessoli.html", import.meta.url), "utf8");
-const en = readFileSync(new URL("../en/jessicagessoli.html", import.meta.url), "utf8");
+const pt = readFileSync(new URL("../_fontes/jessicagessoli.html", import.meta.url), "utf8");
+const en = readFileSync(new URL("../_fontes/en/jessicagessoli.html", import.meta.url), "utf8");
 
 // Cada par = [id da seção em português, id da mesma seção em inglês].
 const pares = [

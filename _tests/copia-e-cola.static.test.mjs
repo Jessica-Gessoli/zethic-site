@@ -6,14 +6,14 @@ import { readFileSync, existsSync } from "node:fs";
 // 19/10/2026: série renomeada; /prompt-joia redireciona para /copia-e-cola.
 // Regras: identidade da marca pessoal, sem preço, sem "PME", sem rastreador e sem coleta de dados.
 const ler = (p) => readFileSync(new URL("../" + p, import.meta.url), "utf8");
-const PAGINAS = ["jessicagessoli/copia-e-cola/index.html", "jessicagessoli/teste-ia/index.html"];
+const PAGINAS = ["_fontes/jessicagessoli/copia-e-cola/index.html", "_fontes/jessicagessoli/teste-ia/index.html"];
 const WA = "https://wa.me/5519981800221?text=";
 const texto = (h) => decodeURIComponent(h.split("?text=")[1]);
 
 test("o caderno em PDF existe e a página leva a ele sem cadastro", () => {
   const pdf = readFileSync(new URL("../assets/docs/caderno-copia-e-cola.pdf", import.meta.url));
   assert.equal(pdf.subarray(0, 5).toString(), "%PDF-");
-  const h = ler("jessicagessoli/copia-e-cola/index.html");
+  const h = ler("_fontes/jessicagessoli/copia-e-cola/index.html");
   assert.match(h, /<a class="btn" href="\/assets\/docs\/caderno-copia-e-cola\.pdf" type="application\/pdf" download>Baixar o caderno grátis \(PDF\)<\/a>/);
   assert.doesNotMatch(h, /<form|<input/);
 });
@@ -59,7 +59,7 @@ test("LinkedIn sempre com o Instagram ao lado", () => {
 });
 
 test("mensagens do WhatsApp vão para o número público com o texto combinado", () => {
-  const h = ler("jessicagessoli/copia-e-cola/index.html");
+  const h = ler("_fontes/jessicagessoli/copia-e-cola/index.html");
   const links = [...h.matchAll(/href="(https:\/\/wa\.me\/[^"]+)"/g)].map((m) => m[1]);
   assert.ok(links.some((l) => l.startsWith(WA) && texto(l) === "Olá, Jéssica! Quero receber o Copia e Cola toda semana."));
   assert.ok(links.some((l) => l.startsWith("https://wa.me/?text=") && texto(l) === "Olha este caderno com 26 prompts prontos para o Negócio: https://zethic.net/copia-e-cola.html"));
@@ -70,7 +70,7 @@ test("mensagens do WhatsApp vão para o número público com o texto combinado",
 });
 
 test("as 10 regras Antes de colar e a fonte da ANPD", () => {
-  const h = ler("jessicagessoli/copia-e-cola/index.html");
+  const h = ler("_fontes/jessicagessoli/copia-e-cola/index.html");
   const regras = h.match(/<ol class="regras">([\s\S]*?)<\/ol>/)[1].match(/<li>/g);
   assert.equal(regras.length, 10);
   assert.match(h, /radar_tecnologico_ia_generativa_anpd\.pdf/);
@@ -78,7 +78,7 @@ test("as 10 regras Antes de colar e a fonte da ANPD", () => {
 });
 
 test("teste: 10 perguntas com resposta de risco e dica, e aviso de privacidade", () => {
-  const h = ler("jessicagessoli/teste-ia/index.html");
+  const h = ler("_fontes/jessicagessoli/teste-ia/index.html");
   const fs = [...h.matchAll(/<fieldset data-risco="(sim|nao)" data-curta="[^"]+" data-dica="[^"]+">\s*<legend>/g)];
   assert.equal(fs.length, 10);
   assert.deepEqual(fs.map((m) => m[1]), ["sim", "sim", "sim", "nao", "nao", "sim", "nao", "sim", "nao", "nao"]);
@@ -95,14 +95,14 @@ test("links internos levam a páginas que existem e o mapa do site lista as duas
   // 10/11/2026 (Jéssica): o endereço oficial no Google é o subdomínio da marca; a cópia em zethic.net aponta para ele.
   const sm = ler("_marcas/jessicagessoli-site/sitemap.xml");
   for (const u of ["copia-e-cola", "teste-ia"]) assert.match(sm, new RegExp(`<loc>https://jessicagessoli\\.zethic\\.net/${u}/</loc>`));
-  const pessoal = ler("jessicagessoli.html");
+  const pessoal = ler("_fontes/jessicagessoli.html");
   assert.match(pessoal, /href="\/jessicagessoli\/copia-e-cola\/"/);
   assert.match(pessoal, /href="\/jessicagessoli\/teste-ia\/"/);
 });
 
 test("o endereço antigo /prompt-joia redireciona para o caderno, no endereço da Jéssica Gessoli", () => {
   const h = ler("prompt-joia.html");
-  assert.match(h, /<meta http-equiv="refresh" content="0; url=\/jessicagessoli\/copia-e-cola\/">/);
+  assert.match(h, /<meta http-equiv="refresh" content="0; url=https:\/\/jessicagessoli\.zethic\.net\/copia-e-cola\/">/);
   assert.match(h, /<link rel="canonical" href="https:\/\/jessicagessoli\.zethic\.net\/copia-e-cola\/">/);
   assert.match(h, /<meta name="robots" content="noindex">/);
 });
