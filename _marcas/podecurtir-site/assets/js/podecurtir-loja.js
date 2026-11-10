@@ -62,7 +62,9 @@
       desc: "Até 30 itens: textos dos pratos, categorias, preços e alérgenos que você informar. Cardápio no celular, que abre pelo QR code e pode ser instalado na tela como um app, com QR code para mesas e balcão, cardápio impresso para a entrada (PDF pronto para a gráfica, com os mesmos preços), botão de pedido pelo WhatsApp sem taxa por pedido e link no Instagram e no Perfil da Empresa no Google. 12 meses no ar incluídos. Página e app feitos pela Zethic, em parceria." },
     /* 10/11/2026 (Jéssica): itens com link no Asaas criados em 09/11/2026. Tradução junto do cardápio; catálogo para
        quem vende produto ou serviço (doceria, salão, loja), no mesmo modelo do cardápio, com a Zethic em parceria. */
-    { id: "traducao", secao: "rest", nome: "Tradução do cardápio · inglês e espanhol", preco: 300, prazo: "10 dias úteis", fundador: true,
+    /* 10/11/2026 (Jéssica, por benchmark): 30 itens nos dois idiomas dão cerca de 1.500 palavras, menos de um dia de
+       tradução no ritmo profissional (2.000 a 3.000 palavras por dia) mais a revisão por outra pessoa: 5 dias úteis. */
+    { id: "traducao", secao: "rest", nome: "Tradução do cardápio · inglês e espanhol", preco: 300, prazo: "5 dias úteis", fundador: true,
       depois: "Preço de fundador para os 3 primeiros clientes. Depois, R$ 480.",
       desc: "Para quem tem ou leva junto o Cardápio Pronto: o cardápio também em inglês e espanhol, com nomes, descrições e categorias dos pratos (até 30 itens), para atender turistas sem traduzir na hora." },
     { id: "catalogo", secao: "cat", nome: "Catálogo Pronto", preco: 1500, prazo: "10 dias úteis", fundador: true,
@@ -84,7 +86,7 @@
     { id: "cardapio_mensal", secao: "rest", nome: "Cuidado do Cardápio", mensal: 290, depois: "Preço de fundador para os 3 primeiros clientes. Depois, R$ 460 por mês.",
       desc: "Para quem já tem o Cardápio Pronto: até 10 trocas por mês (1 troca = mudar um item: preço, nome, descrição, foto ou disponibilidade), 1 post do prato da semana e relatório dos pratos mais vistos. O cardápio fica no ar sem custo de hospedagem. Nada entra no ar sem a sua aprovação." },
     { id: "catalogo_mensal", secao: "cat", nome: "Cuidado do Catálogo", mensal: 290, depois: "Preço de fundador para os 3 primeiros clientes. Depois, R$ 460 por mês.",
-      desc: "Para quem já tem o Catálogo Pronto: até 10 trocas por mês (1 troca = mudar um item: preço, nome, descrição, foto ou disponibilidade), 1 post do produto da semana e relatório dos produtos mais vistos. Nada entra no ar sem a sua aprovação." }
+      desc: "Para quem já tem o Catálogo Pronto: até 10 trocas por mês (1 troca = mudar um item: preço, nome, descrição, foto ou disponibilidade), 1 post do produto da semana e relatório dos produtos mais vistos. O catálogo fica no ar sem custo de hospedagem. Nada entra no ar sem a sua aprovação." }
   ];
   /* Planos de Gestão que entram na campanha de Black Friday (a Proteção das contas de bônus vale só para eles). */
   var GESTAO = ["essencial", "padrao", "completa"];
