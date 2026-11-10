@@ -22,15 +22,18 @@ const publicadas = html(".", []).filter((p) => !relative(".", p).split("/").some
 const redireciona = (h) => /<meta http-equiv="refresh"/.test(h) && !/<main|<h1/.test(h);
 const MARCAS = ["jessicagessoli.html", "en/jessicagessoli.html", "jessicagessoli/", "podecurtir.html", "podecurtir/"];
 
-test("zethic.net não mostra mais páginas das marcas: os endereços antigos só redirecionam ao subdomínio", () => {
+// 10/11/2026 (Jéssica, "apague os links antigos"): só o início de cada marca continua em zethic.net, levando ao
+// subdomínio (currículo, kit, guia e Sympla já distribuídos imprimem esses dois endereços). O resto dá 404.
+test("zethic.net não mostra mais páginas das marcas: só o início de cada uma redireciona; o resto foi apagado", () => {
   const antigas = publicadas.filter((p) => MARCAS.some((m) => p === m || p.startsWith(m)));
-  assert.ok(antigas.length >= 25, "faltam endereços antigos: " + antigas.length);
+  assert.deepEqual(antigas.sort(), ["jessicagessoli.html", "podecurtir.html"]);
   for (const p of antigas) {
     const h = ler(p);
     assert.ok(redireciona(h), p + " ainda tem conteúdo");
-    assert.match(h, /<link rel="canonical" href="https:\/\/(jessicagessoli|podecurtir)\.zethic\.net\/[a-z0-9/-]*">/, p);
+    assert.match(h, /<link rel="canonical" href="https:\/\/(jessicagessoli|podecurtir)\.zethic\.net\/">/, p);
     assert.match(h, /<meta name="robots" content="noindex/, p);
   }
+  assert.ok(!existsSync(join(RAIZ, "en/jessicagessoli.html")), "en/jessicagessoli.html devia estar apagado");
 });
 
 test("páginas da Zethic com conteúdo não levam às cópias antigas das marcas", () => {

@@ -11,17 +11,21 @@ const antigos = [
       "diagnostico", "teste-golpe", "teste-ia", "copia-e-cola", "conte-seu-golpe"].map((p) => [`jessicagessoli/${p}/index.html`, `/${p}/`]),
 ];
 
-test("cada endereço antigo em zethic.net só redireciona para jessicagessoli.zethic.net", () => {
-  for (const [arq, novo] of antigos) {
-    const h = ler(arq);
-    const url = `https://jessicagessoli.zethic.net${novo}`;
-    assert.ok(h.includes(`<link rel="canonical" href="${url}">`), arq);
-    assert.ok(h.includes(`<meta http-equiv="refresh" content="0; url=${url}">`), arq);
-    assert.match(h, /<meta name="robots" content="noindex, follow">/, arq);
-    assert.match(h, /<script src="\/assets\/js\/redireciona-marca\.js"><\/script>/, arq);
-    assert.doesNotMatch(h, /<main|<h1/, arq + " ainda tem conteúdo");
+// 10/11/2026 (Jéssica, "apague os links antigos"): só zethic.net/jessicagessoli continua, levando ao subdomínio;
+// os outros endereços antigos foram apagados. O PDF do guia fica no endereço do direct.
+test("só o início da Jéssica Gessoli continua em zethic.net; os outros endereços antigos foram apagados", () => {
+  const h = ler("jessicagessoli.html");
+  const url = "https://jessicagessoli.zethic.net/";
+  assert.ok(h.includes(`<link rel="canonical" href="${url}">`));
+  assert.ok(h.includes(`<meta http-equiv="refresh" content="0; url=${url}">`));
+  assert.match(h, /<meta name="robots" content="noindex, follow">/);
+  assert.match(h, /<script src="\/assets\/js\/redireciona-marca\.js"><\/script>/);
+  assert.doesNotMatch(h, /<main|<h1/, "ainda tem conteúdo");
+  for (const [arq] of antigos.slice(1)) {
+    assert.ok(!existsSync(new URL("../" + arq, import.meta.url)), arq + " devia estar apagado");
     assert.ok(existsSync(new URL("../_fontes/" + arq, import.meta.url)), "fonte faltando: " + arq);
   }
+  assert.ok(existsSync(new URL("../jessicagessoli/vaga-real-ou-golpe/guia-vaga-real-ou-golpe.pdf", import.meta.url)));
 });
 
 test("o redirecionamento leva junto ?parâmetros e #trecho", () => {

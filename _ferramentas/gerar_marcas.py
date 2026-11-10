@@ -150,9 +150,23 @@ REDIR = """<!DOCTYPE html>
 </body>
 </html>
 """
+# 10/11/2026 (Jéssica, "apague os links antigos"): só o início de cada marca continua em zethic.net, levando ao
+# subdomínio, porque o currículo, o kit de palestrante, o guia em PDF e o crédito do Sympla já distribuídos imprimem
+# zethic.net/jessicagessoli e zethic.net/podecurtir. Os outros endereços antigos foram apagados e dão 404.
+# O PDF do guia em jessicagessoli/vaga-real-ou-golpe/ continua, porque o link do direct aponta para ele.
+MANTIDOS = {"/jessicagessoli", "/podecurtir"}
 def redirecionar(pares, host, nome):
     for old, new in pares:
         dest = SRC / (old.lstrip("/") + ".html" if not old.endswith("/") else old.lstrip("/") + "index.html")
+        if old not in MANTIDOS:
+            if CHECK and dest.exists():
+                print(f"endereço antigo que devia estar apagado: {dest.relative_to(SRC)}"); sys.exit(1)
+            if not CHECK and dest.exists():
+                dest.unlink()
+                for pasta in dest.parents:
+                    if pasta == SRC or any(pasta.iterdir()): break
+                    pasta.rmdir()
+            continue
         conteudo = REDIR.format(url=f"https://{host}{new}", nome=nome)
         if CHECK:
             if not dest.exists() or dest.read_text() != conteudo:

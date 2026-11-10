@@ -12,8 +12,9 @@ Decisão da Jéssica em 10/11/2026. Este documento é a regra. Os testes em `_te
 
 - **Fontes das marcas:** as páginas da Jéssica Gessoli e da Pode Curtir são editadas em `_fontes/`. O Jekyll não publica pastas que começam com `_`.
 - **Geração:** `python3 _ferramentas/gerar_marcas.py` gera cada site em `_marcas/<marca>-site`, que é copiado para o repositório da marca (PR de espelho, com merge depois do PR do `zethic-site`).
-- **Endereços antigos:** `zethic.net/jessicagessoli*`, `zethic.net/en/jessicagessoli` e `zethic.net/podecurtir*` não têm mais conteúdo. São páginas de redirecionamento geradas pelo mesmo script. Elas levam ao mesmo endereço no subdomínio, com os `?parâmetros` e o `#trecho`, para não quebrar links de bio, posts, PDFs, QR codes e o retorno do Asaas. Elas não entram no Google (`noindex`).
-- **Exceção:** o PDF do guia em `zethic.net/jessicagessoli/vaga-real-ou-golpe/` continua publicado, porque o link do direct aponta para ele.
+- **Endereços antigos (apagados em 10/11/2026):** as páginas de `zethic.net/jessicagessoli/*`, `zethic.net/en/jessicagessoli` e `zethic.net/podecurtir/*` não existem mais e dão "página não encontrada". Ficam só `zethic.net/jessicagessoli` e `zethic.net/podecurtir`, que levam ao início do subdomínio (com os `?parâmetros` e o `#trecho`) e não entram no Google (`noindex`), porque o currículo, o kit de palestrante, o guia em PDF e o crédito do evento no Sympla já distribuídos imprimem esses dois endereços. O gerador apaga qualquer outro endereço antigo e o teste falha se um deles voltar.
+- **Exceção:** o PDF do guia em `zethic.net/jessicagessoli/vaga-real-ou-golpe/guia-vaga-real-ou-golpe.pdf` continua publicado, porque o link do direct aponta para ele.
+- **Novos materiais:** todo PDF, post, bio, QR code ou link de pagamento usa o endereço do subdomínio, nunca `zethic.net/<marca>`.
 
 ## 2. Mesma estrutura de endereços nas três marcas
 
@@ -28,7 +29,7 @@ Decisão da Jéssica em 10/11/2026. Este documento é a regra. Os testes em `_te
 
 **Nomes de endereço:** português, minúsculas, sem acento, palavras separadas por hífen (`/vaga-real-ou-golpe/`, `/conte-seu-golpe/`). Nas marcas, toda página é uma pasta com `index.html` e o endereço termina em `/`.
 
-**Página nova numa marca:** crie a fonte em `_fontes/`, acrescente o par `("/<marca>/<pagina>/", "/<pagina>/")` na lista da marca em `gerar_marcas.py` e rode o script. O redirecionamento em zethic.net e o mapa do site da marca saem sozinhos.
+**Página nova numa marca:** crie a fonte em `_fontes/`, acrescente o par `("/<marca>/<pagina>/", "/<pagina>/")` na lista da marca em `gerar_marcas.py` e rode o script. O mapa do site da marca sai sozinho; o endereço novo não ganha cópia nem redirecionamento em zethic.net.
 
 ## 3. Links entre as marcas
 
