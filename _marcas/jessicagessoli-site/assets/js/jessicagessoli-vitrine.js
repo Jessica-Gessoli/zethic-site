@@ -1,6 +1,6 @@
 // Jéssica Gessoli: vitrine do topo, como a de zethic.net (10/11/2026).
 // Troca a cada 7 s; para com o mouse, com o foco do teclado dentro e no botão de pausa.
-// Slides .vj-matrix ("A filha de Morpheus") ganham a chuva digital verde, só enquanto estão na tela.
+// Slides .vj-matrix ("A filha de Morpheus") ganham a chuva digital verde, só enquanto estão na tela; o botão de pausa também para a chuva.
 // Com "reduzir movimento", nada troca nem se mexe sozinho; sem JavaScript, os slides ficam um embaixo do outro.
 (function () {
   var calmo = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -55,7 +55,7 @@
         s.classList.toggle("ativo", ativo);
         s.setAttribute("aria-hidden", ativo ? "false" : "true");
         if ("inert" in s) s.inert = !ativo;
-        if (chuvas[k]) { if (ativo) chuvas[k].ligar(); else chuvas[k].desligar(); }
+        if (chuvas[k]) { if (ativo && !pausadoPeloUsuario) chuvas[k].ligar(); else chuvas[k].desligar(); }
       });
       pontos.forEach(function (p, k) {
         p.classList.toggle("ativo", k === atual);
@@ -79,14 +79,14 @@
       pausa.setAttribute("aria-label", pausadoPeloUsuario ? (en ? "Resume the automatic rotation" : "Retomar a troca automática dos destaques") : (en ? "Pause the automatic rotation" : "Pausar a troca automática dos destaques"));
     }
     pontos.forEach(function (p, k) { p.addEventListener("click", function () { mostrar(k); parar(); }); });
-    if (pausa) pausa.addEventListener("click", function () { pausadoPeloUsuario = !pausadoPeloUsuario; rotulo(); if (pausadoPeloUsuario) parar(); else { pausa.blur(); tocar(); } });
+    if (pausa) pausa.addEventListener("click", function () { pausadoPeloUsuario = !pausadoPeloUsuario; rotulo(); if (pausadoPeloUsuario) { parar(); if (chuvas[atual]) chuvas[atual].desligar(); } else { if (chuvas[atual]) chuvas[atual].ligar(); pausa.blur(); tocar(); } });
     v.addEventListener("mouseenter", parar);
     v.addEventListener("mouseleave", function () { setTimeout(tocar, 0); });
     v.addEventListener("focusin", parar);
     v.addEventListener("focusout", function (e) { if (!v.contains(e.relatedTarget)) setTimeout(tocar, 0); });
     document.addEventListener("visibilitychange", function () {
       if (document.hidden) { parar(); chuvas.forEach(function (c) { if (c) c.desligar(); }); }
-      else { if (chuvas[atual]) chuvas[atual].ligar(); tocar(); }
+      else { if (chuvas[atual] && !pausadoPeloUsuario) chuvas[atual].ligar(); tocar(); }
     });
     mostrar(0); rotulo(); tocar();
   }
