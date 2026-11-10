@@ -39,11 +39,15 @@ test("regras de pagamento da Zethic: Pix ou boleto, sem cartão, multa de 2% e j
   assert.match(js, /até 7 dias depois da compra, com devolução integral/);
 });
 
-test("configuração: links do Asaas vazios até a Jéssica criar, contato comercial da Zethic", () => {
+test("configuração: links do Asaas criados em 09/11/2026 (Pix ou boleto), contato comercial da Zethic", () => {
   const ctx = { window: {} };
   vm.runInNewContext(ler("assets/js/zethic-comprar-config.js"), ctx);
   const c = ctx.window.ZETHIC_COMPRA;
-  for (const v of Object.values(c.ASAAS_LINKS)) assert.equal(v, "");
+  for (const v of Object.values(c.ASAAS_LINKS)) assert.match(v, /^https:\/\/www\.asaas\.com\/000\/c\/[a-z0-9]{16}$/);
+  // O Site Essencial usa o mesmo link da Pode Curtir, para as 3 vagas de fundador ficarem num lugar só.
+  const pc = { window: {} };
+  vm.runInNewContext(ler("assets/js/podecurtir-config.js"), pc);
+  assert.equal(c.ASAAS_LINKS.site_essencial, pc.window.PODECURTIR.ASAAS_LINKS.plus_site_pix);
   assert.equal(c.WHATSAPP, "5519981800221");
   assert.equal(c.EMAIL, "contato@zethic.net");
 });
