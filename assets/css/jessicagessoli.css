@@ -167,7 +167,7 @@ footer p{margin:.25rem 0}
    Slides .vj-matrix (óculos escuros): tema "A filha de Morpheus", com chuva digital verde desenhada pelo script da vitrine.
    Sem JavaScript, os slides aparecem um embaixo do outro; com "reduzir movimento",
    nada troca nem se mexe sozinho. */
-.vj{--vj-fundo:18,53,43;--vj-cor:var(--latao-claro);position:relative;overflow:hidden;background:var(--garrafa);color:#fff}
+.vj{--vj-fundo:18,53,43;--vj-cor:var(--latao-claro);position:relative;padding:0 !important;overflow:hidden;background:var(--garrafa);color:#fff}
 .vj-slides{display:grid}
 .vj-slide{--vj-fundo:18,53,43;--vj-cor:var(--latao-claro);grid-area:1/1;position:relative;display:flex;align-items:center;min-height:clamp(34rem,78vh,44rem);background:rgb(var(--vj-fundo));opacity:0;visibility:hidden;transition:opacity .9s ease,visibility 0s linear .9s}
 .vj-slide.ativo{opacity:1;visibility:visible;transition:opacity .9s ease}

@@ -114,3 +114,11 @@ test("rodapé leva à política de privacidade nas duas versões (agenda pelo Ca
   assert.match(pt, /<footer>[\s\S]*<a href="\/privacidade">política de privacidade<\/a>[\s\S]*<\/footer>/);
   assert.match(en, /<footer>[\s\S]*<a href="\/privacidade" hreflang="pt-BR">privacy policy<\/a> \(in Portuguese\)[\s\S]*<\/footer>/);
 });
+
+// 10/11/2026: a vitrine do topo precisa do script também na versão em inglês.
+test("as duas versões permitem o script da vitrine", () => {
+  for (const html of [pt, en]) {
+    assert.match(html, /<script src="\/assets\/js\/jessicagessoli-vitrine\.js" defer><\/script>/);
+    assert.match(html.match(/http-equiv="Content-Security-Policy" content="([^"]+)"/)[1], /script-src 'self'/);
+  }
+});
