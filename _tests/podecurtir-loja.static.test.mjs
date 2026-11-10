@@ -543,3 +543,24 @@ test("faixa da Jéssica Gessoli: mesmo formato da Zethic, cores da marca dela", 
   assert.match(css, /\.leve-junto\.jg\{background:#12352B;/);
   assert.match(css, /\.leve-junto\.jg \.por\{background:#D9B76E;color:#12352B\}/);
 });
+
+// 10/11/2026 (Jéssica): os serviços em parceria ficam juntos. O portfólio da Pode Curtir (inclusive o E-book pronto)
+// vem antes; depois, lado a lado, a faixa da Jéssica Gessoli e a da Zethic; por fim, os pedidos de proposta.
+test("parcerias juntas: E-book antes, Jéssica Gessoli e Zethic lado a lado", () => {
+  const h = ler("_fontes/podecurtir.html");
+  const ordem = ["t-esp", "t-conteudo", "t-ia", "t-contas", "t-propostas"].map((id) => h.indexOf(`aria-labelledby="${id}"`));
+  assert.ok(ordem.every((v) => v > 0), "todas as seções existem");
+  assert.deepEqual([...ordem].sort((a, b) => a - b), ordem, "ordem: especialistas, e-book, Jéssica Gessoli, Zethic, propostas");
+  assert.match(h, /aria-labelledby="t-ia">[\s\S]*?<\/section>\s*<section class="secao leve-junto" aria-labelledby="t-contas">/);
+});
+
+// 10/11/2026 (Jéssica): as propostas da Jéssica Gessoli e da Zethic ficam dentro da faixa de cada marca;
+// no "Pedir proposta" ficam só as da Pode Curtir.
+test("propostas das parceiras dentro das faixas; Pedir proposta só da Pode Curtir", () => {
+  const h = ler("_fontes/podecurtir.html"), js = ler("assets/js/podecurtir-loja.js");
+  assert.match(h, /aria-labelledby="t-ia">[\s\S]*?<div class="lista-propostas" id="propostas-jg"><\/div>[\s\S]*?<\/section>/);
+  assert.match(h, /aria-labelledby="t-contas">[\s\S]*?<div class="lista-propostas" id="propostas-ze"><\/div>[\s\S]*?<\/section>/);
+  assert.match(js, /\$\("lista-propostas"\)\.innerHTML = propostasDa\("pc"\);/);
+  assert.match(js, /\$\("propostas-jg"\)\.innerHTML = propostasDa\("jg"\);/);
+  assert.match(js, /\$\("propostas-ze"\)\.innerHTML = propostasDa\("ze"\);/);
+});
