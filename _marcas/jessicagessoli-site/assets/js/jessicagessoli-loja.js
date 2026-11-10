@@ -1,5 +1,5 @@
 /* Jéssica Gessoli — loja com carrinho (/jessicagessoli/loja). Valores aprovados pela Jéssica em 03/11/2026:
-   consultoria R$ 400 por hora, mentoria de posicionamento (sessão avulsa R$ 400; programa de 3 meses com 8 sessões
+   consultoria R$ 300 por hora desde 10/11/2026 (antes R$ 400), mentoria de posicionamento (sessão avulsa R$ 300; programa de 3 meses com 8 sessões
    R$ 3.200) e aula ao vivo "IA segura para o seu Negócio" (R$ 97). Checkup Black Friday Segura (R$ 297), aprovado em
    06/11/2026: 8 vagas, vendido de 13/11 a 25/11/2026 (CHECKUP_VENDAS_DE e CHECKUP_VENDAS_ATE na configuração). Os outros serviços entram como pedido de proposta.
    Pagamento pelo link do Asaas de cada item (ASAAS_LINKS em jessicagessoli-config.js). Com vários itens pagos,
@@ -33,11 +33,11 @@
   var ITENS = [
     /* 09/11/2026 (decisão da Jéssica): a consultoria vira um pacote de 2 horas pelo preço de 1, como a consulta com advogado:
        1 hora de consulta + 1 hora de retorno, em até 30 dias, sobre o mesmo tema. */
-    { id: "consultoria", nome: "Consulta com retorno · 1 hora + 1 hora de retorno", preco: 400, agora: 1, quando: "Consulta com data combinada por e-mail ou WhatsApp depois do pagamento; retorno em até 30 dias",
-      desc: "Uma hora por videochamada para levar uma decisão de cibersegurança ou de IA e mais uma hora de retorno, em até 30 dias, para as dúvidas que surgirem quando você aplicar a orientação. Se você fechar um projeto em até 30 dias, os R$ 400 são abatidos." },
+    { id: "consultoria", nome: "Consulta com retorno · 1 hora + 1 hora de retorno", preco: 300, agora: 1, quando: "Consulta com data combinada por e-mail ou WhatsApp depois do pagamento; retorno em até 30 dias",
+      desc: "Uma hora por videochamada para levar uma decisão de cibersegurança ou de IA e mais uma hora de retorno, em até 30 dias, para as dúvidas que surgirem quando você aplicar a orientação. Se você fechar um projeto em até 30 dias, os R$ 300 são abatidos." },
     { id: "checkup", nome: "Checkup Black Friday Segura", preco: 297, agora: 1, checkup: true, rapido: true, quando: "8 vagas, com agendamento até 25/11/2026, por videochamada",
       desc: "Revisão, antes da Black Friday, dos pontos por onde o golpe entra: contas e perfis da loja, pagamentos e comprovantes, e a equipe que atende. Você sai sabendo o que corrigir primeiro." },
-    { id: "sessao", nome: "Mentoria de posicionamento · sessão avulsa", preco: 400, agora: 1, quando: "Data combinada por e-mail ou WhatsApp depois do pagamento",
+    { id: "sessao", nome: "Mentoria de posicionamento · sessão avulsa", preco: 300, agora: 1, quando: "Data combinada por e-mail ou WhatsApp depois do pagamento",
       desc: "Uma sessão individual de 1 hora, por videochamada, para destravar uma decisão de carreira ou do seu Negócio." },
     { id: "programa", nome: "Mentoria de posicionamento · programa de 3 meses", preco: 3200, agora: 1, parcelas: 3, em: "no", quando: "8 sessões individuais em 3 meses, com datas combinadas por e-mail ou WhatsApp",
       desc: "Para definir com clareza onde você ou o seu Negócio quer chegar e como se posicionar para chegar lá." },
@@ -45,8 +45,8 @@
       desc: "Como usar IA no dia a dia do Negócio sem expor dados de clientes. Online e ao vivo." },
     /* 06/11/2026 (decisão da Jéssica: o máximo possível em compra online): pacotes de escopo fechado e a conversa de escopo paga.
        O que passa do limite de cada pacote continua como pedido de proposta. */
-    { id: "escopo", nome: "Conversa de escopo · 1 hora", preco: 400, agora: 1, quando: "Data e horário escolhidos depois do pagamento",
-      desc: "Uma hora por videochamada para entender o seu caso e montar a proposta de um projeto. Se você fechar o projeto em até 30 dias, os R$ 400 são abatidos do valor." },
+    { id: "escopo", nome: "Conversa de escopo · 1 hora", preco: 300, agora: 1, quando: "Data e horário escolhidos depois do pagamento",
+      desc: "Uma hora por videochamada para entender o seu caso e montar a proposta de um projeto. Se você fechar o projeto em até 30 dias, os R$ 300 são abatidos do valor." },
     { id: "antigolpe_essencial", nome: "Programa Antigolpe Essencial · até 20 pessoas", preco: 2500, agora: 1, parcelas: 3, em: "no", quando: "Datas combinadas por escrito depois do pagamento",
       desc: "Para o Negócio com até 20 pessoas: 1 treinamento ao vivo online de 2 horas sobre os golpes mais comuns, regras escritas contra pagamento indevido e 1 hora com o dono para ajustar as regras." },
     { id: "diagnostico_essencial", nome: "Diagnóstico de Cibersegurança e IA Essencial · até 20 pessoas", preco: 7500, agora: 1, parcelas: 6, em: "no", quando: "Prazo combinado por escrito depois do pagamento",

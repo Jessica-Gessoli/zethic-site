@@ -27,16 +27,16 @@ test("configuração única, com pagamento, aula e Pixel desligados até serem p
 test("preços aprovados em 03/11/2026 e 06/11/2026, e mais nenhum", () => {
   const js = ler("assets/js/jessicagessoli-loja.js");
   // 09/11/2026 (Jéssica): consultoria vendida como Consulta com retorno, 2 horas pelo preço de 1.
-  assert.match(js, /id: "consultoria", nome: "Consulta com retorno · 1 hora \+ 1 hora de retorno", preco: 400, agora: 1/);
+  assert.match(js, /id: "consultoria", nome: "Consulta com retorno · 1 hora \+ 1 hora de retorno", preco: 300, agora: 1/);
   assert.match(js, /retorno, em até 30 dias/);
-  assert.match(js, /id: "sessao", nome: "Mentoria de posicionamento · sessão avulsa", preco: 400, agora: 1/);
+  assert.match(js, /id: "sessao", nome: "Mentoria de posicionamento · sessão avulsa", preco: 300, agora: 1/);
   assert.match(js, /id: "programa", nome: "Mentoria de posicionamento · programa de 3 meses", preco: 3200, agora: 1, parcelas: 3, em: "no"/);
   assert.match(js, /id: "aula", nome: "Aula ao vivo · IA segura para o seu Negócio", preco: 97, agora: 1/);
   // 06/11/2026 (aprovado pela Jéssica): Checkup Black Friday Segura, R$ 297, vendido de 13/11 a 25/11/2026.
   assert.match(js, /id: "checkup", nome: "Checkup Black Friday Segura", preco: 297, agora: 1, checkup: true/);
   // 06/11/2026 (decisão da Jéssica: o máximo possível em compra online): pacotes fechados e conversa de escopo paga.
-  assert.match(js, /id: "escopo", nome: "Conversa de escopo · 1 hora", preco: 400, agora: 1/);
-  assert.match(js, /se você fechar o projeto em até 30 dias, os R\$ 400 são abatidos/i);
+  assert.match(js, /id: "escopo", nome: "Conversa de escopo · 1 hora", preco: 300, agora: 1/);
+  assert.match(js, /se você fechar o projeto em até 30 dias, os R\$ 300 são abatidos/i);
   // 08/11/2026 (Jéssica): a proteção das contas saiu desta loja e passou para a Zethic.
   assert.doesNotMatch(js, /id: "protecao"|id: "contas"|item-protecao/);
   assert.match(js, /id: "antigolpe_essencial", nome: "Programa Antigolpe Essencial · até 20 pessoas", preco: 2500, agora: 1, parcelas: 3, em: "no"/);

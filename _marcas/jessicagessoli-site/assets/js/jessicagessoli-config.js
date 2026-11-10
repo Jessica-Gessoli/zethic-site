@@ -2,11 +2,11 @@
    Um só lugar para preencher antes de publicar. Campos vazios deixam a função desligada, sem erro.
 
    ASAAS_LINKS: link de pagamento do Asaas de cada item (https://www.asaas.com/c/...). Vazio = "pagamento em configuração".
-     consultoria: Consulta com retorno, 1 hora + 1 hora de retorno em até 30 dias (R$ 400; 09/11/2026) · sessao: mentoria de posicionamento, sessão avulsa (R$ 400)
+     consultoria: Consulta com retorno, 1 hora + 1 hora de retorno em até 30 dias (R$ 300 desde 10/11/2026; antes R$ 400) · sessao: mentoria de posicionamento, sessão avulsa (R$ 300)
      checkup: Checkup Black Friday Segura (R$ 297; aprovado em 06/11/2026)
      programa_pix e programa_cartao: programa de mentoria de 3 meses (R$ 3.200, pagamento integral; 04/11/2026):
        _pix para Pix ou boleto, à vista; _cartao só cartão, em até 3x sem juros · aula: aula ao vivo (R$ 97)
-     06/11/2026: escopo (conversa de escopo, R$ 400) ·
+     06/11/2026: escopo (conversa de escopo, R$ 300 desde 10/11/2026) ·
        antigolpe_essencial_pix e _cartao (R$ 2.500; cartão em até 3x) · diagnostico_essencial_pix e _cartao (R$ 7.500;
        cartão em até 6x) · palestra_online (R$ 5.000, à vista)
      09/11/2026: os 12 links acima foram criados pela Jéssica no Asaas; os _cartao só aceitam cartão, sem juros para o cliente.
