@@ -27,16 +27,16 @@ test("configuração única, com pagamento, aula e Pixel desligados até serem p
 test("preços aprovados em 03/11/2026 e 06/11/2026, e mais nenhum", () => {
   const js = ler("assets/js/jessicagessoli-loja.js");
   // 09/11/2026 (Jéssica): consultoria vendida como Consulta com retorno, 2 horas pelo preço de 1.
-  assert.match(js, /id: "consultoria", nome: "Consulta com retorno · 1 hora \+ 1 hora de retorno", preco: 400, agora: 1/);
+  assert.match(js, /id: "consultoria", nome: "Consulta com retorno · 1 hora \+ 1 hora de retorno", preco: 300, agora: 1/);
   assert.match(js, /retorno, em até 30 dias/);
-  assert.match(js, /id: "sessao", nome: "Mentoria de posicionamento · sessão avulsa", preco: 400, agora: 1/);
-  assert.match(js, /id: "programa", nome: "Mentoria de posicionamento · programa de 3 meses", preco: 3200, agora: 1, parcelas: 3, em: "no"/);
+  assert.match(js, /id: "sessao", nome: "Mentoria de posicionamento · sessão avulsa", preco: 300, agora: 1/);
+  assert.match(js, /id: "programa", nome: "Mentoria de posicionamento · programa de 3 meses", preco: 2250, agora: 1, parcelas: 3, em: "no"/);
   assert.match(js, /id: "aula", nome: "Aula ao vivo · IA segura para o seu Negócio", preco: 97, agora: 1/);
   // 06/11/2026 (aprovado pela Jéssica): Checkup Black Friday Segura, R$ 297, vendido de 13/11 a 25/11/2026.
   assert.match(js, /id: "checkup", nome: "Checkup Black Friday Segura", preco: 297, agora: 1, checkup: true/);
   // 06/11/2026 (decisão da Jéssica: o máximo possível em compra online): pacotes fechados e conversa de escopo paga.
-  assert.match(js, /id: "escopo", nome: "Conversa de escopo · 1 hora", preco: 400, agora: 1/);
-  assert.match(js, /se você fechar o projeto em até 30 dias, os R\$ 400 são abatidos/i);
+  assert.match(js, /id: "escopo", nome: "Conversa de escopo · 1 hora", preco: 300, agora: 1/);
+  assert.match(js, /se você fechar o projeto em até 30 dias, os R\$ 300 são abatidos/i);
   // 08/11/2026 (Jéssica): a proteção das contas saiu desta loja e passou para a Zethic.
   assert.doesNotMatch(js, /id: "protecao"|id: "contas"|item-protecao/);
   assert.match(js, /id: "antigolpe_essencial", nome: "Programa Antigolpe Essencial · até 20 pessoas", preco: 2500, agora: 1, parcelas: 3, em: "no"/);
@@ -95,25 +95,26 @@ test("regras da marca nas páginas de compra", () => {
   }
 });
 
-test("desistência: devolução integral em 7 dias (CDC art. 49), menos o que já foi feito; depois, retenção de 25% antes do início", () => {
+// 10/11/2026 (Jéssica, revisão por benchmark): devolução integral em 7 dias, mesmo com sessão feita (art. 49, parágrafo único).
+test("desistência: devolução integral em 7 dias (CDC art. 49), mesmo com sessão feita; depois, retenção de 25% antes do início", () => {
   const t = ler("_fontes/jessicagessoli/termos/index.html");
   assert.match(t, /Em até 7 dias corridos da compra pela loja:<\/strong> você pode desistir/);
-  assert.match(t, /recebe de volta o valor integral \(art\. 49 do Código de Defesa do Consumidor\)/);
-  assert.match(t, /Sessão ou aula feita dentro dos 7 dias:<\/strong> o que já aconteceu é descontado\. No programa de mentoria, R\$ 400 por sessão feita/);
+  assert.match(t, /recebe de volta o valor integral, mesmo que uma sessão, a consulta ou a aula já tenha acontecido \(art\. 49 do Código de Defesa do Consumidor\)/);
+  assert.doesNotMatch(t, /o que já aconteceu é descontado|menos as sessões/);
   assert.match(t, /Depois de 7 dias, antes da primeira sessão ou da aula:<\/strong> o valor pago é devolvido com desconto de 25% do valor total do serviço/);
-  assert.match(t, /Depois de 7 dias, com o programa de mentoria em andamento:<\/strong> as sessões que faltam são devolvidas\. Fica retido o maior valor entre 25% do valor total do programa e as sessões feitas, cobradas a R\$ 400 cada/);
-  assert.match(t, /com 1 ou 2 sessões feitas, ficam retidos R\$ 800; com 3, R\$ 1\.200/);
-  assert.match(t, /Se você marcar uma sessão para dentro dos 7 dias da compra, ela acontece a seu pedido/);
+  assert.match(t, /Depois de 7 dias, com o programa de mentoria em andamento:<\/strong> as sessões que faltam são devolvidas\. Fica retido o maior valor entre 25% do valor total do programa e as sessões feitas, cobradas a R\$ 300 cada/);
+  assert.match(t, /com 1 sessão feita, ficam retidos R\$ 562,50; com 2, R\$ 600; com 3, R\$ 900/);
+  assert.match(t, /A primeira sessão é marcada a partir do 8º dia depois da compra, quando termina o prazo de desistência/);
   assert.match(t, /Serviços contratados por proposta:<\/strong> seguem o contrato/);
   assert.match(t, /aviso de 30 dias, e o mês já pago não é devolvido/);
-  assert.match(ler("_fontes/jessicagessoli/desistencia/index.html"), /fica retido o maior valor entre 25% do total e as sessões feitas, a R\$ 400 cada/);
-  assert.match(ler("assets/js/jessicagessoli-loja.js"), /fica retido o maior valor entre 25% do total e as sessões feitas, a R\$ 400 cada/);
+  assert.match(ler("_fontes/jessicagessoli/desistencia/index.html"), /fica retido o maior valor entre 25% do total e as sessões feitas, a R\$ 300 cada/);
+  assert.match(ler("assets/js/jessicagessoli-loja.js"), /fica retido o maior valor entre 25% do total e as sessões feitas, a R\$ 300 cada/);
   for (const p of ["_fontes/jessicagessoli/termos/index.html", "_fontes/jessicagessoli/desistencia/index.html", "assets/js/jessicagessoli-loja.js"]) {
     assert.doesNotMatch(ler(p), /o valor pago cobre as sessões já feitas/, p);
   }
   const d = ler("_fontes/jessicagessoli/desistencia/index.html");
   assert.match(d, /id="form-desistencia"/);
-  assert.match(d, /em até 7 dias corridos da compra, sem dar motivo, e recebe o valor integral, menos as sessões ou a aula já feitas/);
+  assert.match(d, /em até 7 dias corridos da compra, sem dar motivo, e recebe o valor integral, mesmo que uma sessão ou a aula já tenha acontecido/);
   assert.match(d, /desconto de 25% do valor total do serviço/);
   assert.match(ler("_fontes/jessicagessoli/loja/obrigado/index.html"), /Em até 7 dias corridos da compra/);
   assert.match(ler("assets/js/jessicagessoli-loja.js"), /em até 7 dias corridos da compra, pela página Desistir de uma compra, com devolução integral/);
@@ -164,4 +165,11 @@ test("pagamento integral no site, parcelado só no cartão", () => {
 test("política de cancelamento aponta para Desistir de uma compra", () => {
   assert.match(ler("_fontes/jessicagessoli/termos/index.html"), /Comprou pela loja\? Use a página <a href="\/jessicagessoli\/desistencia\/">Desistir de uma compra<\/a>/);
   assert.match(ler("_ferramentas/gerar_marcas.py"), /\("\/jessicagessoli\/cancelamento\/", "\/cancelamento\/"\)/);
+});
+
+// 10/11/2026 (Jéssica, revisão por benchmark): um pacote nunca custa mais que as suas partes compradas separadas.
+test("programa de 3 meses custa menos que 8 sessões avulsas", () => {
+  const js = ler("assets/js/jessicagessoli-loja.js");
+  const preco = (id) => Number(new RegExp(`id: "${id}",[^}]*?preco: (\\d+)`).exec(js)[1]);
+  assert.ok(preco("programa") < 8 * preco("sessao"), `${preco("programa")} >= 8 x ${preco("sessao")}`);
 });

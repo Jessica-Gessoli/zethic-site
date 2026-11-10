@@ -12,7 +12,7 @@ const semTags = (h) => h.replace(/<script[\s\S]*?<\/script>/g, "").replace(/<[^>
 test("Jéssica Gessoli: regras de cancelamento na cláusula 8 dos termos", () => {
   const t = semTags(ler("_fontes/jessicagessoli/termos/index.html").split('<h2 id="desistencia">')[1].split('<h2 id="dados">')[0]);
   assert.match(t, /Estas regras valem para quem contratou a distância: pela loja, pelo WhatsApp ou por e-mail/);
-  assert.match(t, /recebe de volta o valor integral \(art\. 49 do Código de Defesa do Consumidor\)/);
+  assert.match(t, /recebe de volta o valor integral, mesmo que uma sessão, a consulta ou a aula já tenha acontecido \(art\. 49 do Código de Defesa do Consumidor\)/);
   assert.match(t, /Depois de 7 dias, antes da primeira sessão ou da aula: o valor pago é devolvido com desconto de 25% do valor total do serviço/);
   assert.match(t, /Fica retido o maior valor entre 25% do valor total do programa e as sessões feitas/);
   assert.match(t, /o contrato prevê 7 dias depois da assinatura para desistir com devolução integral, enquanto o trabalho não começou/);

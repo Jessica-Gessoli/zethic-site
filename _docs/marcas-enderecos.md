@@ -52,4 +52,15 @@ Fonte: arquivos de configuração e testes deste repositório.
 
 **Link de pagamento (Asaas):** cada item vendido online tem um link com o valor exato que a página mostra. Se o valor da página e o do link forem diferentes, o item fica fora da configuração e segue pelo pedido manual até os dois baterem.
 
+**Revisão de 10/11/2026 (benchmark e lógica de negócio, aprovada pela Jéssica):**
+
+- **Hora da Jéssica Gessoli:** R$ 300. O programa de mentoria de 3 meses custa R$ 2.250 (R$ 281,25 por sessão), menos que 8 sessões avulsas (R$ 2.400). Um pacote nunca custa mais que as suas partes compradas separadas.
+- **Desistência em 7 dias (art. 49 do Código de Defesa do Consumidor):** devolução integral nas três marcas, mesmo que uma sessão, consulta ou aula já tenha acontecido. Na Jéssica Gessoli, a primeira sessão é marcada a partir do 8º dia depois da compra, salvo pedido do cliente; o Checkup e a aula têm data própria.
+- **Anúncios com parceiro:** a regra de 20% de cada venda para anúncios incide sobre a margem da Pode Curtir nos itens executados por parceiro (preço menos os 60% do parceiro), não sobre o preço cheio.
+- **Itens da loja:** item sem nenhuma venda em 60 dias no ar sai da loja ou vira pedido de proposta. Primeira revisão em 10/01/2027.
+- **Preço depois dos fundadores:** os preços de Gestão depois do 3º cliente (R$ 2.400, R$ 4.480 e R$ 7.200) só valem com casos publicados.
+- **Zethic, Manutenção mensal do site:** depois dos 3 clientes fundadores, pelo menos R$ 250 por mês (referência de mercado: R$ 250 a R$ 1.500).
+- **Zethic, Proteção por pessoa:** só entra em venda depois de confirmado o custo das licenças de antivírus e backup por pessoa.
+- **Enquadramento do CNPJ:** antes de escalar a venda online, confirmar com o Sebrae ou a contadora se as atividades vendidas (consultoria, marketing, criação de site) cabem no MEI.
+
 **Medição:** Google Analytics e Pixel só carregam depois do aceite de cookies. Cada marca tem a sua propriedade.
