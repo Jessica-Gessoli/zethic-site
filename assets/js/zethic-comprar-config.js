@@ -7,18 +7,29 @@
      Pix ou boleto, com vencimento escrito; atraso com multa de 2% e juros de 1% ao mês. Sem cartão na Zethic.
      Os planos mensais pedem assinatura no Asaas, uma por plano; a proteção por pessoa varia com o número de pessoas,
      então entra na mesma cobrança, pelo valor total que a página calcula.
-     09/11/2026: a Jéssica criou no Asaas (Boleto bancário / Pix, limite de 3 vendas, preço de fundador, valor cheio):
-       suporte_essencial R$ 145/mês https://www.asaas.com/000/c/2an08d2egagr2h6c
-       suporte_padrao R$ 225/mês https://www.asaas.com/000/c/jwndlm6fc17wcry3
-       site_essencial: o link plus_site_pix da Pode Curtir, R$ 3.000 à vista https://www.asaas.com/000/c/bzy6eqhwdy5pq3pn
-     Ficam fora de ASAAS_LINKS porque esta página cobra outra coisa: preço de depois quando o fundador não é marcado,
-     implantação + 1ª mensalidade no suporte e 40% de entrada no site. Ligar só quando os valores da página e do link baterem.
+     10/11/2026: cada cobrança que a página mostra para pagar agora tem a sua chave, com o valor exato
+     (preço de fundador sem sufixo; preço de depois com "_depois"). O pedido só mostra os links quando todas as
+     cobranças dele têm link; senão segue o fluxo manual. Proteção por pessoa e Black Week ficam sempre no manual.
+       suporte_essencial            assinatura mensal R$ 145 (criado em 09/11/2026)
+       suporte_essencial_implantacao  avulsa R$ 145        suporte_essencial_depois / _implantacao_depois  R$ 190
+       suporte_padrao               assinatura mensal R$ 225 (criado em 09/11/2026)
+       suporte_padrao_implantacao   avulsa R$ 225          suporte_padrao_depois / _implantacao_depois     R$ 290
+       site_essencial_entrada       avulsa R$ 1.200 (40% de R$ 3.000)   site_essencial_entrada_depois  R$ 1.560
+     Todos por Boleto bancário / Pix, limite de 3 vendas nos de fundador. O link plus_site_pix da Pode Curtir
+     (R$ 3.000 à vista, https://www.asaas.com/000/c/bzy6eqhwdy5pq3pn) não serve aqui: esta página cobra 40% de entrada.
    FUNDADOR: true enquanto o pacote tiver vaga de fundador (3 primeiros clientes de cada pacote); false = preço depois. */
 window.ZETHIC_COMPRA = {
   ASAAS_LINKS: {
-    suporte_essencial: "",
-    suporte_padrao: "",
-    site_essencial: ""
+    suporte_essencial: "https://www.asaas.com/000/c/2an08d2egagr2h6c",
+    suporte_essencial_implantacao: "",
+    suporte_essencial_depois: "",
+    suporte_essencial_implantacao_depois: "",
+    suporte_padrao: "https://www.asaas.com/000/c/jwndlm6fc17wcry3",
+    suporte_padrao_implantacao: "",
+    suporte_padrao_depois: "",
+    suporte_padrao_implantacao_depois: "",
+    site_essencial_entrada: "",
+    site_essencial_entrada_depois: ""
   },
   FUNDADOR: {
     suporte_essencial: true,
