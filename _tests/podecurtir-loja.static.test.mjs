@@ -23,7 +23,9 @@ test("configuração única, com pagamento e Pixel desligados até serem preench
       // 09/11/2026 (D4): Portfólio da empresa
       "portfolio",
       // 10/11/2026: Tradução do cardápio, Catálogo Pronto e Cuidado do Catálogo
-      "traducao", "catalogo", "catalogo_mensal"].sort());
+      "traducao", "catalogo", "catalogo_mensal",
+      // 10/11/2026: Vídeo de conversa
+      "conversa"].sort());
   for (const v of Object.values(c.ASAAS_LINKS)) assert.ok(v === "" || /^https:\/\/(www\.)?asaas\.com\//.test(v), "link do Asaas inválido: " + v);
   assert.ok([500, 750, 1200].includes(c.PRECO_AJUSTE), "preço do Ajuste fora da escada aprovada");
   assert.ok(c.PIXEL_ID === "" || /^\d{10,20}$/.test(c.PIXEL_ID));
@@ -225,6 +227,8 @@ test("site: pagamento integral, parcelado só no cartão e Gestão Completa com 
     if (["cardapio", "cardapio_mensal"].includes(k) && v === "") continue;
     // 09/11/2026 (D4): Portfólio da empresa, em configuração até a Jéssica criar o link
     if (k === "portfolio" && v === "") continue;
+    // 10/11/2026: Vídeo de conversa, em configuração até a Jéssica criar o link
+    if (k === "conversa" && v === "") continue;
     assert.match(v, /^https:\/\/www\.asaas\.com\/000\/c\/[a-z0-9]{16}$/, k);
   }
 });
@@ -349,6 +353,11 @@ test("seção para especialistas, produtoras e empresas: preços aprovados e reg
   assert.match(proj, /id: "diag_esp", secao: "esp", nome: "Diagnóstico de marca de especialista", preco: 1500,[^}]*Depois, R\$ 2\.400\./);
   assert.match(proj, /id: "video_presenca", secao: "esp", nome: "Presença em vídeo · treino individual", preco: 1500,[^}]*Depois, R\$ 2\.400\./);
   assert.match(proj, /id: "acabamento", secao: "esp", nome: "Acabamento de vídeo · 4 vídeos", preco: 600,[^}]*Depois, R\$ 960/);
+  // 10/11/2026 (descoberta "Edição de vídeo com IA" aprovada): Vídeo de conversa, R$ 450 de fundador e R$ 700 depois,
+  // com IA informada e a autorização de quem aparece, que também está nos termos
+  assert.match(proj, /id: "conversa", secao: "esp", nome: "Vídeo de conversa · 1 Reel", preco: 450,[^}]*Depois, R\$ 700\.[^}]*Edição com apoio de IA, sem mudar o que foi dito\.[^}]*autorização de todos que aparecem ou falam/);
+  assert.match(js, /conversa: "Para uma boa conversa virar vídeo para as redes, sem você editar\."/);
+  assert.match(ler("podecurtir/termos/index.html"), /Pessoas que aparecem ou falam:<\/strong> quando você envia material/);
   assert.match(planos, /id: "esp_marca", secao: "esp", nome: "Gestão de marca de especialista", mensal: 7650, depois: "Preço de fundador para 1 cliente\. Depois, R\$ 12\.240 por mês\."/);
   assert.match(planos, /id: "esp_produtora", secao: "esp", nome: "Coordenação da sua produtora", mensal: 3150,[^}]*R\$ 5\.040 por mês/);
   assert.match(planos, /id: "esp_news", secao: "esp", nome: "Newsletter pronta · 2 edições por mês", mensal: 1200,[^}]*R\$ 1\.920 por mês/);
@@ -363,8 +372,8 @@ test("seção para especialistas, produtoras e empresas: preços aprovados e reg
   assert.match(loja, /<h2 id="t-esp">Para especialistas, produtoras e empresas<\/h2>/);
   assert.match(loja, /<div class="grade" id="grade-esp"><\/div>/);
   const termos = ler("podecurtir/termos/index.html");
-  assert.match(termos, /Versão de 08\/11\/2026/);
-  assert.match(termos, /Para especialistas, produtoras e empresas:<\/strong> Diagnóstico de marca de especialista, Presença em vídeo e Acabamento de vídeo têm pagamento integral/);
+  assert.match(termos, /Versão de 10\/11\/2026/);
+  assert.match(termos, /Para especialistas, produtoras e empresas:<\/strong> Diagnóstico de marca de especialista, Presença em vídeo, Acabamento de vídeo e Vídeo de conversa têm pagamento integral/);
 });
 
 // 08/11/2026 (review do podecurtir-site #3): a compra conta até 7 dias depois da ida ao Asaas, porque o boleto vence em 2 dias úteis.
