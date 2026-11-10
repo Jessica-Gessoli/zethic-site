@@ -39,6 +39,10 @@
       desc: "Revisão, antes da Black Friday, dos pontos por onde o golpe entra: contas e perfis da loja, pagamentos e comprovantes, e a equipe que atende. Você sai sabendo o que corrigir primeiro." },
     { id: "sessao", nome: "Mentoria de posicionamento · sessão avulsa", preco: 300, agora: 1, quando: "Data combinada por e-mail ou WhatsApp depois do pagamento",
       desc: "Uma sessão individual de 1 hora, por videochamada, para destravar uma decisão de carreira ou do seu Negócio." },
+    /* 10/11/2026 (Jéssica: "solucione a escolha do nome e a loja da mentoria"): a mentoria de IA de 1 hora sai da seção
+       "Livro e IA" da Pode Curtir e passa a ser vendida aqui, com nome que diz o resultado. Mesmo link do Asaas da Pode Curtir. */
+    { id: "fluxo_ia", nome: "Monte o seu fluxo com IA · sessão individual de 1 hora", preco: 300, agora: 1, quando: "Data combinada por e-mail ou WhatsApp depois do pagamento",
+      desc: "Uma hora por videochamada para montar, no seu projeto e nas ferramentas de IA que você já usa, um fluxo que você passa a repetir sem ajuda. Exemplos: editar vídeos de conversa, organizar o conteúdo da semana ou responder clientes." },
     { id: "programa", nome: "Mentoria de posicionamento · programa de 3 meses", preco: 2250, agora: 1, parcelas: 3, em: "no", quando: "8 sessões individuais em 3 meses, com datas combinadas por e-mail ou WhatsApp",
       desc: "Para definir com clareza onde você ou o seu Negócio quer chegar e como se posicionar para chegar lá." },
     { id: "aula", nome: "Aula ao vivo · IA segura para o seu Negócio", preco: 97, agora: 1, aula: true, rapido: true, quando: AULA_DATA && !aulaPassou ? AULA_DATA + ", online" : "",
@@ -58,7 +62,7 @@
     { id: "diagnostico", nome: "Diagnóstico de Cibersegurança e IA · acima de 20 pessoas", desc: "Onde o seu Negócio pode perder dinheiro com golpe, vazamento de dados ou IA sem regra, e o que resolver primeiro." },
     { id: "antigolpe", nome: "Programa Antigolpe · acima de 20 pessoas", desc: "Equipe que reconhece golpes, regras que impedem pagamento indevido e cultura em que reportar não gera culpa." },
     { id: "governanca", nome: "Governança de IA, de segurança, privacidade e LGPD", desc: "IA usada com regras e controles, dados pessoais tratados com responsabilidade e respostas aos questionários de segurança dos clientes." },
-    { id: "ia", nome: "Mentoria e consultoria em IA", desc: "Você aprende a fazer com IA, no seu próprio projeto. Exemplo: montar o seu fluxo de edição de vídeo." },
+    { id: "ia", nome: "Mentoria e consultoria em IA", desc: "Para mais de uma sessão ou para a equipe: você aprende a fazer com IA, no seu próprio projeto." },
     { id: "conselheira", nome: "Conselheira de Risco", desc: "Acompanhamento mensal da diretoria nas decisões de risco cibernético e de IA." },
     { id: "projetos", nome: "Projetos para grandes organizações", desc: "Tecnologia operacional, infraestrutura crítica e programas de governança em operações reguladas." },
     { id: "capacitacao", nome: "Capacitação em IA para empresas", desc: "Treinamento da equipe para usar IA com regras claras e sem expor dados da empresa." },
@@ -91,7 +95,7 @@
   function pagamento(p) { return "Integral, " + brl(p.preco) + ": " + formas(p); }
 
   /* Volta para o serviço na página principal. O endereço vem do link do cabeçalho, que muda no site próprio da marca. */
-  var SOBRE = { consultoria: "ia", checkup: "checkup", sessao: "mentoria", programa: "mentoria", aula: "checkup", escopo: "consultoria",
+  var SOBRE = { consultoria: "ia", fluxo_ia: "ia", checkup: "checkup", sessao: "mentoria", programa: "mentoria", aula: "checkup", escopo: "consultoria",
     antigolpe_essencial: "antigolpe", diagnostico_essencial: "diagnostico", palestra_online: "palestras",
     diagnostico: "diagnostico", antigolpe: "antigolpe", governanca: "governanca", ia: "ia", conselheira: "comecar",
     projetos: "consultoria", capacitacao: "capacitacao", treinamento: "treinamento", palestra: "palestras" };

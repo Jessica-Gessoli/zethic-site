@@ -242,7 +242,7 @@ test("plus no fechamento: preços aprovados, só com serviço pago, parceria ide
   assert.match(plus, /id: "plus_gravacao", marca: "pc", nome: "Sessão de fotos de 1 hora", preco: 500,/);
   assert.match(plus, /id: "plus_livro", marca: "pc", nome: "Capa e diagramação do e-book", preco: 1500,/);
   assert.match(plus, /id: "plus_protecao", marca: "ze", nome: "Proteção das contas", preco: 400,/);
-  assert.match(plus, /id: "plus_mentoria", marca: "jg", nome: "Mentoria em IA · 1 hora", preco: 300,/);
+  assert.match(plus, /id: "plus_mentoria", marca: "jg", nome: "Monte o seu fluxo com IA · 1 hora", preco: 300,/);
   assert.match(plus, /id: "plus_site", marca: "ze", nome: "Site Essencial", preco: 3000, parcelas: 3, em: "no", fundador: true,/);
   assert.match(js, /var plus = PLUS\.filter\(function \(p\) \{ return tem\(cart\.plus, p\.id\) && \(principal \|\| p\.avulso\) && !\(p\.id === "plus_protecao" && bonusValido\(\)\); \}\);/);
   assert.match(js, /" \(" \+ COM\[p\.marca\] \+ ", em parceria; o seu contato continua sendo a Pode Curtir\)"/);
@@ -270,7 +270,8 @@ test("tipos de Negócio, segurança das contas avulsa e preço depois das vagas 
   // 07/11/2026 (pedido da Jéssica): e-book e mentoria em IA também se compram sozinhos, na seção "Livro e IA".
   assert.doesNotMatch(plus, /id: "plus_(gravacao|site)"[^}]*avulso: true/);
   assert.match(plus, /id: "plus_livro"[^}]*avulso: true, secao: "conteudo"/);
-  assert.match(plus, /id: "plus_mentoria"[^}]*avulso: true, secao: "conteudo"/);
+  assert.match(plus, /id: "plus_mentoria"[^}]*avulso: true, secao: "ia"/);
+  assert.match(ler("_fontes/podecurtir.html"), /<div class="grade" id="grade-ia"><\/div>/);
   assert.match(ler("_fontes/podecurtir.html"), /<div class="grade" id="grade-conteudo"><\/div>/);
   assert.match(js, /id: "produto_digital", marca: "pc", nome: "Produto digital e curso online"/);
   assert.match(js, /Depois, R\$ 3\.200\./);

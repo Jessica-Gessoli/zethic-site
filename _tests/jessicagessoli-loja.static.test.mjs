@@ -14,7 +14,7 @@ test("configuração única, com pagamento, aula e Pixel desligados até serem p
   const ctx = { window: {} };
   vm.runInNewContext(ler("assets/js/jessicagessoli-config.js"), ctx);
   const c = ctx.window.JESSICAGESSOLI;
-  assert.deepEqual(Object.keys(c.ASAAS_LINKS).sort(), ["antigolpe_essencial_cartao", "antigolpe_essencial_pix", "aula", "checkup", "consultoria", "diagnostico_essencial_cartao", "diagnostico_essencial_pix", "escopo", "palestra_online", "programa_cartao", "programa_pix", "sessao"]);
+  assert.deepEqual(Object.keys(c.ASAAS_LINKS).sort(), ["antigolpe_essencial_cartao", "antigolpe_essencial_pix", "aula", "checkup", "consultoria", "diagnostico_essencial_cartao", "diagnostico_essencial_pix", "escopo", "fluxo_ia", "palestra_online", "programa_cartao", "programa_pix", "sessao"]);
   for (const v of Object.values(c.ASAAS_LINKS)) assert.ok(v === "" || /^https:\/\/(www\.)?asaas\.com\//.test(v), "link do Asaas inválido: " + v);
   assert.equal(typeof c.AULA_DATA, "string");
   assert.ok(c.PIXEL_ID === "" || /^\d{10,20}$/.test(c.PIXEL_ID));
@@ -30,6 +30,8 @@ test("preços aprovados em 03/11/2026 e 06/11/2026, e mais nenhum", () => {
   assert.match(js, /id: "consultoria", nome: "Consulta com retorno · 1 hora \+ 1 hora de retorno", preco: 300, agora: 1/);
   assert.match(js, /retorno, em até 30 dias/);
   assert.match(js, /id: "sessao", nome: "Mentoria de posicionamento · sessão avulsa", preco: 300, agora: 1/);
+  // 10/11/2026: a mentoria de IA de 1 hora é vendida aqui, com o mesmo link do Asaas da Pode Curtir
+  assert.match(js, /id: "fluxo_ia", nome: "Monte o seu fluxo com IA · sessão individual de 1 hora", preco: 300, agora: 1/);
   assert.match(js, /id: "programa", nome: "Mentoria de posicionamento · programa de 3 meses", preco: 2250, agora: 1, parcelas: 3, em: "no"/);
   assert.match(js, /id: "aula", nome: "Aula ao vivo · IA segura para o seu Negócio", preco: 97, agora: 1/);
   // 06/11/2026 (aprovado pela Jéssica): Checkup Black Friday Segura, R$ 297, vendido de 13/11 a 25/11/2026.
@@ -42,7 +44,7 @@ test("preços aprovados em 03/11/2026 e 06/11/2026, e mais nenhum", () => {
   assert.match(js, /id: "antigolpe_essencial", nome: "Programa Antigolpe Essencial · até 20 pessoas", preco: 2500, agora: 1, parcelas: 3, em: "no"/);
   assert.match(js, /id: "diagnostico_essencial", nome: "Diagnóstico de Cibersegurança e IA Essencial · até 20 pessoas", preco: 7500, agora: 1, parcelas: 6, em: "no"/);
   assert.match(js, /id: "palestra_online", nome: "Palestra online · 1 hora", preco: 5000, agora: 1/);
-  assert.equal((js.match(/preco: \d+/g) || []).length, 9, "item com preço fora dos aprovados");
+  assert.equal((js.match(/preco: \d+/g) || []).length, 10, "item com preço fora dos aprovados");
   const propostas = js.split("var PROPOSTAS")[1].split("];")[0];
   assert.doesNotMatch(propostas, /R\$ ?\d|preco/, "proposta com preço publicado");
 });
