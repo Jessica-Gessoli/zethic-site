@@ -18,7 +18,7 @@ test("as fases cobrem de 07/11/2026 a 10/02/2027, sem buraco e sem sobreposiçã
 });
 
 test("a faixa entra em todas as páginas da jornada, sem script embutido novo", () => {
-  for (const p of ["jessicagessoli.html", "jessicagessoli/loja/index.html", "jessicagessoli/checkup/index.html", "jessicagessoli/teste-golpe/index.html", "jessicagessoli/diagnostico/index.html"]) {
+  for (const p of ["_fontes/jessicagessoli.html", "_fontes/jessicagessoli/loja/index.html", "_fontes/jessicagessoli/checkup/index.html", "_fontes/jessicagessoli/teste-golpe/index.html", "_fontes/jessicagessoli/diagnostico/index.html"]) {
     const h = ler(p);
     assert.match(h, /jessicagessoli-campanha\.js/, p);
     assert.match(h, /jessicagessoli-campanha\.css/, p);

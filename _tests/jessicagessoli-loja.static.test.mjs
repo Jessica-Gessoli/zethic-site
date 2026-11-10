@@ -4,8 +4,8 @@ import { readFileSync } from "node:fs";
 import vm from "node:vm";
 
 const ler = (p) => readFileSync(new URL("../" + p, import.meta.url), "utf8");
-const PAGINAS = ["jessicagessoli/loja/index.html", "jessicagessoli/loja/obrigado/index.html", "jessicagessoli/termos/index.html",
-  "jessicagessoli/privacidade/index.html", "jessicagessoli/desistencia/index.html"];
+const PAGINAS = ["_fontes/jessicagessoli/loja/index.html", "_fontes/jessicagessoli/loja/obrigado/index.html", "_fontes/jessicagessoli/termos/index.html",
+  "_fontes/jessicagessoli/privacidade/index.html", "_fontes/jessicagessoli/desistencia/index.html"];
 const JS = ["assets/js/jessicagessoli-config.js", "assets/js/jessicagessoli-comum.js", "assets/js/jessicagessoli-loja.js"];
 
 // 03/11/2026 (aprovado pela Jéssica): a Jéssica Gessoli vende pelo site a consultoria por hora, a mentoria de
@@ -96,7 +96,7 @@ test("regras da marca nas páginas de compra", () => {
 });
 
 test("desistência: devolução integral em 7 dias (CDC art. 49), menos o que já foi feito; depois, retenção de 25% antes do início", () => {
-  const t = ler("jessicagessoli/termos/index.html");
+  const t = ler("_fontes/jessicagessoli/termos/index.html");
   assert.match(t, /Em até 7 dias corridos da compra pela loja:<\/strong> você pode desistir/);
   assert.match(t, /recebe de volta o valor integral \(art\. 49 do Código de Defesa do Consumidor\)/);
   assert.match(t, /Sessão ou aula feita dentro dos 7 dias:<\/strong> o que já aconteceu é descontado\. No programa de mentoria, R\$ 400 por sessão feita/);
@@ -106,18 +106,18 @@ test("desistência: devolução integral em 7 dias (CDC art. 49), menos o que j�
   assert.match(t, /Se você marcar uma sessão para dentro dos 7 dias da compra, ela acontece a seu pedido/);
   assert.match(t, /Serviços contratados por proposta:<\/strong> seguem o contrato/);
   assert.match(t, /aviso de 30 dias, e o mês já pago não é devolvido/);
-  assert.match(ler("jessicagessoli/desistencia/index.html"), /fica retido o maior valor entre 25% do total e as sessões feitas, a R\$ 400 cada/);
+  assert.match(ler("_fontes/jessicagessoli/desistencia/index.html"), /fica retido o maior valor entre 25% do total e as sessões feitas, a R\$ 400 cada/);
   assert.match(ler("assets/js/jessicagessoli-loja.js"), /fica retido o maior valor entre 25% do total e as sessões feitas, a R\$ 400 cada/);
-  for (const p of ["jessicagessoli/termos/index.html", "jessicagessoli/desistencia/index.html", "assets/js/jessicagessoli-loja.js"]) {
+  for (const p of ["_fontes/jessicagessoli/termos/index.html", "_fontes/jessicagessoli/desistencia/index.html", "assets/js/jessicagessoli-loja.js"]) {
     assert.doesNotMatch(ler(p), /o valor pago cobre as sessões já feitas/, p);
   }
-  const d = ler("jessicagessoli/desistencia/index.html");
+  const d = ler("_fontes/jessicagessoli/desistencia/index.html");
   assert.match(d, /id="form-desistencia"/);
   assert.match(d, /em até 7 dias corridos da compra, sem dar motivo, e recebe o valor integral, menos as sessões ou a aula já feitas/);
   assert.match(d, /desconto de 25% do valor total do serviço/);
-  assert.match(ler("jessicagessoli/loja/obrigado/index.html"), /Em até 7 dias corridos da compra/);
+  assert.match(ler("_fontes/jessicagessoli/loja/obrigado/index.html"), /Em até 7 dias corridos da compra/);
   assert.match(ler("assets/js/jessicagessoli-loja.js"), /em até 7 dias corridos da compra, pela página Desistir de uma compra, com devolução integral/);
-  for (const p of ["jessicagessoli/termos/index.html", "jessicagessoli/desistencia/index.html", "jessicagessoli/loja/obrigado/index.html", "assets/js/jessicagessoli-loja.js"]) {
+  for (const p of ["_fontes/jessicagessoli/termos/index.html", "_fontes/jessicagessoli/desistencia/index.html", "_fontes/jessicagessoli/loja/obrigado/index.html", "assets/js/jessicagessoli-loja.js"]) {
     assert.doesNotMatch(ler(p), /Antes da primeira sessão ou da aula:<\/strong> você pode desistir|Você pode desistir antes da primeira sessão ou da aula|desistência: antes da primeira sessão ou da aula|<strong>Desistência:<\/strong> antes da primeira/, p);
   }
 });
@@ -137,7 +137,7 @@ test("Pixel só depois do aceite e aviso de cookies só com Pixel configurado", 
 });
 
 test("página da Jéssica Gessoli leva à loja, sem preço", () => {
-  const h = ler("jessicagessoli.html");
+  const h = ler("_fontes/jessicagessoli.html");
   assert.match(h, /<a href="\/jessicagessoli\/loja\/">Loja<\/a>/);
   assert.match(h, /href="\/jessicagessoli\/loja\/">loja online<\/a>/);
   assert.doesNotMatch(h, /R\$ ?\d/);
@@ -150,18 +150,18 @@ test("pagamento integral no site, parcelado só no cartão", () => {
   assert.doesNotMatch(js, /agora: 0\.|saldo|Entrada de 50%|5ª sessão/);
   assert.match(js, /function linkDe\(p\) \{ return LINKS\[p\.parcelas \? p\.id \+ "_" \+ forma\(\) : p\.id\]; \}/);
   assert.match(js, /&& !forma\(\)\) falta\.push\("forma de pagamento"\)/);
-  const loja = ler("jessicagessoli/loja/index.html");
+  const loja = ler("_fontes/jessicagessoli/loja/index.html");
   assert.match(loja, /<input type="radio" id="forma-pix" name="forma" value="pix">/);
   assert.match(loja, /<input type="radio" id="forma-cartao" name="forma" value="cartao">/);
-  const t = ler("jessicagessoli/termos/index.html");
+  const t = ler("_fontes/jessicagessoli/termos/index.html");
   assert.doesNotMatch(t, /50% na compra|5ª sessão/);
   assert.match(t, /programa de mentoria de 3 meses pode ser parcelado em até 3x, sem juros/);
-  for (const p of ["jessicagessoli/loja/index.html", "jessicagessoli/termos/index.html"]) assert.match(ler(p), /por Pix, boleto ou cartão/, p);
+  for (const p of ["_fontes/jessicagessoli/loja/index.html", "_fontes/jessicagessoli/termos/index.html"]) assert.match(ler(p), /por Pix, boleto ou cartão/, p);
 });
 
 // 05/11/2026: com a loja no ar, a política de cancelamento (PR #87) aponta para a página de desistência
 // e entra no site jessicagessoli.zethic.net.
 test("política de cancelamento aponta para Desistir de uma compra", () => {
-  assert.match(ler("jessicagessoli/termos/index.html"), /Comprou pela loja\? Use a página <a href="\/jessicagessoli\/desistencia\/">Desistir de uma compra<\/a>/);
+  assert.match(ler("_fontes/jessicagessoli/termos/index.html"), /Comprou pela loja\? Use a página <a href="\/jessicagessoli\/desistencia\/">Desistir de uma compra<\/a>/);
   assert.match(ler("_ferramentas/gerar_marcas.py"), /\("\/jessicagessoli\/cancelamento\/", "\/cancelamento\/"\)/);
 });

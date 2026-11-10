@@ -35,7 +35,7 @@ test("quem somos cita só a fundadora, sem o Pode Curtir e sem os serviços pess
 });
 
 test("perguntas frequentes migraram para o Diagnóstico, com dados estruturados", () => {
-  const d = ler("jessicagessoli/diagnostico/index.html");
+  const d = ler("_fontes/jessicagessoli/diagnostico/index.html");
   assert.match(d, /<section id="perguntas">/);
   assert.match(d, /"@type": "FAQPage"/);
   assert.doesNotMatch(ler("index.html"), /FAQPage|id="perguntas"/);
@@ -44,7 +44,7 @@ test("perguntas frequentes migraram para o Diagnóstico, com dados estruturados"
 // 07/11/2026 (aprovado pela Jéssica, "solucione tudo"): medição com consentimento em todas as páginas da Zethic,
 // para saber qual página e qual campanha vendem. Antes, só nas páginas com ferramenta.
 test("medição (Google Analytics) com consentimento em todas as páginas da Zethic e nas campanhas", () => {
-  const com = ["jessicagessoli/diagnostico/index.html", "jessicagessoli/teste-golpe/index.html", "seguranca.html", "privacidade.html", "index.html", "quem-somos.html",
+  const com = ["_fontes/jessicagessoli/diagnostico/index.html", "_fontes/jessicagessoli/teste-golpe/index.html", "seguranca.html", "privacidade.html", "index.html", "quem-somos.html",
     "tecnologia.html", "atendimento.html", "financeiro.html", "comprar.html", "loja.html", "loja-obrigado.html", "para-o-seu-negocio.html",
     "ti-do-consultorio.html", "ti-da-contabilidade.html", "ti-da-advocacia.html", "ti-da-engenharia.html", "ti-do-rh.html", "ti-da-agencia.html", "ti-do-seu-negocio.html"];
   for (const p of com) {
@@ -63,7 +63,7 @@ test("contato da home volta a uma coluna no celular", () => {
 
 // 28/10/2026 (fronteiras entre as marcas): golpes, diagnóstico, governança e consultoria são da Jéssica Gessoli.
 test("Diagnóstico e Teste de golpe são páginas da Jéssica Gessoli", () => {
-  for (const p of ["jessicagessoli/diagnostico/index.html", "jessicagessoli/teste-golpe/index.html"]) {
+  for (const p of ["_fontes/jessicagessoli/diagnostico/index.html", "_fontes/jessicagessoli/teste-golpe/index.html"]) {
     const h = ler(p);
     assert.match(h, /<title>[^<]*\| Jéssica Gessoli<\/title>/, p);
     assert.match(h, /<meta property="og:site_name" content="Jéssica Gessoli">/, p);
@@ -94,16 +94,16 @@ test("páginas da Zethic não falam de golpes, governança, consultoria nem míd
 // 28/10/2026 (decisão da Jéssica): experiência como tempo de área ("Há 18 anos"), não ano de início,
 // e o mercado é o Brasil inteiro (decisão de 25/10/2026), sem Campinas como local de atendimento.
 test("páginas da Jéssica: tempo de área e Brasil como mercado", () => {
-  for (const p of ["jessicagessoli.html", "en/jessicagessoli.html"]) {
+  for (const p of ["_fontes/jessicagessoli.html", "_fontes/en/jessicagessoli.html"]) {
     assert.doesNotMatch(ler(p), /Desde 2008|Since 2008/, p);
     assert.doesNotMatch(ler(p), /<figcaption>Campinas/, p);
   }
-  assert.match(ler("jessicagessoli.html"), /Há 18 anos em bancos/);
-  for (const p of ["jessicagessoli.html", "jessicagessoli/diagnostico/index.html", "jessicagessoli/teste-golpe/index.html", "jessicagessoli/copia-e-cola/index.html", "jessicagessoli/teste-ia/index.html", "jessicagessoli/conte-seu-golpe/index.html"]) {
+  assert.match(ler("_fontes/jessicagessoli.html"), /Há 18 anos em bancos/);
+  for (const p of ["_fontes/jessicagessoli.html", "_fontes/jessicagessoli/diagnostico/index.html", "_fontes/jessicagessoli/teste-golpe/index.html", "_fontes/jessicagessoli/copia-e-cola/index.html", "_fontes/jessicagessoli/teste-ia/index.html", "_fontes/jessicagessoli/conte-seu-golpe/index.html"]) {
     const rodape = ler(p).match(/<footer[^>]*>[\s\S]*?<\/footer>/)[0];
     assert.doesNotMatch(rodape, /Campinas/, p);
   }
-  assert.doesNotMatch(ler("jessicagessoli/diagnostico/index.html"), /Atende fora de Campinas/);
+  assert.doesNotMatch(ler("_fontes/jessicagessoli/diagnostico/index.html"), /Atende fora de Campinas/);
 });
 
 // 28/10/2026 (decisão da Jéssica): currículos e kit de palestrante sem o título de fundadora e sem a Zethic como cargo.

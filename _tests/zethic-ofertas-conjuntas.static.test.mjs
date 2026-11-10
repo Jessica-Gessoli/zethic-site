@@ -41,7 +41,7 @@ test("manutenção mensal do site na loja de proposta e na página por necessida
 });
 
 test("sites da Jéssica Gessoli e da Pode Curtir levam à Zethic, com a fundadora declarada do lado da Jéssica", () => {
-  for (const p of ["jessicagessoli/checkup/index.html", "jessicagessoli/loja/obrigado/index.html"]) {
+  for (const p of ["_fontes/jessicagessoli/checkup/index.html", "_fontes/jessicagessoli/loja/obrigado/index.html"]) {
     const h = ler(p);
     assert.match(h, /https:\/\/zethic\.net\/para-o-seu-negocio\?utm_source=jessicagessoli/, p);
     assert.match(h, /Jéssica Gessoli é fundadora da Zethic, e você pode contratar a execução com quem preferir\./, p);

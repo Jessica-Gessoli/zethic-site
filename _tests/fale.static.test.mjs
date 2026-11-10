@@ -103,7 +103,7 @@ test("resultado das iscas: mensagem montada só com números validados", () => {
 });
 
 test("nomes das moedas no /fale seguem a ordem da autoavaliação", () => {
-  const diagHtml = readFileSync(new URL("../jessicagessoli/diagnostico/index.html", import.meta.url), "utf8");
+  const diagHtml = readFileSync(new URL("../_fontes/jessicagessoli/diagnostico/index.html", import.meta.url), "utf8");
   const daAutoavaliacao = [...diagHtml.matchAll(/\{ nome: "([^"]+)"/g)].map((m) => m[1]);
   const doFale = JSON.parse(script.match(/var MOEDAS = (\[[^\]]+\]);/)[1]);
   assert.deepEqual(doFale, daAutoavaliacao);

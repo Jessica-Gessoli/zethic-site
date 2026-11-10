@@ -26,7 +26,7 @@ var MARCAS = ["Pode Curtir", "Jéssica Gessoli", "Zethic"];
 var LOJAS = {
   PC: { nome: "Pode Curtir", email: "podecurtir@zethic.net", whats: "(19) 98331-0769", loja: "https://podecurtir.zethic.net/#loja",
         desistir: "você paga por Pix, boleto ou cartão, e tem 7 dias para desistir com devolução integral" },
-  JG: { nome: "Jéssica Gessoli", email: "jessica.gessoli@zethic.net", whats: "(19) 98180-0221", loja: "https://zethic.net/jessicagessoli/loja/",
+  JG: { nome: "Jéssica Gessoli", email: "jessica.gessoli@zethic.net", whats: "(19) 98180-0221", loja: "https://jessicagessoli.zethic.net/loja/",
         desistir: "você paga por Pix, boleto ou cartão, e pode desistir em até 7 dias corridos, nas condições dos Termos" },
   ZT: { nome: "Zethic", email: "contato@zethic.net", whats: "(19) 98180-0221", loja: "https://zethic.net/loja", desistir: "" }
 };

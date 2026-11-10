@@ -10,7 +10,7 @@ const ler = (p) => readFileSync(new URL("../" + p, import.meta.url), "utf8");
 const existe = (p) => existsSync(new URL("../" + p, import.meta.url));
 // 28/10/2026: Diagnóstico e Teste de golpe passaram para a Jéssica Gessoli e saíram desta lista.
 const ZETHIC = ["index.html", "quem-somos.html", "seguranca.html", "tecnologia.html", "atendimento.html", "financeiro.html", "privacidade.html", "loja.html", "loja-obrigado.html", "comprar.html", "para-o-seu-negocio.html"];
-const MARCAS = { "jessicagessoli.html": "g-j", "podecurtir.html": "g-p" };
+const MARCAS = { "_fontes/jessicagessoli.html": "g-j", "podecurtir.html": "g-p" };
 const bloco = (html, nome) => html.match(new RegExp(`<!-- ${nome}:inicio -->([\\s\\S]*?)<!-- ${nome}:fim -->`))?.[1] ?? "";
 
 // 28/10/2026 (decisão da Jéssica): Zethic, Jéssica Gessoli e Pode Curtir não se citam; a barra das marcas saiu.
@@ -137,13 +137,13 @@ test("atendimento: sem raio fixo nem \"remoto a partir de Campinas\" (decisão d
   for (const p of [...ZETHIC, "podecurtir.html", "llms.txt"]) {
     assert.doesNotMatch(ler(p), /remoto, a partir de Campinas|Atendimento remoto|Remoto, também fora|Hortolândia, Jundiaí e região/, p);
   }
-  for (const p of [...ZETHIC, "podecurtir.html", "llms.txt", "jessicagessoli.html"]) {
+  for (const p of [...ZETHIC, "podecurtir.html", "llms.txt", "_fontes/jessicagessoli.html"]) {
     assert.doesNotMatch(ler(p), /100 km|geoRadius/, p);
   }
 });
 
 test("autoavaliação: a frase de privacidade segue a política", () => {
-  const d = ler("jessicagessoli/diagnostico/index.html");
+  const d = ler("_fontes/jessicagessoli/diagnostico/index.html");
   assert.doesNotMatch(d, /nada é enviado/);
   assert.match(d, /não são enviadas nem guardadas/);
   assert.match(ler("privacidade.html"), /não são enviadas nem guardadas\. Se você aceitou a medição, só a nota final e a moeda mais exposta são registradas/);
