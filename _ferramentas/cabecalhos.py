@@ -31,7 +31,7 @@ ZETHIC = [
     ("privacidade.html", "privacidade", None),
     # Loja de pedido de proposta (decisão da Jéssica em 03/11/2026: sem preço no site).
     ("loja.html", "loja", "loja"),
-    ("loja-obrigado.html", "loja", None),
+    ("loja/obrigado/index.html", "loja", None),
     # Compra online dos pacotes de entrada (decisão da Jéssica em 06/11/2026): preço só nesses pacotes. Protótipo.
     ("comprar.html", "comprar", "loja"),
     # Por necessidade e por tamanho da equipe (decisão da Jéssica em 07/11/2026; substitui as páginas por nicho).

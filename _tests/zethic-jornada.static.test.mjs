@@ -17,7 +17,7 @@ const bloco = (h, nome) => (h.match(new RegExp(`<!-- ${nome}:inicio -->([\\s\\S]
 const vejaTambem = (p) => [...bloco(ler(p + ".html"), "jornada").split('class="proximo-lista"')[1].matchAll(/href="\/([a-z-]+)"/g)].map((m) => m[1]);
 
 test("toda página interna tem trilha de volta, e a trilha leva a páginas que existem", () => {
-  for (const p of [...CONTEUDO, "comprar", "loja", "loja-obrigado", "privacidade"]) {
+  for (const p of [...CONTEUDO, "comprar", "loja", "loja/obrigado/index", "privacidade"]) {
     const t = bloco(ler(p + ".html"), "trilha");
     assert.match(t, /<nav class="trilha" aria-label="Você está em">/, p);
     assert.match(t, /<li><a href="\/">Início<\/a><\/li>/, p);
@@ -42,7 +42,7 @@ test("Para o seu Negócio liga os quatro pilares e cada pilar volta para ela", (
 });
 
 test("site por necessidade: nenhum nicho no menu nem na navegação, e a página cobre qualquer área", () => {
-  for (const p of [...CONTEUDO, "index", "comprar", "loja", "loja-obrigado", "privacidade"]) {
+  for (const p of [...CONTEUDO, "index", "comprar", "loja", "loja/obrigado/index", "privacidade"]) {
     const h = ler(p + ".html");
     assert.doesNotMatch(h, /href="\/(consultorio|contabilidade|advocacia|ti-d[oa]-[a-z-]+)"/, p);
     assert.doesNotMatch(h, /painel-para-quem/, p);

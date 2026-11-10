@@ -4,8 +4,8 @@ import { readFileSync, existsSync } from "node:fs";
 import vm from "node:vm";
 
 const ler = (p) => readFileSync(new URL("../" + p, import.meta.url), "utf8");
-const PAGINAS = ["podecurtir.html", "podecurtir/loja/obrigado/index.html", "podecurtir/termos/index.html",
-  "podecurtir/privacidade/index.html", "podecurtir/desistencia/index.html", "podecurtir/parceiros/index.html"];
+const PAGINAS = ["_fontes/podecurtir.html", "_fontes/podecurtir/loja/obrigado/index.html", "_fontes/podecurtir/termos/index.html",
+  "_fontes/podecurtir/privacidade/index.html", "_fontes/podecurtir/desistencia/index.html", "_fontes/podecurtir/parceiros/index.html"];
 const JS = ["assets/js/podecurtir-config.js", "assets/js/podecurtir-comum.js", "assets/js/podecurtir-loja.js"];
 
 // 03/11/2026 (aprovado pela Jéssica): a Pode Curtir vende pelo site. Preço publicado só na Pode Curtir.
@@ -71,18 +71,18 @@ test("regras das marcas nas páginas de compra", () => {
 });
 
 test("desistência: devolução integral em 7 dias (CDC art. 49); depois, retenção de 25% antes do início", () => {
-  const t = ler("podecurtir/termos/index.html");
+  const t = ler("_fontes/podecurtir/termos/index.html");
   assert.match(t, /Em até 7 dias corridos da compra pela loja:<\/strong> você pode desistir/);
   assert.match(t, /recebe de volta o valor integral, como prevê o art\. 49 do Código de Defesa do Consumidor/);
   assert.match(t, /Depois de 7 dias, antes de o trabalho começar:<\/strong> o valor pago é devolvido com desconto de 25% do valor total do serviço/);
   assert.match(t, /Depois de 7 dias, com o trabalho em andamento:<\/strong> o valor pago cobre o trabalho já feito/);
-  const d = ler("podecurtir/desistencia/index.html");
+  const d = ler("_fontes/podecurtir/desistencia/index.html");
   assert.match(d, /id="form-desistencia"/);
   assert.match(d, /em até 7 dias corridos da compra, sem dar motivo, e recebe o valor integral/);
   assert.match(d, /desconto de 25% do valor total do serviço/);
-  assert.match(ler("podecurtir/loja/obrigado/index.html"), /Em até 7 dias corridos da compra/);
+  assert.match(ler("_fontes/podecurtir/loja/obrigado/index.html"), /Em até 7 dias corridos da compra/);
   assert.match(ler("assets/js/podecurtir-loja.js"), /em até 7 dias corridos da compra, pela página Desistir de uma compra, com devolução integral/);
-  for (const p of ["podecurtir/termos/index.html", "podecurtir/desistencia/index.html", "podecurtir/loja/obrigado/index.html", "assets/js/podecurtir-loja.js"]) {
+  for (const p of ["_fontes/podecurtir/termos/index.html", "_fontes/podecurtir/desistencia/index.html", "_fontes/podecurtir/loja/obrigado/index.html", "assets/js/podecurtir-loja.js"]) {
     assert.doesNotMatch(ler(p), /Antes de o trabalho começar, você pode desistir|desistir antes de o trabalho começar, sem dar motivo/, p);
   }
 });
@@ -105,7 +105,7 @@ test("medição só depois do aceite e aviso de cookies só com GA4 ou Pixel con
   vm.runInNewContext(ler("assets/js/podecurtir-config.js"), ctx);
   const ga = ctx.window.PODECURTIR.GA4_ID;
   assert.ok(ga === "" || /^G-[A-Z0-9]{4,20}$/.test(ga), "GA4_ID inválido");
-  const priv = ler("podecurtir/privacidade/index.html");
+  const priv = ler("_fontes/podecurtir/privacidade/index.html");
   assert.match(priv, /Google Analytics, só se você aceitar/);
 });
 
@@ -116,7 +116,7 @@ test("medição só depois do aceite e aviso de cookies só com GA4 ou Pixel con
 // de preço que repetiam a loja (substitui a regra de 04/11 "preço da página inicial igual ao da loja": agora o preço
 // existe num lugar só). /podecurtir/loja/ leva para /podecurtir#loja, com o mesmo trecho.
 test("página única: loja na página inicial, comprar antes do WhatsApp e endereço antigo levando para lá", () => {
-  const h = ler("podecurtir.html");
+  const h = ler("_fontes/podecurtir.html");
   const hero = h.split('<div class="hero">')[1].split("</div>\n  </div>")[0];
   // 10/11/2026 (Jéssica): a chamada principal leva à escolha pelo tipo de Negócio, no topo da loja.
   assert.match(hero, /<a class="btn cheio" href="#loja"[^>]*>Escolher pelo meu Negócio<\/a>\s*<a class="btn contorno" href="\/fale\?utm_source=podecurtir"/);
@@ -133,7 +133,7 @@ test("página única: loja na página inicial, comprar antes do WhatsApp e ender
   assert.match(h, /R\. Teófilo Braga, 489, Sala 05/);
   assert.match(h, /CNPJ 67\.678\.226\/0001-17/);
   assert.match(h, /href="\/podecurtir\/parceiros\/">Seja parceiro/);
-  const r = ler("podecurtir/loja/index.html");
+  const r = ler("_fontes/podecurtir/loja/index.html");
   assert.match(r, /<meta name="robots" content="noindex, follow">/);
   // 10/11/2026 (Jéssica): o endereço oficial no Google é podecurtir.zethic.net.
   assert.match(r, /<link rel="canonical" href="https:\/\/podecurtir\.zethic\.net\/">/);
@@ -152,8 +152,8 @@ test("página única: loja na página inicial, comprar antes do WhatsApp e ender
 test("Pode Curtir sempre clara, sem modo escuro", () => {
   assert.doesNotMatch(ler("assets/css/podecurtir-loja.css"), /prefers-color-scheme/);
   assert.doesNotMatch(ler("assets/css/podecurtir.css"), /prefers-color-scheme/);
-  for (const f of ["podecurtir.html", "podecurtir/termos/index.html", "podecurtir/privacidade/index.html",
-    "podecurtir/desistencia/index.html", "podecurtir/parceiros/index.html", "podecurtir/loja/obrigado/index.html"]) {
+  for (const f of ["_fontes/podecurtir.html", "_fontes/podecurtir/termos/index.html", "_fontes/podecurtir/privacidade/index.html",
+    "_fontes/podecurtir/desistencia/index.html", "_fontes/podecurtir/parceiros/index.html", "_fontes/podecurtir/loja/obrigado/index.html"]) {
     assert.match(ler(f), /<meta name="color-scheme" content="light">/, f);
   }
 });
@@ -161,7 +161,7 @@ test("Pode Curtir sempre clara, sem modo escuro", () => {
 // 07/11/2026 (pedido da Jéssica: as páginas se ligam de frente para trás e de trás para frente): o mesmo mapa no
 // rodapé de todas as páginas e um bloco "Continue por aqui" no fim de cada página de apoio, sempre com a volta à loja.
 test("páginas ligadas nos dois sentidos", () => {
-  const todas = ["podecurtir.html", ...PAGINAS.slice(1)];
+  const todas = ["_fontes/podecurtir.html", ...PAGINAS.slice(1)];
   const mapa = ['href="/podecurtir#loja"', 'href="/podecurtir#como"', 'href="/podecurtir#duvidas"', 'href="/podecurtir/termos/"',
     'href="/podecurtir/privacidade/" data-link-privacidade', 'href="/podecurtir/desistencia/"', 'href="/podecurtir/parceiros/"'];
   for (const p of todas) {
@@ -177,14 +177,14 @@ test("páginas ligadas nos dois sentidos", () => {
     assert.ok(seguir, p + ": sem Continue por aqui");
     assert.match(seguir.split("</nav>")[0], /href="\/podecurtir#(loja|como)"/, p);
   }
-  const h = ler("podecurtir.html");
+  const h = ler("_fontes/podecurtir.html");
   for (const destino of ["/podecurtir/termos/", "/podecurtir/privacidade/", "/podecurtir/desistencia/", "/podecurtir/parceiros/"])
     assert.ok(h.split('<footer class="ident">')[0].includes('href="' + destino + '"'), "página inicial sem link no conteúdo para " + destino);
 });
 
 // 04/11/2026: página de parceiros sem promessa de renda, sem cara de emprego e com a regra de publicidade do CONAR.
 test("seja parceiro: sem promessa de renda, sem vínculo e com marcação de publicidade", () => {
-  const h = ler("podecurtir/parceiros/index.html");
+  const h = ler("_fontes/podecurtir/parceiros/index.html");
   assert.match(h, /Sem vínculo de emprego, sem horário e sem exclusividade/);
   assert.match(h, /Não há promessa de volume de pedidos nem de renda/);
   assert.match(h, /#publi/);
@@ -211,11 +211,11 @@ test("site: pagamento integral, parcelado só no cartão e Gestão Completa com 
   assert.doesNotMatch(js, /p\.agora|t\.saldo|Entrada de 50%|saldo antes da entrega/);
   const propostas = js.split("var PROPOSTAS")[1].split("];")[0];
   assert.doesNotMatch(propostas, /Gestão Completa/);
-  const loja = ler("podecurtir.html");
+  const loja = ler("_fontes/podecurtir.html");
   assert.match(loja, /<input type="radio" id="forma-pix" name="forma" value="pix">/);
   assert.match(loja, /<input type="radio" id="forma-cartao" name="forma" value="cartao">/);
   assert.match(loja, /por Pix, boleto ou cartão/);
-  const t = ler("podecurtir/termos/index.html");
+  const t = ler("_fontes/podecurtir/termos/index.html");
   assert.doesNotMatch(t, /entrada de 50%|gestão Completa\)/i);
   assert.match(t, /Perfil Arrumado pode ser parcelado em até 3x e a Marca Completa em até 6x, sem juros/);
   const ctx = { window: {} };
@@ -249,10 +249,10 @@ test("plus no fechamento: preços aprovados, só com serviço pago, parceria ide
   assert.match(js, /var COM = \{ jg: "com Jéssica Gessoli", ze: "com a Zethic" \};/);
   assert.match(js, /\$\("plus-lista"\)\.addEventListener\("change"/);
   assert.match(js, /if \(resumo !== resumoAceito\) \{ \$\("aceite"\)\.checked = false;/);
-  const loja = ler("podecurtir.html");
+  const loja = ler("_fontes/podecurtir.html");
   assert.match(loja, /<fieldset id="plus-campo" hidden>/);
   assert.match(loja, /<div class="plus-lista" id="plus-lista"><\/div>/);
-  const t = ler("podecurtir/termos/index.html");
+  const t = ler("_fontes/podecurtir/termos/index.html");
   assert.match(t, /<strong>Plus no fechamento do pedido:<\/strong>/);
   assert.match(t, /O Site Essencial pode ser parcelado em até 3x no cartão de crédito, sem juros/);
 });
@@ -271,21 +271,21 @@ test("tipos de Negócio, segurança das contas avulsa e preço depois das vagas 
   assert.doesNotMatch(plus, /id: "plus_(gravacao|site)"[^}]*avulso: true/);
   assert.match(plus, /id: "plus_livro"[^}]*avulso: true, secao: "conteudo"/);
   assert.match(plus, /id: "plus_mentoria"[^}]*avulso: true, secao: "conteudo"/);
-  assert.match(ler("podecurtir.html"), /<div class="grade" id="grade-conteudo"><\/div>/);
+  assert.match(ler("_fontes/podecurtir.html"), /<div class="grade" id="grade-conteudo"><\/div>/);
   assert.match(js, /id: "produto_digital", marca: "pc", nome: "Produto digital e curso online"/);
   assert.match(js, /Depois, R\$ 3\.200\./);
   assert.match(js, /Depois, R\$ 12\.000\./);
   assert.match(js, /A partir do 4º cliente, R\$ 2\.400 por mês\./);
   assert.match(js, /A partir do 4º cliente, R\$ 4\.480 por mês\./);
   assert.match(js, /A partir do 4º cliente, R\$ 7\.200 por mês\./);
-  const loja = ler("podecurtir.html");
+  const loja = ler("_fontes/podecurtir.html");
   assert.match(loja, /<div class="tipos-opcoes" id="tipos-opcoes"><\/div>/);
   assert.match(loja, /<div class="grade" id="grade-contas"><\/div>/);
   assert.match(loja, /Feitas pela Zethic, em parceria\. Você leva só se quiser, junto com o seu pedido ou sozinhas\. O seu contato continua sendo a Pode Curtir\./);
   const ctx = { window: {} };
   vm.runInNewContext(ler("assets/js/podecurtir-config.js"), ctx);
   assert.ok("plus_recuperacao" in ctx.window.PODECURTIR.ASAAS_LINKS);
-  const t = ler("podecurtir/termos/index.html");
+  const t = ler("_fontes/podecurtir/termos/index.html");
   assert.match(t, /também podem ser compradas sozinhas, na faixa Leve junto, da Zethic; nenhuma compra depende delas/);
 });
 
@@ -358,7 +358,7 @@ test("seção para especialistas, produtoras e empresas: preços aprovados e reg
   // com IA informada e a autorização de quem aparece, que também está nos termos
   assert.match(proj, /id: "conversa", secao: "esp", nome: "Vídeo de conversa · 1 Reel", preco: 450,[^}]*Depois, R\$ 700\.[^}]*Edição com apoio de IA, sem mudar o que foi dito\.[^}]*autorização de todos que aparecem ou falam/);
   assert.match(js, /conversa: "Para uma boa conversa virar vídeo para as redes, sem você editar\."/);
-  assert.match(ler("podecurtir/termos/index.html"), /Pessoas que aparecem ou falam:<\/strong> quando você envia material/);
+  assert.match(ler("_fontes/podecurtir/termos/index.html"), /Pessoas que aparecem ou falam:<\/strong> quando você envia material/);
   assert.match(planos, /id: "esp_marca", secao: "esp", nome: "Gestão de marca de especialista", mensal: 7650, depois: "Preço de fundador para 1 cliente\. Depois, R\$ 12\.240 por mês\."/);
   assert.match(planos, /id: "esp_produtora", secao: "esp", nome: "Coordenação da sua produtora", mensal: 3150,[^}]*R\$ 5\.040 por mês/);
   assert.match(planos, /id: "esp_news", secao: "esp", nome: "Newsletter pronta · 2 edições por mês", mensal: 1200,[^}]*R\$ 1\.920 por mês/);
@@ -369,10 +369,10 @@ test("seção para especialistas, produtoras e empresas: preços aprovados e reg
   // a seção não usa número de vídeos por hora de gravação nem cita área técnica do piloto
   assert.doesNotMatch(js, /vídeos em 4 horas|Cibersegurança/);
   assert.match(js, /\$\("grade-esp"\)\.innerHTML = daSecao\(PROJ, "esp"\)\.map\(cardProj\)\.join\(""\) \+ daSecao\(PLANOS, "esp"\)\.map\(cardPlano\)\.join\(""\);/);
-  const loja = ler("podecurtir.html");
+  const loja = ler("_fontes/podecurtir.html");
   assert.match(loja, /<h2 id="t-esp">Para especialistas, produtoras e empresas<\/h2>/);
   assert.match(loja, /<div class="grade" id="grade-esp"><\/div>/);
-  const termos = ler("podecurtir/termos/index.html");
+  const termos = ler("_fontes/podecurtir/termos/index.html");
   assert.match(termos, /Versão de 10\/11\/2026/);
   assert.match(termos, /Para especialistas, produtoras e empresas:<\/strong> Diagnóstico de marca de especialista, Presença em vídeo, Acabamento de vídeo e Vídeo de conversa têm pagamento integral/);
 });
@@ -382,20 +382,20 @@ test("compra: janela de atribuição cobre o prazo do boleto", () => {
   const js = ler("assets/js/podecurtir-comum.js");
   assert.match(js, /Date\.now\(\) - p\.em < 7 \* 24 \* 3600 \* 1000\)/);
   assert.doesNotMatch(js, /48 \* 3600 \* 1000/);
-  assert.match(ler("podecurtir/termos/index.html"), /vence 2 dias úteis depois de gerado/);
+  assert.match(ler("_fontes/podecurtir/termos/index.html"), /vence 2 dias úteis depois de gerado/);
 });
 
 // 08/11/2026 (Jéssica): proteção e recuperação de conta são da Zethic, numa faixa "Leve junto · opcional" com as cores
 // da Zethic, depois do portfólio da Pode Curtir. "Venda casada" nunca aparece no site (CDC, art. 39, I).
 test("faixa Leve junto da Zethic: separada do portfólio, opcional e sem venda casada", () => {
-  const h = ler("podecurtir.html"), js = ler("assets/js/podecurtir-loja.js"), css = ler("assets/css/podecurtir-loja.css");
+  const h = ler("_fontes/podecurtir.html"), js = ler("assets/js/podecurtir-loja.js"), css = ler("assets/css/podecurtir-loja.css");
   assert.match(h, /<section class="secao leve-junto" aria-labelledby="t-contas">[\s\S]*<span class="selo ze">ZETHIC<\/span>Leve junto · opcional[\s\S]*Feitas pela Zethic, em parceria/);
   assert.ok(h.indexOf('id="t-esp"') < h.indexOf('id="t-contas"') && h.indexOf('id="t-contas"') < h.indexOf('id="t-propostas"'), "faixa depois do portfólio e antes dos pedidos de proposta");
   assert.match(js, /id: "protecao", marca: "ze", nome: "Proteção das contas da equipe inteira"/);
   assert.match(css, /\.leve-junto\{background:#02041A;/);
   // Review do Codex no #124: o pedido avulso leva a seção, para a mensagem dizer "Leve junto (Zethic)".
   assert.match(js, /marca: p\.marca, secao: p\.secao \|\| "" \}\);/);
-  for (const f of ["podecurtir.html", "assets/js/podecurtir-loja.js", "assets/js/podecurtir-comum.js", "podecurtir/termos/index.html"])
+  for (const f of ["_fontes/podecurtir.html", "assets/js/podecurtir-loja.js", "assets/js/podecurtir-comum.js", "_fontes/podecurtir/termos/index.html"])
     assert.doesNotMatch(ler(f).replace(/No site nunca se usa "venda casada"/, ""), /venda casada/i, f);
   assert.doesNotMatch(h + js + ler("assets/js/podecurtir-comum.js"), /(Proteção das contas|Recuperação de conta)[^<"]{0,80}Jéssica Gessoli|feita por Jéssica Gessoli/);
 });
@@ -403,7 +403,7 @@ test("faixa Leve junto da Zethic: separada do portfólio, opcional e sem venda c
 // 08/11/2026 (revisão de publicidade pedida pela Jéssica): cada item diz para que serve, sem prometer resultado;
 // a escada Perfil Pronto → Gestão mensal fica junta, e Livro e IA vai para depois dos especialistas.
 test("Pode Curtir: benefício por item sem promessa e ordem da loja", () => {
-  const h = ler("podecurtir.html");
+  const h = ler("_fontes/podecurtir.html");
   const js = ler("assets/js/podecurtir-loja.js");
   const para = js.match(/var PARA = \{[\s\S]*?\n  \};/)[0];
   for (const id of ["ajuste", "arrumado", "marca", "essencial", "padrao", "completa", "plus_recuperacao"]) assert.match(para, new RegExp("\\b" + id + ": \"Para "), id);
@@ -418,7 +418,7 @@ test("Pode Curtir: benefício por item sem promessa e ordem da loja", () => {
 // 08/11/2026 (Jéssica aprovou): cardápio de restaurante. Pode Curtir vende e cuida do conteúdo; página e app
 // (instalável pelo navegador) pela Zethic, em parceria. Projeto R$ 1.500 (depois R$ 2.400); mensal R$ 290 (depois R$ 460).
 test("Pode Curtir: cardápio de restaurante com a Zethic em parceria", () => {
-  const h = ler("podecurtir.html");
+  const h = ler("_fontes/podecurtir.html");
   const js = ler("assets/js/podecurtir-loja.js");
   const cfg = ler("assets/js/podecurtir-config.js");
   assert.match(js, /id: "cardapio", secao: "rest", nome: "Cardápio Pronto", preco: 1500, prazo: "10 dias úteis", fundador: true,/);
@@ -431,7 +431,7 @@ test("Pode Curtir: cardápio de restaurante com a Zethic em parceria", () => {
   assert.match(h, /Também para cozinhas de delivery, sem salão: o cardápio vira o link de pedidos no WhatsApp e no Instagram\./);
   assert.ok(h.indexOf('id="t-planos"') < h.indexOf('id="t-rest"') && h.indexOf('id="t-rest"') < h.indexOf('id="t-esp"'));
   assert.match(cfg, /cardapio: "[^"]*",\s*cardapio_mensal: "[^"]*"/);
-  assert.match(ler("podecurtir/termos/index.html"), /<strong>Para restaurantes, lanchonetes e bares:<\/strong>/);
+  assert.match(ler("_fontes/podecurtir/termos/index.html"), /<strong>Para restaurantes, lanchonetes e bares:<\/strong>/);
   // 08/11/2026 (Jéssica aprovou): 1 troca = 1 item; pacote avulso de 5 trocas por R$ 90; 12 meses no ar incluídos,
   // depois R$ 120 por ano ou sem custo com o Cuidado; no encerramento, o cliente recebe a planilha e o PDF.
   assert.match(js, /12 meses no ar incluídos\./);
@@ -439,16 +439,16 @@ test("Pode Curtir: cardápio de restaurante com a Zethic em parceria", () => {
   assert.match(js, /cardápio impresso para a entrada \(PDF pronto para a gráfica, com os mesmos preços\)/);
   assert.match(js, /link no Instagram e no Perfil da Empresa no Google/);
   assert.match(js, /1 troca = mudar um item: preço, nome, descrição, foto ou disponibilidade/);
-  assert.match(ler("podecurtir/termos/index.html"), /pacote de até 5 por R\$ 90, feitas em até 2 dias úteis[\s\S]*recebe a planilha e o PDF/);
-  assert.match(ler("podecurtir/termos/index.html"), /a hospedagem custa R\$ 120 por ano, ou não tem custo para quem tem o Cuidado do Cardápio/);
+  assert.match(ler("_fontes/podecurtir/termos/index.html"), /pacote de até 5 por R\$ 90, feitas em até 2 dias úteis[\s\S]*recebe a planilha e o PDF/);
+  assert.match(ler("_fontes/podecurtir/termos/index.html"), /a hospedagem custa R\$ 120 por ano, ou não tem custo para quem tem o Cuidado do Cardápio/);
 });
 
 // D3 (08/11/2026, aprovado pela Jéssica): cardápio de exemplo, com restaurante fictício e identificado como exemplo,
 // gerado pela planilha (_ferramentas/cardapio/gerar_cardapio.py). O digital e o impresso saem dos mesmos dados.
 test("Pode Curtir: cardápio de exemplo gerado da planilha, com os mesmos preços no digital e no impresso", () => {
-  const d = ler("podecurtir/cardapio/exemplo/index.html");
-  const imp = ler("podecurtir/cardapio/exemplo/imprimir/index.html");
-  const cfg = JSON.parse(ler("podecurtir/cardapio/exemplo/dados/restaurante.json"));
+  const d = ler("_fontes/podecurtir/cardapio/exemplo/index.html");
+  const imp = ler("_fontes/podecurtir/cardapio/exemplo/imprimir/index.html");
+  const cfg = JSON.parse(ler("_fontes/podecurtir/cardapio/exemplo/dados/restaurante.json"));
   for (const h of [d, imp]) {
     const csp = h.match(/http-equiv="Content-Security-Policy" content="([^"]+)"/);
     assert.ok(csp && !/unsafe-inline|unsafe-eval/.test(csp[1]));
@@ -458,7 +458,7 @@ test("Pode Curtir: cardápio de exemplo gerado da planilha, com os mesmos preço
     assert.match(h, /Alérgenos conforme informado pelo restaurante/);
   }
   assert.match(cfg.aviso, /fictícios/);
-  const linhas = ler("podecurtir/cardapio/exemplo/dados/cardapio.csv").trim().split("\n").slice(1);
+  const linhas = ler("_fontes/podecurtir/cardapio/exemplo/dados/cardapio.csv").trim().split("\n").slice(1);
   assert.ok(linhas.length >= 10);
   const brl = (v) => "R$ " + Number(v).toFixed(2).replace(".", ",").replace(/\B(?=(\d{3})+(?!\d))/g, ".");
   for (const l of linhas) {
@@ -468,10 +468,10 @@ test("Pode Curtir: cardápio de exemplo gerado da planilha, com os mesmos preço
     assert.ok(d.includes(brl(preco)) && imp.includes(brl(preco)), "preço diferente: " + nome);
     assert.ok(imp.includes("<b>" + nome + "</b>"), "impresso sem " + nome);
   }
-  const m = JSON.parse(ler("podecurtir/cardapio/exemplo/manifest.webmanifest"));
+  const m = JSON.parse(ler("_fontes/podecurtir/cardapio/exemplo/manifest.webmanifest"));
   assert.equal(m.display, "standalone");
-  assert.ok(existsSync(new URL("../podecurtir/cardapio/exemplo/qr.svg", import.meta.url)));
-  assert.ok(existsSync(new URL("../podecurtir/cardapio/exemplo/cardapio-impresso.pdf", import.meta.url)));
+  assert.ok(existsSync(new URL("../_fontes/podecurtir/cardapio/exemplo/qr.svg", import.meta.url)));
+  assert.ok(existsSync(new URL("../_fontes/podecurtir/cardapio/exemplo/cardapio-impresso.pdf", import.meta.url)));
   const js = ler("assets/js/cardapio.js");
   assert.match(js, /"https:\/\/wa\.me\/" \+ numero \+ "\?text=" \+ encodeURIComponent\(mensagem\(\)\)/);
   assert.doesNotMatch(js, /fetch\(|XMLHttpRequest|localStorage/);
@@ -485,7 +485,7 @@ test("Pode Curtir: cozinha de delivery tem tipo próprio e cardápio de exemplo 
   assert.match(js, /fica na bio do Instagram e na mensagem de saudação do WhatsApp/);
   assert.ok(js.indexOf('id: "cozinha_delivery"') < js.indexOf('id: "outro"'));
   assert.doesNotMatch(js, /href=\\?"\/podecurtir\//, "link /podecurtir/ no JS quebraria no espelho");
-  const base = "podecurtir/cardapio/exemplo-delivery/";
+  const base = "_fontes/podecurtir/cardapio/exemplo-delivery/";
   const d = ler(base + "index.html");
   const csp = d.match(/http-equiv="Content-Security-Policy" content="([^"]+)"/);
   assert.ok(csp && !/unsafe-inline|unsafe-eval/.test(csp[1]));
@@ -523,7 +523,7 @@ test("Portfólio da empresa e área de cursos da Zethic em parceria", () => {
 // 10/11/2026 (Jéssica, por benchmark): prazo da tradução e regras do catálogo depois de 12 meses, iguais às do cardápio.
 test("Pode Curtir: tradução em 5 dias úteis e catálogo com as mesmas regras do cardápio depois de 12 meses", () => {
   const js = ler("assets/js/podecurtir-loja.js");
-  const termos = ler("podecurtir/termos/index.html");
+  const termos = ler("_fontes/podecurtir/termos/index.html");
   assert.match(js, /id: "traducao", secao: "rest", nome: "Tradução do cardápio · inglês e espanhol", preco: 300, prazo: "5 dias úteis"/);
   assert.match(termos, /em até 5 dias úteis do pedido, com tradução e revisão/);
   assert.match(termos, /atualizado nos três idiomas e conta como uma troca só/);
