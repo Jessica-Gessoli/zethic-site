@@ -1,5 +1,5 @@
 // Jéssica Gessoli: fotos do topo trocando sozinhas, como a vitrine de zethic.net (10/11/2026).
-// Sem JavaScript ou com "reduzir movimento", fica só a primeira foto. Para ao passar o mouse, ao focar e no botão de pausa.
+// Sem JavaScript ou com "reduzir movimento", fica só a primeira foto. Para ao passar o mouse, com o foco do teclado dentro e no botão de pausa.
 (function () {
   var calmo = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   function iniciar() {
@@ -20,7 +20,8 @@
         if (k === atual) { void b.offsetWidth; b.classList.add("ativo"); }
       });
     }
-    function tocar() { parar(); if (pausado) return; f.classList.remove("pausado"); timer = setInterval(function () { mostrar(atual + 1); }, tempo); }
+    function focoDentro() { return f.contains(document.activeElement); }
+    function tocar() { parar(); if (pausado || focoDentro() || f.matches(":hover")) return; f.classList.remove("pausado"); timer = setInterval(function () { mostrar(atual + 1); }, tempo); }
     function parar() { if (timer) clearInterval(timer); timer = null; f.classList.add("pausado"); }
     function rotulo() {
       if (!pausa) return;
@@ -33,6 +34,8 @@
     }
     f.addEventListener("mouseenter", parar);
     f.addEventListener("mouseleave", tocar);
+    f.addEventListener("focusin", parar);
+    f.addEventListener("focusout", function (e) { if (!f.contains(e.relatedTarget)) setTimeout(tocar, 0); });
     document.addEventListener("visibilitychange", function () { if (document.hidden) parar(); else tocar(); });
     mostrar(0); rotulo(); tocar();
   }

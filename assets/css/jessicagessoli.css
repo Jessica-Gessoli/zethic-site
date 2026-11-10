@@ -176,6 +176,7 @@ html.retratos-js .retratos-ctrl{display:inline-flex}
 .retratos-barras i{display:block;width:1.6rem;height:2px;background:rgba(18,53,43,.18);overflow:hidden;position:relative}
 .retratos-barras i.ativo::after{content:"";position:absolute;inset:0;background:var(--latao,#A27B32);transform-origin:left;animation:retratos-barra 6s linear both}
 .retratos.pausado .retratos-barras i.ativo::after{animation-play-state:paused}
+.retratos.pausado .retrato.ativo img{animation-play-state:paused}
 .retratos-pausa{font:600 .75rem/1 var(--sans);letter-spacing:.05em;color:var(--garrafa,#12352B);background:none;border:1px solid rgba(18,53,43,.3);border-radius:2px;padding:.3rem .5rem;cursor:pointer}
 .retratos-pausa:hover{border-color:var(--garrafa,#12352B)}
 @keyframes retratos-barra{from{transform:scaleX(0)}to{transform:scaleX(1)}}
