@@ -5,7 +5,7 @@ import { readFileSync, existsSync } from "node:fs";
 // 20/10/2026: canal "Conte o seu golpe" (relatos sem identificação, formulário no Google Forms).
 // 21/10/2026: formulário criado no Jotform (o Google Forms não foi criado); política 1.12 informa o registro de IP.
 const ler = (p) => readFileSync(new URL("../" + p, import.meta.url), "utf8");
-const h = ler("conte-seu-golpe.html");
+const h = ler("jessicagessoli/conte-seu-golpe/index.html");
 const form = (h.match(/<a class="btn" id="formulario" href="([^"]+)"/) || [])[1];
 
 test("página da marca pessoal, sem script inline, sem rastreador e sem formulário no próprio site", () => {
@@ -48,7 +48,7 @@ test("Instagram ao lado do LinkedIn e página no mapa do site", () => {
   const li = (h.match(/linkedin\.com\/in\/jessicagessoli/g) || []).length;
   const ig = (h.match(/instagram\.com\/jessicagessoli\//g) || []).length;
   assert.ok(ig >= li);
-  assert.match(ler("sitemap.xml"), /<loc>https:\/\/zethic\.net\/conte-seu-golpe<\/loc>/);
+  assert.match(ler("sitemap.xml"), /<loc>https:\/\/zethic\.net\/jessicagessoli\/conte-seu-golpe\/<\/loc>/);
   for (const [, l] of h.matchAll(/href="\/([a-z-]+)(?:#[a-z-]+)?"/g)) assert.ok(existsSync(new URL(`../${l}.html`, import.meta.url)), `/${l}`);
 });
 

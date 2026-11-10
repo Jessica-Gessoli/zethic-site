@@ -9,7 +9,7 @@ const checkup = ler("jessicagessoli/checkup/index.html");
 const ckJs = ler("assets/js/jessicagessoli-checkup.js");
 const loja = ler("assets/js/jessicagessoli-loja.js");
 const lojaHtml = ler("jessicagessoli/loja/index.html");
-const teste = ler("teste-golpe.html");
+const teste = ler("jessicagessoli/teste-golpe/index.html");
 const priv = ler("jessicagessoli/privacidade/index.html");
 
 test("página do Checkup: um botão principal, preço visível e sem script embutido", () => {

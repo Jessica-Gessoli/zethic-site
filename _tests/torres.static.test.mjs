@@ -139,7 +139,7 @@ test("atendimento: sem raio fixo nem \"remoto a partir de Campinas\" (decisão d
 });
 
 test("autoavaliação: a frase de privacidade segue a política", () => {
-  const d = ler("diagnostico.html");
+  const d = ler("jessicagessoli/diagnostico/index.html");
   assert.doesNotMatch(d, /nada é enviado/);
   assert.match(d, /não são enviadas nem guardadas/);
   assert.match(ler("privacidade.html"), /não são enviadas nem guardadas\. Se você aceitou a medição, só a nota final e a moeda mais exposta são registradas/);

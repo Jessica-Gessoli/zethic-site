@@ -38,7 +38,8 @@ test("Símbolos: monograma JG e visor da Pode Curtir, sem endosso da Zethic", ()
 
 // 14/10/2026 (aprovado pela Jéssica, orientação da Goreti): primeiro a conversa, depois o preço. Nenhum valor publicado no site.
 test("Zethic: nenhum preço publicado nas páginas", () => {
-  for (const p of ["index.html", "diagnostico.html", "seguranca.html", "tecnologia.html", "atendimento.html", "financeiro.html", "llms.txt"]) {
+  // 10/11/2026: o Diagnóstico é da Jéssica Gessoli, que publica preço na loja; saiu desta lista.
+  for (const p of ["index.html", "seguranca.html", "tecnologia.html", "atendimento.html", "financeiro.html", "llms.txt"]) {
     const h = ler(p).replace(/<label>[^<]*\(R\$\)/g, "");
     assert.doesNotMatch(h, /R\$ ?\d|[Pp]reço de fundador|minPrice/, p);
   }

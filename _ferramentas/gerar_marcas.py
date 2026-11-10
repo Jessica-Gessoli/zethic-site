@@ -82,7 +82,11 @@ jg = [("/jessicagessoli", "/"), ("/en/jessicagessoli", "/en/"), ("/jessicagessol
       ("/jessicagessoli/privacidade/", "/privacidade/"), ("/jessicagessoli/desistencia/", "/desistencia/"),
       ("/jessicagessoli/cancelamento/", "/cancelamento/"), ("/jessicagessoli/checkup/", "/checkup/"),
       # 09/11/2026 (Jéssica): o guia Vaga real ou golpe? é da marca Jéssica Gessoli.
-      ("/jessicagessoli/vaga-real-ou-golpe/", "/vaga-real-ou-golpe/")]
+      ("/jessicagessoli/vaga-real-ou-golpe/", "/vaga-real-ou-golpe/"),
+      # 10/11/2026 (Jéssica): materiais grátis e Diagnóstico saem de zethic.net e vão para a marca Jéssica Gessoli.
+      ("/jessicagessoli/diagnostico/", "/diagnostico/"), ("/jessicagessoli/teste-golpe/", "/teste-golpe/"),
+      ("/jessicagessoli/teste-ia/", "/teste-ia/"), ("/jessicagessoli/copia-e-cola/", "/copia-e-cola/"),
+      ("/jessicagessoli/conte-seu-golpe/", "/conte-seu-golpe/")]
 def jg_map(i): return [jg[i]] + jg[:i] + jg[i + 1:]
 build("jessicagessoli", "jessicagessoli.zethic.net", [
     ("jessicagessoli.html", "index.html", jg_map(0)),
@@ -95,6 +99,11 @@ build("jessicagessoli", "jessicagessoli.zethic.net", [
     ("jessicagessoli/cancelamento/index.html", "cancelamento/index.html", jg_map(7)),
     ("jessicagessoli/checkup/index.html", "checkup/index.html", jg_map(8)),
     ("jessicagessoli/vaga-real-ou-golpe/index.html", "vaga-real-ou-golpe/index.html", jg_map(9)),
+    ("jessicagessoli/diagnostico/index.html", "diagnostico/index.html", jg_map(10)),
+    ("jessicagessoli/teste-golpe/index.html", "teste-golpe/index.html", jg_map(11)),
+    ("jessicagessoli/teste-ia/index.html", "teste-ia/index.html", jg_map(12)),
+    ("jessicagessoli/copia-e-cola/index.html", "copia-e-cola/index.html", jg_map(13)),
+    ("jessicagessoli/conte-seu-golpe/index.html", "conte-seu-golpe/index.html", jg_map(14)),
 ], ["/assets/fonts/OFL-IBM-Plex-Sans.txt", "/assets/fonts/OFL-Spectral.txt"])
 # 03/11/2026 (aprovado pela Jéssica): loja da Pode Curtir com carrinho, termos, privacidade e desistência.
 # 04/11/2026: página Seja parceiro (rede curada, modelo C).

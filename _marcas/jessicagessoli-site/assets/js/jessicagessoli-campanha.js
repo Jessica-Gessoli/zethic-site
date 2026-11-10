@@ -47,7 +47,7 @@
   var marca = document.querySelector(".top .mark, a.marca-jg");
   var base = marca ? (marca.getAttribute("href") || "/jessicagessoli").replace(/\/$/, "") : "/jessicagessoli";
   function url(dest) {
-    if (dest === "teste") return base === "" ? "https://zethic.net/teste-golpe" : "/teste-golpe";
+    if (dest === "teste") return base + "/teste-golpe/";
     if (dest.indexOf("whats:") === 0) return "https://wa.me/" + WHATS + "?text=" + encodeURIComponent(dest.slice(6));
     return base + dest;
   }
