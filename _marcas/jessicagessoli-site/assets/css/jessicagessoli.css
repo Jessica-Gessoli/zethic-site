@@ -161,3 +161,29 @@ footer p{margin:.25rem 0}
   .par td + td{margin-top:.9rem;padding-left:1rem;border-left:2px solid var(--latao)}
   .par td::before,.par td + td::before{content:attr(data-rotulo);position:static;display:block;width:auto;height:auto;background:none;color:var(--latao-claro);font:500 .88rem/1.4 var(--sans);margin-bottom:.3rem}
 }
+
+/* Fotos do topo trocando sozinhas, como a vitrine de zethic.net (10/11/2026, pedido da Jéssica).
+   Troca a cada 6 s com fade e aproximação lenta; para ao passar o mouse, ao focar e no botão de pausa.
+   Sem JavaScript ou com "reduzir movimento", fica só a primeira foto, parada. */
+.retratos-quadro{position:relative;display:grid;overflow:hidden;border-radius:2px;aspect-ratio:4/5;background:var(--porcelana,#F3F5F2)}
+.retratos .retrato{grid-area:1/1;display:block;opacity:0;visibility:hidden;transition:opacity 1s ease,visibility 0s linear 1s}
+.retratos .retrato.ativo{opacity:1;visibility:visible;transition:opacity 1s ease}
+.retratos .retrato img{width:100%;height:100%;aspect-ratio:4/5;object-fit:cover;border-radius:0}
+.retratos figcaption{display:flex;justify-content:space-between;align-items:center;gap:1rem}
+.retratos-ctrl{display:none;align-items:center;gap:.75rem}
+html.retratos-js .retratos-ctrl{display:inline-flex}
+.retratos-barras{display:inline-flex;gap:.35rem}
+.retratos-barras i{display:block;width:1.6rem;height:2px;background:rgba(18,53,43,.18);overflow:hidden;position:relative}
+.retratos-barras i.ativo::after{content:"";position:absolute;inset:0;background:var(--latao,#A27B32);transform-origin:left;animation:retratos-barra 6s linear both}
+.retratos.pausado .retratos-barras i.ativo::after{animation-play-state:paused}
+.retratos-pausa{font:600 .75rem/1 var(--sans);letter-spacing:.05em;color:var(--garrafa,#12352B);background:none;border:1px solid rgba(18,53,43,.3);border-radius:2px;padding:.3rem .5rem;cursor:pointer}
+.retratos-pausa:hover{border-color:var(--garrafa,#12352B)}
+@keyframes retratos-barra{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes retratos-aproxima{from{transform:scale(1)}to{transform:scale(1.07)}}
+@media (prefers-reduced-motion:no-preference){
+  .retratos .retrato.ativo img{animation:retratos-aproxima 8s ease-out both}
+}
+@media (prefers-reduced-motion:reduce){
+  .retratos .retrato,.retratos .retrato.ativo{transition:none}
+  .retratos-barras i.ativo::after{animation:none;transform:scaleX(1)}
+}
