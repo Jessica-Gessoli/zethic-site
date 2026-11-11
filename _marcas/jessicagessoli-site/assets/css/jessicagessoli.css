@@ -295,3 +295,17 @@ html:not(.vj-js) .vj-ctrl{display:none}
   .tt-hero-txt{padding-top:2rem}
   .tt-cores{grid-template-columns:minmax(0,1fr)}
 }
+.tt-micro{margin:.9rem 0 0;font-size:.9rem;color:var(--verde-claro)}
+.tt-prova{background:var(--garrafa);color:#fff;border-top:1px solid rgba(217,183,110,.35);padding:1.4rem 0}
+.tt-prova .wrap{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.5rem}
+.tt-prova p{margin:0;font-size:.95rem;color:var(--verde-claro)}
+.tt-prova strong{display:block;font:400 1.6rem/1.2 var(--serif);color:var(--latao-claro)}
+.tt-dor{list-style:none;margin:1.5rem 0 0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1.25rem}
+.tt-dor li{border-left:3px solid #A9503E;padding:.2rem 0 .2rem 1rem}
+.tt-dor strong{display:block;margin-bottom:.3rem}
+.tt-preco{font:400 1.9rem/1.1 var(--serif);color:var(--garrafa)}
+.tt-preco span{font:500 .9rem var(--sans);color:var(--neblina);margin-left:.3rem}
+.tt-destaque{border:2px solid var(--latao) !important;border-top-width:3px !important}
+.tt-selo{align-self:flex-start;background:var(--latao-claro);color:var(--garrafa);font:600 .75rem/1 var(--sans);letter-spacing:.08em;text-transform:uppercase;padding:.35rem .6rem;border-radius:2px}
+.tt-garantia{font-size:.95rem;color:var(--neblina)}
+@media (max-width:56rem){.tt-prova .wrap,.tt-dor{grid-template-columns:minmax(0,1fr)}}
