@@ -164,7 +164,7 @@ footer p{margin:.25rem 0}
 
 
 /* Vitrine do topo, como zethic.net (10/11/2026, pedido da Jéssica): fotos da Alpha trocando a cada 7 s, texto no degradê.
-   Slides .vj-matrix (óculos escuros): tema "A filha de Morpheus", com chuva digital no verde-claro da marca e destaques em latão (sem neon, 10/11/2026) desenhada pelo script da vitrine.
+   Slides .vj-matrix (óculos escuros): chuva digital no verde-claro da marca e destaques em latão (sem neon, 10/11/2026) desenhada pelo script da vitrine.
    Sem JavaScript, os slides aparecem um embaixo do outro; com "reduzir movimento",
    nada troca nem se mexe sozinho. */
 .vj{--vj-fundo:18,53,43;--vj-cor:var(--latao-claro);position:relative;padding:0 !important;overflow:hidden;background:var(--garrafa);color:#fff}
