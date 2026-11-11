@@ -1,0 +1,8 @@
+/* Vídeo vertical da Jéssica Gessoli no site (Captação 01 em diante).
+   Regras: 9:16, sem som automático, sem autoplay, legenda .vtt sempre ligada ao vídeo,
+   capa (poster) obrigatória e preload="none" para não pesar no carregamento da página. */
+.video-vertical{margin:0;max-width:22rem;width:100%}
+.video-vertical video{display:block;width:100%;height:auto;aspect-ratio:9/16;background:var(--garrafa,#12352B);border-radius:2px;object-fit:cover}
+.video-vertical figcaption{margin-top:.6rem;font-size:.95rem;color:var(--neblina,#55655E)}
+.video-lado{display:grid;gap:1.5rem 2.5rem;align-items:center}
+@media (min-width:48rem){.video-lado{grid-template-columns:minmax(0,1fr) 20rem}}
