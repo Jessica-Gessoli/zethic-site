@@ -36,7 +36,7 @@ for (const arquivo of ["_fontes/jessicagessoli.html", "_fontes/en/jessicagessoli
 
   test(`${arquivo}: o topo da página leva ao LinkedIn e ao Instagram`, () => {
     // 10/11/2026: o topo virou vitrine; os links ficam no primeiro slide.
-    const acoes = ler(arquivo).match(/<div class="hero">[\s\S]*?<\/figure>|<section class="vj"[\s\S]*?<\/article>/)?.[0] ?? "";
+    const acoes = ler(arquivo).match(/<div class="hero">[\s\S]*?<\/figure>|<section class="vj"[\s\S]*?class="vj-slide vj-matrix"/)?.[0] ?? "";
     assert.match(acoes, /href="https:\/\/www\.linkedin\.com\/in\/jessicagessoli"/);
     assert.match(acoes, /href="https:\/\/www\.instagram\.com\/jessicagessoli\/"/);
   });
