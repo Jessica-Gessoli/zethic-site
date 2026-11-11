@@ -77,8 +77,8 @@ test("foto com WebP e arquivos existentes", () => {
   // Topo em vitrine com as fotos da Alpha (10/11/2026): cada foto tem WebP e os arquivos existem.
   const slides = { pt: ["10", "22", "12", "25", "07", "08"], en: ["10", "22", "07", "08"] };
   for (const [lang, html] of [["pt", pt], ["en", en]]) for (const n of slides[lang])
-    assert.ok(html.includes(`<source type="image/webp" srcset="/assets/img/jessica-gessoli-slide-${n}-600.webp 600w, /assets/img/jessica-gessoli-slide-${n}.webp 1000w"`), `${lang} ${n}`);
-  for (const n of slides.pt) for (const f of [`-${n}.jpg`, `-${n}.webp`, `-${n}-600.jpg`, `-${n}-600.webp`])
+    assert.ok(html.includes(`<source type="image/webp" srcset="/assets/img/jessica-gessoli-slide-${n}-600.webp 600w, /assets/img/jessica-gessoli-slide-${n}-800.webp 800w, /assets/img/jessica-gessoli-slide-${n}.webp 1000w"`), `${lang} ${n}`);
+  for (const n of slides.pt) for (const f of [`-${n}.jpg`, `-${n}.webp`, `-${n}-600.jpg`, `-${n}-600.webp`, `-${n}-800.jpg`, `-${n}-800.webp`])
     assert.ok(readFileSync(new URL(`../assets/img/jessica-gessoli-slide${f}`, import.meta.url)).length > 1000, f);
   for (const f of ["jessica-gessoli.jpg", "jessica-gessoli-og.jpg", "jessica-gessoli-og-en.jpg"])
     assert.ok(readFileSync(new URL(`../assets/img/${f}`, import.meta.url)).length > 1000, f);
@@ -111,7 +111,7 @@ test("rodapé leva à política de privacidade nas duas versões (agenda pelo Ca
 // 10/11/2026: a vitrine do topo precisa do script também na versão em inglês.
 test("as duas versões permitem o script da vitrine", () => {
   for (const html of [pt, en]) {
-    assert.match(html, /<script src="\/assets\/js\/jessicagessoli-vitrine\.js" defer><\/script>/);
+    assert.match(html, /<script src="\/assets\/js\/jessicagessoli-vitrine\.js(\?v=[0-9a-f]{10})?" defer><\/script>/);
     assert.match(html.match(/http-equiv="Content-Security-Policy" content="([^"]+)"/)[1], /script-src 'self'/);
   }
 });
