@@ -1,6 +1,6 @@
 // Jéssica Gessoli: vitrine do topo, como a de zethic.net (10/11/2026).
 // Troca a cada 7 s; para com o mouse, com o foco do teclado dentro e no botão de pausa.
-// Slides .vj-matrix ("A filha de Morpheus") ganham a chuva digital verde, só enquanto estão na tela; o botão de pausa também para a chuva.
+// Slides .vj-matrix (óculos escuros) ganham a chuva digital verde, só enquanto estão na tela; o botão de pausa também para a chuva.
 // Com "reduzir movimento", nada troca nem se mexe sozinho; sem JavaScript, os slides ficam um embaixo do outro.
 (function () {
   var calmo = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -27,7 +27,7 @@
       ctx.font = tam + "px ui-monospace, Menlo, Consolas, monospace";
       for (var i = 0; i < colunas.length; i++) {
         var y = colunas[i] * tam;
-        ctx.fillStyle = Math.random() > .96 ? "#E8FFF0" : "#3DFF8B";
+        ctx.fillStyle = Math.random() > .96 ? "#D9B76E" : "#C9D8CF"; // latão-claro e verde-claro da marca
         ctx.fillText(letras[(Math.random() * letras.length) | 0], i * tam, y);
         colunas[i] = y > h / d && Math.random() > .975 ? 0 : colunas[i] + 1;
       }
