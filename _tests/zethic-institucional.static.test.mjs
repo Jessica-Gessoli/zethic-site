@@ -44,7 +44,8 @@ test("perguntas frequentes migraram para o Diagnóstico, com dados estruturados"
 // 07/11/2026 (aprovado pela Jéssica, "solucione tudo"): medição com consentimento em todas as páginas da Zethic,
 // para saber qual página e qual campanha vendem. Antes, só nas páginas com ferramenta.
 test("medição (Google Analytics) com consentimento em todas as páginas da Zethic e nas campanhas", () => {
-  const com = ["_fontes/jessicagessoli/diagnostico/index.html", "_fontes/jessicagessoli/teste-golpe/index.html", "seguranca.html", "privacidade.html", "index.html", "quem-somos.html",
+  // 11/11/2026: diagnóstico e teste de golpe são da Jéssica Gessoli e passam a medir na propriedade dela (teste abaixo).
+  const com = ["seguranca.html", "privacidade.html", "index.html", "quem-somos.html",
     "tecnologia.html", "atendimento.html", "financeiro.html", "comprar.html", "loja.html", "loja/obrigado/index.html", "para-o-seu-negocio.html",
     "ti-do-consultorio.html", "ti-da-contabilidade.html", "ti-da-advocacia.html", "ti-da-engenharia.html", "ti-do-rh.html", "ti-da-agencia.html", "ti-do-seu-negocio.html"];
   for (const p of com) {
@@ -55,6 +56,29 @@ test("medição (Google Analytics) com consentimento em todas as páginas da Zet
     assert.doesNotMatch(h, /Esta página não usa cookies\./, p);
   }
   assert.match(ler("privacidade.html"), /A medição de visitas \(Google Analytics\) existe nas páginas da Zethic e só funciona se você aceitar/);
+});
+
+// 11/11/2026 (pedido da Jéssica): o site Jéssica Gessoli mede no Google Analytics próprio (G-883BVBTM0E), só com aceite.
+// Ficam sem medição as páginas que já eram "sem rastreador": teste de IA, copia e cola, conte o seu golpe e o aviso de cancelamento.
+test("Jéssica Gessoli: Google Analytics próprio, com aceite, fora das páginas sem rastreador", () => {
+  const com = ["_fontes/jessicagessoli.html", "_fontes/en/jessicagessoli.html", "_fontes/jessicagessoli/diagnostico/index.html",
+    "_fontes/jessicagessoli/teste-golpe/index.html", "_fontes/jessicagessoli/vaga-real-ou-golpe/index.html", "_fontes/jessicagessoli/loja/index.html",
+    "_fontes/jessicagessoli/checkup/index.html", "_fontes/jessicagessoli/entre-os-times/index.html", "_fontes/jessicagessoli/privacidade/index.html"];
+  for (const p of com) {
+    const h = ler(p);
+    assert.match(h, /<script src="\/assets\/js\/jessicagessoli-medicao\.js" defer><\/script>/, p);
+    assert.doesNotMatch(h, /src="\/assets\/js\/medicao\.js"/, p);
+    assert.match(h, /script-src 'self'[^;]*https:\/\/www\.googletagmanager\.com/, p);
+    assert.match(h, /connect-src[^;]*https:\/\/\*\.google-analytics\.com/, p);
+  }
+  for (const p of ["_fontes/jessicagessoli/teste-ia/index.html", "_fontes/jessicagessoli/copia-e-cola/index.html",
+    "_fontes/jessicagessoli/conte-seu-golpe/index.html", "_fontes/jessicagessoli/cancelamento/index.html"])
+    assert.doesNotMatch(ler(p), /medicao\.js|googletagmanager/, p);
+  const js = ler("assets/js/jessicagessoli-medicao.js");
+  assert.match(js, /GA4_ID = "G-883BVBTM0E"/);
+  assert.match(js, /if \(v === "aceito"\) carregar\(\); else if \(v !== "recusado"\) banner\(\);/);
+  assert.match(js, /ad_storage: "denied"/);
+  assert.match(ler("_fontes/jessicagessoli/privacidade/index.html"), /<strong>Google Analytics, só se você aceitar:<\/strong>/);
 });
 
 test("contato da home volta a uma coluna no celular", () => {
