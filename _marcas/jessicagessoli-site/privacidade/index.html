@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Privacidade e cookies | Jéssica Gessoli</title>
 <meta name="description" content="Como a loja da Jéssica Gessoli trata os seus dados pessoais e os cookies.">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' https://connect.facebook.net; img-src 'self' https://www.facebook.com; font-src 'self'; style-src 'self'; connect-src 'self' https://jessicagessoli.app.n8n.cloud https://www.facebook.com; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self' https://connect.facebook.net https://www.googletagmanager.com; img-src 'self' https://www.facebook.com https://*.google-analytics.com https://*.googletagmanager.com; font-src 'self'; style-src 'self'; connect-src 'self' https://jessicagessoli.app.n8n.cloud https://www.facebook.com https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com; base-uri 'none'; form-action 'none'">
 <meta name="color-scheme" content="light">
 <link rel="canonical" href="https://jessicagessoli.zethic.net/privacidade/">
 <meta name="robots" content="noindex, follow">
@@ -23,6 +23,7 @@
 <link rel="stylesheet" href="/assets/css/jessicagessoli-loja.css?v=b753162c65">
 <script src="/assets/js/jessicagessoli-config.js?v=70db241ae3" defer></script>
 <script src="/assets/js/jessicagessoli-comum.js?v=d0faa009b8" defer></script>
+<script src="/assets/js/jessicagessoli-medicao.js?v=60b7682b41" defer></script>
 </head>
 <body>
 <a class="skip" href="#conteudo">Ir para o conteúdo</a>
@@ -37,7 +38,7 @@
   <div class="wrap">
     <span class="eyebrow">Loja Jéssica Gessoli</span>
     <h1>Privacidade e cookies</h1>
-    <p class="versao">Versão de 07/11/2026</p>
+    <p class="versao">Versão de 11/11/2026</p>
 
     <div class="caixa">
       <p><strong>Em resumo.</strong> Eu peço só os dados necessários para fazer o serviço e cumprir a lei. Os dados do cartão ficam com o Asaas e não passam por este site. Cookies de medição de anúncios só com o seu aceite.</p>
@@ -59,6 +60,7 @@
           <tr><td>Novidades por e-mail</td><td>E-mail</td><td>Enviar novidades da Jéssica Gessoli</td><td>Consentimento (art. 7º, I), que você retira quando quiser</td></tr>
           <tr><td>Resultado do Teste de golpe por escrito</td><td>Nome, WhatsApp ou e-mail, número de acertos e situações erradas</td><td>Enviar o resultado e mensagens sobre golpes e o Checkup</td><td>Consentimento (art. 7º, I), que você retira quando quiser</td></tr>
           <tr><td>Pedido para entrar no Radar Digital | Grupo de alertas, no WhatsApp</td><td>Nome e número do WhatsApp</td><td>Incluir você no grupo e enviar alertas de golpes, cuidados com IA e segurança digital. Nos grupos do WhatsApp, os outros participantes podem ver o seu número, conforme o formato do grupo e as regras do WhatsApp</td><td>Consentimento (art. 7º, I). Você sai quando quiser, saindo do grupo ou pedindo pelo WhatsApp ou por e-mail</td></tr>
+          <tr><td>Medição de visitas</td><td>Páginas vistas, cliques e origem da visita, ligados a um identificador do navegador, sem nome nem contato</td><td>Saber quais páginas e conteúdos trazem visitas e compras, para melhorar o site</td><td>Consentimento (art. 7º, I), só se você aceitar os cookies</td></tr>
           <tr><td>Medição de anúncios</td><td>Páginas vistas e ações na loja, ligadas a um identificador do navegador</td><td>Medir e melhorar os anúncios</td><td>Consentimento (art. 7º, I), só se você aceitar os cookies</td></tr>
         </tbody>
       </table>
@@ -70,6 +72,7 @@
       <li><strong>Asaas:</strong> processa os pagamentos e emite as cobranças.</li>
       <li><strong>Google Workspace e Trello:</strong> e-mail, agenda e organização interna dos pedidos.</li>
       <li><strong>Google (Planilhas e Apps Script):</strong> registra os pedidos, os pedidos de desistência e os avisos de pagamento numa planilha da conta Google de Jéssica Gessoli, e envia os avisos de pedido não concluído para quem marcou essa opção.</li>
+      <li><strong>Google (Google Analytics):</strong> a medição de visitas, só se você aceitar os cookies, sem sinais de anúncio do Google.</li>
       <li><strong>Meta:</strong> o WhatsApp, quando você conversa comigo ou participa do Radar Digital; e a medição de anúncios, só se você aceitar os cookies.</li>
     </ul>
     <p>Os dados não são vendidos nem usados para outros fins.</p>
@@ -84,9 +87,10 @@
     <ul>
       <li><strong>Pedido:</strong> o pedido em montagem fica guardado só nesta aba do navegador e some quando ela é fechada. É necessário para a loja funcionar.</li>
       <li><strong>Sua escolha sobre cookies:</strong> fica guardada no seu navegador para o aviso não voltar a cada página.</li>
+      <li><strong>Google Analytics, só se você aceitar:</strong> grava cookies como o <code>_ga</code> para contar visitas e cliques no caminho de compra. Se você recusar, nada é carregado e nada é enviado ao Google.</li>
       <li><strong>Pixel da Meta, só se você aceitar:</strong> grava cookies como o <code>_fbp</code> para medir os anúncios. Se você recusar, nada é carregado e nada é enviado à Meta.</li>
     </ul>
-    <p>Você pode mudar a sua escolha pelo botão Preferências de cookies, no rodapé, quando a medição estiver ativa.</p>
+    <p>Você pode mudar a sua escolha pelo botão Preferências de cookies, no rodapé desta página.</p>
 
     <h2 id="mudancas">7. Mudanças nesta política</h2>
     <p>Quando esta política mudar, a data da versão no topo muda junto.</p>
