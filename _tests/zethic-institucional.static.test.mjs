@@ -92,7 +92,16 @@ test("Diagnóstico e Teste de golpe são páginas da Jéssica Gessoli", () => {
     assert.match(h, /<title>[^<]*\| Jéssica Gessoli<\/title>/, p);
     assert.match(h, /<meta property="og:site_name" content="Jéssica Gessoli">/, p);
     assert.doesNotMatch(h, /<!-- grupo:inicio -->|grupo\.css/, p);
-    assert.doesNotMatch(semObrigatorios(h).replace(/zethicEvento/g, ""), /Zethic/, p);
+    // 11/11/2026 (Jéssica, estratégia de collab): o Diagnóstico pode indicar a Zethic numa única linha de ponte,
+    // sempre com o aviso de fundadora e a liberdade de contratar a execução com quem preferir.
+    const ponte = /<p><strong>Quer que alguém execute as correções\?<\/strong>[\s\S]*?<\/p>/;
+    if (p.includes("diagnostico")) {
+      const m = h.match(ponte);
+      assert.ok(m, p);
+      assert.match(m[0], /Jéssica Gessoli é fundadora da Zethic/, p);
+      assert.match(m[0], /contratar a execução com quem preferir/, p);
+    }
+    assert.doesNotMatch(semObrigatorios(h.replace(ponte, "")).replace(/zethicEvento/g, ""), /Zethic/, p);
     // 10/11/2026 (Jéssica): sem conversa grátis no caminho de compra; o próximo passo é a loja da Jéssica Gessoli.
     assert.doesNotMatch(h, /calendly\.com/, p);
     assert.match(h, /\/jessicagessoli\/loja\/#item-/, p);
