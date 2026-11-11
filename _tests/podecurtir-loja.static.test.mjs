@@ -25,7 +25,9 @@ test("configuração única, com pagamento e Pixel desligados até serem preench
       // 10/11/2026: Tradução do cardápio, Catálogo Pronto e Cuidado do Catálogo
       "traducao", "catalogo", "catalogo_mensal",
       // 10/11/2026: Vídeo de conversa
-      "conversa"].sort());
+      "conversa",
+      // 11/11/2026: serviços da categoria Agência de marketing no Google
+      "campanha", "anuncio", "relatorio"].sort());
   for (const v of Object.values(c.ASAAS_LINKS)) assert.ok(v === "" || /^https:\/\/(www\.)?asaas\.com\//.test(v), "link do Asaas inválido: " + v);
   assert.ok([500, 750, 1200].includes(c.PRECO_AJUSTE), "preço do Ajuste fora da escada aprovada");
   assert.ok(c.PIXEL_ID === "" || /^\d{10,20}$/.test(c.PIXEL_ID));
@@ -230,6 +232,8 @@ test("site: pagamento integral, parcelado só no cartão e Gestão Completa com 
     if (k === "portfolio" && v === "") continue;
     // 10/11/2026: Vídeo de conversa, em configuração até a Jéssica criar o link
     if (k === "conversa" && v === "") continue;
+    // 11/11/2026: campanha, revisão de anúncio e relatório mensal, em configuração até a Jéssica criar os links
+    if (["campanha", "anuncio", "relatorio"].includes(k) && v === "") continue;
     assert.match(v, /^https:\/\/www\.asaas\.com\/000\/c\/[a-z0-9]{16}$/, k);
   }
 });
@@ -563,4 +567,19 @@ test("propostas das parceiras dentro das faixas; Pedir proposta só da Pode Curt
   assert.match(js, /\$\("lista-propostas"\)\.innerHTML = propostasDa\("pc"\);/);
   assert.match(js, /\$\("propostas-jg"\)\.innerHTML = propostasDa\("jg"\);/);
   assert.match(js, /\$\("propostas-ze"\)\.innerHTML = propostasDa\("ze"\);/);
+});
+
+// 11/11/2026 (Jéssica: "deixe disponível no site todos os serviços que apareceram no Google", categoria Agência de marketing).
+test("Pode Curtir: serviços da categoria Agência de marketing do Google, com preço de fundador ou por proposta", () => {
+  const js = ler("assets/js/podecurtir-loja.js");
+  assert.match(js, /id: "campanha", nome: "Campanha de data comemorativa", preco: 900,[\s\S]*?Depois, R\$ 1\.440\./);
+  assert.match(js, /id: "anuncio", nome: "Revisão de anúncio pela psicologia do consumidor", preco: 450,[\s\S]*?Depois, R\$ 720\.[\s\S]*?Sem exame de cérebro e sem promessa de resultado\./);
+  assert.match(js, /id: "relatorio", nome: "Relatório de marketing mensal", mensal: 390,[\s\S]*?Depois, R\$ 620 por mês\./);
+  const propostas = js.split("var PROPOSTAS")[1].split("];")[0];
+  for (const id of ["email", "seo", "consultoria", "esporte", "loja_online", "afiliados", "prospeccao", "ligacoes"])
+    assert.match(propostas, new RegExp('id: "' + id + '", marca: "pc"'), id);
+  // Ligações só para a base própria, com aceite, respeitando o Não Me Ligue (Procon-SP) e a LGPD.
+  assert.match(propostas, /só para quem já é cliente e autorizou o contato, respeitando o Não Me Ligue do Procon-SP e a LGPD\. Sem ligação para lista comprada\./);
+  // Os planos de Gestão da Black Friday continuam só os 3 de sempre.
+  assert.match(js, /var GESTAO = \["essencial", "padrao", "completa"\];/);
 });
