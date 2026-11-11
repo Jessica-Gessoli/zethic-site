@@ -89,7 +89,9 @@ jg = [("/jessicagessoli", "/"), ("/en/jessicagessoli", "/en/"), ("/jessicagessol
       # 10/11/2026 (Jéssica): materiais grátis e Diagnóstico saem de zethic.net e vão para a marca Jéssica Gessoli.
       ("/jessicagessoli/diagnostico/", "/diagnostico/"), ("/jessicagessoli/teste-golpe/", "/teste-golpe/"),
       ("/jessicagessoli/teste-ia/", "/teste-ia/"), ("/jessicagessoli/copia-e-cola/", "/copia-e-cola/"),
-      ("/jessicagessoli/conte-seu-golpe/", "/conte-seu-golpe/")]
+      ("/jessicagessoli/conte-seu-golpe/", "/conte-seu-golpe/"),
+      # 10/11/2026 (Jéssica): página do conceito Entre os times (roda de cores da segurança).
+      ("/jessicagessoli/entre-os-times/", "/entre-os-times/")]
 def jg_map(i): return [jg[i]] + jg[:i] + jg[i + 1:]
 # 03/11/2026 (aprovado pela Jéssica): loja da Pode Curtir com carrinho, termos, privacidade e desistência.
 # 04/11/2026: página Seja parceiro (rede curada, modelo C).
@@ -129,6 +131,7 @@ build("jessicagessoli", "jessicagessoli.zethic.net", [
     ("_fontes/jessicagessoli/teste-ia/index.html", "teste-ia/index.html", jg_map(12)),
     ("_fontes/jessicagessoli/copia-e-cola/index.html", "copia-e-cola/index.html", jg_map(13)),
     ("_fontes/jessicagessoli/conte-seu-golpe/index.html", "conte-seu-golpe/index.html", jg_map(14)),
+    ("_fontes/jessicagessoli/entre-os-times/index.html", "entre-os-times/index.html", jg_map(15)),
 ], ["/assets/fonts/OFL-IBM-Plex-Sans.txt", "/assets/fonts/OFL-Spectral.txt"])
 # 10/11/2026 (Jéssica): zethic.net/jessicagessoli/* não mostra mais as páginas; cada endereço antigo redireciona para
 # o mesmo endereço em jessicagessoli.zethic.net, levando junto ?parâmetros e #trecho (links de posts, PDFs e do Asaas).
