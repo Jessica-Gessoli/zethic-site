@@ -12,6 +12,7 @@ troca os endereços pelos novos e aponta para zethic.net o que é da Zethic.
 Uso:  python3 _ferramentas/gerar_marcas.py           (gera)
       python3 _ferramentas/gerar_marcas.py --check   (falha se _marcas estiver desatualizado)
 """
+import hashlib
 import re, shutil, sys
 from pathlib import Path
 import filecmp, tempfile
@@ -26,7 +27,7 @@ Z = "https://zethic.net"
 def assets(*files):
     found = set()
     for f in files:
-        found |= set(re.findall(r"/assets/[^\"' ,)]+", (SRC / f).read_text()))
+        found |= set(re.findall(r"/assets/[^\"' ,)?#]+", (SRC / f).read_text()))
     return sorted(found)
 
 def copy(dest, paths):
@@ -35,6 +36,15 @@ def copy(dest, paths):
         d = dest / p.lstrip("/")
         d.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(s, d)
+
+def versionar(html):
+    # 11/11/2026: CSS e JS levam ?v=<hash do conteúdo>. Quando o arquivo muda, o endereço muda
+    # e o navegador baixa a versão nova junto com a página (sem precisar de Ctrl + Shift + R).
+    def v(m):
+        caminho = m.group(2)
+        h = hashlib.sha256((SRC / caminho.lstrip("/")).read_bytes()).hexdigest()[:10]
+        return f'{m.group(1)}="{caminho}?v={h}"'
+    return re.sub(r'(href|src)="(/assets/[^"?#]+\.(?:css|js))"', v, html)
 
 def zethic_links(html, own):
     # links relativos que não são da própria marca vão para zethic.net
@@ -64,6 +74,7 @@ def build(name, host, pages, extra_files):
         html = zethic_links(html, [o for o, _ in own_map])   # primeiro: o que não é da marca vai para zethic.net
         for old, new in own_map:              # depois: links relativos da marca
             html = re.sub(rf'(href|action)="{re.escape(old)}([#?"])', lambda m: f'{m.group(1)}="{new}{m.group(2)}', html)
+        html = versionar(html)
         (dest / out).parent.mkdir(parents=True, exist_ok=True)
         (dest / out).write_text(html)
     css = [a for a in assets(*[p[0] for p in pages]) if a.endswith(".css")]
