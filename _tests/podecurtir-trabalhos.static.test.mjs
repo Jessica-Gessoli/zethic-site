@@ -33,7 +33,9 @@ test("Símbolos: monograma JG e visor da Pode Curtir, sem endosso da Zethic", ()
   const pc = ler("assets/img/podecurtir-icone.svg");
   assert.match(pc, /fill="#FFD23F"/);
   assert.doesNotMatch(ler("_fontes/podecurtir.html"), /marca da|parentOrganization|href="\/"/);
-  assert.doesNotMatch(ler("_fontes/podecurtir.html"), /zethic-marca\.svg/);
+  // 11/11/2026 (pedido da Jéssica): a marca da Zethic aparece só como parceira, na seção de proteção e recuperação de conta, nunca como endosso da Pode Curtir.
+  const semSecaoZethic = ler("_fontes/podecurtir.html").replace(/<section class="secao leve-junto" aria-labelledby="t-contas">[\s\S]*?<\/section>/, "");
+  assert.doesNotMatch(semSecaoZethic, /zethic-marca\.svg/);
 });
 
 // 14/10/2026 (aprovado pela Jéssica, orientação da Goreti): primeiro a conversa, depois o preço. Nenhum valor publicado no site.
