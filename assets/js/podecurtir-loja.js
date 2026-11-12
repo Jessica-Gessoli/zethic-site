@@ -256,15 +256,37 @@
     if (tipoItem === "proj") return tem(t.proj, id) || tem(t.alt || [], id);
     return tem(t[tipoItem] || [], id);
   }
-  /* 10/11/2026 (Jéssica): escolher o tipo de Negócio mostra só as seções que servem para ele (foco), com um botão
-     para ver tudo. "Outro Negócio" e quem não escolhe veem a loja inteira. */
+  /* 12/11/2026 (Jéssica, benchmark: minimalismo e assertividade): a loja mostra um grupo de serviços por vez, em abas.
+     Escolher o tipo de Negócio abre o grupo por onde ele começa; "Ver tudo" mostra a loja inteira.
+     Antes (10/11/2026): o tipo de Negócio escondia as seções que não serviam, com um botão para ver tudo. */
+  var GRUPOS = [
+    { id: "perfil", nome: "Perfil e redes", secoes: ["t-perfil", "t-planos"] },
+    { id: "rest", nome: "Restaurantes", secoes: ["t-rest"] },
+    { id: "cat", nome: "Lojas, docerias e salões", secoes: ["t-cat"] },
+    { id: "esp", nome: "Especialistas e empresas", secoes: ["t-esp"] },
+    { id: "vendas", nome: "Kit de Vendas e e-book", secoes: ["t-kit", "t-conteudo"] },
+    { id: "parceiros", nome: "Com parceiros", secoes: ["t-ia", "t-contas"] },
+    { id: "proposta", nome: "Sob proposta", secoes: ["t-propostas"] },
+    { id: "tudo", nome: "Ver tudo", secoes: null }
+  ];
+  var grupo = "perfil";
   var verTudo = false;
+  function grupoDaSecao(sid) {
+    for (var i = 0; i < GRUPOS.length; i++) if (GRUPOS[i].secoes && GRUPOS[i].secoes.indexOf(sid) >= 0) return GRUPOS[i].id;
+    return "tudo";
+  }
   function focar() {
-    var t = tipoAtual(), foco = t && t.foco && !verTudo ? t.foco : null;
+    var g = verTudo ? null : GRUPOS.filter(function (x) { return x.id === grupo; })[0];
+    var lista = g && g.secoes;
     Array.prototype.forEach.call(document.querySelectorAll(".layout section.secao[aria-labelledby]"), function (sec) {
-      sec.hidden = !!foco && foco.indexOf(sec.getAttribute("aria-labelledby")) < 0;
+      sec.hidden = !!lista && lista.indexOf(sec.getAttribute("aria-labelledby")) < 0;
     });
-    $("foco").hidden = !foco;
+    var abas = $("abas-loja");
+    if (abas) abas.innerHTML = GRUPOS.map(function (x) {
+      var on = verTudo ? x.id === "tudo" : x.id === grupo;
+      return '<button type="button" class="aba" data-grupo="' + x.id + '" aria-pressed="' + on + '">' + x.nome + "</button>";
+    }).join("");
+    $("foco").hidden = true;
   }
   function tipos() {
     focar();
@@ -453,10 +475,21 @@
     if (tb) {
       tipo = tipo === tb.dataset.tipo ? null : tb.dataset.tipo;
       verTudo = false;
-      if (tipo) medir("EscolheuTipo", { tipo: tipo });
+      if (tipo) {
+        medir("EscolheuTipo", { tipo: tipo });
+        var tt = tipoAtual();
+        if (tt && tt.foco) grupo = grupoDaSecao(tt.foco[0]); else if (tt) verTudo = true;
+      }
       tudo(); return;
     }
     if (e.target.closest("#ver-tudo")) { verTudo = true; medir("VerTudo", { tipo: tipo || "" }); focar(); return; }
+    var ab = e.target.closest("[data-grupo]");
+    if (ab) {
+      verTudo = ab.dataset.grupo === "tudo";
+      if (!verTudo) grupo = ab.dataset.grupo;
+      medir(verTudo ? "VerTudo" : "AbriuGrupo", { grupo: ab.dataset.grupo });
+      focar(); return;
+    }
     if (e.target.closest("#usar-sugestao")) {
       var t = tipoAtual();
       cart = { proj: t.proj.slice(), plano: t.plano, prop: t.prop.slice(), plus: t.plus.slice() };
@@ -582,7 +615,7 @@
     /* Link para uma seção escondida pelo foco do tipo de Negócio (ex.: #t-contas): mostra a loja inteira e rola até ela. */
     var escondida = alvo && alvo.closest ? alvo.closest("section.secao[hidden]") : null;
     if (escondida && $("vista-loja").contains(escondida)) {
-      verTudo = true; focar();
+      grupo = grupoDaSecao(escondida.getAttribute("aria-labelledby")); verTudo = grupo === "tudo"; focar();
       if (!$("vista-loja").hidden) { alvo.scrollIntoView(); return true; }
     }
     if (!alvo || !$("vista-loja").contains(alvo) || !$("vista-loja").hidden) return false;

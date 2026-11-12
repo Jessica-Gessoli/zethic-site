@@ -189,3 +189,17 @@ test("casos: espelho da Pode Curtir tem as imagens e o vídeo", () => {
   const usados = new Set([...h.matchAll(/\/assets\/(?:img|video)\/(?:agua-na-boca_virginia-|lucia-vidotto_|jessica-gessoli_quem-faz)[^"\s,]+/g)].map((m) => m[0]));
   for (const u of usados) assert.ok(existe("_marcas/podecurtir-site" + u), "falta no espelho: " + u);
 });
+
+// 12/11/2026 (Jéssica, benchmark: minimalismo e assertividade): loja em abas, um grupo por vez; tipo de Negócio abre o
+// grupo por onde começar; link para uma seção escondida abre o grupo dela; lista "O que a gente faz" recolhida.
+test("loja em abas: grupos cobrem todas as seções, tipo abre o grupo e âncora abre o grupo certo", () => {
+  const js = ler("assets/js/podecurtir-loja.js");
+  assert.match(h, /<div class="abas-loja" id="abas-loja" role="group" aria-label="Grupos de serviços"><\/div>/);
+  const secoes = [...h.matchAll(/<section class="secao[^"]*" aria-labelledby="(t-[a-z]+)"/g)].map((m) => m[1]);
+  const grupos = js.slice(js.indexOf("var GRUPOS = ["), js.indexOf("var grupo = "));
+  for (const s of secoes) assert.match(grupos, new RegExp('"' + s + '"'), "seção sem aba: " + s);
+  assert.match(grupos, /\{ id: "tudo", nome: "Ver tudo", secoes: null \}/);
+  assert.match(js, /if \(tt && tt\.foco\) grupo = grupoDaSecao\(tt\.foco\[0\]\)/);
+  assert.match(js, /grupo = grupoDaSecao\(escondida\.getAttribute\("aria-labelledby"\)\)/);
+  assert.match(h, /<details class="frentes-mais">\s*<summary>Ver a lista completa do que a gente faz<\/summary>/);
+});

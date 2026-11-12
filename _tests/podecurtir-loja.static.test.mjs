@@ -142,7 +142,8 @@ test("página única: loja na página inicial, comprar antes do WhatsApp e ender
   // 12/11/2026: o topo virou destaques no modelo da Zethic; a chamada principal fica no destaque 1.
   const hero = h.split('<div class="hero pc-vitrine"')[1].split('aria-label="2 de 3')[0];
   // 10/11/2026 (Jéssica): a chamada principal leva à escolha pelo tipo de Negócio, no topo da loja.
-  assert.match(hero, /<a class="btn cheio" href="#loja"[^>]*>Escolher pelo meu Negócio<\/a>\s*<a class="btn contorno" href="\/fale\?utm_source=podecurtir"/);
+  // 12/11/2026 (benchmark): um botão de destaque por tela; o WhatsApp no topo vira link, depois do botão de compra.
+  assert.match(hero, /<a class="btn cheio" href="#loja"[^>]*>Escolher pelo meu Negócio<\/a>\s*<a class="link-claro" href="\/fale\?utm_source=podecurtir"/);
   assert.doesNotMatch(h, /class="oferta"/, "cartões de preço repetidos voltaram");
   for (const id of ['id="loja"', 'id="vista-loja"', 'id="vista-checkout" hidden', 'id="grade-perfil"', 'id="grade-contas"', 'id="grade-planos"',
     'id="lista-propostas"', 'id="carrinho"', 'id="ir-carrinho"', 'id="tipos-opcoes"', 'id="link-obrigado" href="/podecurtir/loja/obrigado/"'])

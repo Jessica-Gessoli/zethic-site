@@ -242,3 +242,10 @@ legend{font-size:1.25rem;font-weight:700;padding:0;margin-bottom:.75rem}
 .leve-junto .detalhes{border-top-color:rgba(167,178,209,.22)}
 .leve-junto .detalhes summary{color:#FFFFFF}
 @media (prefers-reduced-motion:reduce){.item,.item:hover,.tipos-opcoes .tipo,.tipos-opcoes .tipo:hover{transition:none;transform:none}}
+
+/* 12/11/2026 (Jéssica, benchmark): loja em abas, um grupo de serviços por vez. */
+.abas-loja{display:flex;gap:.5rem;overflow-x:auto;padding:.25rem 0 1rem;margin-bottom:.5rem;scrollbar-width:thin;-webkit-overflow-scrolling:touch}
+.abas-loja .aba{flex:none;border:1.5px solid var(--linha);background:var(--branco);color:var(--tinta);border-radius:999px;padding:.6rem 1.1rem;font:inherit;font-weight:700;font-size:.95rem;cursor:pointer;white-space:nowrap;min-height:2.75rem}
+.abas-loja .aba:hover{border-color:var(--rosa)}
+.abas-loja .aba[aria-pressed="true"]{background:var(--tinta);border-color:var(--tinta);color:var(--branco)}
+.abas-loja .aba:focus-visible{outline:3px solid var(--rosa);outline-offset:2px}

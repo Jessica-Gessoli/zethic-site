@@ -333,3 +333,13 @@ section.alt[aria-labelledby="t-faz"]{background:var(--branco)}
 .fim .btn.cheio:hover{background:var(--flash);color:var(--tinta)}
 footer.ident{background:var(--tinta);color:#D9D4E6}
 footer.ident a{color:var(--branco)}
+
+/* 12/11/2026 (Jéssica, benchmark): um botão de destaque por tela; o WhatsApp no topo vira link. */
+.link-claro{align-self:center;color:var(--branco);font-weight:700;text-decoration:underline;text-underline-offset:.25em;padding:.6rem .2rem}
+.link-claro:hover{color:var(--flash)}
+.frentes-mais{margin-top:1rem}
+.frentes-mais>summary{cursor:pointer;display:inline-flex;align-items:center;gap:.5rem;font-weight:700;color:var(--rosa-escuro);padding:.6rem 1rem;border:1.5px solid var(--linha);border-radius:999px;list-style:none}
+.frentes-mais>summary::-webkit-details-marker{display:none}
+.frentes-mais>summary::after{content:"+";font-size:1.15rem;line-height:1}
+.frentes-mais[open]>summary::after{content:"−"}
+.frentes-mais[open]>summary{margin-bottom:1.25rem}
