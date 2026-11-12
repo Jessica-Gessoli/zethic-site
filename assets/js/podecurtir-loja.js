@@ -229,7 +229,7 @@
       txt: "Veja os três níveis do Perfil Pronto logo abaixo. Se o seu caso for diferente, peça proposta, sem compromisso." }
   ];
   /* 12/11/2026: em cada cartão de tipo de Negócio, por onde começar. */
-  var COMECO = { doceria: "Comece pelo Ajuste de Perfil", salao: "Comece pela Gestão Padrão", consultorio: "Comece pelo Perfil Arrumado", especialista: "Comece pelo Diagnóstico de marca", restaurante: "Comece pelo Cardápio Pronto", cozinha_delivery: "Comece pelo Cardápio Pronto", outro: "Ver a loja inteira" };
+  var COMECO = { doceria: "Comece pelo Ajuste de Perfil", salao: "Comece pela Gestão Padrão", consultorio: "Comece pelo Perfil Arrumado", especialista: "Comece pelo Diagnóstico de marketing", restaurante: "Comece pelo Cardápio Pronto", cozinha_delivery: "Comece pelo Cardápio Pronto", outro: "Ver a loja inteira" };
   var tipo = null;
   function tipoAtual() { return TIPOS.filter(function (t) { return t.id === tipo; })[0] || null; }
   function sugerido(tipoItem, id) {
