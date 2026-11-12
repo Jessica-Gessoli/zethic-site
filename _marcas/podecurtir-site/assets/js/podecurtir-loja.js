@@ -25,7 +25,14 @@
    (técnica de preço psicológico do Sebrae), pacotes e porta de entrada barata. Itens novos: Diagnóstico do perfil, Teste de
    3 Reels, Presença e Presença+ e o Kit de Vendas (catálogo de serviços, apresentação comercial e estruturação de oferta).
    Pedidos de proposta ganham um valor "a partir de". O Site Essencial (R$ 3.000) é preço da Zethic e não muda aqui.
-   Quem já comprou ou recebeu proposta mantém o valor combinado. */
+   Quem já comprou ou recebeu proposta mantém o valor combinado.
+   Reformulação da oferta de 12/11/2026, aprovada pela Jéssica (documento "Pode Curtir — reformulação da oferta"):
+   linhas com no máximo 4 opções (mix de produtos do Sebrae e paradoxo da escolha), "Comece por aqui" com as entradas
+   que viram crédito em 30 dias, selo "Recomendado" no nível do meio (não "mais escolhido": ainda não há vendas que
+   provem isso), Portfólio dentro da Apresentação Comercial, Acabamento dentro da linha de vídeo, Diagnóstico de
+   marketing no lugar do Diagnóstico de especialista e da Análise de marketing, um Cuidado para cardápio e catálogo,
+   Tradução e Revisão de anúncio como extras no pedido, Porta-vozes e Coordenação por proposta; saem o Relatório,
+   a Licença do método e os Afiliados; esporte e loja online viram versões da Gestão. */
 (function () {
   var C = window.PODECURTIR || {};
   var LINKS = C.ASAAS_LINKS || {};
@@ -35,100 +42,80 @@
 
   var PROJ = [
     /* 12/11/2026: porta de entrada barata (Sebrae: escada de valor). Vira crédito no Ajuste de Perfil em até 30 dias. */
-    { id: "diag_perfil", nome: "Diagnóstico do perfil", preco: 97, prazo: "3 dias úteis", fundador: true,
+    { id: "diag_perfil", secoes: ["comece"], nome: "Diagnóstico do perfil", preco: 97, prazo: "3 dias úteis", fundador: true,
       depois: "Preço de fundador para os 3 primeiros clientes. Depois, R$ 147. Se você contratar o Ajuste de Perfil em até 30 dias, o valor vira crédito.",
       desc: "Leitura do seu perfil do Instagram em PDF: nome, bio, foto, link, destaques, posts fixados e o que trava quem chega para comprar, com a lista do que ajustar primeiro. Você ajusta sozinho ou contrata o Ajuste de Perfil." },
     { id: "ajuste", nome: "Ajuste de Perfil", preco: PRECO_AJUSTE, prazo: "5 dias úteis", fundador: PRECO_AJUSTE === 497,
       desc: "Bio, nome, foto, link e botão de WhatsApp, destaques com capa, 3 posts fixados e revisão básica dos acessos da conta." },
-    { id: "arrumado", nome: "Perfil Arrumado", preco: 997, parcelas: 3, em: "no", prazo: "15 dias úteis", fundador: true,
+    { id: "arrumado", recomendado: true, nome: "Perfil Arrumado", preco: 997, parcelas: 3, em: "no", prazo: "15 dias úteis", fundador: true,
       depois: "Preço de fundador para os 3 primeiros clientes. Depois, R$ 1.297.",
       desc: "Tudo do Ajuste de Perfil, mais análise de quem você segue, curadoria da grade, revisão das legendas e dos acessos e plano de 30 dias." },
     { id: "marca", nome: "Marca Completa", preco: 3997, parcelas: 6, em: "na", prazo: "30 dias úteis", fundador: true,
       depois: "Preço de fundador para os 3 primeiros clientes. Depois, R$ 4.997.",
       desc: "Tudo do Perfil Arrumado, mais paleta, tipografia, símbolo e assinatura, modelos de capa, post e story e manual curto de uso." },
     /* 09/11/2026 (D4 aprovada pela Jéssica): portfólio da empresa, preço de fundador para os 3 primeiros clientes. */
-    { id: "portfolio", nome: "Portfólio da empresa", preco: 1197, prazo: "10 dias úteis", fundador: true,
-      depois: "Preço de fundador para os 3 primeiros clientes. Depois, R$ 1.497.",
-      desc: "Apresentação da empresa em PDF de 10 a 12 páginas, com texto real: quem é, o que faz, para quem, como trabalha e como contratar. Clientes, números e depoimentos entram só se você enviar, com autorização. Fotos novas: some a sessão de fotos de 1 hora no fechamento do pedido." },
     /* 11/11/2026 (Jéssica: "deixe disponível no site todos os serviços que apareceram no Google", categoria Agência de
        marketing). Preços pelo padrão da loja: fundador para os 3 primeiros clientes, depois cerca de 1,6 vez.
        Referências: pacote de agência com relatórios R$ 1.500 a R$ 4.000/mês (Cronoshare); 12 posts + 6 Reels por R$ 850+/mês (Sebrae PR). */
-    { id: "campanha", nome: "Campanha de data comemorativa", preco: 897, prazo: "10 dias úteis", fundador: true,
+    { id: "campanha", secao: "gestao", nome: "Campanha de data comemorativa", preco: 897, prazo: "10 dias úteis", fundador: true,
       depois: "Preço de fundador para os 3 primeiros clientes. Depois, R$ 1.197.",
       desc: "Para 1 data (Natal, Dia das Mães, Black Friday ou outra do seu Negócio): 6 posts, 2 Reels, stories e o texto da oferta para o WhatsApp. Você aprova tudo antes de ir ao ar. Anúncio pago e verba de anúncio ficam à parte." },
-    { id: "anuncio", nome: "Revisão de anúncio pela psicologia do consumidor", preco: 397, prazo: "5 dias úteis", fundador: true,
-      depois: "Preço de fundador para os 3 primeiros clientes. Depois, R$ 597.",
-      desc: "Revisão de 1 anúncio ou 1 página de venda com base em como as pessoas decidem uma compra: título, imagem, prova, preço e chamada. Você recebe 2 versões para testar uma contra a outra (teste A/B) e a explicação de cada mudança. Sem exame de cérebro e sem promessa de resultado." },
-    { id: "diag_esp", secao: "esp", nome: "Diagnóstico de marca de especialista", preco: 497, prazo: "10 dias úteis", fundador: true,
-      depois: "Preço de fundador para os 3 primeiros clientes. Depois, R$ 697. Se você contratar a Gestão de marca de especialista em até 30 dias, o valor vira crédito na 1ª mensalidade.",
-      desc: "Leitura dos seus canais, do que você já publica e de quem já trabalha com você (produtora, mentora, editor), posicionamento em uma frase e plano de 30 dias." },
+    { id: "diag_esp", secao: "esp", nome: "Diagnóstico de marketing", preco: 497, prazo: "10 dias úteis", fundador: true,
+      depois: "Preço de fundador para os 3 primeiros clientes. Depois, R$ 697. Com plano de 90 dias e reunião de entrega: R$ 1.497, por proposta. Se você contratar um plano mensal em até 30 dias, o valor vira crédito na 1ª mensalidade.",
+      desc: "Em duas versões. Para especialista: leitura dos seus canais e de quem já trabalha com você (produtora, mentora, editor) e posicionamento em uma frase. Para o Negócio: leitura das redes, do Perfil da Empresa no Google e dos anúncios. Nas duas, as prioridades e um plano de 30 dias." },
     { id: "video_presenca", secao: "esp", nome: "Presença em vídeo · treino individual", preco: 1497, prazo: "2 encontros em até 15 dias", fundador: true,
       depois: "Preço de fundador para os 3 primeiros clientes. Depois, R$ 2.497.",
       desc: "2 encontros de 2 horas, online ou em Campinas/SP: roteiro falado, teleprompter, postura, voz e ritmo, com gravação de teste e devolutiva por escrito. Para render mais em cada gravação." },
-    { id: "acabamento", secao: "esp", nome: "Acabamento de vídeo · 4 vídeos", preco: 397, prazo: "5 dias úteis", fundador: true,
-      depois: "Preço de fundador para os 3 primeiros clientes. Depois, R$ 497.",
-      desc: "Para quem já tem o vídeo editado: capa, gancho nos 3 primeiros segundos e legendas para cada rede. Cerca de R$ 99 por vídeo." },
     /* 10/11/2026 (Jéssica aprovou a descoberta "Edição de vídeo com IA"): conversa, entrevista, live ou áudios viram Reel.
        Preço de mercado para edição de material bruto: R$ 300 a R$ 700 por vídeo. Edição com apoio de IA, informada ao
        cliente (Política de Edição, 05/11/2026), sem mudar o que foi dito. Autorização de quem aparece: termos, seção 9. */
-    { id: "conversa", secao: "esp", nome: "Vídeo de conversa · 1 Reel", preco: 197, prazo: "5 dias úteis",
+    { id: "conversa", secao: "video", secoes: ["comece"], nome: "Vídeo de conversa · 1 Reel", preco: 197, prazo: "5 dias úteis",
       depois: "Para experimentar: o Teste de 3 Reels sai por R$ 397.",
-      desc: "Para conversa, entrevista, live ou áudios de WhatsApp: escolhemos os trechos, colocamos legendas, capa e a foto de quem fala, limpamos o som e entregamos 2 versões, uma curta para o Instagram e uma completa para o LinkedIn. Até 15 minutos de material bruto. Edição com apoio de IA, sem mudar o que foi dito. Você garante a autorização de todos que aparecem ou falam." },
+      desc: "Para conversa, entrevista, live ou áudios de WhatsApp: escolhemos os trechos, colocamos legendas, capa e a foto de quem fala, limpamos o som e entregamos 2 versões, uma curta para o Instagram e uma completa para o LinkedIn. Até 15 minutos de material bruto. Vale também para o vídeo que você já gravou e quer só com capa, gancho e legendas. Edição com apoio de IA, sem mudar o que foi dito. Você garante a autorização de todos que aparecem ou falam." },
     /* 12/11/2026: teste de 3 Reels (referência de mercado: R$ 375) para quem quer experimentar antes de assinar. */
-    { id: "teste3", secao: "esp", nome: "Vídeo de conversa · Teste de 3 Reels", preco: 397, prazo: "10 dias úteis", fundador: true,
+    { id: "teste3", secao: "video", secoes: ["comece"], nome: "Vídeo de conversa · Teste de 3 Reels", preco: 397, prazo: "10 dias úteis", fundador: true,
       depois: "Preço de fundador para os 3 primeiros clientes. Se você assinar a Presença em até 30 dias, o valor vira crédito na 1ª mensalidade.",
       desc: "O mesmo Vídeo de conversa, em 3 Reels: até 15 minutos de material bruto por Reel, legendas, capa e som limpo, com 2 versões de cada. Para ver o resultado antes de assinar um plano." },
     /* 08/11/2026 (Jéssica aprovou): cardápio de restaurante. A Pode Curtir vende e cuida do conteúdo; a página e o app
        (instalável pelo navegador, sem loja de apps) são feitos pela Zethic, em parceria (regra de 28/10: tecnologia é da Zethic). */
-    { id: "cardapio", secao: "rest", nome: "Cardápio Pronto", preco: 997, prazo: "10 dias úteis", fundador: true,
+    { id: "cardapio", secao: "rest", recomendado: true, nome: "Cardápio Pronto", preco: 997, prazo: "10 dias úteis", fundador: true,
       depois: "Preço de fundador para os 3 primeiros clientes. Depois, R$ 1.197.",
       desc: "Você não monta nada: a Pode Curtir escreve, organiza e publica o cardápio. Até 30 itens: textos dos pratos, categorias, preços e alérgenos que você informar. Cardápio no celular, que abre pelo QR code e pode ser instalado na tela como um app, com QR code para mesas e balcão, cardápio impresso para a entrada (PDF pronto para a gráfica, com os mesmos preços), botão de pedido pelo WhatsApp sem taxa por pedido e link no Instagram e no Perfil da Empresa no Google. 12 meses no ar incluídos. Página e app feitos pela Zethic, em parceria." },
     /* 10/11/2026 (Jéssica): itens com link no Asaas criados em 09/11/2026. Tradução junto do cardápio; catálogo para
        quem vende produto ou serviço (doceria, salão, loja), no mesmo modelo do cardápio, com a Zethic em parceria. */
     /* 10/11/2026 (Jéssica, por benchmark): 30 itens nos dois idiomas dão cerca de 1.500 palavras, menos de um dia de
        tradução no ritmo profissional (2.000 a 3.000 palavras por dia) mais a revisão por outra pessoa: 5 dias úteis. */
-    { id: "traducao", secao: "rest", nome: "Tradução do cardápio · inglês e espanhol", preco: 597, prazo: "5 dias úteis", fundador: true,
-      depois: "Preço de fundador para os 3 primeiros clientes. Depois, R$ 897.",
-      desc: "Para quem tem ou leva junto o Cardápio Pronto: o cardápio também em inglês e espanhol, com nomes, descrições e categorias dos pratos (até 30 itens), para atender turistas sem traduzir na hora." },
     { id: "catalogo", secao: "cat", nome: "Catálogo Pronto", preco: 697, prazo: "10 dias úteis", fundador: true,
       depois: "Preço de fundador para os 3 primeiros clientes. Depois, R$ 897.",
       desc: "Até 30 itens com nome, descrição, preço e foto que você enviar. Catálogo no celular, que abre pelo QR code e pelo link na bio, com botão de pedido pelo WhatsApp sem taxa por pedido e link no Instagram e no Perfil da Empresa no Google. 12 meses no ar incluídos. Página e app feitos pela Zethic, em parceria." },
     /* 12/11/2026 (Jéssica: "solucione usando estratégia de mercado + publicidade e propaganda + vendas"): Kit de Vendas,
        com os nomes de mercado. Referências: apresentação comercial de R$ 449,70 a R$ 995 (Criadora Oceano, M.Design,
        We Do Logos); só o design, R$ 70 a R$ 100 (Vintepila). A Pode Curtir escreve o conteúdo e organiza a oferta. */
-    { id: "kit_catalogo", secao: "kit", nome: "Catálogo de Serviços", preco: 297, prazo: "5 dias úteis", fundador: true,
+    { id: "kit_catalogo", secao: "kit", secoes: ["comece"], nome: "Catálogo de Serviços", preco: 297, prazo: "5 dias úteis", fundador: true,
       depois: "Preço de fundador para os 3 primeiros clientes. Depois, R$ 397. Em até 30 dias, o valor vira crédito no nível acima.",
       desc: "Os seus serviços em 1 ou 2 páginas: o que cada um inclui, o prazo e o preço. Textos escritos pela gente, a partir das suas respostas. PDF para mandar no WhatsApp e fixar no Instagram." },
-    { id: "kit_apresentacao", secao: "kit", nome: "Apresentação Comercial", preco: 797, prazo: "10 dias úteis", fundador: true,
+    { id: "kit_apresentacao", secao: "kit", recomendado: true, nome: "Apresentação Comercial", preco: 797, prazo: "10 dias úteis", fundador: true,
       depois: "Preço de fundador para os 3 primeiros clientes. Depois, R$ 997.",
-      desc: "Tudo do Catálogo de Serviços, em até 12 telas: para quem é, como funciona, planos e valores, jornada do cliente, pagamento e contato, nas cores e na marca do seu Negócio. PDF e link para mandar antes ou depois da conversa." },
+      desc: "Tudo do Catálogo de Serviços, em até 12 telas: para quem é, como funciona, planos e valores, jornada do cliente, pagamento e contato, nas cores e na marca do seu Negócio, com os trabalhos que você já fez (o seu portfólio). Clientes, números e depoimentos entram só se você enviar, com autorização. PDF e link para mandar antes ou depois da conversa." },
     { id: "kit_oferta", secao: "kit", nome: "Estruturação de Oferta", preco: 1997, prazo: "20 dias úteis", fundador: true,
       depois: "Preço de fundador para os 3 primeiros clientes. Depois, R$ 2.497.",
       desc: "Tudo da Apresentação Comercial, em até 20 telas, mais a organização dos seus serviços em pacotes e níveis, o preço comparado com o mercado, o que fica de fora de cada um e uma porta de entrada para o cliente começar." }
   ];
   var PLANOS = [
     { id: "essencial", nome: "Gestão Essencial", mensal: 997, depois: "Preço de fundador. A partir do 4º cliente, R$ 1.297 por mês.", desc: "1 rede, 12 posts por mês e relatório mensal." },
-    { id: "padrao", nome: "Gestão Padrão", mensal: 1797, depois: "Preço de fundador. A partir do 4º cliente, R$ 2.197 por mês.", desc: "2 redes, 16 posts e 4 Reels por mês, com relatório." },
+    { id: "padrao", recomendado: true, nome: "Gestão Padrão", mensal: 1797, depois: "Preço de fundador. A partir do 4º cliente, R$ 2.197 por mês.", desc: "2 redes, 16 posts e 4 Reels por mês, com relatório." },
     { id: "completa", nome: "Gestão Completa", mensal: 2997, depois: "Preço de fundador. A partir do 4º cliente, R$ 3.997 por mês.", desc: "3 redes, 20 posts e 8 Reels por mês." },
-    { id: "relatorio", nome: "Relatório de marketing mensal", mensal: 197, depois: "Preço de fundador para os 3 primeiros clientes.",
-      desc: "Para quem já publica sozinho: redes, site e anúncios num painel só e 1 página por mês dizendo o que manter e o que mudar no mês seguinte. Os planos de Gestão já trazem relatório." },
     { id: "esp_marca", secao: "esp", nome: "Gestão de marca de especialista", mensal: 4997, depois: "Preço de fundador para 1 cliente. Depois, R$ 6.997 por mês.",
       desc: "A sua marca de ponta a ponta: estratégia, roteiros, coordenação da produtora e da mentora que você já tem, acabamento, publicação, newsletter e relatório. Você grava, confere os fatos e aprova." },
-    { id: "esp_produtora", secao: "esp", nome: "Coordenação da sua produtora", mensal: 1997, depois: "Preço de fundador para os 3 primeiros clientes. Depois, R$ 2.497 por mês.",
-      desc: "Para quem já tem produtora ou editor e não quer coordenar: padrão de edição, calendário de gravação, prazos, revisões e aceite das entregas. Até 21 horas por mês." },
-    { id: "esp_news", secao: "esp", nome: "Newsletter pronta · 2 edições por mês", mensal: 1197, depois: "Preço de fundador para os 3 primeiros clientes. Depois, R$ 1.497 por mês.",
+    { id: "esp_news", secao: "esp", recomendado: true, nome: "Newsletter pronta · 2 edições por mês", mensal: 1197, depois: "Preço de fundador para os 3 primeiros clientes. Depois, R$ 1.497 por mês.",
       desc: "Pauta, texto com fontes, capa e texto pronto para publicar no LinkedIn. Com blog no site, a edição também entra lá." },
-    { id: "esp_portavozes", secao: "esp", nome: "Programa de porta-vozes · 2 porta-vozes", mensal: 3997, depois: "Preço de fundador para os 3 primeiros clientes. Depois, R$ 4.997 por mês.",
-      desc: "Para empresas: posts e roteiros de vídeo para 2 líderes, com calendário e aprovação numa rotina só. Mais porta-vozes por proposta: 10% de desconto a partir do 3º e 15% a partir do 5º." },
     /* 12/11/2026: Vídeo de conversa em plano mensal, abaixo do preço do Reel avulso (pacotes do mercado: R$ 85 a R$ 125 por Reel). */
-    { id: "presenca4", secao: "esp", nome: "Vídeo de conversa · Presença, 4 Reels por mês", mensal: 597, depois: "Preço de fundador para os 3 primeiros clientes.",
+    { id: "presenca4", secao: "video", recomendado: true, nome: "Vídeo de conversa · Presença, 4 Reels por mês", mensal: 597, depois: "Preço de fundador para os 3 primeiros clientes.",
       desc: "Uma conversa, entrevista ou live por semana vira Reel: até 15 minutos de material bruto por Reel, legendas, capa, som limpo e 2 versões de cada. Edição com apoio de IA, sem mudar o que foi dito." },
-    { id: "presenca8", secao: "esp", nome: "Vídeo de conversa · Presença+, 8 Reels por mês", mensal: 997, depois: "Preço de fundador para os 3 primeiros clientes.",
+    { id: "presenca8", secao: "video", nome: "Vídeo de conversa · Presença+, 8 Reels por mês", mensal: 997, depois: "Preço de fundador para os 3 primeiros clientes.",
       desc: "O mesmo da Presença, com 8 Reels por mês: dois por semana, para quem grava muito e quer aparecer sempre." },
-    { id: "cardapio_mensal", secao: "rest", nome: "Cuidado do Cardápio", mensal: 197, depois: "Preço de fundador para os 3 primeiros clientes. Depois, R$ 297 por mês.",
-      desc: "Para quem já tem o Cardápio Pronto: até 10 trocas por mês (1 troca = mudar um item: preço, nome, descrição, foto ou disponibilidade), 1 post do prato da semana e relatório dos pratos mais vistos. O cardápio fica no ar sem custo de hospedagem. Nada entra no ar sem a sua aprovação." },
-    { id: "catalogo_mensal", secao: "cat", nome: "Cuidado do Catálogo", mensal: 197, depois: "Preço de fundador para os 3 primeiros clientes. Depois, R$ 297 por mês.",
-      desc: "Para quem já tem o Catálogo Pronto: até 10 trocas por mês (1 troca = mudar um item: preço, nome, descrição, foto ou disponibilidade), 1 post do produto da semana e relatório dos produtos mais vistos. O catálogo fica no ar sem custo de hospedagem. Nada entra no ar sem a sua aprovação." }
+    { id: "cardapio_mensal", secao: "rest", secoes: ["cat"], nome: "Cuidado do cardápio ou catálogo", mensal: 197, depois: "Preço de fundador para os 3 primeiros clientes. Depois, R$ 297 por mês.",
+      desc: "Para quem já tem o Cardápio Pronto ou o Catálogo Pronto: até 10 trocas por mês (1 troca = mudar um item: preço, nome, descrição, foto ou disponibilidade), 1 post do prato ou produto da semana e relatório dos itens mais vistos. O cardápio ou o catálogo fica no ar sem custo de hospedagem. Nada entra no ar sem a sua aprovação." },
   ];
   /* Planos de Gestão que entram na campanha de Black Friday (a Proteção das contas de bônus vale só para eles). */
   var GESTAO = ["essencial", "padrao", "completa"];
@@ -138,17 +125,13 @@
     { id: "gravacao", marca: "pc", nome: "Sessão de fotos, ensaio e gravação de vídeo", plus: "plus_gravacao", desc: "Produto, ambiente ou retrato profissional; diária, evento ou sessão maior. Meia diária a partir de R$ 897; diária com edição básica a partir de R$ 1.497. O deslocamento entra na proposta." },
     { id: "livro", marca: "pc", nome: "Livro pronto", plus: "plus_livro", desc: "Revisão, capa, diagramação, publicação e divulgação. Digital a partir de R$ 1.497; digital e impresso a partir de R$ 2.997 (a impressão é paga à parte)." },
     { id: "produto_digital", marca: "pc", nome: "Produto digital e curso online", desc: "Roteiro, gravação e edição das aulas, capa e materiais do curso ou do produto. A plataforma (Hotmart ou outra) e as vendas ficam no nome do autor; a área de cursos pode ser montada pela Zethic, em parceria. A partir de R$ 4.997." },
-    { id: "licenca", marca: "pc", nome: "Licença do método de produção", desc: "Para produtoras e agências: o fluxo de produção da Pode Curtir, com treino de 8 horas da equipe, modelos e listas de conferência. A partir de R$ 2.400 por ano (preço de fundador); renovação anual de R$ 1.200." },
-    /* 11/11/2026 (Jéssica): serviços da categoria Agência de marketing no Google, por proposta (escopo depende do cliente;
-       execução pela rede de parceiros da Pode Curtir quando for o caso). */
     { id: "email", marca: "pc", nome: "E-mail marketing", desc: "Newsletter e campanhas por e-mail para quem já é cliente ou se cadastrou: textos, modelo, agenda de envios e relatório. A ferramenta e a lista ficam no nome do seu Negócio. Implantação a partir de R$ 497 e mensal a partir de R$ 397 (2 envios por mês)." },
     { id: "seo", marca: "pc", nome: "SEO: textos do site e Perfil da Empresa no Google", desc: "Textos das páginas com as palavras que o seu cliente procura, Perfil da Empresa no Google completo e com fotos, e revisão mensal das buscas. Mexer no código do site é com a Zethic, em parceria. Implantação a partir de R$ 497 e mensal a partir de R$ 197." },
-    { id: "consultoria", marca: "pc", nome: "Análise e consultoria de marketing", desc: "Leitura do que o seu Negócio já faz nas redes, no Google e nos anúncios, com números, e um plano de 90 dias com prioridades e custo de cada ação. A partir de R$ 497; o valor vira crédito se você contratar a execução em até 30 dias." },
-    { id: "esporte", marca: "pc", nome: "Redes de atleta, time ou evento esportivo", desc: "Os planos de Gestão aplicados ao esporte: calendário de jogos e treinos, bastidores, resultados e entregas para patrocinadores. A partir de R$ 997 por mês (preço de fundador)." },
-    { id: "loja_online", marca: "pc", nome: "Loja online organizada", desc: "Cadastro e atualização de produtos, fotos, descrições e promoções na sua loja virtual ou no marketplace (Mercado Livre, Shopee e outros). A loja e as vendas ficam no nome do seu Negócio. A partir de R$ 997 por mês (preço de fundador)." },
-    { id: "afiliados", marca: "pc", nome: "Programa de indicação e afiliados", desc: "Regras, comissões, links e materiais prontos para quem indica o seu Negócio, na plataforma que você escolher. Implantação a partir de R$ 1.200 (preço de fundador)." },
     { id: "prospeccao", marca: "pc", nome: "Prospecção de clientes para empresas", desc: "Lista de empresas com o perfil do seu cliente, mensagens de primeiro contato e acompanhamento das conversas até a reunião. Só contatos profissionais, com opção de sair em toda mensagem. Piloto de 30 dias a partir de R$ 1.497." },
     { id: "ligacoes", marca: "pc", nome: "Ligações e mensagens para a sua base de clientes", desc: "Para reativar quem já comprou: roteiro, ligações e mensagens de WhatsApp só para quem já é cliente e autorizou o contato, respeitando o Não Me Ligue do Procon-SP e a LGPD. Sem ligação para lista comprada. Campanha a partir de R$ 697." },
+    /* 12/11/2026 (reformulação): saem da loja com preço fechado e passam a proposta, com o mesmo valor de partida. */
+    { id: "produtora", marca: "pc", nome: "Coordenação da sua produtora", desc: "Para quem já tem produtora ou editor e não quer coordenar: padrão de edição, calendário de gravação, prazos, revisões e aceite das entregas. A partir de R$ 1.997 por mês, até 21 horas." },
+    { id: "portavozes", marca: "pc", nome: "Programa de porta-vozes", desc: "Para empresas: posts e roteiros de vídeo para os líderes, com calendário e aprovação numa rotina só. A partir de R$ 3.997 por mês para 2 porta-vozes." },
     { id: "mentoria", marca: "jg", nome: "Mentoria e consultoria em IA", plus: "plus_mentoria", desc: "Para mais de uma sessão ou para a equipe: você aprende a fazer com IA, no seu projeto. Com Jéssica Gessoli. Workshop de 4 horas para a equipe a partir de R$ 1.997." },
     { id: "protecao", marca: "ze", nome: "Proteção das contas da equipe inteira", plus: "plus_protecao", desc: "Mais de 3 contas ou a equipe toda. Feita pela Zethic, em parceria. Sem senha. A partir de R$ 497 até 5 pessoas." },
     { id: "tech", marca: "ze", nome: "Site, app, automação e bot de WhatsApp", plus: "plus_site", desc: "Feitos pela Zethic, em parceria. Atendimento e dados das redes num lugar só. Bot de WhatsApp: diagnóstico de R$ 297, abatido na implantação; app a partir de R$ 9.997." },
@@ -161,6 +144,11 @@
   var PLUS = [
     { id: "plus_gravacao", marca: "pc", nome: "Sessão de fotos de 1 hora", preco: 497, prazo: "Edição pronta em até 14 dias depois da sessão",
       desc: "10 fotos editadas, em Campinas/SP. Fora de Campinas, o deslocamento é combinado antes e cobrado à parte." },
+    /* 12/11/2026 (reformulação): extras que só aparecem no fechamento quando o serviço combina (order bump). */
+    { id: "traducao", marca: "pc", requer: ["cardapio"], nome: "Tradução do cardápio · inglês e espanhol", preco: 597, prazo: "5 dias úteis depois do cardápio pronto",
+      desc: "Para quem leva junto o Cardápio Pronto: o cardápio também em inglês e espanhol, com nomes, descrições e categorias dos pratos (até 30 itens), para atender turistas sem traduzir na hora." },
+    { id: "anuncio", marca: "pc", requer: ["campanha", "essencial", "padrao", "completa"], nome: "Revisão de anúncio pela psicologia do consumidor", preco: 397, prazo: "5 dias úteis",
+      desc: "Revisão de 1 anúncio ou 1 página de venda com base em como as pessoas decidem uma compra: título, imagem, prova, preço e chamada. Você recebe 2 versões para testar uma contra a outra (teste A/B) e a explicação de cada mudança. Sem exame de cérebro e sem promessa de resultado." },
     { id: "plus_livro", marca: "pc", nome: "Capa e diagramação do e-book", preco: 997, avulso: true, secao: "conteudo", prazo: "Prazo combinado por escrito depois do briefing",
       desc: "Com o texto pronto, até 100 páginas: capa simples e diagramação do e-book. ISBN, ficha catalográfica e gráfica ficam com o autor." },
     { id: "plus_protecao", marca: "ze", nome: "Proteção das contas", preco: 397, avulso: true, secao: "contas", prazo: "Data combinada depois do pagamento",
@@ -178,26 +166,20 @@
     ajuste: "Para quem chega ao seu perfil entender o que você vende e chamar no WhatsApp.",
     arrumado: "Para o perfil mostrar o tamanho do seu Negócio, sem você precisar aprender a fazer.",
     marca: "Para o seu Negócio ter a mesma cara em tudo e ser reconhecido de longe.",
-    portfolio: "Para mandar uma apresentação pronta depois da primeira conversa com um cliente.",
-    diag_esp: "Para saber o que ajustar antes de investir em mais conteúdo.",
+    diag_esp: "Para saber o que ajustar primeiro, antes de investir em mais conteúdo ou anúncio.",
     video_presenca: "Para gravar com naturalidade e perder menos tempo em cada gravação.",
-    acabamento: "Para o vídeo que você já tem prender a atenção nos primeiros segundos.",
     conversa: "Para uma boa conversa virar vídeo para as redes, sem você editar.",
     essencial: "Para a sua rede ficar ativa todo mês sem você parar de atender.",
     padrao: "Para mostrar o seu trabalho em vídeo toda semana.",
     completa: "Para estar em 3 redes sem montar uma equipe.",
-    relatorio: "Para saber, todo mês, o que está trazendo cliente e o que mudar.",
     campanha: "Para a data comemorativa chegar com a campanha pronta, sem correria.",
     anuncio: "Para o anúncio falar do jeito que o seu cliente decide uma compra.",
     esp_marca: "Para a sua marca andar sem você coordenar ninguém.",
-    esp_produtora: "Para a sua produtora entregar no seu padrão, sem você cobrar prazo.",
     esp_news: "Para o seu nome aparecer para quem já segue você, duas vezes por mês.",
-    esp_portavozes: "Para os líderes da empresa aparecerem com frequência, sem travar a agenda.",
     cardapio: "Para o cliente ver o cardápio no celular e pedir pelo WhatsApp, sem taxa por pedido.",
     cardapio_mensal: "Para preço novo e prato novo entrarem no ar sem você mexer no cardápio.",
     traducao: "Para o turista entender o cardápio e pedir sem ajuda.",
     catalogo: "Para o cliente ver o que você vende no celular e pedir pelo WhatsApp, sem taxa por pedido.",
-    catalogo_mensal: "Para preço novo e produto novo entrarem no ar sem você mexer no catálogo.",
     plus_livro: "Para o seu texto virar um e-book pronto para vender ou presentear.",
     plus_mentoria: "Para fazer sozinho, com IA, o que hoje depende de alguém.",
     plus_protecao: "Para as contas do Negócio ficarem mais difíceis de invadir.",
@@ -232,17 +214,17 @@
   /* Tipo de Negócio (06/11/2026): sugestão de por onde começar, a partir das personas de clientes (hipótese até as entrevistas). */
   var TIPOS = [
     { id: "doceria", nome: "Doceria ou confeitaria", proj: ["ajuste"], plano: null, plus: ["plus_gravacao"], prop: [],
-      txt: "Comece pelo <strong>Ajuste de Perfil</strong>: bio que diz o que você vende, cardápio nos destaques e botão de WhatsApp para encomendar. Se as fotos do celular não mostram o capricho dos doces, some a <strong>sessão de fotos de 1 hora</strong> no fechamento do pedido.", foco: ["t-perfil", "t-cat", "t-planos", "t-contas", "t-propostas"] },
+      txt: "Comece pelo <strong>Ajuste de Perfil</strong>: bio que diz o que você vende, cardápio nos destaques e botão de WhatsApp para encomendar. Se as fotos do celular não mostram o capricho dos doces, some a <strong>sessão de fotos de 1 hora</strong> no fechamento do pedido.", foco: ["t-perfil", "t-comece", "t-cat", "t-planos", "t-contas", "t-propostas"] },
     { id: "salao", nome: "Salão ou estúdio de beleza", proj: [], plano: "padrao", plus: [], prop: [], alt: ["arrumado"],
-      txt: "A <strong>Gestão Padrão</strong> tem 4 Reels por mês para mostrar o seu trabalho sem você parar de atender. Prefere sem mensalidade? O <strong>Perfil Arrumado</strong> é um projeto com começo, meio e fim.", foco: ["t-perfil", "t-cat", "t-planos", "t-contas", "t-propostas"] },
+      txt: "A <strong>Gestão Padrão</strong> tem 4 Reels por mês para mostrar o seu trabalho sem você parar de atender. Prefere sem mensalidade? O <strong>Perfil Arrumado</strong> é um projeto com começo, meio e fim.", foco: ["t-perfil", "t-comece", "t-cat", "t-planos", "t-contas", "t-propostas"] },
     { id: "consultorio", nome: "Consultório de saúde", proj: ["arrumado"], plano: null, plus: [], prop: ["gravacao"],
-      txt: "O <strong>Perfil Arrumado</strong> organiza o seu perfil com discrição, e o <strong>ensaio de fotos</strong> sai por proposta. Antes do primeiro post, você confirma a regra de publicidade do seu conselho profissional. Nada de foto, relato ou dado de paciente.", foco: ["t-perfil", "t-planos", "t-contas", "t-propostas"] },
+      txt: "O <strong>Perfil Arrumado</strong> organiza o seu perfil com discrição, e o <strong>ensaio de fotos</strong> sai por proposta. Antes do primeiro post, você confirma a regra de publicidade do seu conselho profissional. Nada de foto, relato ou dado de paciente.", foco: ["t-perfil", "t-comece", "t-planos", "t-video", "t-contas", "t-propostas"] },
     { id: "especialista", nome: "Especialista, consultor ou palestrante", proj: ["diag_esp"], plano: null, plus: [], prop: [],
-      txt: "Comece pelo <strong>Diagnóstico de marca de especialista</strong>: o que você já tem, quem já trabalha com você e o plano de 30 dias. Se você já paga produtora e mentora e não quer mais coordenar todo mundo, a <strong>Gestão de marca de especialista</strong> cuida de tudo.", foco: ["t-esp", "t-perfil", "t-ia", "t-conteudo", "t-propostas"] },
+      txt: "Comece pelo <strong>Diagnóstico de marketing</strong>, na versão para especialista: o que você já tem, quem já trabalha com você e o plano de 30 dias. Se você já paga produtora e mentora e não quer mais coordenar todo mundo, a <strong>Gestão de marca de especialista</strong> cuida de tudo.", foco: ["t-esp", "t-comece", "t-video", "t-kit", "t-perfil", "t-ia", "t-conteudo", "t-propostas"] },
     { id: "restaurante", nome: "Restaurante, lanchonete ou bar", proj: ["cardapio"], plano: null, plus: ["plus_gravacao"], prop: [],
-      txt: "Comece pelo <strong>Cardápio Pronto</strong>: cardápio no celular, QR code nas mesas e pedido pelo WhatsApp, sem taxa por pedido. Se as fotos dos pratos não mostram o capricho da cozinha, some a <strong>sessão de fotos de 1 hora</strong> no fechamento do pedido. Depois, o <strong>Cuidado do Cardápio</strong> mantém preços e pratos em dia.", foco: ["t-rest", "t-perfil", "t-contas", "t-propostas"] },
+      txt: "Comece pelo <strong>Cardápio Pronto</strong>: cardápio no celular, QR code nas mesas e pedido pelo WhatsApp, sem taxa por pedido. Se as fotos dos pratos não mostram o capricho da cozinha, some a <strong>sessão de fotos de 1 hora</strong> no fechamento do pedido. Depois, o <strong>Cuidado do Cardápio</strong> mantém preços e pratos em dia.", foco: ["t-rest", "t-comece", "t-perfil", "t-contas", "t-propostas"] },
     { id: "cozinha_delivery", nome: "Cozinha de delivery (em casa)", proj: ["cardapio"], plano: null, plus: ["plus_gravacao"], prop: [],
-      txt: "Sem salão e sem balcão? O <strong>Cardápio Pronto</strong> vira o seu link de pedidos: fica na bio do Instagram e na mensagem de saudação do WhatsApp, e o cliente escolhe, vê o total e manda o pedido montado, sem taxa por pedido. O exemplo de delivery está na seção para restaurantes, logo abaixo. Depois, o <strong>Cuidado do Cardápio</strong> mantém preços e pratos em dia.", foco: ["t-rest", "t-perfil", "t-contas", "t-propostas"] },
+      txt: "Sem salão e sem balcão? O <strong>Cardápio Pronto</strong> vira o seu link de pedidos: fica na bio do Instagram e na mensagem de saudação do WhatsApp, e o cliente escolhe, vê o total e manda o pedido montado, sem taxa por pedido. O exemplo de delivery está na seção para restaurantes, logo abaixo. Depois, o <strong>Cuidado do Cardápio</strong> mantém preços e pratos em dia.", foco: ["t-rest", "t-comece", "t-perfil", "t-contas", "t-propostas"] },
     { id: "outro", nome: "Outro Negócio", proj: [], plano: null, plus: [], prop: [],
       txt: "Veja os três níveis do Perfil Pronto logo abaixo. Se o seu caso for diferente, peça proposta, sem compromisso." }
   ];
@@ -260,7 +242,9 @@
      Escolher o tipo de Negócio abre o grupo por onde ele começa; "Ver tudo" mostra a loja inteira.
      Antes (10/11/2026): o tipo de Negócio escondia as seções que não serviam, com um botão para ver tudo. */
   var GRUPOS = [
-    { id: "perfil", nome: "Perfil e redes", secoes: ["t-perfil", "t-planos"] },
+    /* 12/11/2026 (reformulação aprovada): "Comece por aqui" abre a loja; Vídeo entra em Perfil e redes. */
+    { id: "comece", nome: "Comece por aqui", secoes: ["t-comece"] },
+    { id: "perfil", nome: "Perfil e redes", secoes: ["t-perfil", "t-video", "t-planos"] },
     { id: "rest", nome: "Restaurantes", secoes: ["t-rest"] },
     { id: "cat", nome: "Lojas, docerias e salões", secoes: ["t-cat"] },
     { id: "esp", nome: "Especialistas e empresas", secoes: ["t-esp"] },
@@ -269,7 +253,7 @@
     { id: "proposta", nome: "Sob proposta", secoes: ["t-propostas"] },
     { id: "tudo", nome: "Ver tudo", secoes: null }
   ];
-  var grupo = "perfil";
+  var grupo = "comece";
   var verTudo = false;
   function grupoDaSecao(sid) {
     for (var i = 0; i < GRUPOS.length; i++) if (GRUPOS[i].secoes && GRUPOS[i].secoes.indexOf(sid) >= 0) return GRUPOS[i].id;
@@ -309,7 +293,10 @@
   try {
     var salvo = JSON.parse(sessionStorage.getItem(CHAVE) || "null");
     if (salvo && Array.isArray(salvo.proj) && Array.isArray(salvo.prop)) {
-      cart = { proj: salvo.proj, plano: salvo.plano || null, prop: salvo.prop,
+      /* 12/11/2026: itens que saíram da loja (reformulação) somem do carrinho guardado. */
+      cart = { proj: salvo.proj.filter(function (id) { return PROJ.some(function (p) { return p.id === id; }); }),
+        plano: PLANOS.some(function (p) { return p.id === salvo.plano; }) ? salvo.plano : null,
+        prop: salvo.prop.filter(function (id) { return PROPOSTAS.some(function (a) { return a.id === id; }); }),
         plus: Array.isArray(salvo.plus) ? salvo.plus.filter(function (id) { return !!plusDe(id); }) : [] };
     }
   } catch (e) {}
@@ -343,9 +330,11 @@
 
   function catalogo() {
     var marcaSug = '<span class="marca-sugestao">PARA O SEU NEGÓCIO</span>';
+    /* 12/11/2026: "Recomendado" no nível do meio de cada linha (ancoragem). Não se escreve "mais escolhido" sem vendas que provem (CDC, art. 37). */
+    function selo(p, sug) { return !sug && p.recomendado ? '<span class="marca-sugestao recomendado">RECOMENDADO</span>' : ""; }
     function cardProj(p) {
       var on = tem(cart.proj, p.id), sug = sugerido("proj", p.id);
-      return '<article class="item' + (sug ? " sugerido" : "") + '">' + (sug ? marcaSug : "") + "<h3>" + p.nome + '</h3><p class="preco num">' + brl(p.preco) + "</p>" + beneficio(p) +
+      return '<article class="item' + (sug ? " sugerido" : "") + '">' + (sug ? marcaSug : "") + selo(p, sug) + "<h3>" + p.nome + '</h3><p class="preco num">' + brl(p.preco) + "</p>" + beneficio(p) +
         (p.id === "ajuste" ? '<p class="vagas">' + textoVagas() + "</p>" : (p.depois ? '<p class="vagas">' + p.depois + "</p>" : "")) +
         exemplo(p.id) +
         detalhes("<p>" + p.desc + "</p>" + '<dl class="meta"><div><dt>Prazo</dt><dd>' + p.prazo + ', a partir do briefing completo</dd></div><div><dt>Pagamento</dt><dd>Integral: ' + formas(p) + "</dd></div></dl>") +
@@ -353,12 +342,12 @@
     }
     function cardPlano(p) {
       var on = cart.plano === p.id, sug = sugerido("plano", p.id);
-      return '<article class="item' + (sug ? " sugerido" : "") + '">' + (sug ? marcaSug : "") + "<h3>" + p.nome + '</h3><p class="preco num">' + brl(p.mensal) + ' <small>por mês</small></p>' + beneficio(p) +
+      return '<article class="item' + (sug ? " sugerido" : "") + '">' + (sug ? marcaSug : "") + selo(p, sug) + "<h3>" + p.nome + '</h3><p class="preco num">' + brl(p.mensal) + ' <small>por mês</small></p>' + beneficio(p) +
         (p.depois ? '<p class="vagas">' + p.depois + "</p>" : "") +
         detalhes("<p>" + p.desc + "</p>" + '<dl class="meta"><div><dt>Mínimo</dt><dd>3 meses = ' + brl(p.mensal * 3) + '</dd></div><div><dt>Pagamento</dt><dd>1ª mensalidade hoje; depois, todo mês</dd></div></dl>') +
         '<button class="por" type="button" data-plano="' + p.id + '" aria-pressed="' + on + '">' + (on ? "No pedido · tirar" : "Pôr no meu pedido") + "</button></article>";
     }
-    function daSecao(lista, secao) { return lista.filter(function (p) { return (p.secao || "") === secao; }); }
+    function daSecao(lista, secao) { return lista.filter(function (p) { return (p.secao || "") === secao || (p.secoes || []).indexOf(secao) >= 0; }); }
     $("grade-perfil").innerHTML = daSecao(PROJ, "").map(cardProj).join("");
     function avulsos(secao) {
       return PLUS.filter(function (p) { return p.avulso && p.secao === secao; }).map(function (p) {
@@ -371,7 +360,9 @@
     $("grade-contas").innerHTML = avulsos("contas");
     $("grade-conteudo").innerHTML = avulsos("conteudo");
     $("grade-ia").innerHTML = avulsos("ia");
-    $("grade-planos").innerHTML = daSecao(PLANOS, "").map(cardPlano).join("");
+    $("grade-comece").innerHTML = daSecao(PROJ, "comece").map(cardProj).join("");
+    $("grade-video").innerHTML = daSecao(PROJ, "video").map(cardProj).join("") + daSecao(PLANOS, "video").map(cardPlano).join("");
+    $("grade-planos").innerHTML = daSecao(PLANOS, "").map(cardPlano).join("") + daSecao(PROJ, "gestao").map(cardProj).join("");
     $("grade-rest").innerHTML = daSecao(PROJ, "rest").map(cardProj).join("") + daSecao(PLANOS, "rest").map(cardPlano).join("");
     $("grade-esp").innerHTML = daSecao(PROJ, "esp").map(cardProj).join("") + daSecao(PLANOS, "esp").map(cardPlano).join("");
     $("grade-cat").innerHTML = daSecao(PROJ, "cat").map(cardProj).join("") + daSecao(PLANOS, "cat").map(cardPlano).join("");
@@ -404,7 +395,7 @@
     /* Plus só com um serviço pago no pedido; os "avulso" (contas, e-book e mentoria em IA) também sozinhos. */
     var principal = pagos.length > 0;
     /* Com o bônus da Black Friday, a Proteção das contas sai da cobrança (review do PR #117). */
-    var plus = PLUS.filter(function (p) { return tem(cart.plus, p.id) && (principal || p.avulso) && !(p.id === "plus_protecao" && bonusValido()); });
+    var plus = PLUS.filter(function (p) { return tem(cart.plus, p.id) && combina(p) && (principal || p.avulso) && !(p.id === "plus_protecao" && bonusValido()); });
     plus.forEach(function (p) {
       hoje += p.preco;
       pagos.push({ id: p.id, nome: p.nome, valor: p.preco, parcelas: p.parcelas || 0, em: p.em || "", marca: p.marca, secao: p.secao || "" });
@@ -434,7 +425,7 @@
         (comTirar ? '<button class="tirar" type="button" data-plano="' + p.id + '">Tirar</button>' : "") + "</li>");
     });
     PLUS.forEach(function (p) {
-      if (!tem(cart.plus, p.id) || !(temPrincipal() || p.avulso) || (p.id === "plus_protecao" && bonusValido())) return;
+      if (!tem(cart.plus, p.id) || !combina(p) || !(temPrincipal() || p.avulso) || (p.id === "plus_protecao" && bonusValido())) return;
       out.push('<li><span><span class="selo ' + p.marca + '">' + MARCA[p.marca] + "</span>" + p.nome + '</span><span class="num">' + brl(p.preco) + "</span><small>" + (p.avulso && !temPrincipal() ? (p.secao === "contas" ? "Leve junto · Zethic" : p.secao === "ia" ? "Aprenda com IA" : "E-book") : "Plus") + " · pagamento integral · " + formas(p) + "</small>" +
         (comTirar ? '<button class="tirar" type="button" data-plus="' + p.id + '">Tirar</button>' : "") + "</li>");
     });
@@ -467,7 +458,10 @@
     $("aviso-carrinho").hidden = !aviso; $("aviso-carrinho").textContent = aviso;
   }
 
-  function tudo() { tipos(); catalogo(); carrinho(); salvar(); }
+  /* Review do PR #168: o extra que depende de um serviço sai do pedido assim que o serviço sai,
+     para não voltar sozinho à cobrança quando o serviço for posto de novo. */
+  function limparExtras() { cart.plus = cart.plus.filter(function (id) { var x = plusDe(id); return x && combina(x); }); }
+  function tudo() { limparExtras(); tipos(); catalogo(); carrinho(); salvar(); }
 
   document.addEventListener("click", function (e) {
     if ($("vista-loja").hidden || !e.target.closest) return;
@@ -554,12 +548,16 @@
     window.scrollTo(0, 0);
   }
 
+  /* 12/11/2026: extra com "requer" só aparece quando o pedido tem um desses serviços (tradução com cardápio,
+     revisão de anúncio com campanha ou Gestão). Se o serviço sai do pedido, o extra sai junto. */
+  function combina(p) { return !p.requer || p.requer.some(function (id) { return tem(cart.proj, id) || cart.plano === id; }); }
   /* Plus no fechamento: caixas para marcar, com escopo, preço e quem faz. */
   function plusLista() {
     var principal = temPrincipal();
     $("plus-campo").hidden = !principal;
     if (!principal) { $("plus-lista").innerHTML = ""; return; }
-    $("plus-lista").innerHTML = PLUS.map(function (p) {
+    limparExtras();
+    $("plus-lista").innerHTML = PLUS.filter(combina).map(function (p) {
       var on = tem(cart.plus, p.id);
       return '<label class="plus-item" for="' + p.id + '"><input type="checkbox" id="' + p.id + '" data-plus="' + p.id + '"' + (on ? " checked" : "") + ">" +
         '<span class="plus-corpo"><span class="plus-topo"><span><span class="selo ' + p.marca + '">' + MARCA[p.marca] + "</span><strong>" + p.nome + "</strong></span>" +
