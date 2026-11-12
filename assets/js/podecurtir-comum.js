@@ -303,15 +303,16 @@
 
   /* 12/11/2026 (benchmark de oferta, aprovado pela Jéssica): depois de uma compra do "Comece por aqui", a página de
      obrigado oferece o próximo nível da mesma linha com o valor pago como crédito (termos, item 4: em até 30 dias da
-     entrega). Sem link de crédito no Asaas, o botão abre o WhatsApp com o pedido escrito. */
+     entrega). Review do PR #172: o botão sempre abre o WhatsApp com o pedido escrito, para o cliente receber e aceitar o
+     resumo do contrato do novo serviço antes de pagar (um link direto do Asaas pularia esse aceite). */
   var PROXIMO = {
-    diag_perfil: { de: "Diagnóstico do perfil", pago: 97, para: "Ajuste de Perfil", preco: 497, link: "ajuste_credito",
+    diag_perfil: { de: "Diagnóstico do perfil", pago: 97, para: "Ajuste de Perfil", preco: 497,
       txt: "Bio, foto, link, destaques e posts fixados arrumados por nós, a partir do que o diagnóstico encontrar." },
-    conversa: { de: "Vídeo de conversa · 1 Reel", pago: 197, para: "Teste de 3 Reels", preco: 397, link: "teste3_credito",
+    conversa: { de: "Vídeo de conversa · 1 Reel", pago: 197, para: "Teste de 3 Reels", preco: 397,
       txt: "Mais 3 Reels do mesmo jeito, para ver qual formato funciona antes de assinar." },
-    teste3: { de: "Teste de 3 Reels", pago: 397, para: "Presença · 4 Reels por mês", preco: 597, mensal: true, link: "presenca4_credito",
-      txt: "Um Reel por semana, todo mês. O crédito sai da 1ª mensalidade." },
-    kit_catalogo: { de: "Catálogo de Serviços", pago: 297, para: "Apresentação Comercial", preco: 797, link: "kit_apresentacao_credito",
+    teste3: { de: "Teste de 3 Reels", pago: 397, para: "Presença · 4 Reels por mês", preco: 597, mensal: true,
+      txt: "Um Reel por semana, todo mês. O crédito sai da 1ª mensalidade. Plano mensal com mínimo de 3 meses; depois, aviso de 30 dias para sair." },
+    kit_catalogo: { de: "Catálogo de Serviços", pago: 297, para: "Apresentação Comercial", preco: 797,
       txt: "Tudo do Catálogo em até 12 telas, na marca do seu Negócio, para mandar antes ou depois da conversa." }
   };
   function brl(v) { return "R$ " + v.toLocaleString("pt-BR"); }
@@ -321,14 +322,15 @@
     var o = null;
     for (var i = 0; i < itens.length && !o; i++) if (Object.prototype.hasOwnProperty.call(PROXIMO, itens[i])) o = PROXIMO[itens[i]];
     if (!o) return;
-    var resta = o.preco - o.pago;
+    /* Review do PR #172: o Ajuste segue o preço configurado na loja (R$ 497 de fundador ou R$ 597 depois). */
+    var preco = o.para === "Ajuste de Perfil" && typeof C.PRECO_AJUSTE === "number" ? C.PRECO_AJUSTE : o.preco;
+    var resta = preco - o.pago;
     document.getElementById("pn-credito").textContent = "Os seus " + brl(o.pago) + " viram crédito";
     document.getElementById("pn-nome").textContent = o.para;
     document.getElementById("pn-texto").textContent = o.txt;
-    document.getElementById("pn-preco").textContent = "De " + brl(o.preco) + (o.mensal ? " na 1ª mensalidade" : "") + " por " + brl(resta) + " com o crédito, se você contratar em até 30 dias da entrega.";
-    var link = (C.ASAAS_LINKS || {})[o.link] || "";
+    document.getElementById("pn-preco").textContent = "De " + brl(preco) + (o.mensal ? " na 1ª mensalidade" : "") + " por " + brl(resta) + " com o crédito, se você contratar em até 30 dias da entrega.";
     var botao = document.getElementById("pn-botao");
-    botao.href = link || whatsLink("Quero usar o crédito de " + brl(o.pago) + " do " + o.de + " no " + o.para + " (" + brl(resta) + ").");
+    botao.href = whatsLink("Quero usar o crédito de " + brl(o.pago) + " do " + o.de + " no " + o.para + " (" + brl(resta) + "). Pode me mandar o resumo do contrato?");
     botao.addEventListener("click", function () { window.podecurtirEvento("AceitouProximoNivel", { de: o.de, para: o.para, value: resta, currency: "BRL" }); });
     caixa.hidden = false;
     window.podecurtirEvento("OfertaProximoNivel", { de: o.de, para: o.para });

@@ -28,9 +28,7 @@ test("configuração única, com pagamento e Pixel desligados até serem preench
       "campanha", "anuncio",
       // 12/11/2026 (reformulação aprovada): saem portfolio, acabamento, relatorio, catalogo_mensal, esp_produtora e esp_portavozes
       // 12/11/2026: itens novos (preços pelo mercado e Kit de Vendas)
-      "diag_perfil", "teste3", "presenca4", "presenca8", "kit_catalogo", "kit_apresentacao", "kit_oferta",
-      // 12/11/2026 (benchmark de oferta): links com o crédito do "Comece por aqui", para a página de obrigado
-      "ajuste_credito", "teste3_credito", "presenca4_credito", "kit_apresentacao_credito"].sort());
+      "diag_perfil", "teste3", "presenca4", "presenca8", "kit_catalogo", "kit_apresentacao", "kit_oferta"].sort());
   for (const v of Object.values(c.ASAAS_LINKS)) assert.ok(v === "" || /^https:\/\/(www\.)?asaas\.com\//.test(v), "link do Asaas inválido: " + v);
   assert.ok([497, 597].includes(c.PRECO_AJUSTE), "preço do Ajuste fora da escada aprovada em 12/11/2026");
   assert.ok(c.PIXEL_ID === "" || /^\d{10,20}$/.test(c.PIXEL_ID));
@@ -257,7 +255,6 @@ test("site: pagamento integral, parcelado só no cartão e Gestão Completa com 
     if (["campanha", "anuncio"].includes(k) && v === "") continue;
     // 12/11/2026: itens novos, em configuração até a Jéssica criar os links
     if (["diag_perfil", "teste3", "presenca4", "presenca8", "kit_catalogo", "kit_apresentacao", "kit_oferta"].includes(k) && v === "") continue;
-    if (k.endsWith("_credito") && v === "") continue; // 12/11/2026: crédito em configuração; sem link, o botão abre o WhatsApp
     assert.match(v, /^https:\/\/www\.asaas\.com\/000\/c\/[a-z0-9]{16}$/, k);
   }
 });
@@ -641,6 +638,10 @@ test("vitrine: faixa de garantia e próximo nível com crédito na página de ob
   for (const [de, pago, para, preco] of [["diag_perfil", 97, "Ajuste de Perfil", 497], ["conversa", 197, "Teste de 3 Reels", 397], ["teste3", 397, "Presença · 4 Reels por mês", 597], ["kit_catalogo", 297, "Apresentação Comercial", 797]])
     assert.match(comum, new RegExp(`${de}: \\{ de: "[^"]+", pago: ${pago}, para: "${para}", preco: ${preco},`));
   assert.match(comum, /proximoNivel\(p\.itens\);/);
-  assert.match(comum, /botao\.href = link \|\| whatsLink\(/);
+  // Review do PR #172: sempre pelo WhatsApp (o aceite do contrato do novo serviço vem antes do pagamento) e com o preço do Ajuste da configuração
+  assert.match(comum, /botao\.href = whatsLink\(/);
+  assert.doesNotMatch(comum, /ASAAS_LINKS \|\| \{\}\)\[o\.link\]/);
+  assert.match(comum, /C\.PRECO_AJUSTE : o\.preco;/);
+  assert.match(comum, /mínimo de 3 meses; depois, aviso de 30 dias para sair/);
   assert.match(loja, /data-id="' \+ esc\(p\.id\) \+ '"/);
 });
