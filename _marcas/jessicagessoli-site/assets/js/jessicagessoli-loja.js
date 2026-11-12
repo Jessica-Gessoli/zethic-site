@@ -41,7 +41,7 @@
       desc: "Uma sessão individual de 1 hora, por videochamada, para destravar uma decisão de carreira ou do seu Negócio." },
     /* 10/11/2026 (Jéssica: "solucione a escolha do nome e a loja da mentoria"): a mentoria de IA de 1 hora sai da seção
        "Livro e IA" da Pode Curtir e passa a ser vendida aqui, com nome que diz o resultado. Mesmo link do Asaas da Pode Curtir. */
-    { id: "fluxo_ia", nome: "Monte o seu fluxo com IA · sessão individual de 1 hora", preco: 300, agora: 1, quando: "Data combinada por e-mail ou WhatsApp depois do pagamento",
+    { id: "fluxo_ia", nome: "Monte o seu fluxo com IA · sessão individual de 1 hora", preco: 297, agora: 1, quando: "Data combinada por e-mail ou WhatsApp depois do pagamento",
       desc: "Uma hora por videochamada para montar, no seu projeto e nas ferramentas de IA que você já usa, um fluxo que você passa a repetir sem ajuda. Exemplos: editar vídeos de conversa, organizar o conteúdo da semana ou responder clientes." },
     { id: "programa", nome: "Mentoria de posicionamento · programa de 3 meses", preco: 2250, agora: 1, parcelas: 3, em: "no", quando: "8 sessões individuais em 3 meses, com datas combinadas por e-mail ou WhatsApp",
       desc: "Para definir com clareza onde você ou o seu Negócio quer chegar e como se posicionar para chegar lá." },
