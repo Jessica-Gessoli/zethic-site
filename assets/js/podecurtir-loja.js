@@ -192,13 +192,17 @@
     kit_apresentacao: "Para o cliente entender o que você vende, quanto custa e como comprar.",
     kit_oferta: "Para os seus serviços virarem pacotes fáceis de escolher e de comprar."
   };
+  /* 12/11/2026 (Jéssica, remodelação): cartão enxuto. Ficam à vista nome, preço, para quem é, preço de fundador, exemplo
+     real e o botão; o que está incluído, prazo e pagamento abrem em "Ver o que está incluído". O resumo do contrato antes
+     de pagar continua igual. */
+  function detalhes(html) { return '<details class="detalhes"><summary>Ver o que está incluído</summary>' + html + "</details>"; }
   function beneficio(p) { return PARA[p.id] ? '<p class="beneficio">' + PARA[p.id] + "</p>" : ""; }
   /* 11/11/2026 (Jéssica, mapa de mídias): miniatura "Exemplo real" nos serviços já entregues a um cliente real,
      levando ao caso. As imagens são as mesmas da página (o gerador das marcas copia só o que o HTML usa). */
   var EXEMPLO = {
     ajuste: { img: "agua-na-boca_virginia-perfil-depois", webp: 540, jpg: 1080, w: 1080, h: 438, cliente: "Água na Boca", alt: "Perfil da Água na Boca depois do trabalho" },
     arrumado: { img: "agua-na-boca_virginia-perfil-depois", webp: 540, jpg: 1080, w: 1080, h: 438, cliente: "Água na Boca", alt: "Perfil da Água na Boca depois do trabalho" },
-    gravacao: { img: "agua-na-boca_virginia-cesta-com-baguetes", webp: 240, jpg: 480, w: 480, h: 640, cliente: "Água na Boca", alt: "Foto de produto da Água na Boca: cesta de pão trançado com baguetes" }
+    gravacao: { img: "agua-na-boca_virginia-mesa-com-frutas", webp: 400, jpg: 800, w: 800, h: 1066, cliente: "Água na Boca", alt: "Foto de produto da Água na Boca: cesta de pão trançado com frutas sobre toalha xadrez" }
   };
   function exemplo(id) {
     var e = EXEMPLO[id];
@@ -210,20 +214,22 @@
   /* Tipo de Negócio (06/11/2026): sugestão de por onde começar, a partir das personas de clientes (hipótese até as entrevistas). */
   var TIPOS = [
     { id: "doceria", nome: "Doceria ou confeitaria", proj: ["ajuste"], plano: null, plus: ["plus_gravacao"], prop: [],
-      txt: "Comece pelo <strong>Ajuste de Perfil</strong>: bio que diz o que você vende, cardápio nos destaques e botão de WhatsApp para encomendar. Se as fotos do celular não mostram o capricho dos doces, some a <strong>sessão de fotos de 1 hora</strong> no fechamento do pedido.", foco: ["t-comece", "t-perfil", "t-cat", "t-planos", "t-contas", "t-propostas"] },
+      txt: "Comece pelo <strong>Ajuste de Perfil</strong>: bio que diz o que você vende, cardápio nos destaques e botão de WhatsApp para encomendar. Se as fotos do celular não mostram o capricho dos doces, some a <strong>sessão de fotos de 1 hora</strong> no fechamento do pedido.", foco: ["t-perfil", "t-comece", "t-cat", "t-planos", "t-contas", "t-propostas"] },
     { id: "salao", nome: "Salão ou estúdio de beleza", proj: [], plano: "padrao", plus: [], prop: [], alt: ["arrumado"],
-      txt: "A <strong>Gestão Padrão</strong> tem 4 Reels por mês para mostrar o seu trabalho sem você parar de atender. Prefere sem mensalidade? O <strong>Perfil Arrumado</strong> é um projeto com começo, meio e fim.", foco: ["t-comece", "t-perfil", "t-cat", "t-planos", "t-contas", "t-propostas"] },
+      txt: "A <strong>Gestão Padrão</strong> tem 4 Reels por mês para mostrar o seu trabalho sem você parar de atender. Prefere sem mensalidade? O <strong>Perfil Arrumado</strong> é um projeto com começo, meio e fim.", foco: ["t-perfil", "t-comece", "t-cat", "t-planos", "t-contas", "t-propostas"] },
     { id: "consultorio", nome: "Consultório de saúde", proj: ["arrumado"], plano: null, plus: [], prop: ["gravacao"],
-      txt: "O <strong>Perfil Arrumado</strong> organiza o seu perfil com discrição, e o <strong>ensaio de fotos</strong> sai por proposta. Antes do primeiro post, você confirma a regra de publicidade do seu conselho profissional. Nada de foto, relato ou dado de paciente.", foco: ["t-comece", "t-perfil", "t-planos", "t-video", "t-contas", "t-propostas"] },
+      txt: "O <strong>Perfil Arrumado</strong> organiza o seu perfil com discrição, e o <strong>ensaio de fotos</strong> sai por proposta. Antes do primeiro post, você confirma a regra de publicidade do seu conselho profissional. Nada de foto, relato ou dado de paciente.", foco: ["t-perfil", "t-comece", "t-planos", "t-video", "t-contas", "t-propostas"] },
     { id: "especialista", nome: "Especialista, consultor ou palestrante", proj: ["diag_esp"], plano: null, plus: [], prop: [],
-      txt: "Comece pelo <strong>Diagnóstico de marketing</strong>, na versão para especialista: o que você já tem, quem já trabalha com você e o plano de 30 dias. Se você já paga produtora e mentora e não quer mais coordenar todo mundo, a <strong>Gestão de marca de especialista</strong> cuida de tudo.", foco: ["t-comece", "t-esp", "t-video", "t-kit", "t-perfil", "t-ia", "t-conteudo", "t-propostas"] },
+      txt: "Comece pelo <strong>Diagnóstico de marketing</strong>, na versão para especialista: o que você já tem, quem já trabalha com você e o plano de 30 dias. Se você já paga produtora e mentora e não quer mais coordenar todo mundo, a <strong>Gestão de marca de especialista</strong> cuida de tudo.", foco: ["t-esp", "t-comece", "t-video", "t-kit", "t-perfil", "t-ia", "t-conteudo", "t-propostas"] },
     { id: "restaurante", nome: "Restaurante, lanchonete ou bar", proj: ["cardapio"], plano: null, plus: ["plus_gravacao"], prop: [],
-      txt: "Comece pelo <strong>Cardápio Pronto</strong>: cardápio no celular, QR code nas mesas e pedido pelo WhatsApp, sem taxa por pedido. Se as fotos dos pratos não mostram o capricho da cozinha, some a <strong>sessão de fotos de 1 hora</strong> no fechamento do pedido. Depois, o <strong>Cuidado do Cardápio</strong> mantém preços e pratos em dia.", foco: ["t-comece", "t-rest", "t-perfil", "t-contas", "t-propostas"] },
+      txt: "Comece pelo <strong>Cardápio Pronto</strong>: cardápio no celular, QR code nas mesas e pedido pelo WhatsApp, sem taxa por pedido. Se as fotos dos pratos não mostram o capricho da cozinha, some a <strong>sessão de fotos de 1 hora</strong> no fechamento do pedido. Depois, o <strong>Cuidado do Cardápio</strong> mantém preços e pratos em dia.", foco: ["t-rest", "t-comece", "t-perfil", "t-contas", "t-propostas"] },
     { id: "cozinha_delivery", nome: "Cozinha de delivery (em casa)", proj: ["cardapio"], plano: null, plus: ["plus_gravacao"], prop: [],
-      txt: "Sem salão e sem balcão? O <strong>Cardápio Pronto</strong> vira o seu link de pedidos: fica na bio do Instagram e na mensagem de saudação do WhatsApp, e o cliente escolhe, vê o total e manda o pedido montado, sem taxa por pedido. O exemplo de delivery está na seção para restaurantes, logo abaixo. Depois, o <strong>Cuidado do Cardápio</strong> mantém preços e pratos em dia.", foco: ["t-comece", "t-rest", "t-perfil", "t-contas", "t-propostas"] },
+      txt: "Sem salão e sem balcão? O <strong>Cardápio Pronto</strong> vira o seu link de pedidos: fica na bio do Instagram e na mensagem de saudação do WhatsApp, e o cliente escolhe, vê o total e manda o pedido montado, sem taxa por pedido. O exemplo de delivery está na seção para restaurantes, logo abaixo. Depois, o <strong>Cuidado do Cardápio</strong> mantém preços e pratos em dia.", foco: ["t-rest", "t-comece", "t-perfil", "t-contas", "t-propostas"] },
     { id: "outro", nome: "Outro Negócio", proj: [], plano: null, plus: [], prop: [],
       txt: "Veja os três níveis do Perfil Pronto logo abaixo. Se o seu caso for diferente, peça proposta, sem compromisso." }
   ];
+  /* 12/11/2026: em cada cartão de tipo de Negócio, por onde começar. */
+  var COMECO = { doceria: "Comece pelo Ajuste de Perfil", salao: "Comece pela Gestão Padrão", consultorio: "Comece pelo Perfil Arrumado", especialista: "Comece pelo Diagnóstico de marca", restaurante: "Comece pelo Cardápio Pronto", cozinha_delivery: "Comece pelo Cardápio Pronto", outro: "Ver a loja inteira" };
   var tipo = null;
   function tipoAtual() { return TIPOS.filter(function (t) { return t.id === tipo; })[0] || null; }
   function sugerido(tipoItem, id) {
@@ -232,20 +238,44 @@
     if (tipoItem === "proj") return tem(t.proj, id) || tem(t.alt || [], id);
     return tem(t[tipoItem] || [], id);
   }
-  /* 10/11/2026 (Jéssica): escolher o tipo de Negócio mostra só as seções que servem para ele (foco), com um botão
-     para ver tudo. "Outro Negócio" e quem não escolhe veem a loja inteira. */
+  /* 12/11/2026 (Jéssica, benchmark: minimalismo e assertividade): a loja mostra um grupo de serviços por vez, em abas.
+     Escolher o tipo de Negócio abre o grupo por onde ele começa; "Ver tudo" mostra a loja inteira.
+     Antes (10/11/2026): o tipo de Negócio escondia as seções que não serviam, com um botão para ver tudo. */
+  var GRUPOS = [
+    /* 12/11/2026 (reformulação aprovada): "Comece por aqui" abre a loja; Vídeo entra em Perfil e redes. */
+    { id: "comece", nome: "Comece por aqui", secoes: ["t-comece"] },
+    { id: "perfil", nome: "Perfil e redes", secoes: ["t-perfil", "t-video", "t-planos"] },
+    { id: "rest", nome: "Restaurantes", secoes: ["t-rest"] },
+    { id: "cat", nome: "Lojas, docerias e salões", secoes: ["t-cat"] },
+    { id: "esp", nome: "Especialistas e empresas", secoes: ["t-esp"] },
+    { id: "vendas", nome: "Kit de Vendas e e-book", secoes: ["t-kit", "t-conteudo"] },
+    { id: "parceiros", nome: "Com parceiros", secoes: ["t-ia", "t-contas"] },
+    { id: "proposta", nome: "Sob proposta", secoes: ["t-propostas"] },
+    { id: "tudo", nome: "Ver tudo", secoes: null }
+  ];
+  var grupo = "comece";
   var verTudo = false;
+  function grupoDaSecao(sid) {
+    for (var i = 0; i < GRUPOS.length; i++) if (GRUPOS[i].secoes && GRUPOS[i].secoes.indexOf(sid) >= 0) return GRUPOS[i].id;
+    return "tudo";
+  }
   function focar() {
-    var t = tipoAtual(), foco = t && t.foco && !verTudo ? t.foco : null;
+    var g = verTudo ? null : GRUPOS.filter(function (x) { return x.id === grupo; })[0];
+    var lista = g && g.secoes;
     Array.prototype.forEach.call(document.querySelectorAll(".layout section.secao[aria-labelledby]"), function (sec) {
-      sec.hidden = !!foco && foco.indexOf(sec.getAttribute("aria-labelledby")) < 0;
+      sec.hidden = !!lista && lista.indexOf(sec.getAttribute("aria-labelledby")) < 0;
     });
-    $("foco").hidden = !foco;
+    var abas = $("abas-loja");
+    if (abas) abas.innerHTML = GRUPOS.map(function (x) {
+      var on = verTudo ? x.id === "tudo" : x.id === grupo;
+      return '<button type="button" class="aba" data-grupo="' + x.id + '" aria-pressed="' + on + '">' + x.nome + "</button>";
+    }).join("");
+    $("foco").hidden = true;
   }
   function tipos() {
     focar();
     $("tipos-opcoes").innerHTML = TIPOS.map(function (t) {
-      return '<button class="pedir" type="button" data-tipo="' + t.id + '" aria-pressed="' + (tipo === t.id) + '">' + t.nome + "</button>";
+      return '<button class="pedir tipo" type="button" data-tipo="' + t.id + '" aria-pressed="' + (tipo === t.id) + '"><span class="tipo-nome">' + t.nome + '</span><span class="tipo-comeco">' + (COMECO[t.id] || "Ver tudo") + "</span></button>";
     }).join("");
     var t = tipoAtual();
     $("sugestao").hidden = !t;
@@ -304,17 +334,17 @@
     function selo(p, sug) { return !sug && p.recomendado ? '<span class="marca-sugestao recomendado">RECOMENDADO</span>' : ""; }
     function cardProj(p) {
       var on = tem(cart.proj, p.id), sug = sugerido("proj", p.id);
-      return '<article class="item' + (sug ? " sugerido" : "") + '">' + (sug ? marcaSug : "") + selo(p, sug) + "<h3>" + p.nome + '</h3><p class="preco num">' + brl(p.preco) + "</p>" + beneficio(p) + "<p>" + p.desc + "</p>" +
+      return '<article class="item' + (sug ? " sugerido" : "") + '">' + (sug ? marcaSug : "") + selo(p, sug) + "<h3>" + p.nome + '</h3><p class="preco num">' + brl(p.preco) + "</p>" + beneficio(p) +
         (p.id === "ajuste" ? '<p class="vagas">' + textoVagas() + "</p>" : (p.depois ? '<p class="vagas">' + p.depois + "</p>" : "")) +
-        '<dl class="meta"><div><dt>Prazo</dt><dd>' + p.prazo + ', a partir do briefing completo</dd></div><div><dt>Pagamento</dt><dd>Integral: ' + formas(p) + "</dd></div></dl>" +
         exemplo(p.id) +
+        detalhes("<p>" + p.desc + "</p>" + '<dl class="meta"><div><dt>Prazo</dt><dd>' + p.prazo + ', a partir do briefing completo</dd></div><div><dt>Pagamento</dt><dd>Integral: ' + formas(p) + "</dd></div></dl>") +
         '<button class="por" type="button" data-proj="' + p.id + '" aria-pressed="' + on + '">' + (on ? "No pedido · tirar" : "Pôr no meu pedido") + "</button></article>";
     }
     function cardPlano(p) {
       var on = cart.plano === p.id, sug = sugerido("plano", p.id);
-      return '<article class="item' + (sug ? " sugerido" : "") + '">' + (sug ? marcaSug : "") + selo(p, sug) + "<h3>" + p.nome + '</h3><p class="preco num">' + brl(p.mensal) + ' <small>por mês</small></p>' + beneficio(p) + "<p>" + p.desc + "</p>" +
+      return '<article class="item' + (sug ? " sugerido" : "") + '">' + (sug ? marcaSug : "") + selo(p, sug) + "<h3>" + p.nome + '</h3><p class="preco num">' + brl(p.mensal) + ' <small>por mês</small></p>' + beneficio(p) +
         (p.depois ? '<p class="vagas">' + p.depois + "</p>" : "") +
-        '<dl class="meta"><div><dt>Mínimo</dt><dd>3 meses = ' + brl(p.mensal * 3) + '</dd></div><div><dt>Pagamento</dt><dd>1ª mensalidade hoje; depois, todo mês</dd></div></dl>' +
+        detalhes("<p>" + p.desc + "</p>" + '<dl class="meta"><div><dt>Mínimo</dt><dd>3 meses = ' + brl(p.mensal * 3) + '</dd></div><div><dt>Pagamento</dt><dd>1ª mensalidade hoje; depois, todo mês</dd></div></dl>') +
         '<button class="por" type="button" data-plano="' + p.id + '" aria-pressed="' + on + '">' + (on ? "No pedido · tirar" : "Pôr no meu pedido") + "</button></article>";
     }
     function daSecao(lista, secao) { return lista.filter(function (p) { return (p.secao || "") === secao || (p.secoes || []).indexOf(secao) >= 0; }); }
@@ -322,8 +352,8 @@
     function avulsos(secao) {
       return PLUS.filter(function (p) { return p.avulso && p.secao === secao; }).map(function (p) {
         var on = tem(cart.plus, p.id);
-        return '<article class="item"><h3>' + ((secao === "conteudo" || secao === "contas" || secao === "ia") && p.marca !== "pc" ? '<span class="selo ' + p.marca + '">' + MARCA[p.marca] + "</span>" : "") + p.nome + '</h3><p class="preco num">' + brl(p.preco) + "</p>" + beneficio(p) + "<p>" + p.desc + "</p>" +
-          '<dl class="meta"><div><dt>Quando</dt><dd>' + p.prazo + '</dd></div><div><dt>Pagamento</dt><dd>Integral: ' + formas(p) + "</dd></div></dl>" +
+        return '<article class="item"><h3>' + ((secao === "conteudo" || secao === "contas" || secao === "ia") && p.marca !== "pc" ? '<span class="selo ' + p.marca + '">' + MARCA[p.marca] + "</span>" : "") + p.nome + '</h3><p class="preco num">' + brl(p.preco) + "</p>" + beneficio(p) +
+          detalhes("<p>" + p.desc + "</p>" + '<dl class="meta"><div><dt>Quando</dt><dd>' + p.prazo + '</dd></div><div><dt>Pagamento</dt><dd>Integral: ' + formas(p) + "</dd></div></dl>") +
           '<button class="por" type="button" data-plus="' + p.id + '" aria-pressed="' + on + '">' + (on ? "No pedido · tirar" : "Pôr no meu pedido") + "</button></article>";
       }).join("");
     }
@@ -439,10 +469,21 @@
     if (tb) {
       tipo = tipo === tb.dataset.tipo ? null : tb.dataset.tipo;
       verTudo = false;
-      if (tipo) medir("EscolheuTipo", { tipo: tipo });
+      if (tipo) {
+        medir("EscolheuTipo", { tipo: tipo });
+        var tt = tipoAtual();
+        if (tt && tt.foco) grupo = grupoDaSecao(tt.foco[0]); else if (tt) verTudo = true;
+      }
       tudo(); return;
     }
     if (e.target.closest("#ver-tudo")) { verTudo = true; medir("VerTudo", { tipo: tipo || "" }); focar(); return; }
+    var ab = e.target.closest("[data-grupo]");
+    if (ab) {
+      verTudo = ab.dataset.grupo === "tudo";
+      if (!verTudo) grupo = ab.dataset.grupo;
+      medir(verTudo ? "VerTudo" : "AbriuGrupo", { grupo: ab.dataset.grupo });
+      focar(); return;
+    }
     if (e.target.closest("#usar-sugestao")) {
       var t = tipoAtual();
       cart = { proj: t.proj.slice(), plano: t.plano, prop: t.prop.slice(), plus: t.plus.slice() };
@@ -572,7 +613,7 @@
     /* Link para uma seção escondida pelo foco do tipo de Negócio (ex.: #t-contas): mostra a loja inteira e rola até ela. */
     var escondida = alvo && alvo.closest ? alvo.closest("section.secao[hidden]") : null;
     if (escondida && $("vista-loja").contains(escondida)) {
-      verTudo = true; focar();
+      grupo = grupoDaSecao(escondida.getAttribute("aria-labelledby")); verTudo = grupo === "tudo"; focar();
       if (!$("vista-loja").hidden) { alvo.scrollIntoView(); return true; }
     }
     if (!alvo || !$("vista-loja").contains(alvo) || !$("vista-loja").hidden) return false;

@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { readFileSync, existsSync, statSync } from "node:fs";
 
 // 11/11/2026 (Jéssica, mapa de mídias e decisão de 10/11/2026): fotos e vídeo de clientes na página inicial da Pode Curtir.
-// Topo com 1 foto fixa, faixa de prova, "Exemplo real" nos cards, caso Água na Boca, retrato da Lucia Vidotto e "Quem faz".
+// Topo com fotos que passam (12/11/2026; antes, 1 foto fixa), faixa de prova, "Exemplo real" nos cards, caso Água na Boca, retrato da Lucia Vidotto e "Quem faz".
 
 const ler = (p) => readFileSync(new URL("../" + p, import.meta.url), "utf8");
 const existe = (p) => existsSync(new URL("../" + p, import.meta.url));
@@ -17,7 +17,7 @@ const imgs = h.match(/<img [^>]*>/g) || [];
 
 test("casos: ordem das seções segue o mapa de mídias", () => {
   const pos = (s) => { const i = h.indexOf(s); assert.ok(i >= 0, s); return i; };
-  assert.ok(pos('class="hero-foto"') < pos('<section class="prova"'), "foto no topo, antes da faixa");
+  assert.ok(pos('class="hero pc-vitrine"') < pos('<section class="prova"'), "foto no topo, antes da faixa");
   assert.ok(pos('<section class="prova"') < pos('<section id="loja"'), "faixa de prova antes da loja");
   assert.ok(pos('<section id="loja"') < pos('id="caso-agua-na-boca"'), "caso depois da loja");
   assert.ok(pos('id="caso-agua-na-boca"') < pos('id="como"'), "caso antes de Como funciona a compra");
@@ -25,17 +25,49 @@ test("casos: ordem das seções segue o mapa de mídias", () => {
     "Quem faz logo depois de Combinado por escrito");
 });
 
-test("casos: só a foto do topo tem prioridade alta; as outras carregam tarde", () => {
+test("casos: só o quadro 1 do topo tem prioridade alta; as outras carregam tarde", () => {
   const altas = imgs.filter((i) => /fetchpriority="high"/.test(i));
   assert.equal(altas.length, 1);
-  assert.match(altas[0], /agua-na-boca_virginia-cesta-pronta-960\.jpg/);
+  assert.match(altas[0], /agua-na-boca_virginia-com-a-cesta-800\.jpg/);
   assert.doesNotMatch(altas[0], /loading="lazy"/);
-  const hero = h.match(/<figure class="hero-foto">[\s\S]*?<\/figure>/)[0];
-  assert.doesNotMatch(hero, /carrossel|carousel|<video/i, "topo sem carrossel e sem vídeo");
   for (const i of imgs) {
     if (/fetchpriority="high"/.test(i) || /zethic-marca\.svg|jessica-gessoli-podecurtir/.test(i)) continue;
     assert.match(i, /loading="lazy"/, i);
   }
+});
+
+// 12/11/2026 (Jéssica): topo no mesmo modelo dos banners da Zethic — foto de fundo que passa, texto próprio em cada
+// destaque, nomes com barrinha de tempo e Pausar; destaque 1 com o título da página e as garantias.
+test("topo: 3 destaques no modelo da Zethic, destaque 1 visível sem JavaScript, controles acessíveis", () => {
+  const hero = h.match(/<div class="hero pc-vitrine"[\s\S]*?<button type="button" class="pausa">Pausar<\/button>\s*<\/div>\s*<\/div>/)[0];
+  assert.doesNotMatch(hero, /<video|style="/i, "sem vídeo e sem estilo inline (CSP)");
+  const s = hero.match(/<article class="slide[^"]*"[^>]*>/g);
+  assert.equal(s.length, 3);
+  assert.match(s[0], /class="slide ativo"/);
+  for (const [i, a] of s.entries()) assert.match(a, new RegExp('role="group" aria-roledescription="destaque" aria-label="' + (i + 1) + ' de 3: '));
+  assert.equal((hero.match(/<h1>/g) || []).length, 1, "um só h1, no destaque 1");
+  assert.ok(hero.indexOf("<h1>") < hero.indexOf('aria-label="2 de 3'), "h1 no destaque 1");
+  assert.ok(hero.indexOf('<ul class="selos"') < hero.indexOf('aria-label="2 de 3'), "garantias no destaque 1");
+  assert.equal((hero.match(/<button type="button" class="ponto[^"]*"/g) || []).length, 3);
+  assert.match(hero, /<div class="wrap vitrine-ctrl" hidden>/, "controles só aparecem com JavaScript");
+  assert.match(hero, /lucia-vidotto_01-800\.jpg/, "ensaio da Lucia Vidotto no topo");
+  assert.match(hero, /Foto: Alpha/);
+  assert.match(hero, /href="#caso-agua-na-boca" data-evento="ver_caso"/);
+  assert.match(h, /<script src="\/assets\/js\/podecurtir-vitrine\.js" defer><\/script>/);
+});
+
+test("topo: script troca a cada 7 s, pausa sozinho e respeita reduzir movimento", () => {
+  const js = ler("assets/js/podecurtir-vitrine.js");
+  assert.match(js, /var TEMPO = 7000;/);
+  assert.match(js, /prefers-reduced-motion: reduce/);
+  assert.match(js, /pausadaPelaPessoa = calmo/);
+  for (const ev of ["mouseenter", "focusin", "visibilitychange"]) assert.match(js, new RegExp('"' + ev + '"'));
+  assert.match(js, /IntersectionObserver/);
+  assert.match(js, /window\.addEventListener\("load", tocar\)/, "só troca depois de a página carregar");
+  assert.doesNotMatch(js, /innerHTML/);
+  const css = ler("assets/css/podecurtir.css");
+  assert.match(css, /@media \(prefers-reduced-motion:no-preference\)\{\s*\.js-vitrine \.slide\.ativo \.slide-img img\{animation:pc-aproxima/);
+  assert.match(css, /animation:pc-progresso 7s linear/);
 });
 
 test("casos: toda imagem nova tem largura, altura, alt descritivo e versões WebP em tamanhos", () => {
@@ -44,7 +76,10 @@ test("casos: toda imagem nova tem largura, altura, alt descritivo e versões Web
   for (const i of novas) {
     assert.match(i, / width="\d+" height="\d+"/, i);
     const alt = (i.match(/alt="([^"]*)"/) || [])[1] || "";
-    assert.ok(alt.length >= 20, "alt curto: " + i);
+    // 12/11/2026: no topo, a mesma foto aparece desfocada como fundo (decorativa, alt vazio) e nítida com alt descritivo.
+    const fonte = i.match(/src="([^"]+)"/)[1];
+    const fundoDecorativo = alt === "" && novas.some((o) => o !== i && o.includes('src="' + fonte + '"') && /alt="[^"]{20,}"/.test(o));
+    assert.ok(alt.length >= 20 || fundoDecorativo, "alt curto: " + i);
     assert.doesNotMatch(alt, /\.(jpe?g|webp|png)|IMG_|agua-na-boca_|lucia-vidotto_/i, "alt com nome de arquivo: " + alt);
     const src = i.match(/src="([^"]+)"/)[1];
     assert.ok(existe(src.slice(1)), "arquivo ausente: " + src);
@@ -68,8 +103,8 @@ test("casos: nomes de arquivo seguem o padrão por cliente", () => {
 
 test("casos: faixa de prova com 4 miniaturas, legenda aprovada e link Ver o caso", () => {
   assert.equal((prova.match(/<img /g) || []).length, 4);
-  assert.match(prova, /<figcaption>Doces embalados para a entrega<\/figcaption>/);
-  assert.match(prova, /capa-do-trigo-a-cesta/);
+  assert.match(prova, /<figcaption>Dona Virgínia com as baguetes<\/figcaption>/);
+  assert.match(prova, /agua-na-boca_virginia-cesta-pronta-960\.jpg/);
   assert.match(prova, /<a class="prova-link" href="#caso-agua-na-boca" data-evento="ver_caso">Ver o caso<\/a>/);
 });
 
@@ -153,4 +188,18 @@ test("casos: Quem faz apresenta a Pode Curtir, com crédito da Alpha, sem cargo 
 test("casos: espelho da Pode Curtir tem as imagens e o vídeo", () => {
   const usados = new Set([...h.matchAll(/\/assets\/(?:img|video)\/(?:agua-na-boca_virginia-|lucia-vidotto_|jessica-gessoli_quem-faz)[^"\s,]+/g)].map((m) => m[0]));
   for (const u of usados) assert.ok(existe("_marcas/podecurtir-site" + u), "falta no espelho: " + u);
+});
+
+// 12/11/2026 (Jéssica, benchmark: minimalismo e assertividade): loja em abas, um grupo por vez; tipo de Negócio abre o
+// grupo por onde começar; link para uma seção escondida abre o grupo dela; lista "O que a gente faz" recolhida.
+test("loja em abas: grupos cobrem todas as seções, tipo abre o grupo e âncora abre o grupo certo", () => {
+  const js = ler("assets/js/podecurtir-loja.js");
+  assert.match(h, /<div class="abas-loja" id="abas-loja" role="group" aria-label="Grupos de serviços"><\/div>/);
+  const secoes = [...h.matchAll(/<section class="secao[^"]*" aria-labelledby="(t-[a-z]+)"/g)].map((m) => m[1]);
+  const grupos = js.slice(js.indexOf("var GRUPOS = ["), js.indexOf("var grupo = "));
+  for (const s of secoes) assert.match(grupos, new RegExp('"' + s + '"'), "seção sem aba: " + s);
+  assert.match(grupos, /\{ id: "tudo", nome: "Ver tudo", secoes: null \}/);
+  assert.match(js, /if \(tt && tt\.foco\) grupo = grupoDaSecao\(tt\.foco\[0\]\)/);
+  assert.match(js, /grupo = grupoDaSecao\(escondida\.getAttribute\("aria-labelledby"\)\)/);
+  assert.match(h, /<details class="frentes-mais">\s*<summary>Ver a lista completa do que a gente faz<\/summary>/);
 });
