@@ -55,21 +55,17 @@ window.PODECURTIR = {
     plus_site_cartao: "https://www.asaas.com/000/c/bl6t7cfoy5huw01o",
     diag_esp: "https://www.asaas.com/000/c/yyzfzbh9qvvdxo0b",
     video_presenca: "https://www.asaas.com/000/c/ctyub2hyq7sputnt",
-    acabamento: "https://www.asaas.com/000/c/v17f48g42t7l0hst",
     esp_marca: "https://www.asaas.com/000/c/s5gmbgdpjsl81kz5",
-    esp_produtora: "https://www.asaas.com/000/c/u9z9xmhpvrih1djw",
     esp_news: "https://www.asaas.com/000/c/bwl1vrxgogd4gjf0",
-    esp_portavozes: "https://www.asaas.com/000/c/5p56v1dqcbo9c7ru",
     cardapio: "https://www.asaas.com/000/c/28hpw39ejqiye702",
     cardapio_mensal: "https://www.asaas.com/000/c/u88t39zwkmx4mk18",
-    portfolio: "https://www.asaas.com/000/c/e4x0doisfcrifhv3",
     traducao: "https://www.asaas.com/000/c/3ekakcujuy6c6i5z",
     catalogo: "https://www.asaas.com/000/c/fe4h3vg1sbr7v9z7",
-    catalogo_mensal: "https://www.asaas.com/000/c/4ewi5pnx43l09jko",
-    /* 11/11/2026: em configuração até a Jéssica criar os links (campanha R$ 900, anuncio R$ 450, relatorio R$ 390/mês). */
+    /* 12/11/2026 (reformulação): saíram da loja e deixam de ter link aqui: portfolio, acabamento, relatorio,
+       catalogo_mensal, esp_produtora e esp_portavozes. Os links continuam existindo no Asaas até a Jéssica desativar.
+       Em configuração até a Jéssica criar os links: campanha (R$ 897) e anuncio (R$ 397, extra no pedido). */
     campanha: "",
     anuncio: "",
-    relatorio: "",
     conversa: "https://www.asaas.com/000/c/wf7ewn1yu7e49okd",
     /* 12/11/2026: itens novos, em configuração até a Jéssica criar os links. */
     diag_perfil: "",

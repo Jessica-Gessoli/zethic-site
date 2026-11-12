@@ -50,6 +50,7 @@ button{font:inherit;color:inherit}
 .item .preco{color:var(--tinta);font-size:1.6rem;font-weight:700;letter-spacing:-.02em}
 .item .beneficio{color:var(--tinta);font-weight:700;font-size:.98rem;line-height:1.35}
 .item .preco small{font-size:.9rem;color:var(--cinza);letter-spacing:0}
+.item .marca-sugestao.recomendado{background:var(--rosa-claro);color:var(--rosa-escuro)}
 .item .vagas{font-size:.82rem;font-weight:700;color:var(--rosa-escuro);background:var(--rosa-claro);border-radius:.5rem;padding:.4rem .6rem}
 .meta{margin:0;display:flex;flex-direction:column;gap:.25rem;font-size:.88rem;border-top:1px solid var(--linha);padding-top:.6rem}
 .meta div{display:flex;justify-content:space-between;gap:.6rem}
