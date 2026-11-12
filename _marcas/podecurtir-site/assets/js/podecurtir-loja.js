@@ -428,7 +428,10 @@
     $("aviso-carrinho").hidden = !aviso; $("aviso-carrinho").textContent = aviso;
   }
 
-  function tudo() { tipos(); catalogo(); carrinho(); salvar(); }
+  /* Review do PR #168: o extra que depende de um serviço sai do pedido assim que o serviço sai,
+     para não voltar sozinho à cobrança quando o serviço for posto de novo. */
+  function limparExtras() { cart.plus = cart.plus.filter(function (id) { var x = plusDe(id); return x && combina(x); }); }
+  function tudo() { limparExtras(); tipos(); catalogo(); carrinho(); salvar(); }
 
   document.addEventListener("click", function (e) {
     if ($("vista-loja").hidden || !e.target.closest) return;
@@ -512,7 +515,7 @@
     var principal = temPrincipal();
     $("plus-campo").hidden = !principal;
     if (!principal) { $("plus-lista").innerHTML = ""; return; }
-    cart.plus = cart.plus.filter(function (id) { var x = plusDe(id); return x && combina(x); });
+    limparExtras();
     $("plus-lista").innerHTML = PLUS.filter(combina).map(function (p) {
       var on = tem(cart.plus, p.id);
       return '<label class="plus-item" for="' + p.id + '"><input type="checkbox" id="' + p.id + '" data-plus="' + p.id + '"' + (on ? " checked" : "") + ">" +

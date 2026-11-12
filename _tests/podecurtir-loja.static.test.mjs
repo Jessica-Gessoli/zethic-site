@@ -272,6 +272,7 @@ test("plus no fechamento: preços aprovados, só com serviço pago, parceria ide
   assert.match(plus, /id: "traducao", marca: "pc", requer: \["cardapio"\], nome: "Tradução do cardápio · inglês e espanhol", preco: 597,/);
   assert.match(plus, /id: "anuncio", marca: "pc", requer: \["campanha", "essencial", "padrao", "completa"\], nome: "Revisão de anúncio pela psicologia do consumidor", preco: 397,[^}]*Sem exame de cérebro e sem promessa de resultado\./);
   assert.match(js, /function combina\(p\) \{ return !p\.requer \|\| p\.requer\.some\(/);
+  assert.match(js, /function tudo\(\) \{ limparExtras\(\); tipos\(\);/);
   assert.match(js, /" \(" \+ COM\[p\.marca\] \+ ", em parceria; o seu contato continua sendo a Pode Curtir\)"/);
   assert.match(js, /var COM = \{ jg: "com Jéssica Gessoli", ze: "com a Zethic" \};/);
   assert.match(js, /\$\("plus-lista"\)\.addEventListener\("change"/);
