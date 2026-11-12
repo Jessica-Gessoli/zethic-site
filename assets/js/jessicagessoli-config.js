@@ -7,7 +7,7 @@
      programa_pix e programa_cartao: programa de mentoria de 3 meses (R$ 2.250 desde 10/11/2026, antes R$ 3.200; pagamento integral):
        _pix para Pix ou boleto, à vista; _cartao só cartão, em até 3x sem juros · aula: aula ao vivo (R$ 97)
      06/11/2026: escopo (conversa de escopo, R$ 300 desde 10/11/2026) ·
-     10/11/2026: fluxo_ia (Monte o seu fluxo com IA · 1 hora, R$ 300): o mesmo link de plus_mentoria da Pode Curtir ·
+     10/11/2026: fluxo_ia (Monte o seu fluxo com IA · 1 hora, R$ 297 desde 12/11/2026; antes R$ 300): o mesmo link de plus_mentoria da Pode Curtir ·
        antigolpe_essencial_pix e _cartao (R$ 2.500; cartão em até 3x) · diagnostico_essencial_pix e _cartao (R$ 7.500;
        cartão em até 6x) · palestra_online (R$ 5.000, à vista)
      09/11/2026: os 12 links acima foram criados pela Jéssica no Asaas; os _cartao só aceitam cartão, sem juros para o cliente.
