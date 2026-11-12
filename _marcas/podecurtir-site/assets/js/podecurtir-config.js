@@ -74,7 +74,14 @@ window.PODECURTIR = {
     presenca8: "",
     kit_catalogo: "",
     kit_apresentacao: "",
-    kit_oferta: ""
+    kit_oferta: "",
+    /* 12/11/2026 (benchmark de oferta): links com o crédito já descontado, para a página de obrigado. Em configuração até
+       a Jéssica decidir como cobrar o crédito no Asaas; enquanto vazios, o botão abre o WhatsApp com o pedido escrito.
+       Valores: Ajuste R$ 400, Teste de 3 Reels R$ 200, Presença 1ª mensalidade R$ 200, Apresentação Comercial R$ 500. */
+    ajuste_credito: "",
+    teste3_credito: "",
+    presenca4_credito: "",
+    kit_apresentacao_credito: ""
   },
   PRECO_AJUSTE: 497,
   VAGAS_FUNDADOR_RESTANTES: null,

@@ -295,8 +295,43 @@
     if (tipo === "proposta") return;
     var p = null;
     try { p = JSON.parse(ler("podecurtir-pagamento-v1") || "null"); localStorage.removeItem("podecurtir-pagamento-v1"); } catch (e) {}
-    if (p && typeof p.valor === "number" && p.valor > 0 && Date.now() - p.em < 7 * 24 * 3600 * 1000)
+    if (p && typeof p.valor === "number" && p.valor > 0 && Date.now() - p.em < 7 * 24 * 3600 * 1000) {
       window.podecurtirEvento("Purchase", { value: p.valor, currency: "BRL" });
+      proximoNivel(p.itens);
+    }
+  }
+
+  /* 12/11/2026 (benchmark de oferta, aprovado pela Jéssica): depois de uma compra do "Comece por aqui", a página de
+     obrigado oferece o próximo nível da mesma linha com o valor pago como crédito (termos, item 4: em até 30 dias da
+     entrega). Sem link de crédito no Asaas, o botão abre o WhatsApp com o pedido escrito. */
+  var PROXIMO = {
+    diag_perfil: { de: "Diagnóstico do perfil", pago: 97, para: "Ajuste de Perfil", preco: 497, link: "ajuste_credito",
+      txt: "Bio, foto, link, destaques e posts fixados arrumados por nós, a partir do que o diagnóstico encontrar." },
+    conversa: { de: "Vídeo de conversa · 1 Reel", pago: 197, para: "Teste de 3 Reels", preco: 397, link: "teste3_credito",
+      txt: "Mais 3 Reels do mesmo jeito, para ver qual formato funciona antes de assinar." },
+    teste3: { de: "Teste de 3 Reels", pago: 397, para: "Presença · 4 Reels por mês", preco: 597, mensal: true, link: "presenca4_credito",
+      txt: "Um Reel por semana, todo mês. O crédito sai da 1ª mensalidade." },
+    kit_catalogo: { de: "Catálogo de Serviços", pago: 297, para: "Apresentação Comercial", preco: 797, link: "kit_apresentacao_credito",
+      txt: "Tudo do Catálogo em até 12 telas, na marca do seu Negócio, para mandar antes ou depois da conversa." }
+  };
+  function brl(v) { return "R$ " + v.toLocaleString("pt-BR"); }
+  function proximoNivel(itens) {
+    var caixa = document.getElementById("proximo-nivel");
+    if (!caixa || !Array.isArray(itens)) return;
+    var o = null;
+    for (var i = 0; i < itens.length && !o; i++) if (Object.prototype.hasOwnProperty.call(PROXIMO, itens[i])) o = PROXIMO[itens[i]];
+    if (!o) return;
+    var resta = o.preco - o.pago;
+    document.getElementById("pn-credito").textContent = "Os seus " + brl(o.pago) + " viram crédito";
+    document.getElementById("pn-nome").textContent = o.para;
+    document.getElementById("pn-texto").textContent = o.txt;
+    document.getElementById("pn-preco").textContent = "De " + brl(o.preco) + (o.mensal ? " na 1ª mensalidade" : "") + " por " + brl(resta) + " com o crédito, se você contratar em até 30 dias da entrega.";
+    var link = (C.ASAAS_LINKS || {})[o.link] || "";
+    var botao = document.getElementById("pn-botao");
+    botao.href = link || whatsLink("Quero usar o crédito de " + brl(o.pago) + " do " + o.de + " no " + o.para + " (" + brl(resta) + ").");
+    botao.addEventListener("click", function () { window.podecurtirEvento("AceitouProximoNivel", { de: o.de, para: o.para, value: resta, currency: "BRL" }); });
+    caixa.hidden = false;
+    window.podecurtirEvento("OfertaProximoNivel", { de: o.de, para: o.para });
   }
 
   function iniciar() { aplicarCampanha(); identificacao(); consentimento(); desistencia(); obrigado(); }

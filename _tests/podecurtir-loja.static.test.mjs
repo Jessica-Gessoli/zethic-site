@@ -28,7 +28,9 @@ test("configuração única, com pagamento e Pixel desligados até serem preench
       "campanha", "anuncio",
       // 12/11/2026 (reformulação aprovada): saem portfolio, acabamento, relatorio, catalogo_mensal, esp_produtora e esp_portavozes
       // 12/11/2026: itens novos (preços pelo mercado e Kit de Vendas)
-      "diag_perfil", "teste3", "presenca4", "presenca8", "kit_catalogo", "kit_apresentacao", "kit_oferta"].sort());
+      "diag_perfil", "teste3", "presenca4", "presenca8", "kit_catalogo", "kit_apresentacao", "kit_oferta",
+      // 12/11/2026 (benchmark de oferta): links com o crédito do "Comece por aqui", para a página de obrigado
+      "ajuste_credito", "teste3_credito", "presenca4_credito", "kit_apresentacao_credito"].sort());
   for (const v of Object.values(c.ASAAS_LINKS)) assert.ok(v === "" || /^https:\/\/(www\.)?asaas\.com\//.test(v), "link do Asaas inválido: " + v);
   assert.ok([497, 597].includes(c.PRECO_AJUSTE), "preço do Ajuste fora da escada aprovada em 12/11/2026");
   assert.ok(c.PIXEL_ID === "" || /^\d{10,20}$/.test(c.PIXEL_ID));
@@ -221,7 +223,7 @@ test("loja: preço de fundador só nos itens a preço de fundador, aceite zerado
   assert.match(js, /\$\("fundador-campo"\)\.hidden = !t\.fundador;/);
   assert.doesNotMatch(js, /t\.pagos\.length && !\$\("fundador"\)/);
   assert.match(js, /if \(resumo !== resumoAceito\) \{ \$\("aceite"\)\.checked = false;/);
-  assert.match(js, /if \(ok\) \{ marcarPagamento\(t\.hoje\); location\.href = url; \}\s*else manual\(/);
+  assert.match(js, /if \(ok\) \{ marcarPagamento\(t\.hoje, idsPagos\(t\)\); location\.href = url; \}\s*else manual\(/);
   assert.doesNotMatch(js, /registrar\(pedido\); location\.href = url;/);
 });
 
@@ -255,6 +257,7 @@ test("site: pagamento integral, parcelado só no cartão e Gestão Completa com 
     if (["campanha", "anuncio"].includes(k) && v === "") continue;
     // 12/11/2026: itens novos, em configuração até a Jéssica criar os links
     if (["diag_perfil", "teste3", "presenca4", "presenca8", "kit_catalogo", "kit_apresentacao", "kit_oferta"].includes(k) && v === "") continue;
+    if (k.endsWith("_credito") && v === "") continue; // 12/11/2026: crédito em configuração; sem link, o botão abre o WhatsApp
     assert.match(v, /^https:\/\/www\.asaas\.com\/000\/c\/[a-z0-9]{16}$/, k);
   }
 });
@@ -329,11 +332,11 @@ test("medição de compra e link por persona", () => {
   assert.match(loja, /new URLSearchParams\(location\.search\)\.get\("negocio"\)/);
   assert.match(loja, /medir\("EscolheuTipo"/);
   assert.match(loja, /medir\("AddToCart"/);
-  assert.match(loja, /if \(ok\) \{ marcarPagamento\(t\.hoje\); location\.href = url; \}/);
+  assert.match(loja, /if \(ok\) \{ marcarPagamento\(t\.hoje, idsPagos\(t\)\); location\.href = url; \}/);
   // review do PR #111: valor do item clicado, marca também no checkout único e mede o plus do fechamento
-  assert.match(loja, /if \(a\) marcarPagamento\(Number\(a\.getAttribute\("data-valor"\)\) \|\| 0\);/);
+  assert.match(loja, /if \(a\) marcarPagamento\(Number\(a\.getAttribute\("data-valor"\)\) \|\| 0, \[a\.getAttribute\("data-id"\)\]\);/);
   assert.match(loja, /data-valor="' \+ p\.valor \+ '"/);
-  assert.match(loja, /\{ marcarPagamento\(t\.hoje\); location\.href = j\.url; \}/);
+  assert.match(loja, /\{ marcarPagamento\(t\.hoje, idsPagos\(t\)\); location\.href = j\.url; \}/);
   assert.match(loja, /cart\.plus\.push\(id\); medir\("AddToCart", \{ content_name: id \}\);/);
   assert.match(comum, /AddToCart: "add_to_cart", EscolheuTipo: "escolheu_tipo"/);
   assert.match(comum, /window\.podecurtirEvento\("Purchase", \{ value: p\.valor, currency: "BRL" \}\)/);
@@ -624,4 +627,20 @@ test("preço de fundador: depoimento é do site e avaliação no Google é opcio
   assert.match(loja, /avaliação no Google não faz parte da troca e é sempre opcional/);
   assert.match(loja, /Avaliar no Google é opcional\./);
   assert.match(termos, /nunca é pedida em troca de desconto/);
+});
+
+// 12/11/2026 (benchmark de oferta, aprovado pela Jéssica): garantia acima da dobra só com o que os termos garantem;
+// página de obrigado oferece o próximo nível com o crédito depois de uma compra do "Comece por aqui".
+test("vitrine: faixa de garantia e próximo nível com crédito na página de obrigado", () => {
+  const h = ler("_fontes/podecurtir.html"), ob = ler("_fontes/podecurtir/loja/obrigado/index.html");
+  const comum = ler("assets/js/podecurtir-comum.js"), loja = ler("assets/js/podecurtir-loja.js");
+  assert.match(h, /<ul class="garantia-faixa" aria-label="O que a gente garante">/);
+  assert.match(h, /<strong>7 dias para desistir<\/strong> Com devolução integral/);
+  assert.doesNotMatch(h.split('class="garantia-faixa"')[1].split("</ul>")[0], /seguidores|vendas garantidas|resultado garantido/i);
+  assert.match(ob, /<section class="proximo-nivel" id="proximo-nivel" aria-labelledby="pn-nome" hidden>/);
+  for (const [de, pago, para, preco] of [["diag_perfil", 97, "Ajuste de Perfil", 497], ["conversa", 197, "Teste de 3 Reels", 397], ["teste3", 397, "Presença · 4 Reels por mês", 597], ["kit_catalogo", 297, "Apresentação Comercial", 797]])
+    assert.match(comum, new RegExp(`${de}: \\{ de: "[^"]+", pago: ${pago}, para: "${para}", preco: ${preco},`));
+  assert.match(comum, /proximoNivel\(p\.itens\);/);
+  assert.match(comum, /botao\.href = link \|\| whatsLink\(/);
+  assert.match(loja, /data-id="' \+ esc\(p\.id\) \+ '"/);
 });

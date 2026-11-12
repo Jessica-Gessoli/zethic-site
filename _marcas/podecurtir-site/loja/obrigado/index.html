@@ -12,9 +12,9 @@
 <link rel="icon" href="/assets/img/podecurtir-icone.svg" type="image/svg+xml">
 <link rel="preload" href="/assets/fonts/public-sans-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/css/podecurtir.css?v=f7a39572f4">
-<link rel="stylesheet" href="/assets/css/podecurtir-loja.css?v=8c486d8481">
-<script src="/assets/js/podecurtir-config.js?v=6db326a9e2" defer></script>
-<script src="/assets/js/podecurtir-comum.js?v=a28449d32a" defer></script>
+<link rel="stylesheet" href="/assets/css/podecurtir-loja.css?v=8683ba2f90">
+<script src="/assets/js/podecurtir-config.js?v=77f53b2d29" defer></script>
+<script src="/assets/js/podecurtir-comum.js?v=9540124e5d" defer></script>
 </head>
 <body>
 <a class="skip" href="#conteudo">Ir para o conteúdo</a>
@@ -36,6 +36,15 @@
         <li><strong>2. Aprove o acesso de parceiro</strong><p>Você recebe o pedido de acesso pelo Meta Business Suite e aprova. Sem senha.</p></li>
         <li><strong>3. Veja a prévia e aprove</strong><p>Até 2 rodadas de ajuste por peça. Nada vai ao ar sem o seu ok por escrito.</p></li>
       </ul>
+      <!-- 12/11/2026 (benchmark de oferta): próximo nível com o crédito, só depois de uma compra do "Comece por aqui". -->
+      <section class="proximo-nivel" id="proximo-nivel" aria-labelledby="pn-nome" hidden>
+        <span class="selo-credito" id="pn-credito"></span>
+        <h2 id="pn-nome"></h2>
+        <p id="pn-texto"></p>
+        <p class="pn-preco" id="pn-preco"></p>
+        <a class="btn rosa" id="pn-botao" href="/#loja" rel="noopener">Quero usar o meu crédito</a>
+        <p class="pn-nota">Sem pressa: o crédito vale por 30 dias depois da entrega. Primeiro, responda o briefing.</p>
+      </section>
     </div>
     <div data-tipo="proposta" hidden>
       <span class="ok">Pedido de proposta recebido</span>
