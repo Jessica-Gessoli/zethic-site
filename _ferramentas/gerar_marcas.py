@@ -2,7 +2,8 @@
 """Gera os sites próprios das marcas a partir das páginas publicadas em zethic.net.
 
 Decisão de 21/10/2026: Pode Curtir e Jéssica Gessoli ganham endereço próprio
-(podecurtir.zethic.net e jessicagessoli.zethic.net). A fonte continua sendo
+(podecurtir.zethic.net e jessicagessoli.zethic.net). Desde 12/11/2026 a Pode Curtir tem a fonte no repositório
+Jessica-Gessoli/podecurtir-site; aqui só fica o redirecionamento de zethic.net/podecurtir. A fonte continua sendo
 _fontes/ deste repositório (desde 10/11/2026 as páginas da Pode Curtir e da Jéssica Gessoli saíram de zethic.net:
 ficam em _fontes/, que o Jekyll não publica, e zethic.net/podecurtir/* e /jessicagessoli/* só redirecionam para o
 subdomínio de cada marca). Regras em _docs/marcas-enderecos.md;
@@ -195,23 +196,9 @@ redirecionar(jg, "jessicagessoli.zethic.net", "Jéssica Gessoli")
 
 # 10/11/2026 (Jéssica): a Pode Curtir também sai de zethic.net; os endereços antigos só redirecionam.
 redirecionar(pc, "podecurtir.zethic.net", "Pode Curtir")
-pc_dest = build("podecurtir", "podecurtir.zethic.net", [
-    ("_fontes/podecurtir.html", "index.html", pc_map(0)),
-    ("_fontes/podecurtir/loja/index.html", "loja/index.html", pc_map(1)),
-    ("_fontes/podecurtir/loja/obrigado/index.html", "loja/obrigado/index.html", pc_map(2)),
-    ("_fontes/podecurtir/termos/index.html", "termos/index.html", pc_map(3)),
-    ("_fontes/podecurtir/privacidade/index.html", "privacidade/index.html", pc_map(4)),
-    ("_fontes/podecurtir/desistencia/index.html", "desistencia/index.html", pc_map(5)),
-    ("_fontes/podecurtir/parceiros/index.html", "parceiros/index.html", pc_map(6)),
-    ("_fontes/podecurtir/cardapio/exemplo/index.html", "cardapio/exemplo/index.html", pc_map(7)),
-    ("_fontes/podecurtir/cardapio/exemplo/imprimir/index.html", "cardapio/exemplo/imprimir/index.html", pc_map(8)),
-    ("_fontes/podecurtir/cardapio/exemplo-delivery/index.html", "cardapio/exemplo-delivery/index.html", pc_map(9)),
-], ["/assets/fonts/OFL.txt"])
-# Arquivos do cardápio de exemplo que a página carrega por caminho relativo (a planilha em dados/ fica só na fonte).
-for pasta in ("exemplo", "exemplo-delivery"):
-    for f in ("tema.css", "qr.svg", "icone.svg", "manifest.webmanifest", "cardapio-impresso.pdf"):
-        if (SRC / "_fontes/podecurtir/cardapio" / pasta / f).exists():
-            shutil.copy2(SRC / "_fontes/podecurtir/cardapio" / pasta / f, pc_dest / "cardapio" / pasta / f)
+# 12/11/2026 (Jéssica: "tudo que é da Pode Curtir somente na Pode Curtir"): a fonte da Pode Curtir passou para o
+# repositório Jessica-Gessoli/podecurtir-site, que é editado direto. Este gerador não monta mais o site da Pode Curtir;
+# aqui ficam só o endereço antigo zethic.net/podecurtir (redirecionamento acima) e os links das outras marcas para ela.
 
 if CHECK:
     def diff(a, b):
@@ -219,7 +206,7 @@ if CHECK:
         ruins = c.left_only + c.right_only + c.diff_files
         for sub in c.common_dirs: ruins += [f"{sub}/{x}" for x in diff(a / sub, b / sub)]
         return ruins
-    ruins = [f"{m}: {x}" for m in ("jessicagessoli-site", "podecurtir-site") for x in diff(OUT / m, REAL / m)]
+    ruins = [f"{m}: {x}" for m in ("jessicagessoli-site",) for x in diff(OUT / m, REAL / m)]
     if ruins:
         print("_marcas desatualizado; rode python3 _ferramentas/gerar_marcas.py\n" + "\n".join(ruins))
         sys.exit(1)

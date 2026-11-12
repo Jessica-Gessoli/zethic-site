@@ -4,20 +4,6 @@ import { readFileSync, existsSync, readdirSync } from "node:fs";
 
 const ler = (p) => readFileSync(new URL("../" + p, import.meta.url), "utf8");
 
-// 14/10/2026 (pedido da Goreti, aprovado pela Jéssica): os vídeos de demonstração saem até haver vídeos com edição mais elaborada;
-// a página fica só com texto. O título "Você curte, a gente registra." foi trocado por um título direto.
-test("Pode Curtir: sem vídeos de demonstração e com título direto", () => {
-  const h = ler("_fontes/podecurtir.html");
-  assert.doesNotMatch(h, /class="reel"|class="trabalhos"/);
-  // 11/11/2026 (Jéssica, decisão de 10/11/2026): o único vídeo da página é o do caso Água na Boca, dentro da seção do caso.
-  assert.equal((h.match(/<video/g) || []).length, 1, "só o vídeo do caso");
-  const caso = h.match(/<section class="caso alt" id="caso-agua-na-boca"[\s\S]*?<\/section>/)[0];
-  assert.match(caso, /<video /);
-  // 07/11/2026 (benchmark de publicidade, aprovado pela Jéssica): o título diz o resultado e o preço fechado.
-  assert.match(h, /<h1>Seu perfil pronto para vender, com preço fechado\.<\/h1>/);
-  assert.doesNotMatch(h + ler("index.html"), /Você curte, a gente registra/);
-});
-
 test("Zethic: sem faixa de preço no topo da página inicial", () => {
   assert.doesNotMatch(ler("index.html"), /class="faixa"/);
 });
@@ -30,16 +16,11 @@ test("Página profissional: a seção se chama Serviços", () => {
 });
 
 // 14/10/2026 (aprovado pela Jéssica): símbolos novos das marcas. 28/10/2026: a Pode Curtir não cita mais a Zethic.
-test("Símbolos: monograma JG e visor da Pode Curtir, sem endosso da Zethic", () => {
+test("Símbolo: monograma JG", () => {
   const jg = ler("assets/img/jessicagessoli-icone.svg");
   assert.match(jg, /fill="#12352B"/);
   assert.doesNotMatch(jg, /<text/, "letras em contorno, não dependem de fonte instalada");
-  const pc = ler("assets/img/podecurtir-icone.svg");
-  assert.match(pc, /fill="#FFD23F"/);
-  assert.doesNotMatch(ler("_fontes/podecurtir.html"), /marca da|parentOrganization|href="\/"/);
-  // 11/11/2026 (pedido da Jéssica): a marca da Zethic aparece só como parceira, na seção de proteção e recuperação de conta, nunca como endosso da Pode Curtir.
-  const semSecaoZethic = ler("_fontes/podecurtir.html").replace(/<section class="secao leve-junto" aria-labelledby="t-contas">[\s\S]*?<\/section>/, "");
-  assert.doesNotMatch(semSecaoZethic, /zethic-marca\.svg/);
+  // 12/11/2026: o visor da Pode Curtir e o teste dele foram para o repositório podecurtir-site.
 });
 
 // 14/10/2026 (aprovado pela Jéssica, orientação da Goreti): primeiro a conversa, depois o preço. Nenhum valor publicado no site.
@@ -51,19 +32,6 @@ test("Zethic: nenhum preço publicado nas páginas", () => {
   }
 });
 
-// 21/10/2026 (retorno da Lucinha, aprovado pela Jéssica): a página diz logo no título que categoria a Pode Curtir é,
-// e mostra a frente de redes sociais (Perfil Pronto e gestão mensal), sem preço e sem pedir senha.
-test("Pode Curtir: categoria clara e frente de redes sociais", () => {
-  const h = ler("_fontes/podecurtir.html");
-  // 10/11/2026 (Jéssica): o título diz primeiro o que a página vende (perfil e redes) e continua dizendo a categoria.
-  assert.match(h, /<title>Pode Curtir \| Perfil, redes, foto e vídeo com preço fechado<\/title>/);
-  assert.match(h, /<li id="redes">[\s\S]*Perfil Pronto[\s\S]*Gestão mensal/);
-  // 04/11/2026: a regra "sem preço" caiu (site = preço pronto); o preço da página inicial é conferido no teste da loja.
-  assert.doesNotMatch(h, /A publicação nas redes e os anúncios ficam com você/);
-  // 28/10/2026 (fronteiras): a Pode Curtir não comunica segurança; a blindagem técnica de contas é da Zethic.
-  assert.doesNotMatch(h, /Conta protegida|protegida pela Zethic|[Ss]eguran[çc]a|senha/);
-});
-
 // 28/10/2026 (decisão da Jéssica): Zethic e Pode Curtir não se citam. O WhatsApp é compartilhado, e a mensagem
 // da Pode Curtir cita redes sociais.
 // Ficha v1.5 (03/11/2026): exceção única, a Pode Curtir como parceira de mídia num parágrafo class="parceria".
@@ -71,16 +39,10 @@ test("Pode Curtir: a Zethic não cita o Pode Curtir", () => {
   for (const p of ["index.html", "quem-somos.html", "seguranca.html", "tecnologia.html", "atendimento.html", "financeiro.html", "llms.txt"]) {
     assert.doesNotMatch(ler(p).replace(/<p class="parceria">[\s\S]*?<\/p>/g, ""), /pode ?curtir|podecurtir|Mídia digital|Orçamento de foto e vídeo/i, p);
   }
+  // 12/11/2026: os botões da Pode Curtir vão direto ao WhatsApp dela; o /fale ainda atende links antigos com utm_source=podecurtir.
   assert.match(ler("fale.html"), /"podecurtir": "[^"]*redes sociais ou anúncios\."/);
   // 28/10/2026 (decisão da Jéssica): o rodapé da página dela não traz mais o título de fundadora da Zethic.
   assert.doesNotMatch(ler("_fontes/jessicagessoli.html").match(/<footer>[\s\S]*<\/footer>/)[0], /diretora executiva|Zethic/);
-});
-
-test('Pode Curtir: prévia de link com imagem grande', () => {
-  const h = readFileSync(new URL('../_fontes/podecurtir.html', import.meta.url), 'utf8');
-  assert.match(h, /<meta property="og:image" content="https:\/\/zethic\.net\/assets\/img\/og-podecurtir\.jpg">/);
-  assert.match(h, /<meta name="twitter:card" content="summary_large_image">/);
-  assert.ok(existsSync(new URL('../assets/img/og-podecurtir.jpg', import.meta.url)));
 });
 
 // 04/11/2026 (decisão da Jéssica): nome de cliente não aparece misturado com as marcas. As fotos da antiga seção de
