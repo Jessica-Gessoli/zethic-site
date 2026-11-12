@@ -68,6 +68,15 @@
     new IntersectionObserver(function (e) { fora = !e[0].isIntersecting; tocar(); }, { threshold: 0.25 }).observe(v);
   }
 
+  // O topo cabe na primeira tela: mede o que vem acima dele (cabeçalho e faixa da campanha) e desconta da altura.
+  function medir() {
+    var alto = Math.max(0, Math.round(v.getBoundingClientRect().top + window.scrollY));
+    document.documentElement.style.setProperty("--alto-topo", alto + "px");
+  }
+  medir();
+  window.addEventListener("resize", medir);
+  window.addEventListener("load", medir);
+
   ctrl.hidden = false;
   v.classList.add("js-vitrine");
   mostrar(0);

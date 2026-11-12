@@ -76,7 +76,10 @@ test("casos: toda imagem nova tem largura, altura, alt descritivo e versões Web
   for (const i of novas) {
     assert.match(i, / width="\d+" height="\d+"/, i);
     const alt = (i.match(/alt="([^"]*)"/) || [])[1] || "";
-    assert.ok(alt.length >= 20, "alt curto: " + i);
+    // 12/11/2026: no topo, a mesma foto aparece desfocada como fundo (decorativa, alt vazio) e nítida com alt descritivo.
+    const fonte = i.match(/src="([^"]+)"/)[1];
+    const fundoDecorativo = alt === "" && novas.some((o) => o !== i && o.includes('src="' + fonte + '"') && /alt="[^"]{20,}"/.test(o));
+    assert.ok(alt.length >= 20 || fundoDecorativo, "alt curto: " + i);
     assert.doesNotMatch(alt, /\.(jpe?g|webp|png)|IMG_|agua-na-boca_|lucia-vidotto_/i, "alt com nome de arquivo: " + alt);
     const src = i.match(/src="([^"]+)"/)[1];
     assert.ok(existe(src.slice(1)), "arquivo ausente: " + src);
