@@ -8,7 +8,11 @@ const ler = (p) => readFileSync(new URL("../" + p, import.meta.url), "utf8");
 // a página fica só com texto. O título "Você curte, a gente registra." foi trocado por um título direto.
 test("Pode Curtir: sem vídeos de demonstração e com título direto", () => {
   const h = ler("_fontes/podecurtir.html");
-  assert.doesNotMatch(h, /class="reel"|class="trabalhos"|<video/);
+  assert.doesNotMatch(h, /class="reel"|class="trabalhos"/);
+  // 11/11/2026 (Jéssica, decisão de 10/11/2026): o único vídeo da página é o do caso Água na Boca, dentro da seção do caso.
+  assert.equal((h.match(/<video/g) || []).length, 1, "só o vídeo do caso");
+  const caso = h.match(/<section class="caso alt" id="caso-agua-na-boca"[\s\S]*?<\/section>/)[0];
+  assert.match(caso, /<video /);
   // 07/11/2026 (benchmark de publicidade, aprovado pela Jéssica): o título diz o resultado e o preço fechado.
   assert.match(h, /<h1>Seu perfil pronto para vender, com preço fechado\.<\/h1>/);
   assert.doesNotMatch(h + ler("index.html"), /Você curte, a gente registra/);
@@ -90,7 +94,9 @@ test("site: sem arquivo público com nome de cliente e sem as fotos da antiga se
   };
   andar("assets/");
   for (const n of nomes) {
-    assert.doesNotMatch(n, /torre-de-prata|torre_de_prata|agua-?na-?boca|aguanaboca|excellent|lucinha|pizzaria/i, n);
+    // 11/11/2026 (Jéssica, decisão de 10/11/2026): o caso Água na Boca entra no site, só com arquivos agua-na-boca_virginia-*.
+    const semCaso = n.replace(/^assets\/(img|video)\/agua-na-boca_virginia-[a-z0-9-]+\.(webp|jpg|mp4)$/, "");
+    assert.doesNotMatch(semCaso, /torre-de-prata|torre_de_prata|agua-?na-?boca|aguanaboca|excellent|lucinha|pizzaria/i, n);
   }
   assert.ok(!existsSync(new URL("../assets/video/pode-curtir-torre-de-prata.jpg", import.meta.url)));
   assert.ok(!existsSync(new URL("../assets/video/pode-curtir-danca.jpg", import.meta.url)));
