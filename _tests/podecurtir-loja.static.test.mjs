@@ -71,7 +71,7 @@ test("regras das marcas nas páginas de compra", () => {
     // 11/11/2026 (Jéssica, decisão de 10/11/2026): o caso Água na Boca entra na página inicial e na miniatura
     // "Exemplo real" dos cards. Fora dele, nome de cliente continua proibido.
     const semCaso = p === "_fontes/podecurtir.html"
-      ? h.replace(/<figure class="hero-foto[^"]*"[^>]*>[\s\S]*?<\/figure>\s*<\/div>/, "").replace(/<section class="prova"[\s\S]*?<\/section>/, "")
+      ? h.replace(/<div class="hero pc-vitrine"[\s\S]*?<button type="button" class="pausa">/, "").replace(/<section class="prova"[\s\S]*?<\/section>/, "")
           .replace(/<section class="caso alt" id="caso-agua-na-boca"[\s\S]*?<\/section>/, "")
       : p === "assets/js/podecurtir-loja.js" ? h.replace(/var EXEMPLO = \{[\s\S]*?\n  \}/, "") : h;
     assert.doesNotMatch(semCaso, /Virgínia|Água na Boca|Lucinha|Excellent/i, p + ": sem nome de cliente fora do caso aprovado");
@@ -126,7 +126,8 @@ test("medição só depois do aceite e aviso de cookies só com GA4 ou Pixel con
 // existe num lugar só). /podecurtir/loja/ leva para /podecurtir#loja, com o mesmo trecho.
 test("página única: loja na página inicial, comprar antes do WhatsApp e endereço antigo levando para lá", () => {
   const h = ler("_fontes/podecurtir.html");
-  const hero = h.split('<div class="hero">')[1].split("</div>\n  </div>")[0];
+  // 12/11/2026: o topo virou destaques no modelo da Zethic; a chamada principal fica no destaque 1.
+  const hero = h.split('<div class="hero pc-vitrine"')[1].split('aria-label="2 de 3')[0];
   // 10/11/2026 (Jéssica): a chamada principal leva à escolha pelo tipo de Negócio, no topo da loja.
   assert.match(hero, /<a class="btn cheio" href="#loja"[^>]*>Escolher pelo meu Negócio<\/a>\s*<a class="btn contorno" href="\/fale\?utm_source=podecurtir"/);
   assert.doesNotMatch(h, /class="oferta"/, "cartões de preço repetidos voltaram");
