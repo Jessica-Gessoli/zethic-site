@@ -176,7 +176,7 @@ test("casos: Lucia Vidotto com 1 foto de cada figurino e crédito da Alpha", () 
   assert.match(lucia, /lucia-vidotto_03-800\.jpg/);
   assert.equal((lucia.match(/<img /g) || []).length, 2);
   assert.match(lucia, /<p class="credito">Foto: Alpha, parceira da Pode Curtir<\/p>/);
-  assert.match(h, /<a href="#caso-lucia-vidotto">Ver um retrato feito pela Pode Curtir<\/a>/);
+  assert.match(h, /<a href="#caso-lucia-vidotto">Ver os retratos da Lucia Vidotto<\/a>/);
 });
 
 test("casos: Quem faz apresenta a Pode Curtir, com crédito da Alpha, sem cargo nem link da marca Jéssica Gessoli", () => {
@@ -202,4 +202,16 @@ test("loja em abas: grupos cobrem todas as seções, tipo abre o grupo e âncora
   assert.match(js, /if \(tt && tt\.foco\) grupo = grupoDaSecao\(tt\.foco\[0\]\)/);
   assert.match(js, /grupo = grupoDaSecao\(escondida\.getAttribute\("aria-labelledby"\)\)/);
   assert.match(h, /<details class="frentes-mais">\s*<summary>Ver a lista completa do que a gente faz<\/summary>/);
+});
+
+// 12/11/2026 (Jéssica): a foto da Lucia Vidotto é da Alpha. O bloco leva para o que a Pode Curtir faz com a foto
+// (livro, e-book, perfil) e não para ensaio, para não esbarrar no trabalho da Alpha.
+test("retratos da Lucia Vidotto levam para livro, e-book e perfil, não para ensaio", () => {
+  assert.doesNotMatch(lucia, /ensaio de retrato feito pela Pode Curtir|Pedir proposta de ensaio/i);
+  assert.match(lucia, /Foto: Alpha, parceira da Pode Curtir/);
+  assert.match(lucia, /<a href="#proposta-livro">Livro pronto/);
+  assert.match(lucia, /<a href="#t-conteudo">E-book/);
+  assert.match(lucia, /<a href="#t-perfil">Perfil Pronto/);
+  assert.match(ler("assets/js/podecurtir-loja.js"), /'" id="proposta-' \+ a\.id \+ '"/);
+  assert.doesNotMatch(h, /retrato feito pela Pode Curtir/);
 });
