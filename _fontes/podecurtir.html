@@ -27,6 +27,7 @@
 <script src="/assets/js/podecurtir-config.js" defer></script>
 <script src="/assets/js/podecurtir-comum.js" defer></script>
 <script src="/assets/js/podecurtir-loja.js" defer></script>
+<script src="/assets/js/podecurtir-vitrine.js" defer></script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -83,13 +84,19 @@
           <li>Nada vai ao ar sem o seu ok</li>
         </ul>
       </div>
-      <!-- 11/11/2026 (Jéssica, mapa de mídias): 1 foto fixa de produto do caso de cliente, sem carrossel. Única imagem com prioridade alta. -->
-      <figure class="hero-foto">
-        <picture>
-          <source type="image/webp" srcset="/assets/img/agua-na-boca_virginia-cesta-pronta-640.webp 640w, /assets/img/agua-na-boca_virginia-cesta-pronta-960.webp 960w, /assets/img/agua-na-boca_virginia-cesta-pronta-1440.webp 1440w" sizes="(min-width: 60rem) 30rem, calc(100vw - 2.5rem)">
-          <img src="/assets/img/agua-na-boca_virginia-cesta-pronta-960.jpg" width="960" height="720" fetchpriority="high" decoding="async" alt="Cesta de pão trançado com alça, baguetes e uvas, sobre toalha xadrez, com bananas, abacaxi, laranjas e um pão de forma ao redor">
-        </picture>
-        <figcaption>Água na Boca, cliente da Pode Curtir</figcaption>
+      <!-- 12/11/2026 (Jéssica): fotos passando no topo, no espírito dos banners da Zethic. Texto e botões ficam parados; só a foto troca.
+           Quadro 1 carrega com prioridade; os outros, tarde. Sem JavaScript ou com "reduzir movimento", fica o quadro 1 parado. -->
+      <figure class="hero-foto vitrine" aria-roledescription="carrossel" aria-label="Trabalhos de clientes da Pode Curtir">
+        <ul class="vitrine-quadros" aria-live="off">
+          <li class="quadro ativo" data-foco="rosto" aria-roledescription="slide" aria-label="1 de 4"><picture><source type="image/webp" srcset="/assets/img/agua-na-boca_virginia-com-a-cesta-400.webp 400w, /assets/img/agua-na-boca_virginia-com-a-cesta-800.webp 800w" sizes="(min-width: 60rem) 28rem, calc(100vw - 2.5rem)"><img src="/assets/img/agua-na-boca_virginia-com-a-cesta-800.jpg" width="800" height="1066" fetchpriority="high" decoding="async" alt="Dona Virgínia sorrindo, de touca e avental, ao lado da cesta de pão trançado pronta"></picture><p class="legenda">Dona Virgínia · Água na Boca, Cabreúva/SP</p></li>
+          <li class="quadro" data-foco="centro" aria-roledescription="slide" aria-label="2 de 4"><picture><source type="image/webp" srcset="/assets/img/agua-na-boca_virginia-cesta-no-forno-400.webp 400w, /assets/img/agua-na-boca_virginia-cesta-no-forno-800.webp 800w" sizes="(min-width: 60rem) 28rem, calc(100vw - 2.5rem)"><img src="/assets/img/agua-na-boca_virginia-cesta-no-forno-800.jpg" width="800" height="1066" loading="lazy" decoding="async" alt="Cesta de pão trançado assando dentro do forno"></picture><p class="legenda">Do forno da Água na Boca</p></li>
+          <li class="quadro" data-foco="centro" aria-roledescription="slide" aria-label="3 de 4"><picture><source type="image/webp" srcset="/assets/img/agua-na-boca_virginia-mesa-com-frutas-400.webp 400w, /assets/img/agua-na-boca_virginia-mesa-com-frutas-800.webp 800w" sizes="(min-width: 60rem) 28rem, calc(100vw - 2.5rem)"><img src="/assets/img/agua-na-boca_virginia-mesa-com-frutas-800.jpg" width="800" height="1066" loading="lazy" decoding="async" alt="Mesa posta com a cesta de pão trançado, bananas, abacaxi e laranjas sobre toalha xadrez"></picture><p class="legenda">Água na Boca · foto de produto</p></li>
+          <li class="quadro" data-foco="retrato" aria-roledescription="slide" aria-label="4 de 4"><picture><source type="image/webp" srcset="/assets/img/lucia-vidotto_01-400.webp 400w, /assets/img/lucia-vidotto_01-800.webp 800w" sizes="(min-width: 60rem) 28rem, calc(100vw - 2.5rem)"><img src="/assets/img/lucia-vidotto_01-800.jpg" width="800" height="1200" loading="lazy" decoding="async" alt="Lucia Vidotto sorrindo, de blazer laranja e braços cruzados, diante de uma mandala na parede"></picture><p class="legenda">Lucia Vidotto · retrato profissional · Foto: Alpha</p></li>
+        </ul>
+        <div class="vitrine-ctrl" hidden>
+          <div class="vitrine-pontos" role="group" aria-label="Escolher foto"></div>
+          <button class="vitrine-pausa" type="button" aria-pressed="false">Pausar</button>
+        </div>
       </figure>
     </div>
   </div>
@@ -103,10 +110,10 @@
         <a class="prova-link" href="#caso-agua-na-boca" data-evento="ver_caso">Ver o caso</a>
       </div>
       <ul class="prova-fotos">
-        <li><figure><picture><source type="image/webp" srcset="/assets/img/agua-na-boca_virginia-cesta-com-baguetes-240.webp 240w, /assets/img/agua-na-boca_virginia-cesta-com-baguetes-480.webp 480w" sizes="(min-width: 60rem) 9rem, 42vw"><img src="/assets/img/agua-na-boca_virginia-cesta-com-baguetes-480.jpg" width="480" height="640" loading="lazy" decoding="async" alt="Cesta de pão trançado com baguetes dentro, sobre toalha xadrez"></picture><figcaption>Cesta com baguetes</figcaption></figure></li>
-        <li><figure><picture><source type="image/webp" srcset="/assets/img/agua-na-boca_virginia-doces-embalados-240.webp 240w, /assets/img/agua-na-boca_virginia-doces-embalados-480.webp 480w" sizes="(min-width: 60rem) 9rem, 42vw"><img src="/assets/img/agua-na-boca_virginia-doces-embalados-480.jpg" width="480" height="640" loading="lazy" decoding="async" alt="Doces caseiros em potes plásticos fechados, sobre a mesa"></picture><figcaption>Doces embalados para a entrega</figcaption></figure></li>
-        <li><figure><picture><source type="image/webp" srcset="/assets/img/agua-na-boca_virginia-sovando-a-massa-240.webp 240w, /assets/img/agua-na-boca_virginia-sovando-a-massa-480.webp 480w" sizes="(min-width: 60rem) 9rem, 42vw"><img src="/assets/img/agua-na-boca_virginia-sovando-a-massa-480.jpg" width="480" height="640" loading="lazy" decoding="async" alt="Dona Virgínia, de touca e avental, sovando a massa na bancada da cozinha"></picture><figcaption>Dona Virgínia no preparo</figcaption></figure></li>
-        <li><figure><picture><source type="image/webp" srcset="/assets/img/agua-na-boca_virginia-capa-do-trigo-a-cesta-240.webp 240w, /assets/img/agua-na-boca_virginia-capa-do-trigo-a-cesta-480.webp 480w" sizes="(min-width: 60rem) 9rem, 42vw"><img src="/assets/img/agua-na-boca_virginia-capa-do-trigo-a-cesta-480.jpg" width="480" height="640" loading="lazy" decoding="async" alt="Capa de Reel com o título Do trigo à cesta sobre uma foto de pães e frutas"></picture><figcaption>Capa de Reel</figcaption></figure></li>
+        <li><figure><picture><source type="image/webp" srcset="/assets/img/agua-na-boca_virginia-forma-de-paes-400.webp 400w, /assets/img/agua-na-boca_virginia-forma-de-paes-800.webp 800w" sizes="(min-width: 60rem) 9rem, 42vw"><img src="/assets/img/agua-na-boca_virginia-forma-de-paes-800.jpg" width="800" height="1066" loading="lazy" decoding="async" alt="Dona Virgínia na cozinha segurando uma forma com pães compridos"></picture><figcaption>Dona Virgínia com as baguetes</figcaption></figure></li>
+        <li><figure><picture><source type="image/webp" srcset="/assets/img/agua-na-boca_virginia-modelando-a-massa-400.webp 400w, /assets/img/agua-na-boca_virginia-modelando-a-massa-800.webp 800w" sizes="(min-width: 60rem) 9rem, 42vw"><img src="/assets/img/agua-na-boca_virginia-modelando-a-massa-800.jpg" width="800" height="1066" loading="lazy" decoding="async" alt="Mãos modelando bolinhas de massa sobre a bancada de granito"></picture><figcaption>Massa modelada à mão</figcaption></figure></li>
+        <li><figure><picture><source type="image/webp" srcset="/assets/img/agua-na-boca_virginia-paes-na-forma-400.webp 400w, /assets/img/agua-na-boca_virginia-paes-na-forma-800.webp 800w" sizes="(min-width: 60rem) 9rem, 42vw"><img src="/assets/img/agua-na-boca_virginia-paes-na-forma-800.jpg" width="800" height="1066" loading="lazy" decoding="async" alt="Pães caseiros dourados lado a lado numa forma de alumínio"></picture><figcaption>Pães saindo do forno</figcaption></figure></li>
+        <li><figure><picture><source type="image/webp" srcset="/assets/img/agua-na-boca_virginia-cesta-pronta-640.webp 640w, /assets/img/agua-na-boca_virginia-cesta-pronta-960.webp 960w" sizes="(min-width: 60rem) 9rem, 42vw"><img src="/assets/img/agua-na-boca_virginia-cesta-pronta-960.jpg" width="960" height="720" loading="lazy" decoding="async" alt="Cesta de pão trançado com alça, baguetes e uvas, sobre toalha xadrez, com bananas, abacaxi, laranjas e um pão de forma ao redor"></picture><figcaption>A cesta pronta</figcaption></figure></li>
       </ul>
     </div>
   </section>

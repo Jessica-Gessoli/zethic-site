@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { readFileSync, existsSync, statSync } from "node:fs";
 
 // 11/11/2026 (Jéssica, mapa de mídias e decisão de 10/11/2026): fotos e vídeo de clientes na página inicial da Pode Curtir.
-// Topo com 1 foto fixa, faixa de prova, "Exemplo real" nos cards, caso Água na Boca, retrato da Lucia Vidotto e "Quem faz".
+// Topo com fotos que passam (12/11/2026; antes, 1 foto fixa), faixa de prova, "Exemplo real" nos cards, caso Água na Boca, retrato da Lucia Vidotto e "Quem faz".
 
 const ler = (p) => readFileSync(new URL("../" + p, import.meta.url), "utf8");
 const existe = (p) => existsSync(new URL("../" + p, import.meta.url));
@@ -17,7 +17,7 @@ const imgs = h.match(/<img [^>]*>/g) || [];
 
 test("casos: ordem das seções segue o mapa de mídias", () => {
   const pos = (s) => { const i = h.indexOf(s); assert.ok(i >= 0, s); return i; };
-  assert.ok(pos('class="hero-foto"') < pos('<section class="prova"'), "foto no topo, antes da faixa");
+  assert.ok(pos('class="hero-foto vitrine"') < pos('<section class="prova"'), "foto no topo, antes da faixa");
   assert.ok(pos('<section class="prova"') < pos('<section id="loja"'), "faixa de prova antes da loja");
   assert.ok(pos('<section id="loja"') < pos('id="caso-agua-na-boca"'), "caso depois da loja");
   assert.ok(pos('id="caso-agua-na-boca"') < pos('id="como"'), "caso antes de Como funciona a compra");
@@ -25,17 +25,48 @@ test("casos: ordem das seções segue o mapa de mídias", () => {
     "Quem faz logo depois de Combinado por escrito");
 });
 
-test("casos: só a foto do topo tem prioridade alta; as outras carregam tarde", () => {
+test("casos: só o quadro 1 do topo tem prioridade alta; as outras carregam tarde", () => {
   const altas = imgs.filter((i) => /fetchpriority="high"/.test(i));
   assert.equal(altas.length, 1);
-  assert.match(altas[0], /agua-na-boca_virginia-cesta-pronta-960\.jpg/);
+  assert.match(altas[0], /agua-na-boca_virginia-com-a-cesta-800\.jpg/);
   assert.doesNotMatch(altas[0], /loading="lazy"/);
-  const hero = h.match(/<figure class="hero-foto">[\s\S]*?<\/figure>/)[0];
-  assert.doesNotMatch(hero, /carrossel|carousel|<video/i, "topo sem carrossel e sem vídeo");
   for (const i of imgs) {
     if (/fetchpriority="high"/.test(i) || /zethic-marca\.svg|jessica-gessoli-podecurtir/.test(i)) continue;
     assert.match(i, /loading="lazy"/, i);
   }
+});
+
+// 12/11/2026 (Jéssica): fotos passando no topo, no espírito dos banners da Zethic, com técnica de vitrine:
+// texto e botões parados, só a foto troca; pausa, pontos e "reduzir movimento"; sem vídeo no topo.
+test("topo: vitrine com 4 quadros, quadro 1 visível sem JavaScript, controles acessíveis", () => {
+  const hero = h.match(/<figure class="hero-foto vitrine"[\s\S]*?<\/figure>/)[0];
+  assert.doesNotMatch(hero, /<video|style="/i, "sem vídeo e sem estilo inline (CSP)");
+  const q = hero.match(/<li class="quadro[^"]*"[^>]*>/g);
+  assert.equal(q.length, 4);
+  assert.match(q[0], /class="quadro ativo"/, "quadro 1 já visível no HTML");
+  for (const [i, li] of q.entries()) assert.match(li, new RegExp('aria-roledescription="slide" aria-label="' + (i + 1) + ' de 4"'));
+  assert.match(hero, /aria-roledescription="carrossel"/);
+  assert.match(hero, /<div class="vitrine-ctrl" hidden>/, "controles só aparecem com JavaScript");
+  assert.match(hero, /<button class="vitrine-pausa" type="button" aria-pressed="false">Pausar<\/button>/);
+  assert.match(hero, /lucia-vidotto_01-800\.jpg/, "ensaio da Lucia Vidotto no topo");
+  assert.match(hero, /Foto: Alpha/);
+  const pos = (s) => h.indexOf(s);
+  assert.ok(pos("<h1>") < pos('class="hero-foto vitrine"'), "título fixo antes da vitrine");
+  assert.match(h, /<script src="\/assets\/js\/podecurtir-vitrine\.js" defer><\/script>/);
+});
+
+test("topo: script troca só a foto, pausa sozinho e respeita reduzir movimento", () => {
+  const js = ler("assets/js/podecurtir-vitrine.js");
+  assert.match(js, /var TEMPO = 6000;/);
+  assert.match(js, /prefers-reduced-motion: reduce/);
+  assert.match(js, /pausadaPelaPessoa = calmo/);
+  for (const ev of ["mouseenter", "focusin", "visibilitychange"]) assert.match(js, new RegExp('"' + ev + '"'));
+  assert.match(js, /IntersectionObserver/);
+  assert.match(js, /window\.addEventListener\("load", reiniciar\)/, "só troca depois de a página carregar");
+  assert.doesNotMatch(js, /innerHTML|\.h1|textContent = .*hero/i);
+  const css = ler("assets/css/podecurtir.css");
+  assert.match(css, /@media \(prefers-reduced-motion:no-preference\)\{\s*\.vitrine\.js-vitrine \.quadro\{transition/);
+  assert.match(css, /@keyframes pc-zoom/);
 });
 
 test("casos: toda imagem nova tem largura, altura, alt descritivo e versões WebP em tamanhos", () => {
@@ -68,8 +99,8 @@ test("casos: nomes de arquivo seguem o padrão por cliente", () => {
 
 test("casos: faixa de prova com 4 miniaturas, legenda aprovada e link Ver o caso", () => {
   assert.equal((prova.match(/<img /g) || []).length, 4);
-  assert.match(prova, /<figcaption>Doces embalados para a entrega<\/figcaption>/);
-  assert.match(prova, /capa-do-trigo-a-cesta/);
+  assert.match(prova, /<figcaption>Dona Virgínia com as baguetes<\/figcaption>/);
+  assert.match(prova, /agua-na-boca_virginia-cesta-pronta-960\.jpg/);
   assert.match(prova, /<a class="prova-link" href="#caso-agua-na-boca" data-evento="ver_caso">Ver o caso<\/a>/);
 });
 
