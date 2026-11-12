@@ -305,9 +305,11 @@
      pedido e, ao seguir para o Asaas, o valor guardado para a página de confirmação registrar a compra (Purchase). */
   function medir(nome, params) { if (window.podecurtirEvento) window.podecurtirEvento(nome, params); }
   var PAGAMENTO = "podecurtir-pagamento-v1";
-  function marcarPagamento(valor) {
-    try { localStorage.setItem(PAGAMENTO, JSON.stringify({ valor: valor, em: Date.now() })); } catch (e) {}
+  /* 12/11/2026 (benchmark de oferta): guarda também o que foi pago, para a página de obrigado oferecer o próximo nível. */
+  function marcarPagamento(valor, itens) {
+    try { localStorage.setItem(PAGAMENTO, JSON.stringify({ valor: valor, em: Date.now(), itens: itens || [] })); } catch (e) {}
   }
+  function idsPagos(t) { return t.pagos.map(function (p) { return p.id; }); }
   var aviso = "";
   var resumoAceito = null;
 
@@ -661,7 +663,7 @@
     $("resultado-whats").href = window.podecurtirWhats(texto);
     var links = t.pagos.map(function (p) {
       var url = linkDe(p);
-      return url ? '<li><a class="pagar-item" href="' + esc(url) + '" data-valor="' + p.valor + '" rel="noopener">Pagar ' + esc(p.nome) + (p.parcelas ? " " + comoPaga(p) : "") + " · " + brl(p.valor) + "</a></li>"
+      return url ? '<li><a class="pagar-item" href="' + esc(url) + '" data-valor="' + p.valor + '" data-id="' + esc(p.id) + '" rel="noopener">Pagar ' + esc(p.nome) + (p.parcelas ? " " + comoPaga(p) : "") + " · " + brl(p.valor) + "</a></li>"
         : "<li>" + esc(p.nome) + " · " + brl(p.valor) + ": pagamento em configuração</li>";
     });
     var todosComLink = t.pagos.length > 0 && t.pagos.every(function (p) { return !!linkDe(p); });
@@ -713,7 +715,7 @@
         /* Sem registro (FORM_ENDPOINT vazio ou fora do ar), as propostas e o aceite iriam se perder no redirecionamento:
            mostra a mensagem pronta junto com o link de pagamento. */
         registrar(pedido).then(function (ok) {
-          if (ok) { marcarPagamento(t.hoje); location.href = url; }
+          if (ok) { marcarPagamento(t.hoje, idsPagos(t)); location.href = url; }
           else manual("Falta um passo: envie o pedido e pague pelo link", texto, t);
         });
         return;
@@ -724,7 +726,7 @@
     if (C.CHECKOUT_ENDPOINT) {
       fetch(C.CHECKOUT_ENDPOINT, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(pedido) })
         .then(function (r) { if (!r.ok) throw new Error("status " + r.status); return r.json(); })
-        .then(function (j) { if (j && /^https:\/\//.test(j.url)) { marcarPagamento(t.hoje); location.href = j.url; } else throw new Error("sem url"); })
+        .then(function (j) { if (j && /^https:\/\//.test(j.url)) { marcarPagamento(t.hoje, idsPagos(t)); location.href = j.url; } else throw new Error("sem url"); })
         .catch(function () { manual("Pague cada item pelo link", texto, t); });
       return;
     }
@@ -744,7 +746,7 @@
   document.addEventListener("click", function (e) {
     /* Cada link do Asaas paga um item só: guarda o valor daquele item (review do PR #111). */
     var a = e.target.closest && e.target.closest("a.pagar-item");
-    if (a) marcarPagamento(Number(a.getAttribute("data-valor")) || 0);
+    if (a) marcarPagamento(Number(a.getAttribute("data-valor")) || 0, [a.getAttribute("data-id")]);
   });
 
   tudo();

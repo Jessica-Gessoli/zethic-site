@@ -250,3 +250,12 @@ legend{font-size:1.25rem;font-weight:700;padding:0;margin-bottom:.75rem}
 .abas-loja .aba:hover{border-color:var(--rosa)}
 .abas-loja .aba[aria-pressed="true"]{background:var(--tinta);border-color:var(--tinta);color:var(--branco)}
 .abas-loja .aba:focus-visible{outline:3px solid var(--rosa);outline-offset:2px}
+/* 12/11/2026 (benchmark de oferta): garantia acima da dobra e próximo nível na página de obrigado. */
+.garantia-faixa{display:grid;grid-template-columns:repeat(auto-fit,minmax(13rem,1fr));gap:.6rem;margin:1rem 0 0;padding:0;list-style:none}
+.garantia-faixa li{background:var(--rosa-claro);color:var(--rosa-escuro);border-radius:.6rem;padding:.6rem .8rem;font-size:.88rem;line-height:1.35}
+.garantia-faixa strong{display:block;font-size:.95rem}
+.proximo-nivel{margin:1.6rem 0 0;padding:1.1rem 1.2rem;border:2px solid var(--rosa);border-radius:.9rem}
+.proximo-nivel h2{margin:.5rem 0 .3rem}
+.proximo-nivel .selo-credito{display:inline-block;font-size:.8rem;font-weight:700;background:var(--rosa-claro);color:var(--rosa-escuro);border-radius:999px;padding:.2rem .7rem}
+.proximo-nivel .pn-preco{font-weight:700}
+.proximo-nivel .pn-nota{font-size:.85rem;margin:.7rem 0 0}

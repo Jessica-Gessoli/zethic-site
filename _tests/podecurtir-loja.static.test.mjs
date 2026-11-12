@@ -221,7 +221,7 @@ test("loja: preço de fundador só nos itens a preço de fundador, aceite zerado
   assert.match(js, /\$\("fundador-campo"\)\.hidden = !t\.fundador;/);
   assert.doesNotMatch(js, /t\.pagos\.length && !\$\("fundador"\)/);
   assert.match(js, /if \(resumo !== resumoAceito\) \{ \$\("aceite"\)\.checked = false;/);
-  assert.match(js, /if \(ok\) \{ marcarPagamento\(t\.hoje\); location\.href = url; \}\s*else manual\(/);
+  assert.match(js, /if \(ok\) \{ marcarPagamento\(t\.hoje, idsPagos\(t\)\); location\.href = url; \}\s*else manual\(/);
   assert.doesNotMatch(js, /registrar\(pedido\); location\.href = url;/);
 });
 
@@ -329,11 +329,11 @@ test("medição de compra e link por persona", () => {
   assert.match(loja, /new URLSearchParams\(location\.search\)\.get\("negocio"\)/);
   assert.match(loja, /medir\("EscolheuTipo"/);
   assert.match(loja, /medir\("AddToCart"/);
-  assert.match(loja, /if \(ok\) \{ marcarPagamento\(t\.hoje\); location\.href = url; \}/);
+  assert.match(loja, /if \(ok\) \{ marcarPagamento\(t\.hoje, idsPagos\(t\)\); location\.href = url; \}/);
   // review do PR #111: valor do item clicado, marca também no checkout único e mede o plus do fechamento
-  assert.match(loja, /if \(a\) marcarPagamento\(Number\(a\.getAttribute\("data-valor"\)\) \|\| 0\);/);
+  assert.match(loja, /if \(a\) marcarPagamento\(Number\(a\.getAttribute\("data-valor"\)\) \|\| 0, \[a\.getAttribute\("data-id"\)\]\);/);
   assert.match(loja, /data-valor="' \+ p\.valor \+ '"/);
-  assert.match(loja, /\{ marcarPagamento\(t\.hoje\); location\.href = j\.url; \}/);
+  assert.match(loja, /\{ marcarPagamento\(t\.hoje, idsPagos\(t\)\); location\.href = j\.url; \}/);
   assert.match(loja, /cart\.plus\.push\(id\); medir\("AddToCart", \{ content_name: id \}\);/);
   assert.match(comum, /AddToCart: "add_to_cart", EscolheuTipo: "escolheu_tipo"/);
   assert.match(comum, /window\.podecurtirEvento\("Purchase", \{ value: p\.valor, currency: "BRL" \}\)/);
@@ -624,4 +624,24 @@ test("preço de fundador: depoimento é do site e avaliação no Google é opcio
   assert.match(loja, /avaliação no Google não faz parte da troca e é sempre opcional/);
   assert.match(loja, /Avaliar no Google é opcional\./);
   assert.match(termos, /nunca é pedida em troca de desconto/);
+});
+
+// 12/11/2026 (benchmark de oferta, aprovado pela Jéssica): garantia acima da dobra só com o que os termos garantem;
+// página de obrigado oferece o próximo nível com o crédito depois de uma compra do "Comece por aqui".
+test("vitrine: faixa de garantia e próximo nível com crédito na página de obrigado", () => {
+  const h = ler("_fontes/podecurtir.html"), ob = ler("_fontes/podecurtir/loja/obrigado/index.html");
+  const comum = ler("assets/js/podecurtir-comum.js"), loja = ler("assets/js/podecurtir-loja.js");
+  assert.match(h, /<ul class="garantia-faixa" aria-label="O que a gente garante">/);
+  assert.match(h, /<strong>7 dias para desistir<\/strong> Com devolução integral/);
+  assert.doesNotMatch(h.split('class="garantia-faixa"')[1].split("</ul>")[0], /seguidores|vendas garantidas|resultado garantido/i);
+  assert.match(ob, /<section class="proximo-nivel" id="proximo-nivel" aria-labelledby="pn-nome" hidden>/);
+  for (const [de, pago, para, preco] of [["diag_perfil", 97, "Ajuste de Perfil", 497], ["conversa", 197, "Teste de 3 Reels", 397], ["teste3", 397, "Presença · 4 Reels por mês", 597], ["kit_catalogo", 297, "Apresentação Comercial", 797]])
+    assert.match(comum, new RegExp(`${de}: \\{ de: "[^"]+", pago: ${pago}, para: "${para}", preco: ${preco},`));
+  assert.match(comum, /proximoNivel\(p\.itens\);/);
+  // Review do PR #172: sempre pelo WhatsApp (o aceite do contrato do novo serviço vem antes do pagamento) e com o preço do Ajuste da configuração
+  assert.match(comum, /botao\.href = whatsLink\(/);
+  assert.doesNotMatch(comum, /ASAAS_LINKS \|\| \{\}\)\[o\.link\]/);
+  assert.match(comum, /C\.PRECO_AJUSTE : o\.preco;/);
+  assert.match(comum, /mínimo de 3 meses; depois, aviso de 30 dias para sair/);
+  assert.match(loja, /data-id="' \+ esc\(p\.id\) \+ '"/);
 });
