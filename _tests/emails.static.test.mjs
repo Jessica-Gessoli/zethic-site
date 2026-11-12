@@ -6,7 +6,7 @@ const ler = (p) => readFileSync(new URL("../" + p, import.meta.url), "utf8");
 
 // Regra de 13/10/2026: contato@ é o e-mail geral do site; jessica.gessoli@ só na marca pessoal.
 const GERAL = ["index.html", "quem-somos.html", "_fontes/jessicagessoli/diagnostico/index.html", "seguranca.html", "tecnologia.html",
-  "atendimento.html", "_fontes/jessicagessoli/teste-golpe/index.html", "privacidade.html", "_fontes/podecurtir.html",
+  "atendimento.html", "_fontes/jessicagessoli/teste-golpe/index.html", "privacidade.html",
   "agendar.html", "fale.html", "llms.txt", ".well-known/security.txt"];
 const PESSOAL = ["_fontes/jessicagessoli.html", "_fontes/en/jessicagessoli.html"];
 
@@ -21,8 +21,5 @@ test("marca pessoal mantém jessica.gessoli@ e não usa contato@", () => {
   }
 });
 
-// 03/11/2026 (Ficha oficial): a Pode Curtir tem e-mail próprio, o mesmo da loja.
-test("Pode Curtir mostra o e-mail próprio", () => {
-  assert.match(ler("_fontes/podecurtir.html"), /mailto:podecurtir@zethic\.net/);
-  assert.doesNotMatch(ler("_fontes/podecurtir.html"), /contato@zethic\.net/);
-});
+// 12/11/2026: o teste do e-mail próprio da Pode Curtir (podecurtir@zethic.net) foi para o repositório podecurtir-site,
+// que passou a ser a fonte da Pode Curtir.

@@ -8,9 +8,10 @@ Decisão da Jéssica em 10/11/2026. Este documento é a regra. Os testes em `_te
 |---|---|---|---|
 | Zethic | `zethic.net` | raiz deste repositório | `zethic-site` (este) |
 | Jéssica Gessoli | `jessicagessoli.zethic.net` | `_fontes/jessicagessoli*` e `_fontes/en/` | `jessicagessoli-site` |
-| Pode Curtir | `podecurtir.zethic.net` | `_fontes/podecurtir*` | `podecurtir-site` |
+| Pode Curtir | `podecurtir.zethic.net` | o próprio repositório `podecurtir-site` (desde 12/11/2026) | `podecurtir-site` |
 
-- **Fontes das marcas:** as páginas da Jéssica Gessoli e da Pode Curtir são editadas em `_fontes/`. O Jekyll não publica pastas que começam com `_`.
+- **Fontes das marcas:** as páginas da Jéssica Gessoli são editadas em `_fontes/`. O Jekyll não publica pastas que começam com `_`.
+- **Pode Curtir (12/11/2026, decisão da Jéssica: "tudo que é da Pode Curtir somente na Pode Curtir"):** a fonte, os testes e as fotos dos clientes ficam só no repositório `Jessica-Gessoli/podecurtir-site`, editado direto. Neste repositório ficam só o endereço antigo `zethic.net/podecurtir` (redirecionamento), o `/fale` para links antigos com `utm_source=podecurtir`, a planilha de pedidos das três marcas e o gerador de cardápio (tecnologia da Zethic).
 - **Geração:** `python3 _ferramentas/gerar_marcas.py` gera cada site em `_marcas/<marca>-site`, que é copiado para o repositório da marca (PR de espelho, com merge depois do PR do `zethic-site`).
 - **Endereços antigos (apagados em 10/11/2026):** as páginas de `zethic.net/jessicagessoli/*`, `zethic.net/en/jessicagessoli` e `zethic.net/podecurtir/*` não existem mais e dão "página não encontrada". Ficam só `zethic.net/jessicagessoli`, `zethic.net/en/jessicagessoli` e `zethic.net/podecurtir`, que levam ao início do subdomínio (com os `?parâmetros` e o `#trecho`) e não entram no Google (`noindex`), porque o currículo (em português e em inglês), o kit de palestrante, o guia em PDF e o crédito do evento no Sympla já distribuídos imprimem esses dois endereços. O gerador apaga qualquer outro endereço antigo e o teste falha se um deles voltar.
 - **Raiz de zethic.net (apagados em 10/11/2026):** `/copia-e-cola`, `/prompt-joia`, `/conte-seu-golpe` e `/loja-obrigado` também não existem mais. Ficam `/diagnostico`, `/teste-golpe`, `/teste-ia` e `/vaga-real-ou-golpe`, só redirecionando, porque os PDFs já distribuídos do Copia e Cola, do Prompt Joia e do guia têm links para eles. Os botões de compartilhar dessas páginas usam o endereço do subdomínio.
@@ -35,7 +36,7 @@ Decisão da Jéssica em 10/11/2026. Este documento é a regra. Os testes em `_te
 ## 3. Links entre as marcas
 
 - **Zethic:** o conteúdo das páginas da Zethic não cita as outras marcas (regra de 28/10/2026). A única exceção é o parágrafo `class="parceria"` das campanhas, que leva a `https://podecurtir.zethic.net/?utm_source=zethic&utm_campaign=<campanha>`.
-- **De uma marca para a outra:** o link vai direto ao subdomínio da outra, nunca a `zethic.net/<marca>`. Na fonte, pode-se escrever o caminho antigo (`/podecurtir/termos/`); o gerador troca pelo subdomínio certo.
+- **De uma marca para a outra:** o link vai direto ao subdomínio da outra, nunca a `zethic.net/<marca>`. Na fonte da Jéssica Gessoli, pode-se escrever o caminho antigo (`/podecurtir/termos/`); o gerador troca pelo subdomínio certo.
 - **Contato:** os botões de WhatsApp passam por `https://zethic.net/fale?utm_source=<origem>`, que escolhe o número pela origem.
 
 ## 4. Regras de negócio por marca

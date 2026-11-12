@@ -46,7 +46,7 @@ test("sites da Jéssica Gessoli e da Pode Curtir levam à Zethic, com a fundador
     assert.match(h, /https:\/\/zethic\.net\/para-o-seu-negocio\?utm_source=jessicagessoli/, p);
     assert.match(h, /Jéssica Gessoli é fundadora da Zethic, e você pode contratar a execução com quem preferir\./, p);
   }
-  assert.match(ler("_fontes/podecurtir/loja/obrigado/index.html"), /https:\/\/zethic\.net\/para-o-seu-negocio\?utm_source=podecurtir/);
+  // 12/11/2026: o link da Pode Curtir para a Zethic fica no repositório podecurtir-site (loja/obrigado).
 });
 
 // 07/11/2026, 07h03 (aprovado pela Jéssica): Black Week da Zethic, de 23 a 30/11/2026. Condição de pagamento,

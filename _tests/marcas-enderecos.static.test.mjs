@@ -41,8 +41,9 @@ test("páginas da Zethic com conteúdo não levam às cópias antigas das marcas
   }
 });
 
+// 12/11/2026 (Jéssica): a Pode Curtir tem a fonte no repositório podecurtir-site; aqui só fica a Jéssica Gessoli.
 test("sites das marcas não levam a zethic.net/<marca>; o link entre marcas usa o subdomínio", () => {
-  for (const m of ["jessicagessoli-site", "podecurtir-site"]) {
+  for (const m of ["jessicagessoli-site"]) {
     for (const p of html("_marcas/" + m, ["_marcas/" + m + "/_tests"])) {
       assert.doesNotMatch(ler(p), /https:\/\/zethic\.net\/(podecurtir|jessicagessoli|en\/jessicagessoli)([\/"#?])/, p);
     }
@@ -50,7 +51,7 @@ test("sites das marcas não levam a zethic.net/<marca>; o link entre marcas usa 
 });
 
 test("mesma estrutura nas três marcas: loja, pedido recebido, termos, privacidade e desistência", () => {
-  for (const m of ["jessicagessoli-site", "podecurtir-site"]) {
+  for (const m of ["jessicagessoli-site"]) {
     for (const p of ["index.html", "loja/index.html", "loja/obrigado/index.html", "termos/index.html", "privacidade/index.html", "desistencia/index.html"]) {
       assert.ok(existsSync(join(RAIZ, "_marcas", m, p)), `${m}/${p}`);
     }
@@ -64,7 +65,7 @@ test("mesma estrutura nas três marcas: loja, pedido recebido, termos, privacida
 });
 
 test("nomes de endereço: português, minúsculas, sem acento, palavras com hífen", () => {
-  const caminhos = [...publicadas, ...html("_marcas/jessicagessoli-site"), ...html("_marcas/podecurtir-site")]
+  const caminhos = [...publicadas, ...html("_marcas/jessicagessoli-site")]
     .filter((p) => !p.includes("/_tests/")).map((p) => p.replace(/^_marcas\/[a-z]+-site\//, "").replace(/(index)?\.html$/, ""));
   for (const c of caminhos) assert.match(c, /^[a-z0-9/-]*$/, c);
 });
