@@ -378,7 +378,7 @@ test("seção para especialistas, produtoras e empresas: preços aprovados e reg
   assert.match(loja, /<h2 id="t-esp">Para especialistas, produtoras e empresas<\/h2>/);
   assert.match(loja, /<div class="grade" id="grade-esp"><\/div>/);
   const termos = ler("_fontes/podecurtir/termos/index.html");
-  assert.match(termos, /Versão de 10\/11\/2026/);
+  assert.match(termos, /Versão de 12\/11\/2026/);
   assert.match(termos, /Para especialistas, produtoras e empresas:<\/strong> Diagnóstico de marca de especialista, Presença em vídeo, Acabamento de vídeo e Vídeo de conversa têm pagamento integral/);
 });
 
@@ -582,4 +582,12 @@ test("Pode Curtir: serviços da categoria Agência de marketing do Google, com p
   assert.match(propostas, /só para quem já é cliente e autorizou o contato, respeitando o Não Me Ligue do Procon-SP e a LGPD\. Sem ligação para lista comprada\./);
   // Os planos de Gestão da Black Friday continuam só os 3 de sempre.
   assert.match(js, /var GESTAO = \["essencial", "padrao", "completa"\];/);
+});
+
+test("preço de fundador: depoimento é do site e avaliação no Google é opcional (12/11/2026)", () => {
+  const loja = readFileSync(new URL("../_fontes/podecurtir.html", import.meta.url), "utf8");
+  const termos = readFileSync(new URL("../_fontes/podecurtir/termos/index.html", import.meta.url), "utf8");
+  assert.match(loja, /avaliação no Google não faz parte da troca e é sempre opcional/);
+  assert.match(loja, /Avaliar no Google é opcional\./);
+  assert.match(termos, /nunca é pedida em troca de desconto/);
 });
