@@ -27,22 +27,35 @@ test("configuração única, com pagamento e Pixel desligados até serem preench
       // 10/11/2026: Vídeo de conversa
       "conversa",
       // 11/11/2026: serviços da categoria Agência de marketing no Google
-      "campanha", "anuncio", "relatorio"].sort());
+      "campanha", "anuncio", "relatorio",
+      // 12/11/2026: itens novos (preços pelo mercado e Kit de Vendas)
+      "diag_perfil", "teste3", "presenca4", "presenca8", "kit_catalogo", "kit_apresentacao", "kit_oferta"].sort());
   for (const v of Object.values(c.ASAAS_LINKS)) assert.ok(v === "" || /^https:\/\/(www\.)?asaas\.com\//.test(v), "link do Asaas inválido: " + v);
-  assert.ok([500, 750, 1200].includes(c.PRECO_AJUSTE), "preço do Ajuste fora da escada aprovada");
+  assert.ok([497, 597].includes(c.PRECO_AJUSTE), "preço do Ajuste fora da escada aprovada em 12/11/2026");
   assert.ok(c.PIXEL_ID === "" || /^\d{10,20}$/.test(c.PIXEL_ID));
   assert.equal(c.WHATSAPP, "5519983310769");
   assert.equal(c.EMAIL, "podecurtir@zethic.net");
 });
 
-test("preços aprovados em 03/11/2026", () => {
+// 12/11/2026 (Jéssica): preços pelo mercado, com finais em 7 (documento "preços da loja pelo mercado").
+test("preços pelo mercado, de 12/11/2026", () => {
   const js = ler("assets/js/podecurtir-loja.js");
-  assert.match(js, /preco: 2000, parcelas: 3/);
-  assert.match(js, /preco: 7500, parcelas: 6/);
-  assert.match(js, /mensal: 1500/);
-  assert.match(js, /mensal: 2800/);
-  assert.match(js, /mensal: 4500/);
-  assert.match(js, /R\$ 500 do 1º ao 3º cliente, R\$ 750 do 4º ao 6º e R\$ 1\.200 a partir do 7º/);
+  assert.match(js, /preco: 997, parcelas: 3/);
+  assert.match(js, /preco: 3997, parcelas: 6/);
+  assert.match(js, /mensal: 997, depois/);
+  assert.match(js, /mensal: 1797, depois/);
+  assert.match(js, /mensal: 2997, depois/);
+  assert.match(js, /R\$ 497 para os 3 primeiros clientes\. Depois, R\$ 597\./);
+  assert.match(js, /id: "diag_perfil", nome: "Diagnóstico do perfil", preco: 97,/);
+  assert.match(js, /id: "conversa", secao: "esp", nome: "Vídeo de conversa · 1 Reel", preco: 197,/);
+  assert.match(js, /id: "teste3", secao: "esp", nome: "Vídeo de conversa · Teste de 3 Reels", preco: 397,/);
+  for (const [id, v] of [["kit_catalogo", 297], ["kit_apresentacao", 797], ["kit_oferta", 1997]])
+    assert.match(js, new RegExp(`id: "${id}", secao: "kit", nome: "[^"]+", preco: ${v},`));
+  assert.match(js, /\$\("grade-kit"\)\.innerHTML/);
+  assert.match(ler("_fontes/podecurtir.html"), /id="grade-kit"/);
+  // finais em 7 (preço psicológico, Sebrae) em todo preço fechado da loja
+  // O Site Essencial (R$ 3.000) é preço da Zethic e segue a página de compra da Zethic até a Jéssica decidir.
+  for (const m of js.matchAll(/(?:preco|mensal): (\d+)/g)) if (m[1] !== "3000") assert.ok(/7$/.test(m[1]), "preço sem final 7: " + m[1]);
 });
 
 test("páginas de compra: CSP sem inline, identificação e links de termos, privacidade e desistência", () => {
@@ -195,7 +208,7 @@ test("seja parceiro: sem promessa de renda, sem vínculo e com marcação de pub
 
 test("loja: preço de fundador só nos itens a preço de fundador, aceite zerado quando o pedido muda e nada se perde sem registro", () => {
   const js = ler("assets/js/podecurtir-loja.js");
-  assert.match(js, /fundador: PRECO_AJUSTE === 500/);
+  assert.match(js, /fundador: PRECO_AJUSTE === 497/);
   assert.match(js, /if \(t\.fundador && !\$\("fundador"\)\.checked\)/);
   assert.match(js, /\$\("fundador-campo"\)\.hidden = !t\.fundador;/);
   assert.doesNotMatch(js, /t\.pagos\.length && !\$\("fundador"\)/);
@@ -234,6 +247,8 @@ test("site: pagamento integral, parcelado só no cartão e Gestão Completa com 
     if (k === "conversa" && v === "") continue;
     // 11/11/2026: campanha, revisão de anúncio e relatório mensal, em configuração até a Jéssica criar os links
     if (["campanha", "anuncio", "relatorio"].includes(k) && v === "") continue;
+    // 12/11/2026: itens novos, em configuração até a Jéssica criar os links
+    if (["diag_perfil", "teste3", "presenca4", "presenca8", "kit_catalogo", "kit_apresentacao", "kit_oferta"].includes(k) && v === "") continue;
     assert.match(v, /^https:\/\/www\.asaas\.com\/000\/c\/[a-z0-9]{16}$/, k);
   }
 });
@@ -243,10 +258,10 @@ test("site: pagamento integral, parcelado só no cartão e Gestão Completa com 
 test("plus no fechamento: preços aprovados, só com serviço pago, parceria identificada e aceite renovado", () => {
   const js = ler("assets/js/podecurtir-loja.js");
   const plus = js.split("var PLUS = [")[1].split("];")[0];
-  assert.match(plus, /id: "plus_gravacao", marca: "pc", nome: "Sessão de fotos de 1 hora", preco: 500,/);
-  assert.match(plus, /id: "plus_livro", marca: "pc", nome: "Capa e diagramação do e-book", preco: 1500,/);
-  assert.match(plus, /id: "plus_protecao", marca: "ze", nome: "Proteção das contas", preco: 400,/);
-  assert.match(plus, /id: "plus_mentoria", marca: "jg", nome: "Monte o seu fluxo com IA · 1 hora", preco: 300,/);
+  assert.match(plus, /id: "plus_gravacao", marca: "pc", nome: "Sessão de fotos de 1 hora", preco: 497,/);
+  assert.match(plus, /id: "plus_livro", marca: "pc", nome: "Capa e diagramação do e-book", preco: 997,/);
+  assert.match(plus, /id: "plus_protecao", marca: "ze", nome: "Proteção das contas", preco: 397,/);
+  assert.match(plus, /id: "plus_mentoria", marca: "jg", nome: "Monte o seu fluxo com IA · 1 hora", preco: 297,/);
   assert.match(plus, /id: "plus_site", marca: "ze", nome: "Site Essencial", preco: 3000, parcelas: 3, em: "no", fundador: true,/);
   assert.match(js, /var plus = PLUS\.filter\(function \(p\) \{ return tem\(cart\.plus, p\.id\) && \(principal \|\| p\.avulso\) && !\(p\.id === "plus_protecao" && bonusValido\(\)\); \}\);/);
   assert.match(js, /" \(" \+ COM\[p\.marca\] \+ ", em parceria; o seu contato continua sendo a Pode Curtir\)"/);
@@ -268,8 +283,8 @@ test("tipos de Negócio, segurança das contas avulsa e preço depois das vagas 
   for (const id of ["doceria", "salao", "consultorio", "outro"]) assert.match(js, new RegExp('id: "' + id + '"'));
   assert.match(js, /regra de publicidade do seu conselho profissional/);
   const plus = js.split("var PLUS = [")[1].split("];")[0];
-  assert.match(plus, /id: "plus_protecao", marca: "ze", nome: "Proteção das contas", preco: 400, avulso: true,/);
-  assert.match(plus, /id: "plus_recuperacao", marca: "ze", nome: "Recuperação de conta", preco: 400, avulso: true,/);
+  assert.match(plus, /id: "plus_protecao", marca: "ze", nome: "Proteção das contas", preco: 397, avulso: true,/);
+  assert.match(plus, /id: "plus_recuperacao", marca: "ze", nome: "Recuperação de conta", preco: 397, avulso: true,/);
   assert.match(plus, /não há garantia de recuperação/);
   // 07/11/2026 (pedido da Jéssica): e-book e mentoria em IA também se compram sozinhos, na seção "Livro e IA".
   assert.doesNotMatch(plus, /id: "plus_(gravacao|site)"[^}]*avulso: true/);
@@ -278,11 +293,11 @@ test("tipos de Negócio, segurança das contas avulsa e preço depois das vagas 
   assert.match(ler("_fontes/podecurtir.html"), /<div class="grade" id="grade-ia"><\/div>/);
   assert.match(ler("_fontes/podecurtir.html"), /<div class="grade" id="grade-conteudo"><\/div>/);
   assert.match(js, /id: "produto_digital", marca: "pc", nome: "Produto digital e curso online"/);
-  assert.match(js, /Depois, R\$ 3\.200\./);
-  assert.match(js, /Depois, R\$ 12\.000\./);
-  assert.match(js, /A partir do 4º cliente, R\$ 2\.400 por mês\./);
-  assert.match(js, /A partir do 4º cliente, R\$ 4\.480 por mês\./);
-  assert.match(js, /A partir do 4º cliente, R\$ 7\.200 por mês\./);
+  assert.match(js, /Depois, R\$ 1\.297\./);
+  assert.match(js, /Depois, R\$ 4\.997\./);
+  assert.match(js, /A partir do 4º cliente, R\$ 1\.297 por mês\./);
+  assert.match(js, /A partir do 4º cliente, R\$ 2\.197 por mês\./);
+  assert.match(js, /A partir do 4º cliente, R\$ 3\.997 por mês\./);
   const loja = ler("_fontes/podecurtir.html");
   assert.match(loja, /<div class="tipos-opcoes" id="tipos-opcoes"><\/div>/);
   assert.match(loja, /<div class="grade" id="grade-contas"><\/div>/);
@@ -356,18 +371,18 @@ test("seção para especialistas, produtoras e empresas: preços aprovados e reg
   const proj = js.split("var PROJ = [")[1].split("];")[0];
   const planos = js.split("var PLANOS = [")[1].split("];")[0];
   const props = js.split("var PROPOSTAS = [")[1].split("];")[0];
-  assert.match(proj, /id: "diag_esp", secao: "esp", nome: "Diagnóstico de marca de especialista", preco: 1500,[^}]*Depois, R\$ 2\.400\./);
-  assert.match(proj, /id: "video_presenca", secao: "esp", nome: "Presença em vídeo · treino individual", preco: 1500,[^}]*Depois, R\$ 2\.400\./);
-  assert.match(proj, /id: "acabamento", secao: "esp", nome: "Acabamento de vídeo · 4 vídeos", preco: 600,[^}]*Depois, R\$ 960/);
+  assert.match(proj, /id: "diag_esp", secao: "esp", nome: "Diagnóstico de marca de especialista", preco: 497,[^}]*Depois, R\$ 697\./);
+  assert.match(proj, /id: "video_presenca", secao: "esp", nome: "Presença em vídeo · treino individual", preco: 1497,[^}]*Depois, R\$ 2\.497\./);
+  assert.match(proj, /id: "acabamento", secao: "esp", nome: "Acabamento de vídeo · 4 vídeos", preco: 397,[^}]*Depois, R\$ 497/);
   // 10/11/2026 (descoberta "Edição de vídeo com IA" aprovada): Vídeo de conversa, R$ 450 de fundador e R$ 700 depois,
   // com IA informada e a autorização de quem aparece, que também está nos termos
-  assert.match(proj, /id: "conversa", secao: "esp", nome: "Vídeo de conversa · 1 Reel", preco: 450,[^}]*Depois, R\$ 700\.[^}]*Edição com apoio de IA, sem mudar o que foi dito\.[^}]*autorização de todos que aparecem ou falam/);
+  assert.match(proj, /id: "conversa", secao: "esp", nome: "Vídeo de conversa · 1 Reel", preco: 197,[^}]*Teste de 3 Reels sai por R\$ 397\.[^}]*Edição com apoio de IA, sem mudar o que foi dito\.[^}]*autorização de todos que aparecem ou falam/);
   assert.match(js, /conversa: "Para uma boa conversa virar vídeo para as redes, sem você editar\."/);
   assert.match(ler("_fontes/podecurtir/termos/index.html"), /Pessoas que aparecem ou falam:<\/strong> quando você envia material/);
-  assert.match(planos, /id: "esp_marca", secao: "esp", nome: "Gestão de marca de especialista", mensal: 7650, depois: "Preço de fundador para 1 cliente\. Depois, R\$ 12\.240 por mês\."/);
-  assert.match(planos, /id: "esp_produtora", secao: "esp", nome: "Coordenação da sua produtora", mensal: 3150,[^}]*R\$ 5\.040 por mês/);
-  assert.match(planos, /id: "esp_news", secao: "esp", nome: "Newsletter pronta · 2 edições por mês", mensal: 1200,[^}]*R\$ 1\.920 por mês/);
-  assert.match(planos, /id: "esp_portavozes", secao: "esp", nome: "Programa de porta-vozes · 2 porta-vozes", mensal: 5800,[^}]*R\$ 9\.200 por mês[^}]*10% de desconto a partir do 3º e 15% a partir do 5º/);
+  assert.match(planos, /id: "esp_marca", secao: "esp", nome: "Gestão de marca de especialista", mensal: 4997, depois: "Preço de fundador para 1 cliente\. Depois, R\$ 6\.997 por mês\."/);
+  assert.match(planos, /id: "esp_produtora", secao: "esp", nome: "Coordenação da sua produtora", mensal: 1997,[^}]*R\$ 2\.497 por mês/);
+  assert.match(planos, /id: "esp_news", secao: "esp", nome: "Newsletter pronta · 2 edições por mês", mensal: 1197,[^}]*R\$ 1\.497 por mês/);
+  assert.match(planos, /id: "esp_portavozes", secao: "esp", nome: "Programa de porta-vozes · 2 porta-vozes", mensal: 3997,[^}]*R\$ 4\.997 por mês[^}]*10% de desconto a partir do 3º e 15% a partir do 5º/);
   assert.match(props, /id: "blog", marca: "ze", nome: "Blog que publica sozinho",[^}]*a partir de R\$ 1\.500 \(preço de fundador\)/);
   assert.match(props, /id: "licenca", marca: "pc", nome: "Licença do método de produção",[^}]*A partir de R\$ 2\.400 por ano \(preço de fundador\); renovação anual de R\$ 1\.200/);
   assert.match(js, /id: "especialista", nome: "Especialista, consultor ou palestrante", proj: \["diag_esp"\]/);
@@ -426,9 +441,9 @@ test("Pode Curtir: cardápio de restaurante com a Zethic em parceria", () => {
   const h = ler("_fontes/podecurtir.html");
   const js = ler("assets/js/podecurtir-loja.js");
   const cfg = ler("assets/js/podecurtir-config.js");
-  assert.match(js, /id: "cardapio", secao: "rest", nome: "Cardápio Pronto", preco: 1500, prazo: "10 dias úteis", fundador: true,/);
-  assert.match(js, /Depois, R\$ 2\.400\."[\s\S]*Página e app feitos pela Zethic, em parceria\./);
-  assert.match(js, /id: "cardapio_mensal", secao: "rest", nome: "Cuidado do Cardápio", mensal: 290, depois: "[^"]*Depois, R\$ 460 por mês\."/);
+  assert.match(js, /id: "cardapio", secao: "rest", nome: "Cardápio Pronto", preco: 997, prazo: "10 dias úteis", fundador: true,/);
+  assert.match(js, /Depois, R\$ 1\.197\."[\s\S]*Página e app feitos pela Zethic, em parceria\./);
+  assert.match(js, /id: "cardapio_mensal", secao: "rest", nome: "Cuidado do Cardápio", mensal: 197, depois: "[^"]*Depois, R\$ 297 por mês\."/);
   assert.match(js, /id: "restaurante", nome: "Restaurante, lanchonete ou bar", proj: \["cardapio"\]/);
   assert.match(js, /\$\("grade-rest"\)\.innerHTML = daSecao\(PROJ, "rest"\)/);
   assert.match(h, /<h2 id="t-rest">Para restaurantes, lanchonetes e bares<\/h2><p>[^<]*feitos pela Zethic, em parceria; o seu contato continua sendo a Pode Curtir\. <a href="\/podecurtir\/cardapio\/exemplo\/"[^>]*>Veja um cardápio de exemplo<\/a> ou <a href="\/podecurtir\/cardapio\/exemplo-delivery\/"[^>]*>um de delivery<\/a>\.<\/p>/);
@@ -519,7 +534,7 @@ test("Pode Curtir: cozinha de delivery tem tipo próprio e cardápio de exemplo 
 test("Portfólio da empresa e área de cursos da Zethic em parceria", () => {
   const js = ler("assets/js/podecurtir-loja.js");
   const proj = js.split("var PROJ = [")[1].split("];")[0];
-  assert.match(proj, /id: "portfolio", nome: "Portfólio da empresa", preco: 1200, prazo: "10 dias úteis", fundador: true,\s*depois: "Preço de fundador para os 3 primeiros clientes\. Depois, R\$ 1\.900\."/);
+  assert.match(proj, /id: "portfolio", nome: "Portfólio da empresa", preco: 1197, prazo: "10 dias úteis", fundador: true,\s*depois: "Preço de fundador para os 3 primeiros clientes\. Depois, R\$ 1\.497\."/);
   assert.match(proj, /Clientes, números e depoimentos entram só se você enviar, com autorização\./);
   assert.match(js, /portfolio: "Para mandar uma apresentação pronta/);
   assert.match(js, /id: "produto_digital"[^}]*a área de cursos pode ser montada pela Zethic, em parceria\./);
@@ -529,7 +544,7 @@ test("Portfólio da empresa e área de cursos da Zethic em parceria", () => {
 test("Pode Curtir: tradução em 5 dias úteis e catálogo com as mesmas regras do cardápio depois de 12 meses", () => {
   const js = ler("assets/js/podecurtir-loja.js");
   const termos = ler("_fontes/podecurtir/termos/index.html");
-  assert.match(js, /id: "traducao", secao: "rest", nome: "Tradução do cardápio · inglês e espanhol", preco: 300, prazo: "5 dias úteis"/);
+  assert.match(js, /id: "traducao", secao: "rest", nome: "Tradução do cardápio · inglês e espanhol", preco: 597, prazo: "5 dias úteis"/);
   assert.match(termos, /em até 5 dias úteis do pedido, com tradução e revisão/);
   assert.match(termos, /atualizado nos três idiomas e conta como uma troca só/);
   const cat = termos.split("<strong>Catálogo no celular:</strong>")[1].split("</li>")[0];
@@ -572,9 +587,9 @@ test("propostas das parceiras dentro das faixas; Pedir proposta só da Pode Curt
 // 11/11/2026 (Jéssica: "deixe disponível no site todos os serviços que apareceram no Google", categoria Agência de marketing).
 test("Pode Curtir: serviços da categoria Agência de marketing do Google, com preço de fundador ou por proposta", () => {
   const js = ler("assets/js/podecurtir-loja.js");
-  assert.match(js, /id: "campanha", nome: "Campanha de data comemorativa", preco: 900,[\s\S]*?Depois, R\$ 1\.440\./);
-  assert.match(js, /id: "anuncio", nome: "Revisão de anúncio pela psicologia do consumidor", preco: 450,[\s\S]*?Depois, R\$ 720\.[\s\S]*?Sem exame de cérebro e sem promessa de resultado\./);
-  assert.match(js, /id: "relatorio", nome: "Relatório de marketing mensal", mensal: 390,[\s\S]*?Depois, R\$ 620 por mês\./);
+  assert.match(js, /id: "campanha", nome: "Campanha de data comemorativa", preco: 897,[\s\S]*?Depois, R\$ 1\.197\./);
+  assert.match(js, /id: "anuncio", nome: "Revisão de anúncio pela psicologia do consumidor", preco: 397,[\s\S]*?Depois, R\$ 597\.[\s\S]*?Sem exame de cérebro e sem promessa de resultado\./);
+  assert.match(js, /id: "relatorio", nome: "Relatório de marketing mensal", mensal: 197,[\s\S]*?Preço de fundador para os 3 primeiros clientes\./);
   const propostas = js.split("var PROPOSTAS")[1].split("];")[0];
   for (const id of ["email", "seo", "consultoria", "esporte", "loja_online", "afiliados", "prospeccao", "ligacoes"])
     assert.match(propostas, new RegExp('id: "' + id + '", marca: "pc"'), id);
