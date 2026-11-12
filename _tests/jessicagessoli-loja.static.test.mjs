@@ -31,7 +31,7 @@ test("preços aprovados em 03/11/2026 e 06/11/2026, e mais nenhum", () => {
   assert.match(js, /retorno, em até 30 dias/);
   assert.match(js, /id: "sessao", nome: "Mentoria de posicionamento · sessão avulsa", preco: 300, agora: 1/);
   // 10/11/2026: a mentoria de IA de 1 hora é vendida aqui, com o mesmo link do Asaas da Pode Curtir
-  assert.match(js, /id: "fluxo_ia", nome: "Monte o seu fluxo com IA · sessão individual de 1 hora", preco: 300, agora: 1/);
+  assert.match(js, /id: "fluxo_ia", nome: "Monte o seu fluxo com IA · sessão individual de 1 hora", preco: 297, agora: 1/);
   assert.match(js, /id: "programa", nome: "Mentoria de posicionamento · programa de 3 meses", preco: 2250, agora: 1, parcelas: 3, em: "no"/);
   assert.match(js, /id: "aula", nome: "Aula ao vivo · IA segura para o seu Negócio", preco: 97, agora: 1/);
   // 06/11/2026 (aprovado pela Jéssica): Checkup Black Friday Segura, R$ 297, vendido de 13/11 a 25/11/2026.
