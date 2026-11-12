@@ -421,7 +421,10 @@ test("Pode Curtir: benefício por item sem promessa e ordem da loja", () => {
   const para = js.match(/var PARA = \{[\s\S]*?\n  \};/)[0];
   for (const id of ["ajuste", "arrumado", "marca", "essencial", "padrao", "completa", "plus_recuperacao"]) assert.match(para, new RegExp("\\b" + id + ": \"Para "), id);
   assert.doesNotMatch(para, /garant|[Ss]eguran[çc]a|golpe|seguidores|vendas? garantid|mais vendas|\d+ ?%/);
-  assert.match(js, /"<\/p>" \+ beneficio\(p\) \+ "<p>" \+ p\.desc/);
+  // 12/11/2026 (remodelação): o benefício fica à vista logo depois do preço; a descrição abre em "Ver o que está incluído".
+  assert.match(js, /"<\/p>" \+ beneficio\(p\) \+/);
+  assert.match(js, /detalhes\("<p>" \+ p\.desc \+ "<\/p>"/);
+  assert.match(js, /<details class="detalhes"><summary>Ver o que está incluído<\/summary>/);
   assert.doesNotMatch(js, /checagem básica de segurança/);
   assert.ok(h.indexOf('id="t-perfil"') < h.indexOf('id="t-planos"') && h.indexOf('id="t-planos"') < h.indexOf('id="t-esp"') && h.indexOf('id="t-esp"') < h.indexOf('id="t-conteudo"') && h.indexOf('id="t-conteudo"') < h.indexOf('id="t-contas"'));
   assert.match(h, /<summary>Vocês garantem seguidores ou vendas\?<\/summary>\s*<p>Não\./);
