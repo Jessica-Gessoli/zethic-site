@@ -84,7 +84,7 @@ test("regras das marcas nas páginas de compra", () => {
     // 11/11/2026 (Jéssica, decisão de 10/11/2026): o caso Água na Boca entra na página inicial e na miniatura
     // "Exemplo real" dos cards. Fora dele, nome de cliente continua proibido.
     const semCaso = p === "_fontes/podecurtir.html"
-      ? h.replace(/<figure class="hero-foto">[\s\S]*?<\/figure>/, "").replace(/<section class="prova"[\s\S]*?<\/section>/, "")
+      ? h.replace(/<div class="hero pc-vitrine"[\s\S]*?<button type="button" class="pausa">/, "").replace(/<section class="prova"[\s\S]*?<\/section>/, "")
           .replace(/<section class="caso alt" id="caso-agua-na-boca"[\s\S]*?<\/section>/, "")
       : p === "assets/js/podecurtir-loja.js" ? h.replace(/var EXEMPLO = \{[\s\S]*?\n  \}/, "") : h;
     assert.doesNotMatch(semCaso, /Virgínia|Água na Boca|Lucinha|Excellent/i, p + ": sem nome de cliente fora do caso aprovado");
@@ -139,9 +139,11 @@ test("medição só depois do aceite e aviso de cookies só com GA4 ou Pixel con
 // existe num lugar só). /podecurtir/loja/ leva para /podecurtir#loja, com o mesmo trecho.
 test("página única: loja na página inicial, comprar antes do WhatsApp e endereço antigo levando para lá", () => {
   const h = ler("_fontes/podecurtir.html");
-  const hero = h.split('<div class="hero">')[1].split("</div>\n  </div>")[0];
+  // 12/11/2026: o topo virou destaques no modelo da Zethic; a chamada principal fica no destaque 1.
+  const hero = h.split('<div class="hero pc-vitrine"')[1].split('aria-label="2 de 3')[0];
   // 10/11/2026 (Jéssica): a chamada principal leva à escolha pelo tipo de Negócio, no topo da loja.
-  assert.match(hero, /<a class="btn cheio" href="#loja"[^>]*>Escolher pelo meu Negócio<\/a>\s*<a class="btn contorno" href="\/fale\?utm_source=podecurtir"/);
+  // 12/11/2026 (benchmark): um botão de destaque por tela; o WhatsApp no topo vira link, depois do botão de compra.
+  assert.match(hero, /<a class="btn cheio" href="#loja"[^>]*>Escolher pelo meu Negócio<\/a>\s*<a class="link-claro" href="\/fale\?utm_source=podecurtir"/);
   assert.doesNotMatch(h, /class="oferta"/, "cartões de preço repetidos voltaram");
   for (const id of ['id="loja"', 'id="vista-loja"', 'id="vista-checkout" hidden', 'id="grade-perfil"', 'id="grade-contas"', 'id="grade-planos"',
     'id="lista-propostas"', 'id="carrinho"', 'id="ir-carrinho"', 'id="tipos-opcoes"', 'id="link-obrigado" href="/podecurtir/loja/obrigado/"'])
@@ -435,7 +437,10 @@ test("Pode Curtir: benefício por item sem promessa e ordem da loja", () => {
   const para = js.match(/var PARA = \{[\s\S]*?\n  \};/)[0];
   for (const id of ["ajuste", "arrumado", "marca", "essencial", "padrao", "completa", "plus_recuperacao"]) assert.match(para, new RegExp("\\b" + id + ": \"Para "), id);
   assert.doesNotMatch(para, /garant|[Ss]eguran[çc]a|golpe|seguidores|vendas? garantid|mais vendas|\d+ ?%/);
-  assert.match(js, /"<\/p>" \+ beneficio\(p\) \+ "<p>" \+ p\.desc/);
+  // 12/11/2026 (remodelação): o benefício fica à vista logo depois do preço; a descrição abre em "Ver o que está incluído".
+  assert.match(js, /"<\/p>" \+ beneficio\(p\) \+/);
+  assert.match(js, /detalhes\("<p>" \+ p\.desc \+ "<\/p>"/);
+  assert.match(js, /<details class="detalhes"><summary>Ver o que está incluído<\/summary>/);
   assert.doesNotMatch(js, /checagem básica de segurança/);
   assert.ok(h.indexOf('id="t-perfil"') < h.indexOf('id="t-planos"') && h.indexOf('id="t-planos"') < h.indexOf('id="t-esp"') && h.indexOf('id="t-esp"') < h.indexOf('id="t-conteudo"') && h.indexOf('id="t-conteudo"') < h.indexOf('id="t-contas"'));
   assert.match(h, /<summary>Vocês garantem seguidores ou vendas\?<\/summary>\s*<p>Não\./);
