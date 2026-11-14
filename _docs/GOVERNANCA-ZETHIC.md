@@ -52,6 +52,16 @@ Motivos:
 - O valor por pessoa estava abaixo da faixa de R$ 90 a R$ 220.
 - Na Proteção, só a licença do antivírus gerenciado custa cerca de R$ 15 a R$ 40 por dispositivo por mês (Bitdefender GravityZone, de US$ 32,5 a US$ 88 por ano; costbench.com, 2026).
 
+O material privado "Zethic — planos e valores" (https://claude.ai/artifact/B4QCxFXpYQJsDoogHSQxF3) foi atualizado em 14/11/2026 na mesma lógica, cerca de R$ 120 por pessoa no preço depois e R$ 90 no de fundador:
+
+- Suporte Completo: R$ 720 / R$ 960 (antes R$ 375 / R$ 490).
+- Suporte Equipe: R$ 1.080 / R$ 1.440 (antes R$ 610 / R$ 790).
+- Hora técnica avulsa e hora a mais: R$ 160 / R$ 200 (antes R$ 100 / R$ 130).
+- Computador acima do limite: R$ 90 / R$ 120 (antes R$ 45 / R$ 60).
+- Hora fora do horário: R$ 240 / R$ 300 (antes R$ 150 / R$ 195).
+- Hora em domingo e feriado: R$ 320 / R$ 400 (antes R$ 200 / R$ 260).
+- Os exemplos das trilhas 1 e 2 foram recalculados.
+
 Links do Asaas: os links de R$ 145 e R$ 225 criados em 09/11 foram tirados de `assets/js/zethic-comprar-config.js`, porque cobravam o valor antigo. Até os links novos serem criados, a compra segue pelo fluxo manual, com o pedido enviado pelo WhatsApp ou e-mail.
 
 ## 3. Ferramentas aplicadas à Zethic (12/11/2026)
