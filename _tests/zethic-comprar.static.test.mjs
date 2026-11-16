@@ -22,9 +22,9 @@ test("Comprar agora é a primeira aba da loja, pública e com as duas abas", () 
 
 test("preços iguais aos do material planos e valores de 06/11/2026", () => {
   const js = ler("assets/js/zethic-comprar.js");
-  assert.match(js, /id: "suporte_essencial", nome: "Suporte de TI Essencial", fundador: 145, depois: 190/);
-  assert.match(js, /id: "suporte_padrao", nome: "Suporte de TI Padrão", fundador: 225, depois: 290/);
-  assert.match(js, /id: "protecao", nome: "Proteção por pessoa", fundador: 19, depois: 25, max: 10/);
+  assert.match(js, /id: "suporte_essencial", nome: "Suporte de TI Essencial", fundador: 180, depois: 240/);
+  assert.match(js, /id: "suporte_padrao", nome: "Suporte de TI Padrão", fundador: 360, depois: 480/);
+  assert.match(js, /id: "protecao", nome: "Proteção por pessoa", fundador: 45, depois: 59, max: 10/);
   assert.match(js, /id: "site_essencial", nome: "Site estático Essencial", fundador: 3000, depois: 3900/);
 });
 

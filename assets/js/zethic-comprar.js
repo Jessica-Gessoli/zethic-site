@@ -12,14 +12,14 @@
   function reais(v) { return "R$ " + v.toLocaleString("pt-BR", { minimumFractionDigits: v % 1 ? 2 : 0, maximumFractionDigits: 2 }); }
 
   var SUPORTE = [
-    { id: "suporte_essencial", nome: "Suporte de TI Essencial", fundador: 145, depois: 190,
+    { id: "suporte_essencial", nome: "Suporte de TI Essencial", fundador: 180, depois: 240,
       para: "o profissional que trabalha sozinho",
       itens: ["Até 2 computadores e 2 celulares", "1 hora de suporte por mês", "Atualizações e proteção em dia"] },
-    { id: "suporte_padrao", nome: "Suporte de TI Padrão", fundador: 225, depois: 290,
+    { id: "suporte_padrao", nome: "Suporte de TI Padrão", fundador: 360, depois: 480,
       para: "a equipe de até 4 pessoas; é a base das campanhas de TI por nicho",
       itens: ["Até 4 computadores e 4 celulares", "2 horas de suporte por mês", "Inventário dos equipamentos"] }
   ];
-  var PROTECAO = { id: "protecao", nome: "Proteção por pessoa", fundador: 19, depois: 25, max: 10,
+  var PROTECAO = { id: "protecao", nome: "Proteção por pessoa", fundador: 45, depois: 59, max: 10,
     itens: ["Antivírus gerenciado", "Verificação em duas etapas nas contas", "Backup em nuvem com teste de restauração a cada 3 meses", "Relatório de segurança no mês"] };
   var SITE = { id: "site_essencial", nome: "Site estático Essencial", fundador: 3000, depois: 3900,
     para: "ter um endereço na internet e receber contatos",
