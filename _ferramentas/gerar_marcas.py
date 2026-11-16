@@ -105,7 +105,9 @@ jg = [("/jessicagessoli", "/"), ("/en/jessicagessoli", "/en/"), ("/jessicagessol
       # 10/11/2026 (Jéssica): página do conceito Entre os times (roda de cores da segurança).
       ("/jessicagessoli/entre-os-times/", "/entre-os-times/"),
       # 11/11/2026 (Jéssica): Checklist antigolpe para o Negócio em Materiais grátis; o link vai no direct de quem comenta CHECKLIST.
-      ("/jessicagessoli/checklist-antigolpe/", "/checklist-antigolpe/")]
+      ("/jessicagessoli/checklist-antigolpe/", "/checklist-antigolpe/"),
+      # 16/11/2026 (Jéssica): página permanente de palestras, destino do QR Code do último slide. Endereço fixo.
+      ("/jessicagessoli/conecte-se/", "/conecte-se/")]
 def jg_map(i): return [jg[i]] + jg[:i] + jg[i + 1:]
 # 03/11/2026 (aprovado pela Jéssica): loja da Pode Curtir com carrinho, termos, privacidade e desistência.
 # 04/11/2026: página Seja parceiro (rede curada, modelo C).
@@ -147,6 +149,7 @@ build("jessicagessoli", "jessicagessoli.zethic.net", [
     ("_fontes/jessicagessoli/conte-seu-golpe/index.html", "conte-seu-golpe/index.html", jg_map(14)),
     ("_fontes/jessicagessoli/entre-os-times/index.html", "entre-os-times/index.html", jg_map(15)),
     ("_fontes/jessicagessoli/checklist-antigolpe/index.html", "checklist-antigolpe/index.html", jg_map(16)),
+    ("_fontes/jessicagessoli/conecte-se/index.html", "conecte-se/index.html", jg_map(17)),
 ], ["/assets/fonts/OFL-IBM-Plex-Sans.txt", "/assets/fonts/OFL-Spectral.txt"])
 # 10/11/2026 (Jéssica): zethic.net/jessicagessoli/* não mostra mais as páginas; cada endereço antigo redireciona para
 # o mesmo endereço em jessicagessoli.zethic.net, levando junto ?parâmetros e #trecho (links de posts, PDFs e do Asaas).
