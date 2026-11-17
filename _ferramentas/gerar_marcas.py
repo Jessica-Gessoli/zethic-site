@@ -1,94 +1,21 @@
 #!/usr/bin/env python3
-"""Gera os sites próprios das marcas a partir das páginas publicadas em zethic.net.
+"""Mantém em zethic.net só os endereços antigos das marcas, que levam aos sites próprios.
 
-Decisão de 21/10/2026: Pode Curtir e Jéssica Gessoli ganham endereço próprio
-(podecurtir.zethic.net e jessicagessoli.zethic.net). Desde 12/11/2026 a Pode Curtir tem a fonte no repositório
-Jessica-Gessoli/podecurtir-site; aqui só fica o redirecionamento de zethic.net/podecurtir. A fonte continua sendo
-_fontes/ deste repositório (desde 10/11/2026 as páginas da Pode Curtir e da Jéssica Gessoli saíram de zethic.net:
-ficam em _fontes/, que o Jekyll não publica, e zethic.net/podecurtir/* e /jessicagessoli/* só redirecionam para o
-subdomínio de cada marca). Regras em _docs/marcas-enderecos.md;
-este script copia as páginas e os arquivos que elas usam para _marcas/<marca>-site,
-troca os endereços pelos novos e aponta para zethic.net o que é da Zethic.
+Decisão de 21/10/2026: Pode Curtir e Jéssica Gessoli ganham endereço próprio (podecurtir.zethic.net e
+jessicagessoli.zethic.net). Desde 12/11/2026 a Pode Curtir e desde 16/11/2026 a Jéssica Gessoli têm a fonte no
+próprio repositório (Jessica-Gessoli/podecurtir-site e Jessica-Gessoli/jessicagessoli-site), editado direto. Este
+gerador não monta mais nenhum site de marca: só escreve os redirecionamentos de zethic.net/podecurtir,
+zethic.net/jessicagessoli e zethic.net/en/jessicagessoli e confere que os outros endereços antigos foram apagados.
+Regras em _docs/marcas-enderecos.md.
 
 Uso:  python3 _ferramentas/gerar_marcas.py           (gera)
-      python3 _ferramentas/gerar_marcas.py --check   (falha se _marcas estiver desatualizado)
+      python3 _ferramentas/gerar_marcas.py --check   (falha se algum redirecionamento estiver desatualizado)
 """
-import hashlib
-import re, shutil, sys
+import sys
 from pathlib import Path
-import filecmp, tempfile
 SRC = Path(__file__).resolve().parent.parent
-OUT = SRC / "_marcas"
 CHECK = "--check" in sys.argv
-if CHECK:
-    REAL = OUT
-    OUT = Path(tempfile.mkdtemp())
 Z = "https://zethic.net"
-
-def assets(*files):
-    found = set()
-    for f in files:
-        found |= set(re.findall(r"/assets/[^\"' ,)?#]+", (SRC / f).read_text()))
-    return sorted(found)
-
-def copy(dest, paths):
-    for p in paths:
-        s = SRC / p.lstrip("/")
-        d = dest / p.lstrip("/")
-        d.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copy2(s, d)
-
-def versionar(html):
-    # 11/11/2026: CSS e JS levam ?v=<hash do conteúdo>. Quando o arquivo muda, o endereço muda
-    # e o navegador baixa a versão nova junto com a página (sem precisar de Ctrl + Shift + R).
-    def v(m):
-        caminho = m.group(2)
-        h = hashlib.sha256((SRC / caminho.lstrip("/")).read_bytes()).hexdigest()[:10]
-        return f'{m.group(1)}="{caminho}?v={h}"'
-    return re.sub(r'(href|src)="(/assets/[^"?#]+\.(?:css|js))"', v, html)
-
-def zethic_links(html, own):
-    # links relativos que não são da própria marca vão para zethic.net
-    def fix(m):
-        attr, path = m.group(1), m.group(2)
-        if path.startswith("/assets/") or any(path == o or path.startswith(o + "#") or path.startswith(o + "?") for o in own):
-            return m.group(0)
-        alvo = outra_marca(path)
-        return f'{attr}="{alvo}"' if alvo else f'{attr}="{Z}{path}"'
-    return re.sub(r'(href|action)="(/[^"]*)"', fix, html)
-
-def build(name, host, pages, extra_files):
-    dest = OUT / f"{name}-site"
-    testes = dest / "_tests"
-    guardados = {p.name: p.read_bytes() for p in testes.glob("*.mjs")} if testes.exists() and not CHECK else {}
-    if dest.exists(): shutil.rmtree(dest)
-    dest.mkdir(parents=True)
-    if guardados:
-        testes.mkdir()
-        for n, b in guardados.items(): (testes / n).write_bytes(b)
-    base = f"https://{host}"
-    for src, out, own_map in pages:
-        html = (SRC / src).read_text()
-        for old, new in own_map:              # endereços absolutos da marca
-            html = html.replace(f'{Z}{old}"', f'{base}{new}"').replace(f'{Z}{old}#', f'{base}{new}#')
-        html = html.replace(f"{Z}/assets/", f"{base}/assets/")
-        html = zethic_links(html, [o for o, _ in own_map])   # primeiro: o que não é da marca vai para zethic.net
-        for old, new in own_map:              # depois: links relativos da marca
-            html = re.sub(rf'(href|action)="{re.escape(old)}([#?"])', lambda m: f'{m.group(1)}="{new}{m.group(2)}', html)
-        html = versionar(html)
-        (dest / out).parent.mkdir(parents=True, exist_ok=True)
-        (dest / out).write_text(html)
-    css = [a for a in assets(*[p[0] for p in pages]) if a.endswith(".css")]
-    allassets = set(assets(*[p[0] for p in pages], *[c.lstrip("/") for c in css]))
-    copy(dest, sorted(allassets) + extra_files)
-    (dest / "CNAME").write_text(host + "\n")
-    (dest / ".nojekyll").write_text("")
-    # páginas com noindex (confirmação de pedido) ficam fora do sitemap
-    urls = "".join(f"  <url><loc>{base}{new}</loc></url>\n" for src, _, m in pages for old, new in m[:1]
-                   if 'content="noindex' not in (SRC / src).read_text())
-    (dest / "sitemap.xml").write_text(f'<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n{urls}</urlset>\n')
-    (dest / "robots.txt").write_text(f"User-agent: *\nAllow: /\n\nSitemap: {base}/sitemap.xml\n")
-    return dest
 
 # 03/11/2026 (aprovado pela Jéssica): loja da Jéssica Gessoli com consultoria por hora, mentoria e aula, termos,
 # privacidade e desistência. Cada página leva o próprio endereço primeiro (vai para o sitemap) e depois os das outras.
@@ -108,10 +35,6 @@ jg = [("/jessicagessoli", "/"), ("/en/jessicagessoli", "/en/"), ("/jessicagessol
       ("/jessicagessoli/checklist-antigolpe/", "/checklist-antigolpe/"),
       # 16/11/2026 (Jéssica): página permanente de palestras, destino do QR Code do último slide. Endereço fixo.
       ("/jessicagessoli/conecte-se/", "/conecte-se/")]
-def jg_map(i): return [jg[i]] + jg[:i] + jg[i + 1:]
-# 03/11/2026 (aprovado pela Jéssica): loja da Pode Curtir com carrinho, termos, privacidade e desistência.
-# 04/11/2026: página Seja parceiro (rede curada, modelo C).
-# Cada página leva o próprio endereço primeiro (vai para o sitemap) e depois os das outras páginas da marca.
 pc = [("/podecurtir", "/"), ("/podecurtir/loja/", "/loja/"), ("/podecurtir/loja/obrigado/", "/loja/obrigado/"),
       ("/podecurtir/termos/", "/termos/"), ("/podecurtir/privacidade/", "/privacidade/"),
       ("/podecurtir/desistencia/", "/desistencia/"), ("/podecurtir/parceiros/", "/parceiros/"),
@@ -119,40 +42,6 @@ pc = [("/podecurtir", "/"), ("/podecurtir/loja/", "/loja/"), ("/podecurtir/loja/
       ("/podecurtir/cardapio/exemplo/", "/cardapio/exemplo/"), ("/podecurtir/cardapio/exemplo/imprimir/", "/cardapio/exemplo/imprimir/"),
       # 08/11/2026 (aprovado pela Jéssica): exemplo de cozinha de delivery, sem cardápio impresso
       ("/podecurtir/cardapio/exemplo-delivery/", "/cardapio/exemplo-delivery/")]
-def pc_map(i): return [pc[i]] + pc[:i] + pc[i + 1:]
-
-# 10/11/2026 (Jéssica): link de uma marca para a outra vai direto ao subdomínio da outra, nunca à cópia antiga em zethic.net.
-MARCAS = [(pc, "https://podecurtir.zethic.net"), (jg, "https://jessicagessoli.zethic.net")]
-def outra_marca(path):
-    base, sep, resto = re.match(r"([^#?]*)([#?]?)(.*)", path).groups()
-    for pares, host in MARCAS:
-        for old, new in pares:
-            if base == old or base + "/" == old:
-                return host + new + sep + resto
-    return None
-
-build("jessicagessoli", "jessicagessoli.zethic.net", [
-    ("_fontes/jessicagessoli.html", "index.html", jg_map(0)),
-    ("_fontes/en/jessicagessoli.html", "en/index.html", jg_map(1)),
-    ("_fontes/jessicagessoli/loja/index.html", "loja/index.html", jg_map(2)),
-    ("_fontes/jessicagessoli/loja/obrigado/index.html", "loja/obrigado/index.html", jg_map(3)),
-    ("_fontes/jessicagessoli/termos/index.html", "termos/index.html", jg_map(4)),
-    ("_fontes/jessicagessoli/privacidade/index.html", "privacidade/index.html", jg_map(5)),
-    ("_fontes/jessicagessoli/desistencia/index.html", "desistencia/index.html", jg_map(6)),
-    ("_fontes/jessicagessoli/cancelamento/index.html", "cancelamento/index.html", jg_map(7)),
-    ("_fontes/jessicagessoli/checkup/index.html", "checkup/index.html", jg_map(8)),
-    ("_fontes/jessicagessoli/vaga-real-ou-golpe/index.html", "vaga-real-ou-golpe/index.html", jg_map(9)),
-    ("_fontes/jessicagessoli/diagnostico/index.html", "diagnostico/index.html", jg_map(10)),
-    ("_fontes/jessicagessoli/teste-golpe/index.html", "teste-golpe/index.html", jg_map(11)),
-    ("_fontes/jessicagessoli/teste-ia/index.html", "teste-ia/index.html", jg_map(12)),
-    ("_fontes/jessicagessoli/copia-e-cola/index.html", "copia-e-cola/index.html", jg_map(13)),
-    ("_fontes/jessicagessoli/conte-seu-golpe/index.html", "conte-seu-golpe/index.html", jg_map(14)),
-    ("_fontes/jessicagessoli/entre-os-times/index.html", "entre-os-times/index.html", jg_map(15)),
-    ("_fontes/jessicagessoli/checklist-antigolpe/index.html", "checklist-antigolpe/index.html", jg_map(16)),
-    ("_fontes/jessicagessoli/conecte-se/index.html", "conecte-se/index.html", jg_map(17)),
-], ["/assets/fonts/OFL-IBM-Plex-Sans.txt", "/assets/fonts/OFL-Spectral.txt"])
-# 10/11/2026 (Jéssica): zethic.net/jessicagessoli/* não mostra mais as páginas; cada endereço antigo redireciona para
-# o mesmo endereço em jessicagessoli.zethic.net, levando junto ?parâmetros e #trecho (links de posts, PDFs e do Asaas).
 REDIR = """<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -203,14 +92,7 @@ redirecionar(pc, "podecurtir.zethic.net", "Pode Curtir")
 # repositório Jessica-Gessoli/podecurtir-site, que é editado direto. Este gerador não monta mais o site da Pode Curtir;
 # aqui ficam só o endereço antigo zethic.net/podecurtir (redirecionamento acima) e os links das outras marcas para ela.
 
-if CHECK:
-    def diff(a, b):
-        c = filecmp.dircmp(a, b, ignore=["_tests"])
-        ruins = c.left_only + c.right_only + c.diff_files
-        for sub in c.common_dirs: ruins += [f"{sub}/{x}" for x in diff(a / sub, b / sub)]
-        return ruins
-    ruins = [f"{m}: {x}" for m in ("jessicagessoli-site",) for x in diff(OUT / m, REAL / m)]
-    if ruins:
-        print("_marcas desatualizado; rode python3 _ferramentas/gerar_marcas.py\n" + "\n".join(ruins))
-        sys.exit(1)
-    print("_marcas em dia")
+# 16/11/2026 (Jéssica: "solucionar definitivamente"): a Jéssica Gessoli também sai do zethic-site; a fonte dela é o
+# repositório Jessica-Gessoli/jessicagessoli-site, editado direto. Aqui ficam só os endereços antigos (acima).
+
+print("redirecionamentos em dia" if CHECK else "redirecionamentos gerados")

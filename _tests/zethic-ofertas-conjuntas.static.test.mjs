@@ -40,14 +40,7 @@ test("manutenção mensal do site na loja de proposta e na página por necessida
   assert.match(ler("para-o-seu-negocio.html"), /"@type": "FAQPage"/);
 });
 
-test("sites da Jéssica Gessoli e da Pode Curtir levam à Zethic, com a fundadora declarada do lado da Jéssica", () => {
-  for (const p of ["_fontes/jessicagessoli/checkup/index.html", "_fontes/jessicagessoli/loja/obrigado/index.html"]) {
-    const h = ler(p);
-    assert.match(h, /https:\/\/zethic\.net\/para-o-seu-negocio\?utm_source=jessicagessoli/, p);
-    assert.match(h, /Jéssica Gessoli é fundadora da Zethic, e você pode contratar a execução com quem preferir\./, p);
-  }
-  // 12/11/2026: o link da Pode Curtir para a Zethic fica no repositório podecurtir-site (loja/obrigado).
-});
+// 16/11/2026: a parte da Jéssica Gessoli deste teste foi para Jessica-Gessoli/jessicagessoli-site (_tests/regras-da-marca).
 
 // 07/11/2026, 07h03 (aprovado pela Jéssica): Black Week da Zethic, de 23 a 30/11/2026. Condição de pagamento,
 // não desconto: implantação agora, primeira mensalidade em janeiro, 1 hora extra de suporte. Preço igual.
