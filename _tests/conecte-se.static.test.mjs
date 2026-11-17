@@ -41,3 +41,15 @@ test("acessibilidade básica", () => {
   assert.equal((gerada.match(/<h1[ >]/g) || []).length, 1);
   for (const m of gerada.matchAll(/<img [^>]*>/g)) assert.match(m[0], /alt="/, m[0]);
 });
+
+// 16/11/2026 (Jéssica): conteúdo de carreira levado dos slides para a página (plano 7/90 dias, projetos, cursos, Jovem Aprendiz).
+test("seção Seu próximo passo e cursos gratuitos", () => {
+  assert.match(gerada, /<section class="mapa" aria-labelledby="t-mapa">/);
+  assert.equal((gerada.match(/<details[ >]/g) || []).length, 5);
+  for (const url of ["https://www.ev.org.br/", "https://loja.sebrae.com.br/aprender-a-empreender-1-372000001028",
+    "https://pt.khanacademy.org/", "https://www.sp.senai.br/unidade/online",
+    "https://www.gov.br/trabalho-e-emprego/pt-br/assuntos/aprendizagem-profissional"]) {
+    assert.ok(gerada.includes(`href="${url}"`), url);
+  }
+  assert.doesNotMatch(gerada, /sebrae\.com\.br\/sites\/PortalSebrae/);
+});
