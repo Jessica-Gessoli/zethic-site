@@ -11,12 +11,7 @@ test("Zethic: sem faixa de preço no topo da página inicial", () => {
 // 16/11/2026: a parte da Jéssica Gessoli deste teste foi para Jessica-Gessoli/jessicagessoli-site (_tests/regras-da-marca).
 
 // 14/10/2026 (aprovado pela Jéssica): símbolos novos das marcas. 28/10/2026: a Pode Curtir não cita mais a Zethic.
-test("Símbolo: monograma JG", () => {
-  const jg = ler("assets/img/jessicagessoli-icone.svg");
-  assert.match(jg, /fill="#12352B"/);
-  assert.doesNotMatch(jg, /<text/, "letras em contorno, não dependem de fonte instalada");
-  // 12/11/2026: o visor da Pode Curtir e o teste dele foram para o repositório podecurtir-site.
-});
+// 16/11/2026: o monograma JG e o teste dele foram para o repositório jessicagessoli-site.
 
 // 14/10/2026 (aprovado pela Jéssica, orientação da Goreti): primeiro a conversa, depois o preço. Nenhum valor publicado no site.
 test("Zethic: nenhum preço publicado nas páginas", () => {
