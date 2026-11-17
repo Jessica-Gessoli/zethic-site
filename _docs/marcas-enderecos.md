@@ -7,12 +7,12 @@ Decisão da Jéssica em 10/11/2026. Este documento é a regra. Os testes em `_te
 | Marca | Endereço oficial | Onde fica a fonte | Repositório publicado |
 |---|---|---|---|
 | Zethic | `zethic.net` | raiz deste repositório | `zethic-site` (este) |
-| Jéssica Gessoli | `jessicagessoli.zethic.net` | `_fontes/jessicagessoli*` e `_fontes/en/` | `jessicagessoli-site` |
+| Jéssica Gessoli | `jessicagessoli.zethic.net` | o próprio repositório `jessicagessoli-site` (desde 16/11/2026) | `jessicagessoli-site` |
 | Pode Curtir | `podecurtir.zethic.net` | o próprio repositório `podecurtir-site` (desde 12/11/2026) | `podecurtir-site` |
 
-- **Fontes das marcas:** as páginas da Jéssica Gessoli são editadas em `_fontes/`. O Jekyll não publica pastas que começam com `_`.
+- **Jéssica Gessoli (16/11/2026, decisão da Jéssica: "solucionar definitivamente"):** a fonte, os testes, as fotos e os scripts da marca ficam só no repositório `Jessica-Gessoli/jessicagessoli-site`, editado direto, com um PR só por mudança. Neste repositório ficam os endereços antigos `zethic.net/jessicagessoli` e `zethic.net/en/jessicagessoli` (redirecionamentos), o `/fale` (mensagens `utm_source=jessicagessoli-...`), a política `zethic.net/privacidade` (que cobre o Conte o seu golpe), `zethic.net/para-o-seu-negocio`, os PDFs e imagens de compartilhamento já distribuídos em `assets/` e a planilha de pedidos das três marcas.
 - **Pode Curtir (12/11/2026, decisão da Jéssica: "tudo que é da Pode Curtir somente na Pode Curtir"):** a fonte, os testes e as fotos dos clientes ficam só no repositório `Jessica-Gessoli/podecurtir-site`, editado direto. Neste repositório ficam só o endereço antigo `zethic.net/podecurtir` (redirecionamento), o `/fale` para links antigos com `utm_source=podecurtir`, a planilha de pedidos das três marcas e o gerador de cardápio (tecnologia da Zethic).
-- **Geração:** `python3 _ferramentas/gerar_marcas.py` gera cada site em `_marcas/<marca>-site`, que é copiado para o repositório da marca (PR de espelho, com merge depois do PR do `zethic-site`).
+- **Geração:** desde 16/11/2026 nenhum site de marca é gerado aqui. `python3 _ferramentas/gerar_marcas.py` só mantém os redirecionamentos dos endereços antigos e confere que os outros foram apagados.
 - **Endereços antigos (apagados em 10/11/2026):** as páginas de `zethic.net/jessicagessoli/*`, `zethic.net/en/jessicagessoli` e `zethic.net/podecurtir/*` não existem mais e dão "página não encontrada". Ficam só `zethic.net/jessicagessoli`, `zethic.net/en/jessicagessoli` e `zethic.net/podecurtir`, que levam ao início do subdomínio (com os `?parâmetros` e o `#trecho`) e não entram no Google (`noindex`), porque o currículo (em português e em inglês), o kit de palestrante, o guia em PDF e o crédito do evento no Sympla já distribuídos imprimem esses dois endereços. O gerador apaga qualquer outro endereço antigo e o teste falha se um deles voltar.
 - **Raiz de zethic.net (apagados em 10/11/2026):** `/copia-e-cola`, `/prompt-joia`, `/conte-seu-golpe` e `/loja-obrigado` também não existem mais. Ficam `/diagnostico`, `/teste-golpe`, `/teste-ia` e `/vaga-real-ou-golpe`, só redirecionando, porque os PDFs já distribuídos do Copia e Cola, do Prompt Joia e do guia têm links para eles. Os botões de compartilhar dessas páginas usam o endereço do subdomínio.
 - **Exceção:** o PDF do guia em `zethic.net/jessicagessoli/vaga-real-ou-golpe/guia-vaga-real-ou-golpe.pdf` continua publicado, porque o link do direct aponta para ele.
@@ -31,7 +31,7 @@ Decisão da Jéssica em 10/11/2026. Este documento é a regra. Os testes em `_te
 
 **Nomes de endereço:** português, minúsculas, sem acento, palavras separadas por hífen (`/vaga-real-ou-golpe/`, `/conte-seu-golpe/`). Nas marcas, toda página é uma pasta com `index.html` e o endereço termina em `/`.
 
-**Página nova numa marca:** crie a fonte em `_fontes/`, acrescente o par `("/<marca>/<pagina>/", "/<pagina>/")` na lista da marca em `gerar_marcas.py` e rode o script. O mapa do site da marca sai sozinho; o endereço novo não ganha cópia nem redirecionamento em zethic.net.
+**Página nova numa marca:** crie a página direto no repositório da marca (`jessicagessoli-site` ou `podecurtir-site`) e acrescente o endereço no `sitemap.xml` de lá. O endereço novo não ganha cópia nem redirecionamento em zethic.net.
 
 ## 3. Links entre as marcas
 

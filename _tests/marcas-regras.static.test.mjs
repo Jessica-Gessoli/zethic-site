@@ -8,12 +8,7 @@ test("Zethic: sem faixa de preço no topo da página inicial", () => {
   assert.doesNotMatch(ler("index.html"), /class="faixa"/);
 });
 
-test("Página profissional: a seção se chama Serviços", () => {
-  const h = ler("_fontes/jessicagessoli.html");
-  assert.match(h, /<a href="#trabalho">Serviços<\/a>/);
-  assert.match(h, /<h2 id="t-trabalho">Serviços<\/h2>/);
-  assert.doesNotMatch(h, /Como trabalhar comigo/);
-});
+// 16/11/2026: a parte da Jéssica Gessoli deste teste foi para Jessica-Gessoli/jessicagessoli-site (_tests/regras-da-marca).
 
 // 14/10/2026 (aprovado pela Jéssica): símbolos novos das marcas. 28/10/2026: a Pode Curtir não cita mais a Zethic.
 test("Símbolo: monograma JG", () => {
@@ -41,8 +36,6 @@ test("Pode Curtir: a Zethic não cita o Pode Curtir", () => {
   }
   // 12/11/2026: os botões da Pode Curtir vão direto ao WhatsApp dela; o /fale ainda atende links antigos com utm_source=podecurtir.
   assert.match(ler("fale.html"), /"podecurtir": "[^"]*redes sociais ou anúncios\."/);
-  // 28/10/2026 (decisão da Jéssica): o rodapé da página dela não traz mais o título de fundadora da Zethic.
-  assert.doesNotMatch(ler("_fontes/jessicagessoli.html").match(/<footer>[\s\S]*<\/footer>/)[0], /diretora executiva|Zethic/);
 });
 
 // 04/11/2026 (decisão da Jéssica): nome de cliente não aparece misturado com as marcas. As fotos da antiga seção de

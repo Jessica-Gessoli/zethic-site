@@ -11,7 +11,6 @@ const existe = (p) => existsSync(new URL("../" + p, import.meta.url));
 // 28/10/2026: Diagnóstico e Teste de golpe passaram para a Jéssica Gessoli e saíram desta lista.
 const ZETHIC = ["index.html", "quem-somos.html", "seguranca.html", "tecnologia.html", "atendimento.html", "financeiro.html", "privacidade.html", "loja.html", "loja/obrigado/index.html", "comprar.html", "para-o-seu-negocio.html"];
 // 12/11/2026: a Pode Curtir saiu deste repositório (fonte em podecurtir-site).
-const MARCAS = { "_fontes/jessicagessoli.html": "g-j" };
 const bloco = (html, nome) => html.match(new RegExp(`<!-- ${nome}:inicio -->([\\s\\S]*?)<!-- ${nome}:fim -->`))?.[1] ?? "";
 
 // 28/10/2026 (decisão da Jéssica): Zethic, Jéssica Gessoli e Pode Curtir não se citam; a barra das marcas saiu.
@@ -24,13 +23,7 @@ test("páginas da Zethic sem barra das marcas", () => {
   assert.ok(!existe("assets/css/grupo.css"));
 });
 
-test("páginas das marcas são próprias: sem barra do grupo e sem menu da Zethic (21/10/2026)", () => {
-  for (const p of Object.keys(MARCAS)) {
-    const html = ler(p);
-    assert.doesNotMatch(html, /<!-- grupo:inicio -->|class="grupo"|grupo\.css/, p);
-    assert.doesNotMatch(html, /<!-- cabecalho:inicio -->/, p);
-  }
-});
+// 16/11/2026: a parte da Jéssica Gessoli deste teste foi para Jessica-Gessoli/jessicagessoli-site (_tests/regras-da-marca).
 
 test("menu das marcas igual em todas as páginas da Zethic", () => {
   const normalizar = (h) => h.replace(/utm_source=[a-z-]+/g, "").replace(/ aria-current="page"/g, "").replace(/href="#contato"/g, 'href="/#contato"');
@@ -139,14 +132,12 @@ test("atendimento: sem raio fixo nem \"remoto a partir de Campinas\" (decisão d
   for (const p of [...ZETHIC, "llms.txt"]) {
     assert.doesNotMatch(ler(p), /remoto, a partir de Campinas|Atendimento remoto|Remoto, também fora|Hortolândia, Jundiaí e região/, p);
   }
-  for (const p of [...ZETHIC, "llms.txt", "_fontes/jessicagessoli.html"]) {
+  for (const p of [...ZETHIC, "llms.txt"]) {
     assert.doesNotMatch(ler(p), /100 km|geoRadius/, p);
   }
 });
 
 test("autoavaliação: a frase de privacidade segue a política", () => {
-  const d = ler("_fontes/jessicagessoli/diagnostico/index.html");
-  assert.doesNotMatch(d, /nada é enviado/);
-  assert.match(d, /não são enviadas nem guardadas/);
+  // 16/11/2026: a frase do Diagnóstico é conferida no repositório jessicagessoli-site.
   assert.match(ler("privacidade.html"), /não são enviadas nem guardadas\. Se você aceitou a medição, só a nota final e a moeda mais exposta são registradas/);
 });

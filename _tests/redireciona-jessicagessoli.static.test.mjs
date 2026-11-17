@@ -24,7 +24,6 @@ test("só o início da Jéssica Gessoli continua em zethic.net; os outros endere
   assert.ok(ler("en/jessicagessoli.html").includes('<meta http-equiv="refresh" content="0; url=https://jessicagessoli.zethic.net/en/">'), "currículo em inglês já enviado");
   for (const [arq] of antigos.slice(2)) {
     assert.ok(!existsSync(new URL("../" + arq, import.meta.url)), arq + " devia estar apagado");
-    assert.ok(existsSync(new URL("../_fontes/" + arq, import.meta.url)), "fonte faltando: " + arq);
   }
   assert.ok(existsSync(new URL("../jessicagessoli/vaga-real-ou-golpe/guia-vaga-real-ou-golpe.pdf", import.meta.url)));
 });

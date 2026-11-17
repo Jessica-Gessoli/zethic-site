@@ -42,20 +42,9 @@ test("páginas da Zethic com conteúdo não levam às cópias antigas das marcas
 });
 
 // 12/11/2026 (Jéssica): a Pode Curtir tem a fonte no repositório podecurtir-site; aqui só fica a Jéssica Gessoli.
-test("sites das marcas não levam a zethic.net/<marca>; o link entre marcas usa o subdomínio", () => {
-  for (const m of ["jessicagessoli-site"]) {
-    for (const p of html("_marcas/" + m, ["_marcas/" + m + "/_tests"])) {
-      assert.doesNotMatch(ler(p), /https:\/\/zethic\.net\/(podecurtir|jessicagessoli|en\/jessicagessoli)([\/"#?])/, p);
-    }
-  }
-});
+// 16/11/2026: os sites das marcas têm repositório próprio; a regra dos links entre marcas é conferida lá.
 
 test("mesma estrutura nas três marcas: loja, pedido recebido, termos, privacidade e desistência", () => {
-  for (const m of ["jessicagessoli-site"]) {
-    for (const p of ["index.html", "loja/index.html", "loja/obrigado/index.html", "termos/index.html", "privacidade/index.html", "desistencia/index.html"]) {
-      assert.ok(existsSync(join(RAIZ, "_marcas", m, p)), `${m}/${p}`);
-    }
-  }
   for (const p of ["index.html", "loja.html", "loja/obrigado/index.html", "comprar.html", "privacidade.html"]) assert.ok(existsSync(join(RAIZ, p)), p);
   // 10/11/2026 (Jéssica): apagados os endereços antigos da raiz que nenhum PDF distribuído usa.
   // Ficam /diagnostico, /teste-ia, /teste-golpe e /vaga-real-ou-golpe, que os PDFs do Copia e Cola, do Prompt Joia e do guia levam.
@@ -65,7 +54,7 @@ test("mesma estrutura nas três marcas: loja, pedido recebido, termos, privacida
 });
 
 test("nomes de endereço: português, minúsculas, sem acento, palavras com hífen", () => {
-  const caminhos = [...publicadas, ...html("_marcas/jessicagessoli-site")]
+  const caminhos = [...publicadas]
     .filter((p) => !p.includes("/_tests/")).map((p) => p.replace(/^_marcas\/[a-z]+-site\//, "").replace(/(index)?\.html$/, ""));
   for (const c of caminhos) assert.match(c, /^[a-z0-9/-]*$/, c);
 });
