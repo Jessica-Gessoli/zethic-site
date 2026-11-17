@@ -137,7 +137,3 @@ test("atendimento: sem raio fixo nem \"remoto a partir de Campinas\" (decisão d
   }
 });
 
-test("autoavaliação: a frase de privacidade segue a política", () => {
-  // 16/11/2026: a frase do Diagnóstico é conferida no repositório jessicagessoli-site.
-  assert.match(ler("privacidade.html"), /não são enviadas nem guardadas\. Se você aceitou a medição, só a nota final e a moeda mais exposta são registradas/);
-});

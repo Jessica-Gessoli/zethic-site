@@ -51,22 +51,16 @@ test("mensagens contextuais por utm_source (case-insensitive) e UTMs adicionais 
   assert.match(msg(runWith("?utm_source=instagram")), /pelo Instagram/);
   assert.match(msg(runWith("?utm_source=LinkedIn&utm_medium=post&utm_campaign=c&utm_content=x&utm_term=y")), /pelo LinkedIn/);
   assert.match(msg(runWith("?utm_source=grc")), /estruturar GRC/);
-  assert.match(msg(runWith("?utm_source=diagnostico")), /autoavaliação de cibersegurança no site/);
-  assert.match(msg(runWith("?utm_source=teste-golpe")), /Programa Antigolpe/);
   assert.match(msg(runWith("?utm_source=proteger")), /segurança gerenciada/);
   assert.match(msg(runWith("?utm_source=organizar")), /organizar e automatizar/);
   assert.match(msg(runWith("?utm_source=crescer")), /atrair mais clientes/);
   assert.match(msg(runWith("?utm_source=aconselhar")), /plataforma do meu curso ou produto digital/);
   assert.match(msg(runWith("?utm_source=podecurtir")), /Pode Curtir e quero um orçamento/);
-  assert.match(msg(runWith("?utm_source=jessicagessoli")), /^Olá, Jéssica! Vim pela sua página e gostaria de conversar\.$/);
-  assert.match(msg(runWith("?utm_source=jessicagessoli-mentoria")), /mentoria de posicionamento estratégico de negócio e carreira/);
-  assert.match(msg(runWith("?utm_source=jessicagessoli-consultoria")), /conversa de 30 minutos/);
-  assert.match(msg(runWith("?utm_source=jessicagessoli-palestras")), /palestra ou apresentação de evento/);
-  // 28/10/2026: serviços que passaram para a Jéssica Gessoli têm mensagem própria, dirigida a ela.
-  assert.match(msg(runWith("?utm_source=jessicagessoli-diagnostico")), /^Olá, Jéssica!.*Diagnóstico de Cibersegurança e IA\.$/);
-  assert.match(msg(runWith("?utm_source=jessicagessoli-antigolpe")), /^Olá, Jéssica!.*Programa Antigolpe\.$/);
-  assert.match(msg(runWith("?utm_source=jessicagessoli-governanca")), /^Olá, Jéssica!.*governança de IA, privacidade e LGPD\.$/);
-  for (const o of ["diagnostico", "teste-golpe", "grc", "governanca-ia", "patrimonio-digital"]) {
+  // 16/11/2026: origens da Jéssica Gessoli (jessicagessoli-*, diagnostico, teste-golpe) saíram; caem na mensagem da Zethic.
+  for (const o of ["jessicagessoli", "jessicagessoli-vaga", "diagnostico", "teste-golpe", "diagnostico-resultado"]) {
+    assert.equal(msg(runWith(`?utm_source=${o}`)), msg(runWith("")), o);
+  }
+  for (const o of ["grc", "governanca-ia", "patrimonio-digital"]) {
     assert.match(msg(runWith(`?utm_source=${o}`)), /^Olá, Jéssica!/, o);
   }
 });
@@ -86,28 +80,7 @@ test("mensagem padrão é a institucional, codificada corretamente", () => {
   );
 });
 
-test("resultado das iscas: mensagem montada só com números validados", () => {
-  assert.equal(
-    msg(runWith("?utm_source=diagnostico-resultado&nota=62&moeda=2")),
-    "Olá, Jéssica! Fiz a autoavaliação de cibersegurança no site. Minha nota foi 62 de 100 e a moeda mais exposta é Prevenção de fraude e de vazamento. Quero entender o próximo passo.",
-  );
-  assert.match(msg(runWith("?utm_source=teste-golpe-resultado&acertos=7")), /acertei 7 de 10\./);
-  const diag = msg(runWith("?utm_source=diagnostico"));
-  const golpe = msg(runWith("?utm_source=teste-golpe"));
-  for (const qs of ["nota=101&moeda=2", "nota=50&moeda=6", "nota=-1&moeda=0", "nota=5e1&moeda=0", "nota=50", "nota=%3Cb%3E&moeda=1", "nota=50&moeda=__proto__"]) {
-    assert.equal(msg(runWith(`?utm_source=diagnostico-resultado&${qs}`)), diag, qs);
-  }
-  for (const qs of ["acertos=11", "acertos=", "acertos=7%20ou%20mais", "acertos=0x7"]) {
-    assert.equal(msg(runWith(`?utm_source=teste-golpe-resultado&${qs}`)), golpe, qs);
-  }
-});
-
-test("nomes das moedas no /fale seguem a ordem da autoavaliação", () => {
-  // 16/11/2026: o Diagnóstico está no repositório jessicagessoli-site, que confere a mesma lista.
-  const daAutoavaliacao = ["Continuidade operacional", "Conformidade regulatória", "Prevenção de fraude e de vazamento", "Reputação", "Habilitação de negócio", "Auditoria e contratos"];
-  const doFale = JSON.parse(script.match(/var MOEDAS = (\[[^\]]+\]);/)[1]);
-  assert.deepEqual(doFale, daAutoavaliacao);
-});
+// 16/11/2026 (Jéssica: "não quero nada na Zethic"): o que é da Jéssica Gessoli saiu do /fale e de zethic.net.
 
 // 14/10/2026 (decisão da Jéssica): o (19) 98180-0221 é o nível 1 da Zethic e da Jéssica Gessoli.
 // 03/11/2026 (Ficha oficial): o (19) 98331-0769 passou a ser o WhatsApp da Pode Curtir; no /fale, só a origem podecurtir vai para ele.

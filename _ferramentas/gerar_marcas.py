@@ -4,8 +4,8 @@
 Decisão de 21/10/2026: Pode Curtir e Jéssica Gessoli ganham endereço próprio (podecurtir.zethic.net e
 jessicagessoli.zethic.net). Desde 12/11/2026 a Pode Curtir e desde 16/11/2026 a Jéssica Gessoli têm a fonte no
 próprio repositório (Jessica-Gessoli/podecurtir-site e Jessica-Gessoli/jessicagessoli-site), editado direto. Este
-gerador não monta mais nenhum site de marca: só escreve os redirecionamentos de zethic.net/podecurtir,
-zethic.net/jessicagessoli e zethic.net/en/jessicagessoli e confere que os outros endereços antigos foram apagados.
+gerador não monta mais nenhum site de marca: só escreve o redirecionamento de zethic.net/podecurtir e confere que os
+outros endereços antigos foram apagados, incluindo todos os da Jéssica Gessoli (desde 16/11/2026).
 Regras em _docs/marcas-enderecos.md.
 
 Uso:  python3 _ferramentas/gerar_marcas.py           (gera)
@@ -65,7 +65,10 @@ REDIR = """<!DOCTYPE html>
 # subdomínio, porque o currículo, o kit de palestrante, o guia em PDF e o crédito do Sympla já distribuídos imprimem
 # zethic.net/jessicagessoli e zethic.net/podecurtir. Os outros endereços antigos foram apagados e dão 404.
 # O PDF do guia em jessicagessoli/vaga-real-ou-golpe/ continua, porque o link do direct aponta para ele.
-MANTIDOS = {"/jessicagessoli", "/en/jessicagessoli", "/podecurtir"}
+# 16/11/2026 (Jéssica: "não quero nada na Zethic. Vamos desvincular tudo", opção "Apagar já"): zethic.net/jessicagessoli
+# e zethic.net/en/jessicagessoli também foram apagados. A lista jg continua aqui só para o gerador e o --check
+# garantirem que nenhum endereço antigo da Jéssica Gessoli volte a zethic.net.
+MANTIDOS = {"/podecurtir"}
 def redirecionar(pares, host, nome):
     for old, new in pares:
         dest = SRC / (old.lstrip("/") + ".html" if not old.endswith("/") else old.lstrip("/") + "index.html")
@@ -93,6 +96,6 @@ redirecionar(pc, "podecurtir.zethic.net", "Pode Curtir")
 # aqui ficam só o endereço antigo zethic.net/podecurtir (redirecionamento acima) e os links das outras marcas para ela.
 
 # 16/11/2026 (Jéssica: "solucionar definitivamente"): a Jéssica Gessoli também sai do zethic-site; a fonte dela é o
-# repositório Jessica-Gessoli/jessicagessoli-site, editado direto. Aqui ficam só os endereços antigos (acima).
+# repositório Jessica-Gessoli/jessicagessoli-site, editado direto. Nenhum endereço dela fica em zethic.net.
 
 print("redirecionamentos em dia" if CHECK else "redirecionamentos gerados")
