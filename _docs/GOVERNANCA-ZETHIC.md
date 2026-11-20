@@ -77,7 +77,20 @@ Aprovado pela Jéssica em 12/11:
 
 Ação nº 1 (GUT 100): conseguir o primeiro cliente pagante do Suporte de TI entre 16/11 e 18/12, com uma oferta por dia útil. O documento traz três mensagens prontas para isso, ainda não enviadas.
 
-## 4. Pendências da Jéssica
+## 4. Decisões de 20/11/2026 (plano G4)
+
+Documento: "Zethic — Auditoria e plano G4 (20/11/2026)" (https://claude.ai/artifact/98JYKZb7heS93jS9YWDpmt). Aprovado pela Jéssica em 20/11:
+
+1. **Fronteira de marca:** a Zethic contrata e executa para empresas, incluindo GRC, governança de IA e diagnósticos. A marca Jéssica Gessoli fica com educação, palestras, mentoria e consultoria pessoal. Substitui a regra de 28/10/2026 (Zethic só tecnologia).
+2. **Prazo de atendimento:** a promessa "parada total em até 2 horas úteis" sai de propostas e do site até haver capacidade comprovada. Neste PR, o resumo da compra em `assets/js/zethic-comprar.js` passa a dizer que a parada total tem prioridade, sem prazo em horas.
+3. **Ordem de validação dos produtos:** E, C, A, D, B, F, provisória e condicionada a custos, demanda e capacidade.
+4. **Pilotos de IA:** só testes internos com dados fictícios, sem integração com sistemas de produção.
+
+Controle financeiro e comercial: planilha "Zethic · Controle financeiro e comercial" (https://claude.ai/artifact/YG5CsdaPqmBogKbH9MNhSr), criada vazia; célula vazia significa não informado.
+
+Google Workspace de zethic.net: aviso de falha de pagamento recebido em 17/11/2026, com suspensão de todos os usuários prevista para 02/12/2026 se não for resolvido.
+
+## 5. Pendências da Jéssica
 
 - [ ] Criar no Asaas as assinaturas de R$ 180 e R$ 360 e as cobranças avulsas de R$ 180, R$ 240, R$ 360 e R$ 480; colocar os links em `zethic-comprar-config.js`
 - [ ] Desativar no Asaas os links antigos de R$ 145 e R$ 225
@@ -85,5 +98,6 @@ Ação nº 1 (GUT 100): conseguir o primeiro cliente pagante do Suporte de TI en
 - [ ] Preencher as premissas de custo (aba Markup) e confirmar o imposto com a contadora
 - [ ] Levantar 3 orçamentos reais de Proteção por pessoa e de Instalação de rede
 - [ ] Enviar a primeira oferta do Suporte de TI
+- [ ] Regularizar o pagamento do Google Workspace de zethic.net até 02/12/2026
 
 Registro no Trello: card "ZETHIC · Planos e valores e site — o que depende da Jéssica (06/11)" (https://trello.com/c/3bVGdiPN).
