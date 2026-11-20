@@ -149,7 +149,7 @@
     var r = [];
     if (c.sup) {
       r.push("<li><b>Planos mensais:</b> pagos antes do mês, mínimo de 3 meses e aviso de 30 dias para sair. Saída antes dos 3 meses: multa de no máximo 1 mensalidade. A implantação (levantamento, inventário e instalação das ferramentas) vale 1 mensalidade, paga com a primeira.</li>");
-      r.push("<li><b>Atendimento:</b> segunda a sexta, das 8h às 18h, pelo WhatsApp e pelo e-mail da Zethic. Parada total respondida em até 2 horas úteis; os outros pedidos, em até 1 dia útil. As horas do plano não acumulam.</li>");
+      r.push("<li><b>Atendimento:</b> segunda a sexta, das 8h às 18h, pelo WhatsApp e pelo e-mail da Zethic. Parada total tem prioridade sobre os outros pedidos, que são respondidos em até 1 dia útil. As horas do plano não acumulam.</li>");
       r.push("<li><b>Fica de fora:</b> conserto de peça, disco quebrado, aparelho pessoal, programa sem licença. Licenças ficam no nome do cliente, e a Zethic não revende equipamento.</li>");
     }
     if (estado.site) r.push("<li><b>Site:</b> 40% na compra, 30% na aprovação da versão de teste e 30% quando entra em uso. Cada etapa é aprovada em até 5 dias úteis; sem resposta, conta como aprovada.</li>");
